@@ -997,4 +997,11 @@ dbscripts/sql_server_base/load_id_rm.sql -text
 dbscripts/sql_server_base/load_rid_data.sql -text
 dbscripts/sql_server_base/loaddicomapp.sql -text
 dbscripts/sql_server_base/loadidentifiers.sql -text
+doc/all_classes.html -text
+doc/all_directories.html -text
+doc/documentation.html -text
+doc/index.html -text
+doc/libsrc/index.html -text
+doc/mesa_all -text
+doc/message_depot.css -text
 /w32_install.mak -text
