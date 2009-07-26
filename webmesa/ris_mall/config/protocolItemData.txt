@@ -1,0 +1,70 @@
+# Cath codes,,,,,
+# uniserid,spsindex,spsdes,codval,codmea,codschdes
+CATH.001^Cardiac Cath Consultation^99IHE,100,Left Heart Cath,XX-20011,Left Heart Cath,99IHE
+CATH.001^Cardiac Cath Consultation^99IHE,101,Left Heart Cath,XX-20012,IVUS Heart Cath,99IHE
+CATH.001^Cardiac Cath Consultation^99IHE,102,Left Heart Cath,XX-20013,XR Left Heart Cath,99IHE
+ECHO.001^TTE^99IHE,103,TTE,XX-20021,TTE,99IHE
+ECHO.002^STRESS ECHO^99IHE,104,Stress Echo,XX-20031,Stress Echo,99IHE
+IMP200^Media Import^99IHE,105,Media Import,IRWF-200,Import One Step,99IHE
+10110^US Procedure 1^99IHE,106,US: One,910110,US: One,99IHE
+10150^US Procedure 2^99IHE,107,US: Two,910150,US: Two,99IHE
+10210^Radiological Examination: Chest X-Ray^99IHE,108,CR: CXR,910210,CR: CXR,99IHE
+10250^Radiological Examination: Abdominal X-Ray^99IHE,109,CR: Abdomen,910250,CR: Abdomen,99IHE
+10310^Ultrasound Examination: Cardiac Screening^99IHE,110,US: Screening,910310,US: Screening,99IHE
+10350^Ultrasound Examination: Stress Echo^99IHE,111,US: Stress Echo,910350,US: Stress Echo,99IHE
+STRESS-7131C^Stress Test: Balke^99IHE,112,Stress Test: Balke,P2-7131C,Balke Protocol,99IHE
+STRESS-7131C^NM Procedure 1^99IHE,113,NM Procedure 1,STR-NM1,Stress-NM1,99IHE
+STRESS-7131C^Stress Echo 1^99IHE,114,Stress Echo 1,STR-US1,Stress-US1,99IHE
+STRESS-7131E^Stress Test: Ramp^99IHE,115,Stress Test: Ramp,P2-7131E,Ramp Protocol,99IHE
+STRESS-7131E^NM Procedure 2^99IHE,116,NM Procedure 2,STR-NM2,Stress-NM2,99IHE
+STRESS-7131E^Stress Echo 2^99IHE,117,Stress Echo 2,STR-US2,Stress-US2,99IHE
+STR-DOBUTAMINE^Stress Test: Dobutamine^99IHE,118,Stress Test: Dobutamine,DOBUTAMINE,Dobutamine Stress Protocol,99IHE
+10410^Radiological Examination: Left Leg^99IHE,119,DX: Leg,910410,DX: Leg,99IHE
+10450^Radiological Examination: Left Ankle^99IHE,120,DX: Ankle,914050,DX: Ankle,99IHE
+10610^Radiological Examination Hand^99IHE,106101,CR: Hand,910610,CR: Hand,99IHE
+10650^Radiological Examination Wrist^99IHE,106501,CR: Wrist,910650,CR:
+Wrist,99IHE
+10710^Transabdominal Ultrasound Scan^99IHE,121,US: Transabdominal,910710,US: Transabdominal,99IHE
+10750^Endovaginal Pelvic Scan^99IHE,122,US: Endovaginal Pelvis,910750,US: Endovaginal Pelvis,99IHE
+10810^Radiological Examination Right Leg^99IHE,108101,CR: Right Leg,910810,CR: Right Leg,99IHE
+10850^Radiological Examination Right Ankle^99IHE,108501,CR: Right Ankle,910850,CR: Right Ankle,99IHE
+10910^Computed Tomography: Chest^99IHE,123,CT: Chest,910910,CT: Chest,99IHE
+10950^Computed Tomography: Abdomen^99IHE,124,CT: Abdomen,910950,CT: Abdomen,99IHE
+11010^Magnetic Resonance Imaging: Head^99IHE,125,MR: Head,911010,MR: Head,99IHE
+11050^Magnetic Resonance Imaging: Neck^99IHE,126,MR: Neck,911050,MR: Neck,99IHE
+11210^Angiography: Cardiac^99IHE,127,XA: Cardiac,911210,XA: Cardiac,99IHE
+11250^Angiography: Carotid^99IHE,128,XA: Carotid,911250,XA: Carotid,99IHE
+11260^CTA: Coronary CT Angiography^99IHE,129,CTA: Coronary CT Angiography,911260,CT: CT Angiography,99IHE
+11270^EP: Ablation^99IHE,130,EP: Ablation,911270,EP: Ablation Procedure,99IHE
+11410^Radiological Examination Ankle^99IHE,114101,DX: Ankle,911410,DX: Ankle,99IHE
+11450^Radiological Examination Foot^99IHE,114501,DX: Foot,911510,DX: Foot,99IHE
+11510^Radiological Examination: Mammography^99IHE,131,MG: Mammography,911510,MG: Mammography,99IHE
+11610^Radiological Examination: Skull^99IHE,132,CR: Skull,911610,CR: Skull,99IHE
+11650^Radiological Examination: C-Spine^99IHE,133,CR: C-Spine,911650,CR: C-Spine,99IHE
+11810^OB-GYN Ultrasound^99IHE,134,US: OB-GYN,911810,US: OB-GYN,99IHE
+11910^Venogram^99IHE,119101,XRF: Venogram,911910,XRF: Venogam,99IHE
+11950^Upper GI^99IHE,119501,XRF: Upper GI,911950,XRF: Upper GI,99IHE
+12010^Magnetic Resonance Imaging: Left Knee^99IHE,135,MR: Left Knee,912010,MR: Left Knee,99IHE
+12050^Magnetic Resonance Imaging: Back^99IHE,136,MR: Back,912050,MR: Back,99IHE
+12110^Radiological Examination: Right Hand^99IHE,137,DX: Hand R,912110,DX: Hand R,99IHE
+12150^Radiological Examination: Right Wrist^99IHE,138,DX: Wrist R,912150,DX: Wrist R,99IHE
+12510^Magnetic Resonance Imaging: Brain^99IHE,139,MR: Brain,912510,MR: Brain,99IHE
+13110^CD/DVD Import^99IHE,140,CD/DVD Import,13110,CD/DVD Import,99IHE
+13120^Scanned Film Import^99IHE,141,Scanned Film Import,13120,Scanned Film Import,99IHE
+13130^Scanned Document Import^99IHE,142,Scanned Document Import,13130,Scanned Document Import,99IHE
+13140^Network Import^99IHE,143,Network Import,13140,Network Import,99IHE
+16110^DEXA Exam: AP Spine^99IHE,144,OT: AP Spine,916110,OT: AP Spine,99IHE
+16150^DEXA Exam: Left Femur^99IHE,145,OT: Left Femur,916150,OT: Left Femur,99IHE
+16151^DEXA Exam: Right Femur^99IHE,146,OT: Right Femur,916151,OT: Right Femur,99IHE
+16210^Magnetic Resonance Imaging: Ankle^99IHE,147,MR: Ankle,916210,MR: Ankle,99IHE
+16310^Dynamic - Renalgram^99IHE,148,NM: Renalgram,916310,NM: Renalgram,99IHE
+16350^Gated Spect - Cardiac Gated Spect^99IHE,149,NM: Cardiac Gated Spect,916350,NM: Cardiac Gated Spect,99IHE
+16370^Spect - Bone Spect^99IHE,150,NM: Bone Spect,916370,NM: Bone Spect,99IHE
+16410^Radiological Examination: Ankle^99IHE,151,CR: Ankle,916410,CR: Ankle,99IHE
+17110^RF Examination: Stomach^99IHE,152,RF: Stomach,917110,RF: Stomach,99IHE
+17130^RF Examination: Colon^99IHE,153,RF: Colon,917130,RF: Colon,99IHE
+18110^Angiography: Diagnostic Catheterization^99IHE,154,Diagnostic Catheterization,XX-40041,Diag Cath,99IHE
+18111^Angiography: Therapeutic Catheterization^99IHE,155,Therapeutic Catheterization,XX-40061,Therapeutic Cath,99IHE
+19110^Electrophysiology: Diagnostic ECG^99IHE,156,Diagnostic ECG,XX-40081,Diag ECG,99IHE
+20110^Group Test^99IHE,157,Group Test SPS1,P1_A1,SP Action Item P1_A1,99IHE
+20110^Group Test^99IHE,158,Group Test SPS2,P2_A1,SP Action Item P2_A1,99IHE

@@ -1,0 +1,54 @@
+CATH.001^Cardiac Cath Consultation^99IHE
+ECHO.001^TTE^99IHE
+ECHO.002^STRESS ECHO^99IHE
+IMP200^Media Import^99IHE
+10110^US Procedure 1^99IHE
+10150^US Procedure 2^99IHE
+10210^Radiological Examination: Chest X-Ray^99IHE
+10250^Radiological Examination: Abdominal X-Ray^99IHE
+10310^Ultrasound Examination: Cardiac Screening^99IHE
+10350^Ultrasound Examination: Stress Echo^99IHE
+STRESS-7131C^Stress Test: Balke^99IHE
+STRESS-7131E^Stress Test: Ramp^99IHE
+STR-DOBUTAMINE^Stress Test: Dobutamine^99IHE
+10410^Radiological Examination: Left Leg^99IHE      
+10450^Radiological Examination: Left Ankle^99IHE   
+10710^Transabdominal Ultrasound Scan^99IHE        
+10750^Endovaginal Pelvic Scan^99IHE              
+10910^Computed Tomography: Chest^99IHE          
+10950^Computed Tomography: Abdomen^99IHE       
+11010^Magnetic Resonance Imaging: Head^99IHE  
+11050^Magnetic Resonance Imaging: Neck^99IHE 
+11210^Angiography: Cardiac^99IHE
+11250^Angiography: Carotid^99IHE
+11260^CTA: Coronary CT Angiography^99IHE
+11270^EP: Ablation^99IHE
+11510^Radiological Examination: Mammography^99IHE
+11610^Radiological Examination: Skull^99IHE     
+11650^Radiological Examination: C-Spine^99IHE  
+11810^OB-GYN Ultrasound^99IHE                 
+12010^Magnetic Resonance Imaging: Left Knee^99IHE
+12050^Magnetic Resonance Imaging: Back^99IHE    
+12110^Radiological Examination: Right Hand^99IHE
+12150^Radiological Examination: Right Wrist^99IHE
+12510^Magnetic Resonance Imaging: Brain^99IHE
+13110^Pulmonary ventilation/perfusion study^99IHE
+13115^CD/DVD Import^99IHE
+13120^Scanned Film Import^99IHE
+13130^Scanned Document Import^99IHE
+13140^Network Import^99IHE
+16110^DEXA Exam: AP Spine^99IHE                
+16150^DEXA Exam: Left Femur^99IHE             
+16151^DEXA Exam: Right Femur^99IHE           
+16210^Magnetic Resonance Imaging: Ankle^99IHE
+16310^Dynamic - Renalgram^99IHE             
+16350^Gated Spect - Cardiac Gated Spect^99IHE
+16370^Spect - Bone Spect^99IHE              
+16410^Radiological Examination: Ankle^99IHE
+17110^RF Examination: Stomach^99IHE       
+17130^RF Examination: Colon^99IHE        
+18110^Angiography: Diagnostic Catheterization^99IHE
+18111^Angiography: Therapeutic Catheterization^99IHE
+19110^Electrophysiology: Diagnostic ECG^99IHE
+20110^Group Test^99IHE
+85027^Hemogram and platelet count, automated^99IHE

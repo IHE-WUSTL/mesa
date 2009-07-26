@@ -1,0 +1,36 @@
+# Universal Service ID entries.  
+# Read in by op_create_order.php
+10110^US Procedure 1^IHEDEMO
+10150^US Procedure 2^IHEDEMO
+10210^Radiological Examination: Chest X-Ray^IHEDEMO
+10250^Radiological Examination: Abdominal X-Ray^IHEDEMO
+10310^Ultrasound Examination: Cardiac Screening^IHEDEMO
+10350^Ultrasound Examination: Stress Echo^IHEDEMO
+10410^Radiological Examination: Left Leg^IHEDEMO
+10450^Radiological Examination: Left Ankle^IHEDEMO
+10710^Transabdominal Ultrasound Scan^IHEDEMO
+10750^Endovaginal Pelvic Scan^IHEDEMO
+10910^Computed Tomography: Chest^IHEDEMO
+10950^Computed Tomography: Abdomen^IHEDEMO
+11010^Magnetic Resonance Imaging: Head^IHEDEMO
+11050^Magnetic Resonance Imaging: Neck^IHEDEMO
+11210^Angiography: Cardiac^IHEDEMO
+11250^Angiography: Carotid^IHEDEMO
+11510^Radiological Examination: Mammography^IHEDEMO
+11610^Radiological Examination: Skull^IHEDEMO
+11650^Radiological Examination: C-Spine^IHEDEMO
+11810^OB-GYN Ultrasound^IHEDEMO
+12010^Magnetic Resonance Imaging: Left Knee^IHEDEMO
+12050^Magnetic Resonance Imaging: Back^IHEDEMO
+12110^Radiological Examination: Right Hand^IHEDEMO
+12150^Radiological Examination: Right Wrist^IHEDEMO
+12510^Magnetic Resonance Imaging: Brain^IHEDEMO
+16110^DEXA Exam: AP Spine^IHEDEMO
+16150^DEXA Exam: Left Femur^IHEDEMO
+16210^Magnetic Resonance Imaging: Ankle^IHEDEMO
+16310^Dynamic - Renalgram^IHEDEMO
+16350^Gated Spect - Cardiac Gated Spect^IHEDEMO
+16370^Spect - Bone Spect^IHEDEMO
+16410^Radiological Examination: Ankle^IHEDEMO
+17110^RF Examination: Stomach^IHEDEMO
+17130^RF Examination: Colon^IHEDEMO
