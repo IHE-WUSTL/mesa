@@ -1072,4 +1072,5 @@ external/hl7/hl7_api.c -text
 external/hl7/hl7_api.h -text
 external/hl7/hl7demo.c -text
 /install_unix.csh -text
+/install_w32.bat -text
 /w32_install.mak -text
