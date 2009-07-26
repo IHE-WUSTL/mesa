@@ -1206,4 +1206,11 @@ javamesa/net/ihe/domain/SeriesTable.java -text
 javamesa/net/ihe/domain/Study.java -text
 javamesa/net/ihe/domain/StudyTable.java -text
 javamesa/w32_install.mak -text
+lib/Makefile -text
+lib/serializer.jar -text
+lib/w32_install.mak -text
+lib/xalan.jar -text
+lib/xerces.jar -text
+lib/xercesImpl.jar -text
+lib/xml-apis.jar -text
 /w32_install.mak -text
