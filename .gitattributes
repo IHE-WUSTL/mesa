@@ -1722,4 +1722,14 @@ scripts/storage.cnv -text
 scripts/text_var_sub.pl -text
 scripts/tpl_to_txt.pl -text
 scripts/w32_install.mak -text
+templates/Makefile -text
+templates/hl7/a01.tpl -text
+templates/hl7/a03.tpl -text
+templates/hl7/a04.tpl -text
+templates/hl7/a04_iti8.tpl -text
+templates/hl7/a08.tpl -text
+templates/hl7/a40.tpl -text
+templates/hl7/o01-cancel.tpl -text
+templates/hl7/o01-order.tpl -text
+templates/hl7/o01-sched.tpl -text
 /w32_install.mak -text
