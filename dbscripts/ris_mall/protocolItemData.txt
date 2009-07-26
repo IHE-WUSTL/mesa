@@ -1,0 +1,61 @@
+# Cath codes
+# uniserid, spsindex, spsdes, codval, codmea, codschdes
+CATH.001^Cardiac Cath Consultation^ERL_MESA, 40011, Left Heart Cath, XX-20011, Left Heart Cath, DSS_MESA
+CATH.001^Cardiac Cath Consultation^ERL_MESA, 40012, Left Heart Cath, XX-20012, IVUS Heart Cath, DSS_MESA
+CATH.001^Cardiac Cath Consultation^ERL_MESA, 40013, Left Heart Cath, XX-20013, XR Left Heart Cath, DSS_MESA
+ECHO.001^TTE^ERL_MESA, 40021, TTE, XX-20021, TTE, DSS_MESA
+ECHO.002^STRESS ECHO^ERL_MESA, 40031, Stress Echo, XX-20031, Stress Echo, DSS_MESA
+IMP200^Media Import^ERL_MESA, 40032, Media Import, IRWF-200, Import One Step, DSS_MESA
+
+10110^US Procedure 1^IHEDEMO, 20000, US: One, 910110, US: One, IHEDEMO
+10150^US Procedure 2^IHEDEMO, 20001, US: Two, 910150, US: Two, IHEDEMO
+10210^Radiological Examination: Chest X-Ray^IHEDEMO, 20002, CR: CXR, 910210, CR: CXR, IHEDEMO
+10250^Radiological Examination: Abdominal X-Ray^IHEDEMO, 20003, CR: Abdomen, 910250, CR: Abdomen, IHEDEMO
+10310^Ultrasound Examination: Cardiac Screening^IHEDEMO, 20004, US: Screening, 910310, US: Screening, IHEDEMO
+10350^Ultrasound Examination: Stress Echo^IHEDEMO, 20005, US: Stress Echo, 910350, US: Stress Echo, IHEDEMO
+STRESS-7131C^Stress Test: Balke^IHEDEMO, 
+STRESS-7131E^Stress Test: Ramp^IHEDEMO
+STRESS-DOBUTAMINE^Stress Test: Dobutamine^IHEDEMO
+10410^Radiological Examination: Left Leg^IHEDEMO, 20006, DX: Leg, 910410, DX: Leg, IHEDEMO
+10450^Radiological Examination: Left Ankle^IHEDEMO, 20007, DX: Ankle, 914050, DX: Ankle, IHEDEMO
+10710^Transabdominal Ultrasound Scan^IHEDEMO, 20008, US: Transabdominal, 910710, US: Transabdominal, IHEDEMO
+10750^Endovaginal Pelvic Scan^IHEDEMO, 20009, US: Endovaginal Pelvis, 910750, US: Endovaginal Pelvis, IHEDEMO
+10910^Computed Tomography: Chest^IHEDEMO, 20010, CT: Chest, 910910, CT: Chest, IHEDEMO
+10950^Computed Tomography: Abdomen^IHEDEMO, 20011, CT: Abdomen, 910950, CT: Abdomen, IHEDEMO
+11010^Magnetic Resonance Imaging: Head^IHEDEMO, 20012, MR: Head, 911010, MR: Head, IHEDEMO
+11050^Magnetic Resonance Imaging: Neck^IHEDEMO, 20013, MR: Neck, 911050, MR: Neck, IHEDEMO
+11210^Angiography: Cardiac^IHEDEMO, 20014, XA: Cardiac, 911210, XA: Cardiac, IHEDEMO
+11250^Angiography: Carotid^IHEDEMO, 20015, XA: Carotid, 911250, XA: Carotid, IHEDEMO
+11260^CTA: Coronary CT Angiography^IHEDEMO
+11270^EP: Ablation^IHEDEMO
+11510^Radiological Examination: Mammography^IHEDEMO, 20016, MG: Mammography, 911510, MG: Mammography, IHEDEMO
+11610^Radiological Examination: Skull^IHEDEMO, 20017, CR: Skull, 911610, CR: Skull, IHEDEMO
+11650^Radiological Examination: C-Spine^IHEDEMO, 20018, CR: C-Spine, 911650, CR: C-Spine, IHEDEMO
+11810^OB-GYN Ultrasound^IHEDEMO, 20019, US: OB-GYN, 911810, US: OB-GYN, IHEDEMO
+12010^Magnetic Resonance Imaging: Left Knee^IHEDEMO, 20020, MR: Left Knee, 912010, MR: Left Knee, IHEDEMO
+12050^Magnetic Resonance Imaging: Back^IHEDEMO, 20021, MR: Back, 912050, MR: Back, IHEDEMO
+12110^Radiological Examination: Right Hand^IHEDEMO, 20022, DX: Hand R, 912110, DX: Hand R, IHEDEMO
+12150^Radiological Examination: Right Wrist^IHEDEMO, 20023, DX: Wrist R, 912150, DX: Wrist R, IHEDEMO
+12510^Magnetic Resonance Imaging: Brain^IHEDEMO, 20024, MR: Brain, 912510, MR: Brain, IHEDEMO
+13110^CD/DVD Import^IHEDEMO
+13120^Scanned Film Import^IHEDEMO
+13130^Scanned Document Import^IHEDEMO
+13140^Network Import^IHEDEMO
+16110^DEXA Exam: AP Spine^IHEDEMO, 20025, OT: AP Spine, 916110, OT: AP Spine, IHEDEMO
+16150^DEXA Exam: Left Femur^IHEDEMO, 20026, OT: Left Femur, 916150, OT: Left Femur, IHEDEMO
+16151^DEXA Exam: Right Femur^IHEDEMO, 20034, OT: Right Femur, 916151, OT: Right Femur, IHEDEMO
+16210^Magnetic Resonance Imaging: Ankle^IHEDEMO, 20027, MR: Ankle, 916210, MR: Ankle, IHEDEMO
+16310^Dynamic - Renalgram^IHEDEMO, 20028, NM: Renalgram, 916310, NM: Renalgram, IHEDEMO
+16350^Gated Spect - Cardiac Gated Spect^IHEDEMO, 20029, NM: Cardiac Gated Spect, 916350, NM: Cardiac Gated Spect, IHEDEMO
+16370^Spect - Bone Spect^IHEDEMO, 20030, NM: Bone Spect, 916370, NM: Bone Spect, IHEDEMO
+16410^Radiological Examination: Ankle^IHEDEMO, 20031, CR: Ankle, 916410, CR: Ankle, IHEDEMO
+17110^RF Examination: Stomach^IHEDEMO, 20032, RF: Stomach, 917110, RF: Stomach, IHEDEMO
+17130^RF Examination: Colon^IHEDEMO, 20033, RF: Colon, 917130, RF: Colon, IHEDEMO
+#Index 20034 taken for 16151
+
+# More Cardiac Codes
+# uniserid, spsindex, spsdes, codval, codmea, codschdes
+18110^Angiography: Diagnostic Catheterization^IHEDEMO, 40041, Diagnostic Catheterization, XX-40041, Diag Cath, IHEDEMO
+18111^Angiography: Therapeutic Catheterization^IHEDEMO, 40061, Therapeutic Catheterization, XX-40061, Therapeutic Cath, IHEDEMO
+19110^Electrophysiology: Diagnostic ECG^IHEDEMO, 40081, Diagnostic ECG, XX-40081, Diag ECG, IHEDEMO
+20110^Group Test^IHEDEMO
