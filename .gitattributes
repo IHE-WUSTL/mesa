@@ -1,5 +1,6 @@
 * text=auto !eol
 /COPYRIGHT -text
+/Makefile -text
 apps/Makefile -text
 apps/adt_ps/ADT1 -text
 apps/adt_ps/MLMessenger.cpp -text
