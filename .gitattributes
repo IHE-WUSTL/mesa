@@ -1051,4 +1051,8 @@ env/w32/w32_env.bat -text
 env/w32/w32_env_x.bat -text
 env/w32/w32_ihew2k.bat -text
 env/w32/w32_y4.bat -text
+etc/copyright -text
+etc/main.cpp -text
+etc/template.cpp -text
+etc/template.hpp -text
 /w32_install.mak -text
