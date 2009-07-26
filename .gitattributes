@@ -452,3 +452,4 @@ apps/update_gppps/test/ppscreate.txt -text
 apps/update_gppps/test/ppsset.txt -text
 apps/update_gppps/test/test_update -text
 apps/update_gppps/update_gppps.cpp -text
+/w32_install.mak -text
