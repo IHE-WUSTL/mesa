@@ -1514,4 +1514,5 @@ libsrc/translators/MHL7DomainXlate.hpp -text
 libsrc/translators/MSyslogDomainXlate.cpp -text
 libsrc/translators/MSyslogDomainXlate.hpp -text
 libsrc/translators/Makefile -text
+pids/README -text
 /w32_install.mak -text
