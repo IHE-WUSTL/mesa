@@ -1170,4 +1170,10 @@ java_apps/jar/sfc.jar -text
 java_apps/jar/symbeans.jar -text
 java_apps/jar/symtools.jar -text
 java_apps/w32_install.mak -text
+javaexternal/Makefile -text
+javaexternal/w32_install.mak -text
+javaexternal/xalan-j_2_7_0/xalan.jar -text
+javaexternal/xerces-1_2_3/LICENSE -text
+javaexternal/xerces-1_2_3/Readme.html -text
+javaexternal/xerces-1_2_3/xerces.jar -text
 /w32_install.mak -text
