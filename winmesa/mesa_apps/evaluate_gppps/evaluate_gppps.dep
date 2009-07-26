@@ -1,0 +1,46 @@
+# Microsoft Developer Studio Generated Dependency File, included by evaluate_gppps.mak
+
+..\..\..\apps\evaluate_gppps\evaluate_gppps.cpp : \
+	"..\..\..\external\ctn\include\condition.h"\
+	"..\..\..\external\ctn\include\ctn_os.h"\
+	"..\..\..\external\ctn\include\ctnthread.h"\
+	"..\..\..\external\ctn\include\dicom.h"\
+	"..\..\..\external\ctn\include\dicom_ddr.h"\
+	"..\..\..\external\ctn\include\dicom_messages.h"\
+	"..\..\..\external\ctn\include\dicom_objects.h"\
+	"..\..\..\external\ctn\include\dicom_platform.h"\
+	"..\..\..\external\ctn\include\dicom_services.h"\
+	"..\..\..\external\ctn\include\dicom_sq.h"\
+	"..\..\..\external\ctn\include\dicom_uids.h"\
+	"..\..\..\external\ctn\include\dulprotocol.h"\
+	"..\..\..\external\ctn\include\idb.h"\
+	"..\..\..\external\ctn\include\lst.h"\
+	"..\..\..\external\ctn\include\manage.h"\
+	"..\..\..\external\ctn\include\tbl.h"\
+	"..\..\..\external\ctn\include\utility.h"\
+	"..\..\..\include\ctn_api.h"\
+	"..\..\..\include\MActHumanPerformers.hpp"\
+	"..\..\..\include\MActionItem.hpp"\
+	"..\..\..\include\MDBBase.hpp"\
+	"..\..\..\include\MDBInterface.hpp"\
+	"..\..\..\include\MDICOMDomainXlate.hpp"\
+	"..\..\..\include\MDICOMWrapper.hpp"\
+	"..\..\..\include\MDomainObject.hpp"\
+	"..\..\..\include\MESA.hpp"\
+	"..\..\..\include\MGPPPSObject.hpp"\
+	"..\..\..\include\MGPPPSWorkitem.hpp"\
+	"..\..\..\include\MInputInfo.hpp"\
+	"..\..\..\include\MLogClient.hpp"\
+	"..\..\..\include\MNonDCMOutput.hpp"\
+	"..\..\..\include\MOutputInfo.hpp"\
+	"..\..\..\include\MPerfProcApps.hpp"\
+	"..\..\..\include\MPerfStationClass.hpp"\
+	"..\..\..\include\MPerfStationLocation.hpp"\
+	"..\..\..\include\MPerfStationName.hpp"\
+	"..\..\..\include\MPerfWorkitem.hpp"\
+	"..\..\..\include\MReqSubsWorkitem.hpp"\
+	"..\..\..\include\MStationClass.hpp"\
+	"..\..\..\include\MStationLocation.hpp"\
+	"..\..\..\include\MStationName.hpp"\
+	"..\..\..\include\MString.hpp"\
+	

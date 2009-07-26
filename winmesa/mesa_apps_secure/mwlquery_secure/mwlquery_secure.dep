@@ -1,0 +1,86 @@
+# Microsoft Developer Studio Generated Dependency File, included by mwlquery_secure.mak
+
+..\..\..\apps\mwlquery\MLQuery.cpp : \
+	"..\..\..\apps\mwlquery\MLQuery.hpp"\
+	"..\..\..\external\ctn\include\condition.h"\
+	"..\..\..\external\ctn\include\ctn_os.h"\
+	"..\..\..\external\ctn\include\ctnthread.h"\
+	"..\..\..\external\ctn\include\dicom.h"\
+	"..\..\..\external\ctn\include\dicom_ddr.h"\
+	"..\..\..\external\ctn\include\dicom_messages.h"\
+	"..\..\..\external\ctn\include\dicom_objects.h"\
+	"..\..\..\external\ctn\include\dicom_platform.h"\
+	"..\..\..\external\ctn\include\dicom_services.h"\
+	"..\..\..\external\ctn\include\dicom_sq.h"\
+	"..\..\..\external\ctn\include\dicom_uids.h"\
+	"..\..\..\external\ctn\include\dulprotocol.h"\
+	"..\..\..\external\ctn\include\idb.h"\
+	"..\..\..\external\ctn\include\lst.h"\
+	"..\..\..\external\ctn\include\manage.h"\
+	"..\..\..\external\ctn\include\tbl.h"\
+	"..\..\..\external\ctn\include\utility.h"\
+	"..\..\..\include\ctn_api.h"\
+	"..\..\..\include\mapplicationentity.hpp"\
+	"..\..\..\include\mesa.hpp"\
+	"..\..\..\include\msophandler.hpp"\
+	"..\..\..\include\mstring.hpp"\
+	
+
+..\..\..\secure_apps\mwlquery_secure\mwlquery_secure.cpp : \
+	"..\..\..\apps\mwlquery\MLQuery.hpp"\
+	"..\..\..\external\ctn\include\condition.h"\
+	"..\..\..\external\ctn\include\ctn_os.h"\
+	"..\..\..\external\ctn\include\ctnthread.h"\
+	"..\..\..\external\ctn\include\dicom.h"\
+	"..\..\..\external\ctn\include\dicom_ddr.h"\
+	"..\..\..\external\ctn\include\dicom_messages.h"\
+	"..\..\..\external\ctn\include\dicom_objects.h"\
+	"..\..\..\external\ctn\include\dicom_platform.h"\
+	"..\..\..\external\ctn\include\dicom_services.h"\
+	"..\..\..\external\ctn\include\dicom_sq.h"\
+	"..\..\..\external\ctn\include\dicom_uids.h"\
+	"..\..\..\external\ctn\include\dulprotocol.h"\
+	"..\..\..\external\ctn\include\idb.h"\
+	"..\..\..\external\ctn\include\lst.h"\
+	"..\..\..\external\ctn\include\manage.h"\
+	"..\..\..\external\ctn\include\tbl.h"\
+	"..\..\..\external\ctn\include\utility.h"\
+	"..\..\..\include\ctn_api.h"\
+	"..\..\..\include\mapplicationentity.hpp"\
+	"..\..\..\include\mdicomassociation.hpp"\
+	"..\..\..\include\mdicomproxy.hpp"\
+	"..\..\..\include\mdicomproxytcp.hpp"\
+	"..\..\..\include\mdicomreactor.hpp"\
+	"..\..\..\include\mdicomwrapper.hpp"\
+	"..\..\..\include\mesa.hpp"\
+	"..\..\..\include\mlogclient.hpp"\
+	"..\..\..\include\msophandler.hpp"\
+	"..\..\..\include\mstring.hpp"\
+	"..\..\..\include\mwrapperfactory.hpp"\
+	
+
+..\..\..\apps\mwlquery\mwlquery_support.cpp : \
+	"..\..\..\external\ctn\include\condition.h"\
+	"..\..\..\external\ctn\include\ctn_os.h"\
+	"..\..\..\external\ctn\include\ctnthread.h"\
+	"..\..\..\external\ctn\include\dicom.h"\
+	"..\..\..\external\ctn\include\dicom_ddr.h"\
+	"..\..\..\external\ctn\include\dicom_messages.h"\
+	"..\..\..\external\ctn\include\dicom_objects.h"\
+	"..\..\..\external\ctn\include\dicom_platform.h"\
+	"..\..\..\external\ctn\include\dicom_services.h"\
+	"..\..\..\external\ctn\include\dicom_sq.h"\
+	"..\..\..\external\ctn\include\dicom_uids.h"\
+	"..\..\..\external\ctn\include\dulprotocol.h"\
+	"..\..\..\external\ctn\include\idb.h"\
+	"..\..\..\external\ctn\include\lst.h"\
+	"..\..\..\external\ctn\include\manage.h"\
+	"..\..\..\external\ctn\include\tbl.h"\
+	"..\..\..\external\ctn\include\utility.h"\
+	"..\..\..\include\ctn_api.h"\
+	"..\..\..\include\mdicomwrapper.hpp"\
+	"..\..\..\include\mesa.hpp"\
+	"..\..\..\include\mlogclient.hpp"\
+	"..\..\..\include\mstring.hpp"\
+	"..\..\..\include\mwrapperfactory.hpp"\
+	

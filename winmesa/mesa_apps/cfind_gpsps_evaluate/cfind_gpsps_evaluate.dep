@@ -1,0 +1,26 @@
+# Microsoft Developer Studio Generated Dependency File, included by cfind_gpsps_evaluate.mak
+
+..\..\..\apps\cfind_gpsps_evaluate\cfind_gpsps_evaluate.cpp : \
+	"..\..\..\external\ctn\include\condition.h"\
+	"..\..\..\external\ctn\include\ctn_os.h"\
+	"..\..\..\external\ctn\include\ctnthread.h"\
+	"..\..\..\external\ctn\include\dicom.h"\
+	"..\..\..\external\ctn\include\dicom_ddr.h"\
+	"..\..\..\external\ctn\include\dicom_messages.h"\
+	"..\..\..\external\ctn\include\dicom_objects.h"\
+	"..\..\..\external\ctn\include\dicom_platform.h"\
+	"..\..\..\external\ctn\include\dicom_services.h"\
+	"..\..\..\external\ctn\include\dicom_sq.h"\
+	"..\..\..\external\ctn\include\dicom_uids.h"\
+	"..\..\..\external\ctn\include\dulprotocol.h"\
+	"..\..\..\external\ctn\include\idb.h"\
+	"..\..\..\external\ctn\include\lst.h"\
+	"..\..\..\external\ctn\include\manage.h"\
+	"..\..\..\external\ctn\include\tbl.h"\
+	"..\..\..\external\ctn\include\utility.h"\
+	"..\..\..\include\ctn_api.h"\
+	"..\..\..\include\MDICOMWrapper.hpp"\
+	"..\..\..\include\MESA.hpp"\
+	"..\..\..\include\MLogClient.hpp"\
+	"..\..\..\include\MString.hpp"\
+	
