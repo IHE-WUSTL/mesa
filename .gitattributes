@@ -452,4 +452,11 @@ apps/update_gppps/test/ppscreate.txt -text
 apps/update_gppps/test/ppsset.txt -text
 apps/update_gppps/test/test_update -text
 apps/update_gppps/update_gppps.cpp -text
+data/june/hl7/events/Makefile -text
+data/june/hl7/templates/a04001.tpl -text
+data/june/hl7/templates/orm001.tpl -text
+data/june/hl7/templates/orm002.tpl -text
+data/june/hl7/vardb/a04a001.var -text
+data/june/hl7/vardb/orma001.var -text
+data/june/hl7/vardb/orma002.var -text
 /w32_install.mak -text
