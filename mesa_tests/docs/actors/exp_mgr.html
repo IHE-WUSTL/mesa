@@ -1,0 +1,318 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Untitled Document</title></head>
+
+<body>
+<p align="center"><strong>HIMSS and RSNA</strong><br />
+    <strong>Integrating the Healthcare Enterprise</strong></p>
+<p align="center"><strong>&nbsp;</strong></p>
+<p align="center"><strong>&nbsp;</strong><strong>IHE/MESA Teaching file and Clinical Trial Export Manager Tests</strong></p>
+<p>&nbsp;</p>
+<p align="center">Electronic Radiology  Laboratory<br />
+  Mallinckrodt Institute of  Radiology<br />
+  510 South    Kingshighway Blvd. <br />
+  St. Louis, MO&nbsp; 63110 <br />
+  314.362.6965 (Voice)<br />
+  314.362.6971 (Fax)</p>
+<p align="center">&nbsp;</p>
+<p align="center">Version 10.0.0<br />
+  15-August-2006 </p>
+<strong>Contents:</strong><br clear="all" />
+<p><a href="#exp_mgr_tests">Export Manager Tests</a> <br />
+    <a href="#intro">Introduction</a> <br />
+    <a href="#att_de-id">Attributes De-identification</a> <br />
+    <a href="#config">Configuration</a> <br />
+    <a href="#start_servers">Starting the MESA Servers</a> <br />
+    <a href="#test_instrt">Test Instructions</a> <br />
+    <a href="#sub_results">Submission of Results</a> <br />
+    <a href="#exp_mgr_tests2"> Export  Manager Tests</a> </p>
+<ol>
+  <li><a href="#test_3001"> Export Manager Test 3001: Simple  Single Study Teaching File Export</a> <br />
+  </li>
+  <li><a href="#test_3003"> Export Manager Test 3003: Teaching  File Export with Wait for More Data Sent via DICOM</a> <br />
+      <br clear="all" />
+  &nbsp;</li>
+</ol>
+<h1><a name="#exp_mgr_tests" id="#exp_mgr_tests">Export Manager Tests</a></h1>
+<h2><a name="#intro" id="#intro">Introduction</a></h2>
+<p>Read the document <em>IHE  Radiology Technical Framework</em> concentrating on the <em>Teaching file and Clinical Triall Export Integration Profile</em>. This document lists all  the transactions in a series of use cases which drive tests for individual  actors.&nbsp; Export Manager will participate  in all the transactions. Reading that document will allow you to understand the  full set of transactions for each test.<br />
+  Each test is run using the same procedure.&nbsp; We assume you are using an interactive  terminal or terminal emulator and are logged on to the MESA test system.&nbsp; Change directory to <em>$MESA_TARGET/mesa_tests/rad/actors/exp_mgr</em>.&nbsp; Make sure the $MESA_TARGET and $MESA_STORAGE  environment variables are set properly.</p>
+<h3>Integration Profiles and Test Procedures</h3>
+<p>This document lists currently only one test for Teaching  file and Clinical trial Export Manager Systems. <br />
+  Please refer to the Connectathon web tool to list the  required tests for your system. The web address of this tool depends on the  year and project manager. Please contact the appropriate project manager to  obtain this information.</p>
+<h2><a name="#att_de-id" id="#att_de-id">Attributes De-identification</a></h2>
+<p>Export Manager should remove all patient identification  from the attributes of images and Key Object Note(s). This section contains a  table defining those attributes that will be evaluated for de-identification in  the Export Manager tests.<strong></strong><br />
+  In the table below, the columns marked <em>Value</em> and<em> Zero-Length</em> indicate the scope of the evaluation for these attributes.&nbsp; Fields that are marked in the V<em>alue</em> column indicate the tests will  expect a non-zero-length value in the field (for example, we specify the  patient name).&nbsp; Fields marked in the  Zero-Length column are tested to see if the field present with zero-length  value.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="91" valign="top"><p>Tag</p></td>
+    <td width="330" valign="top"><p>Attribute Name</p></td>
+    <td width="96" valign="top"><p>Value</p></td>
+    <td width="90" valign="top"><p>Zero-Length</p></td>
+  </tr>
+  <tr>
+    <td width="91" valign="top"><p>0008 0018</p></td>
+    <td width="330" valign="top"><p>SOP Instance UID</p></td>
+    <td width="96" valign="top"><p>x</p></td>
+    <td width="90" valign="top"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="91" valign="top"><p>0008 0050</p></td>
+    <td width="330" valign="top"><p>Accession Number</p></td>
+    <td width="96" valign="top"><p>&nbsp;</p></td>
+    <td width="90" valign="top"><p>x</p></td>
+  </tr>
+  <tr>
+    <td width="91" valign="top"><p>0008 0090</p></td>
+    <td width="330" valign="top"><p>Referring Physician&rsquo;s Name</p></td>
+    <td width="96" valign="top"><p>&nbsp;</p></td>
+    <td width="90" valign="top"><p>x</p></td>
+  </tr>
+  <tr>
+    <td width="91" valign="top"><p>0008 0092</p></td>
+    <td width="330" valign="top"><p>Referring Physician&rsquo;s Address</p></td>
+    <td width="96" valign="top"><p>&nbsp;</p></td>
+    <td width="90" valign="top"><p>x</p></td>
+  </tr>
+  <tr>
+    <td width="91" valign="top"><p>0008 0094</p></td>
+    <td width="330" valign="top"><p>Referring Physician&rsquo;s Telephone    Numbers</p></td>
+    <td width="96" valign="top"><p>&nbsp;</p></td>
+    <td width="90" valign="top"><p>x</p></td>
+  </tr>
+  <tr>
+    <td width="91" valign="top"><p>0008 1048</p></td>
+    <td width="330" valign="top"><p>Physician(s) of Record</p></td>
+    <td width="96" valign="top"><p>&nbsp;</p></td>
+    <td width="90" valign="top"><p>x</p></td>
+  </tr>
+  <tr>
+    <td width="91" valign="top"><p>0008 1050</p></td>
+    <td width="330" valign="top"><p>Performing Physicians&rsquo; Name</p></td>
+    <td width="96" valign="top"><p>&nbsp;</p></td>
+    <td width="90" valign="top"><p>x</p></td>
+  </tr>
+  <tr>
+    <td width="91" valign="top"><p>0008 1060</p></td>
+    <td width="330" valign="top"><p>Name of Physicians(s) Reading Study</p></td>
+    <td width="96" valign="top"><p>&nbsp;</p></td>
+    <td width="90" valign="top"><p>x</p></td>
+  </tr>
+  <tr>
+    <td width="91" valign="top"><p>0008 1070</p></td>
+    <td width="330" valign="top"><p>Operators&rsquo; Name</p></td>
+    <td width="96" valign="top"><p>&nbsp;</p></td>
+    <td width="90" valign="top"><p>x</p></td>
+  </tr>
+  <tr>
+    <td width="91" valign="top"><p>0010 0010</p></td>
+    <td width="330" valign="top"><p>Patient Name</p></td>
+    <td width="96" valign="top"><p>MR^SCREEN</p></td>
+    <td width="90" valign="top"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="91" valign="top"><p>0010 0020</p></td>
+    <td width="330" valign="top"><p>Patient ID</p></td>
+    <td width="96" valign="top"><p>05-3001-6</p></td>
+    <td width="90" valign="top"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="91" valign="top"><p>0010 0030</p></td>
+    <td width="330" valign="top"><p>Patient&rsquo;s Birth Date</p></td>
+    <td width="96" valign="top"><p>&nbsp;</p></td>
+    <td width="90" valign="top"><p>x</p></td>
+  </tr>
+  <tr>
+    <td width="91" valign="top"><p>0010 0032</p></td>
+    <td width="330" valign="top"><p>Patient&rsquo;s Birth Time</p></td>
+    <td width="96" valign="top"><p>&nbsp;</p></td>
+    <td width="90" valign="top"><p>x</p></td>
+  </tr>
+  <tr>
+    <td width="91" valign="top"><p>0010 1000</p></td>
+    <td width="330" valign="top"><p>Other Patient Ids</p></td>
+    <td width="96" valign="top"><p>&nbsp;</p></td>
+    <td width="90" valign="top"><p>x</p></td>
+  </tr>
+  <tr>
+    <td width="91" valign="top"><p>0010 1001</p></td>
+    <td width="330" valign="top"><p>Other Patient Names</p></td>
+    <td width="96" valign="top"><p>&nbsp;</p></td>
+    <td width="90" valign="top"><p>x</p></td>
+  </tr>
+  <tr>
+    <td width="91" valign="top"><p>0010 1090</p></td>
+    <td width="330" valign="top"><p>Medical Record Locator</p></td>
+    <td width="96" valign="top"><p>&nbsp;</p></td>
+    <td width="90" valign="top"><p>x</p></td>
+  </tr>
+  <tr>
+    <td width="91" valign="top"><p>0010 2160</p></td>
+    <td width="330" valign="top"><p>Ethnic Group</p></td>
+    <td width="96" valign="top"><p>&nbsp;</p></td>
+    <td width="90" valign="top"><p>x</p></td>
+  </tr>
+  <tr>
+    <td width="91" valign="top"><p>0010 2180</p></td>
+    <td width="330" valign="top"><p>Occupation</p></td>
+    <td width="96" valign="top"><p>&nbsp;</p></td>
+    <td width="90" valign="top"><p>x</p></td>
+  </tr>
+  <tr>
+    <td width="91" valign="top"><p>0010 21B0</p></td>
+    <td width="330" valign="top"><p>Additional Patient&rsquo;s History</p></td>
+    <td width="96" valign="top"><p>&nbsp;</p></td>
+    <td width="90" valign="top"><p>x</p></td>
+  </tr>
+  <tr>
+    <td width="91" valign="top"><p>0010 4000</p></td>
+    <td width="330" valign="top"><p>Patient Comments</p></td>
+    <td width="96" valign="top"><p>&nbsp;</p></td>
+    <td width="90" valign="top"><p>x</p></td>
+  </tr>
+  <tr>
+    <td width="91" valign="top"><p>0020 0010 </p></td>
+    <td width="330" valign="top"><p>Study ID</p></td>
+    <td width="96" valign="top"><p>&nbsp;</p></td>
+    <td width="90" valign="top"><p>x</p></td>
+  </tr>
+  <tr>
+    <td width="91" valign="top"><p>0020 000D</p></td>
+    <td width="330" valign="top"><p>Study Instance UID</p></td>
+    <td width="96" valign="top"><p>x</p></td>
+    <td width="90" valign="top"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="91" valign="top"><p>0020 000E</p></td>
+    <td width="330" valign="top"><p>Series Instance UID</p></td>
+    <td width="96" valign="top"><p>x</p></td>
+    <td width="90" valign="top"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="91" valign="top"><p>0020 4000</p></td>
+    <td width="330" valign="top"><p>Image Comments</p></td>
+    <td width="96" valign="top"><p>&nbsp;</p></td>
+    <td width="90" valign="top"><p>x</p></td>
+  </tr>
+</table>
+<p><strong><u>Note</u></strong>: In  addition, 0008 0018 &quot;SOP Instance UID&quot;, 0020 000D &quot;Study  Instance UID&quot;, and 0020 000E &quot;Series Instance UID, should be replaced  with new values.</p>
+<h2><a name="#config" id="#config">Configuration</a></h2>
+<p>The Export Manager scripts described below use an ASCII  configuration file to identify parameters such as host names and port  numbers.&nbsp; The configuration file is named <em>expmgr_test.cfg</em> and is included in  the directory <em>$MESA_TARGET/mesa_tests/rad/actors/expmgr</em>.&nbsp; Edit the file and change entries (host name,  port number) that pertain to your system.&nbsp;  Your system is identified by entries that begin with TEST.<br />
+  For IHE Basic Security tests, all messages are exchanged  using TLS. MESA  servers are run on the same ports but with the TLS option. The configuration  file that identifies your information is <em>expmgr_secure.cfg</em>.  This separate file allows you to use different port numbers for your secure and  standard configurations. You may decide to use the same port numbers for both  types of communication. The MESA  software will only use all secure or all standard communication for a test; we  do not mix communication protocols.<br />
+  The table below gives parameters for MESA servers that will receive messages from  your system.&nbsp; Other MESA servers are started and exchange  messages, but do not receive messages from the Export Manager.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="337" valign="top"><br />
+        <strong>Application</strong> </td>
+    <td width="180" valign="top"><p align="center"><strong>AE Title</strong></p></td>
+    <td width="121" valign="top"><p align="center"><strong>Port Number</strong></p></td>
+  </tr>
+  <tr>
+    <td width="337" valign="top"><p>MESA    Export Receiver Server</p></td>
+    <td width="180" valign="top"><p align="center">MESA_EXP_RCVR</p></td>
+    <td width="121" valign="top"><p align="center">2360</p></td>
+  </tr>
+</table>
+<p>Read the <em>Runtime Notes</em> section of the<em> Installation Guide</em> to  determine the proper settings for the MESA  runtime environment.</p>
+<h2><a name="#start_servers" id="#start_servers">Starting the </a>MESA Servers</h2>
+<p>These instructions assume you are using a terminal  emulator on Unix systems or an MS DOS command window under Windows NT.&nbsp; Each test uses a command line interface;  there is no graphical user interface. Before you start the test procedure, you  need to start several MESA  servers.&nbsp; Make sure the appropriate  database is running (PostgreSQL, SQL Server).&nbsp;  To start the MESA  servers:</p>
+<ol start="1" type="1">
+  <li>Enter       the Export Manager exam directory: mesa_tests/rad/actors/expmgr</li>
+  <li>Run the Unix or Windows script  to start the servers:</li>
+</ol>
+<pre>     scripts/start_mesa_servers.csh [loglevel]</pre>
+<pre>     scripts\start_mesa_servers.bat [loglevel]</pre>
+    <em>loglevel</em> is an  optional argument (0 is default). Log  levels are:</p>
+<ol start="0">
+  <li>no logging</li>
+  <li>errors</li>
+  <li>warnings</li>
+  <li>verbose</li>
+  <li>conversational (really verbose)</li>
+</ol>
+<p>When you are finished running one or more tests, you can  stop the servers:
+<pre>     scripts/stop_mesa_servers.csh</pre>
+<pre>     scripts\stop_mesa_servers.bat</pre>
+  Log files are stored in $MESA_TARGET/logs.<br />
+  For the security tests, the MESA servers are started with different  scripts. These are <em>scripts/start_mesa_secure.csh</em> and <em>scripts\start_mesa_secure.bat</em>.  The log levels are the same as for the standard tests. The syntax for starting  the servers in secure mode is:
+  <pre>     scripts/start_mesa_secure.csh &lt;log level&gt; Unix</pre>
+  <pre>     set  LOGLEVEL=X (1, 2, 3, 4)&nbsp; (Windows)
+     scripts\start_mesa_secure.bat</pre>
+  <p>The MESA  servers are stopped using these scripts: <em>scripts/stop_mesa_secure.csh</em> and <em>scripts\stop_mesa_secure.bat.</em></p>
+<p>NB: The method for starting the MESA servers in &ldquo;standard&rdquo; mode changes with  the 6.6.0 release. This better allows the MESA  servers to listen for connections on ports other than our assumed defaults.  This helps with some Solaris installations where there is conflict with the  ports we chose as default values.</p>
+<h2><a name="#test_instrt" id="#test_instrt">Test Instructions</a></h2>
+<p>
+Each test is independent of the others.&nbsp; You must collect the results of one test  before starting a new test.</p>
+<ol>
+  <li>Enter  the Export Manager exam directory: <em>mesa_tests/rad/actors/expmgr</em>.</li>
+  <li>Remember  the MESA servers were started according to the directions in <a href="#start_servers">Starting the MESA Servers</a>.</li>
+</ol>
+<p>A test engine manages the test process. This test engine is  driven by a text file that describes the events for the specific test. Each  test below will indicate which script is appropriate. The arguments to the  script are the test number and the log level for output:</p>
+<ol>
+  <li>errors only</li>
+  <li>warnings</li>
+  <li>verbose</li>
+  <li>reference  information (pointers into IHE Technical Framework)</li>
+</ol>
+<p>An example of the syntax used to invoke the script for the 3000  test is:
+<pre>     perl  scripts/expmgr_tfcte.pl 3000 1</pre>
+  The test script will announce what events are about to  happen and will request that you send specific events according to the sequence  defined in <em>IHE Radiology Technical  Framework&nbsp; Supplement 2004-2005: Teaching  file and Clinical trail Export</em>.&nbsp; When  you have completed the sequence of events, results can be evaluated by running  the evaluation script:
+ <pre>     perl  &lt;test&gt;/eval_&lt;test&gt;.pl &lt;log level&gt; &lt;MPPS Mgr AE Title&gt;</pre>
+  For example:<pre>     perl 3000/eval_3000.pl 3 AE_TITLE_????</pre>
+  The log level for evaluation is defined as:</p>
+<ol>
+  <li>errors only</li>
+  <li>warnings</li>
+  <li>context information (verbose)</li>
+  <li>reference information (pointer into IHE Technical  Framework)</li>
+</ol>
+<h2><a name="#sub_results" id="#sub_results">Submission of Results</a></h2>
+<p>Test descriptions below inform the reader to &ldquo;submit  results to the Project Manager&rdquo;. This is does not mean &ldquo;email&rdquo;. The current  submission process should be documented by the Project Manager, but will not  include emailing files directly to the Project Manager.</p>
+<h1><a name="#exp_mgr_tests2" id="#exp_mgr_tests2">Export Manager Tests</a></h1>
+<p>Each section below lists one Export Manager test.&nbsp; As mentioned above, the individual transactions  involving the Export Manager under test are described in other documents.<br />
+  In some cases, the MESA  software will send a message to your Export Manager and will have no way to  evaluate the response of your system.&nbsp;  These messages must be accepted by your system, but are not listed in  the sections below as being evaluated by the MESA software.</p>
+ <table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_3001" id="#test_3001">Export Manager Test 3001: Simple Single Study  Teaching File Export</a></h2>
+<p>Test 3001 covers Simple Single Study Teaching File Export . 
+<h3>References</h3>
+<a href="../rad/tfcte/test_cases/html/3001.html">Test description/steps for test 3001.</a>
+<h3>Instructions</h3>
+<ol>
+ <li>Read the <a href="../rad/tfcte/test_cases/html/3001.html">Test Description Steps</a> document. This will describe the context of this test and list all of the transactions that will occur during this test.</li>
+ <li>Run the perl script that activates the test; follow the instructions during the test:
+  <pre>perl scripts/expmgr_tfcte.pl 3001 &lt;log level&gt;</pre></li>
+</ol>
+<H3>Evaluation</H3>
+<ol>
+ <li>Run the evluation script as listed below.
+  <pre>     perl 3001/eval_3001.pl &lt;log  level&gt; </pre>
+ </li>
+ <li>The grade file 3001/grade_3001.txt should indicate 0 errors for a successful test.</li>
+ <li>Submit the grade file at log level 4 to the Project Manager</li>
+ </ol>
+<h3>Supplemental Information</h3>
+  </td></tr></table>
+<h2><a name="#test_3003" id="#test_3003">Export Manager Test 3003: Teaching File Export  with Wait for More Data Sent via DICOM</a> </h2>
+<p>Test 3003 covers teaching file export with wait for more data  sent via DICOM. 
+<h3>References</h3>
+<a href="../rad/tfcte/test_cases/html/3003.html">Test description/steps for test 3003.</a>
+<h3>Instructions</h3>
+<ol>
+ <li>Read the <a href="../rad/tfcte/test_cases/html/3003.html">Test Description Steps</a> document. This will describe the context of this test and list all of the transactions that will occur during this test.</li>
+ <li>Run the perl script that activates the test; follow the instructions during the test:
+  <pre>perl scripts/expmgr_tfcte.pl 3003 &lt;log level&gt;</pre></li>
+</ol>
+<H3>Evaluation</H3>
+<ol>
+ <li>Run the evluation script as listed below.
+  <pre>     perl 3003/eval_3003.pl &lt;log  level&gt; </pre>
+ </li>
+ <li>The grade file 3003/grade_3003.txt should indicate 0 errors for a successful test.</li>
+ <li>Submit the grade file at log level 4 to the Project Manager</li>
+ </ol>
+<h3>Supplemental Information</h3>
+
+</body>
+</html>

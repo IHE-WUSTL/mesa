@@ -1,0 +1,1066 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Untitled Document</title>
+</head>
+
+<body>
+<p align="center"><strong>&nbsp;</strong></p>
+<p align="center"><strong>Integrating the Healthcare Enterprise</strong></p>
+<p align="center"><strong>&nbsp;</strong></p>
+<p align="center"><strong>&nbsp;</strong><strong>IHE/MESA Information Source Tests</strong></p>
+<p>&nbsp;</p>
+<p align="center">Electronic Radiology  Laboratory<br />
+  Mallinckrodt Institute of  Radiology<br />
+  510 South    Kingshighway Blvd. <br />
+  St. Louis, MO&nbsp; 63110 <br />
+  314.362.6965 (Voice)<br />
+  314.362.6971 (Fax)</p>
+<p align="center">&nbsp;</p>
+<p align="center">Revision 9.4.0<br />
+  4-November-2005</p>
+<strong>Contents:</strong><br clear="all" />
+<p><a href="#intro">Introduction</a> <br />
+    <a href="#patient_id"> Patient Identification</a> <br />
+    <a href="#sub_results">Submission of Results</a> <br />
+<a href="#test_cases_rid">Test  Cases: RID</a> </p>
+<ol>
+  <li><a href="#test_10111"> Test Case 10111: RID Retrieve  Specific Info Request Keys 1</a> <br />
+  </li>
+  <li><a href="#test_10112">Test Case 10112: RID Retrieve  Specific Info Request Keys 2</a> <br />
+  </li>
+  <li><a href="#test_10113">Test Case 10113: RID Retrieve  Specific Info Request Keys 3</a> <br />
+  </li>
+  <li><a href="#test_10121">Test Case 10121: RID Summary of  Reports</a> <br />
+  </li>
+  <li><a href="#test_10122">Test Case 10122: RID List of  Information Items</a> <br />
+  </li>
+  <li><a href="#test_10131">Test Case 10131: RID Retrieve  Specific Info Request Response Code 401</a> <br />
+  </li>
+  <li><a href="#test_10132">Test Case 10132: RID Retrieve  Specific Info Request Response Code 404</a> <br />
+  </li>
+  <li><a href="#test_10133">Test Case 10133: RID Response Code  406</a> <br />
+  </li>
+  <li><a href="#test_10141">Test Case 10141: RID Retrieve  Document JPEG</a> <br />
+  </li>
+  <li><a href="#test_10142">Test Case 10142: RID Retrieve Document  PDF</a> <br />
+  </li>
+  <li><a href="#test_10143">Test Case 10143: RID Retrieve Document  CDA</a> <br />
+  </li>
+  <li><a href="#test_10144">Test Case 10144: RID Retrieve Document  JPEG/PDF</a> <br />
+  </li>
+  <li><a href="#test_10145">Test Case 10145: RID Retrieve Document  Bad Request</a> <br />
+  </li>
+  <li><a href="#test_10146">Test Case 10146: RID Retrieve Document  with Unsupported Document Type</a> <br />
+  </li>
+  <li><a href="#test_10147">Test Case 10147: RID Retrieve  Non-Existing Document</a> <br />
+  </li>
+</ol>
+<p><a href="#test_cases_ecg">Test  Cases: Retrieve ECG for Display</a> </p>
+<ol><li><a href="#test_20301"> Test Case 20301: ECG D1: Simple  Display of ECGs &ndash; Basic Query/HTML Response &ndash; Summary and Display</a> <br />
+    </li>
+  <li><a href="#test_20302">Test Case 20302: ECG D1: Simple of  ECGs &ndash; Query &ndash; Summary &ndash; No such Patient</a> <br />
+  </li>
+  <li><a href="#test_20303">Test Case 20303: ECG D1: Simple  Display of ECGs &ndash; Basic Query &ndash; SUMMARY-CARDIOLOGY/HTML Response &ndash; Summary and  Display</a> <br />
+  </li>
+  <li><a href="#test_20304">Test Case 20304: ECG D1: Simple  Display of ECGs &ndash;CARD5 Query &ndash; SUMMARY-CARDIOLOGY-ECG/XML Response</a> <br />
+  </li>
+  <li><a href="#test_20305">Test Case 20305: ECG D1: Simple  Display of ECGs &ndash;CARD5 Query &ndash; SUMMARY-CARDIOLOGY-ECG &ndash; No such patient</a> <br />
+  </li>
+  <li><a href="#test_20307">Test Case 20307: ECG D1: Simply  Display of ECGs &ndash; Retrieve document without query</a> <br />
+  </li>
+  <li><a href="#test_20308">Test Case 20308: ECG D1: Simply  Display of ECGs &ndash; Retrieve vector pdf document</a> <br />
+  </li>
+  <li><a href="#test_20309">Test Case 20309: ECG D1: Simply  Display of ECGs &ndash; Retrieve svg document</a> <br />
+  </li>
+</ol>
+<h1><a name="#intro" id="#intro">Introduction</a> </h1>
+<p>The MESA tests include a number of cases each of  which rely on a sequence of messages between actors. These tests range across  different integration profiles:</p>
+<ul>
+  <li>Retrieve  Information for Display</li>
+  <li>Enterprise User Authentication</li>
+  <li>Patient  Identity Cross Reference for MPI</li>
+  <li>Patient  Synchronized Application</li>
+  <li>Consistent  Time</li>
+</ul>
+<p>This document lists the  transactions and messages for a number of cases. It may not describe the  clinical scenario behind each case, but listing the transactions should clearly  define what is expected of each actor.&nbsp;  These are all of the transactions involving all of the actors.&nbsp; When you test with your particular actor, you  may see only a subset of these messages.</p>
+<h2><a name="#patient_id" id="#patient_id">Patient Identification</a></h2>
+<h2><a name="#sub_results" id="#sub_results">Submission of Results</a></h2>
+<p>Test descriptions below inform the reader to &ldquo;submit  results to the Project Manager&rdquo;. This is does not mean &ldquo;email&rdquo;. The current  submission process should be documented by the Project Manager, but will not  include emailing files directly to the Project Manager.</p>
+<h1><a name="#test_cases_rid" id="#test_cases_rid">Test Cases: RID</a></h1>
+<p>This section describes test cases that are generally  associated with the RID Integration Profile. There may be some overlap with  other profiles.<br />
+  Each test case involves a series of transactions involving  one test patient.&nbsp; Some patients may  require that a single actor participate in multiple transactions. The tables in  this section give the order of messages for an integrated system with all  actors.&nbsp; This is provided as a  centralized reference.&nbsp; To test an  individual IHE actor, refer to the appropriate test document.</p>
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_10111" id="#test_10111">Test Case 10111: RID Retrieve Specific Info  Request Keys 1</a></h2>
+<p>Test case 10111 covers RID Web Service Request Keys. The  test uses a web browser to query the Information Source under test. The  requestType is for SUMMARY, so the Information Source should respond with at  least one report.</p>
+<h3>References</h3>
+<p>ITI TF-2: 3.11.4</p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps:</p>
+<ol>
+  <li>Enter  a report in your system for a subject with patient ID RID10111^^^RID. If you  need to use a different patientID, contact the Project Manager.</li>
+  <li>Edit  the file <em>$MESA_TARGET/html/rid/rid_101xx.html</em>. This HTML file has links  for requests for specific information. In the row for test 10111, replace  &ldquo;info-src:8080 with the specification for your Information Source.</li>
+  <li>Leave  the other request keys in the URL as the <em>rid_101xx.html</em> file is shipped.</li>
+  <li>Use  a web browser (Internet Explorer, Mozilla, Opera, &hellip;) to open the modified  $MESA_TARGET/html/rid.html. Select the link for test 10111. This will send an  HTTP request to your Information Source.</li>
+  <li>The  web browser should receive and display your report.</li>
+</ol>
+<h3>Supplemental Information </h3>
+<ol>
+  <li>If  your system needs HL7 messages or other data to get demographics for this  subject, contact the Project Manager.</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Obtain  a screen capture (software, digital camera) of the web browser screen showing  the returned result. This should include the address window of the browswer so  we can see the URL that was used.</li>
+  <li>Name  the output file rid_10111.xxx where xxx is the appropriate extension.</li>
+  <li>Zip/tar  the screen capture file with other results and submit to the Project Manager.</li>
+</ol></td></tr></table>
+<h2><a name="#test_10112" id="#test_10112">Test Case 10112: RID Retrieve Specific Info  Request Keys 2</a></h2>
+<p>Test case 10112 covers RID Web Service Request Keys. These  behaviors are tested:</p>
+<ul>
+  <li>A specific patient ID is defined.</li>
+  <li>All request types other than SUMMARY are  allowed. Only one is required to be tested.</li>
+  <li>Display makes a request for specific information  and displays response.</li>
+  <li>Information Source receives a request for  specific information and returns response.</li>
+</ul>
+<h3>References</h3>
+<p>ITI TF-2: 3.11.4</p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps:</p>
+<ol>
+  <li>Enter  a report in your system for a subject with patient ID RID10112^^^RID. If you  need to use a different patientID, contact the Project Manager.</li>
+  <li>Edit  the file <em>$MESA_TARGET/html/rid/rid_101xx.html</em>. This HTML file has links  for requests for specific information. In the row for test 10112, replace  &ldquo;info-src:8080 with the specification for your Information Source.</li>
+  <li>Leave  the other request keys in the URL as the <em>rid_101xx.html</em> file is shipped.</li>
+  <li>Use  a web browser (Internet Explorer, Mozilla, Opera, &hellip;) to open the modified  $MESA_TARGET/html/rid.html. Select the link for test 10112. This will send an  HTTP request to your Information Source.</li>
+  <li>The  web browser should receive and display your report.</li>
+</ol>
+<h3>Supplemental Information </h3>
+<ol>
+  <li>If  your system needs HL7 messages or other data to get demographics for this  subject, contact the Project Manager.</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Obtain  a screen capture (software, digital camera) of the web browser screen showing  the returned result. This should include the address window of the browswer so  we can see the URL that was used.</li>
+  <li>Name  the output file rid_10112.xxx where xxx is the appropriate extension.</li>
+  <li>Zip/tar  the screen capture file with other results and submit to the Project Manager.</li>
+</ol>
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_10113" id="#test_10113">Test Case 10113: RID Retrieve Specific Info  Request Keys 3</a></h2>
+</td></tr></table>
+<h2><a name="#test_10121" id="#test_10121">Test Case 10121: RID Summary of Reports</a></h2>
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_10122" id="#test_10122">Test Case 10122: RID List of Information Items</a></h2>
+</td></tr></table>
+<h2><a name="#test_10131" id="#test_10131">Test Case 10131: RID Retrieve Specific Info  Request Response Code 401</a></h2>
+<p>Test case 10131 covers the RID queries and the HTTP response  code 401. </p>
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_10132" id="#test_10132">Test Case 10132: RID Retrieve Specific Info  Request Response Code 404</a></h2>
+<p>Test case 10132 covers the RID queries and the HTTP response  code 404. The Display actor makes a request to the MESA Information Source for  a report that does not exist. The Information Source sends the HTTP response  code 404.</p>
+<h3>References</h3>
+<p>ITI TF-2: 3.11.4.1.3</p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps:</p>
+<ol>
+  <li>This  test requests a report for a subject with patient ID RID10132^^^RID. This  subject should not exist in your system.</li>
+  <li>Edit  the file <em>$MESA_TARGET/html/rid/rid_101xx.html</em>. This HTML file has links  for requests for specific information. In the row for test 10132, replace  &ldquo;info-src:8080 with the specification for your Information Source.</li>
+  <li>Leave  the other request keys in the URL as the <em>rid_101xx.html</em> file is shipped.</li>
+  <li>Use  a web browser (Internet Explorer, Mozilla, Opera, &hellip;) to open the modified <em>$MESA_TARGET/html/rid/rid_101xx.html</em>.  Select the link for test 10132. This will send an HTTP request to your  Information Source.</li>
+  <li>The  web browser should receive and display your report.</li>
+</ol>
+<h3>Supplemental Information </h3>
+<ol>
+  <li>If  your system needs HL7 messages or other data to get demographics for this  subject, contact the Project Manager.</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Obtain  a screen capture (software, digital camera) of your screen showing the returned  result.</li>
+  <li>Name  the output file rid_10132.xxx where xxx is the appropriate extension.</li>
+  <li>Zip/tar  the screen capture file with other results and submit to the Project Manager.</li>
+</ol></td></tr></table>
+<h2><a name="#test_10133" id="#test_10133">Test Case 10133: RID Response Code 406</a></h2>
+<p>Test case 10133 covers the RID queries and the HTTP response  code 406. </p>
+<h3>References</h3>
+<p>ITI TF-2: 3.11.4.1.3</p>
+<h3>Direct Actors</h3>
+<p>Display<br />
+  Information Source</p>
+<h3>Supporting Actors</h3>
+<p>None</p>
+
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="109" valign="top"><p><strong>Identifier</strong></p></td>
+    <td width="252" valign="top"><p><strong>Description</strong></p></td>
+    <td width="162" valign="top"><p><strong>Source</strong></p></td>
+    <td width="115" valign="top"><p><strong>Destination</strong></p></td>
+  </tr>
+  <tr>
+    <td width="109" valign="top"><p>&nbsp;</p></td>
+    <td width="252" valign="top"><p>&nbsp;</p></td>
+    <td width="162" valign="top"><p>&nbsp;</p></td>
+    <td width="115" valign="top"><p>&nbsp;</p></td>
+  </tr>
+</table>
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_10141" id="#test_10141">Test Case 10141: RID Retrieve Document JPEG</a></h2>
+<p>Test case 10141 covers the RID transaction to retrieve a  JPEG document. The information source is expected to have at least one document  that can be retrieved in JPEG format.</p>
+<h3>References</h3>
+<p>ITI TF-2: 3.12.4</p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps using a DOS window or  terminal emulator:</p>
+<ol>
+  <li>Set  the current directory to <em>$MESA_TARGET/mesa_tests/iti/actors/info_src</em>.</li>
+  <li>Edit  the text file <em>10141/10141.txt</em>. This file describes the information  source under test and the specific document to retrieve. Several values are  fixed and should not be changed. You should modify these values as appropriate  for your system:</li>
+  <ol type="a">
+    <li>URLPrefix</li>
+    <li>documentUID</li>
+  </ol>
+  <li>The  tables below list the Query Keys and HTTP Request Fields the Information Source  under test will receive.</li>
+  <li>Run  the test script as follows:</li>
+</ol>
+<pre>      perl  scripts/info_src_wget.pl 10141 &lt;log level&gt;</pre>
+<blockquote>
+  <p> where &lt;log level&gt; is a  value between 1 and 4.</p>
+</blockquote>
+<ol start="5">
+  <li>x</li>
+</ol>
+<p align="left"><strong>Test 10141 Query Keys</strong></p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="169" valign="top"><br />
+      Parameter </td>
+    <td width="78" valign="top"><p align="center">REQ</p></td>
+    <td width="391" valign="top"><p>Value</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>requestType</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>DOCUMENT</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>documentUID</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>Set by user; example is    1.2.840.113654.2.3.2003.100.101</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>preferredContentType</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>image/jpeg</p></td>
+  </tr>
+</table>
+<p><strong>Test 10141 HTTP Request Fields</strong></p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="169" valign="top"><br />
+      HTTP Field </td>
+    <td width="78" valign="top"><p align="center">REQ</p></td>
+    <td width="391" valign="top"><p>Value</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>Accept</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>image/jpeg</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>Accept-Language</p></td>
+    <td width="78" valign="top"><p align="center">O</p></td>
+    <td width="391" valign="top"><p>&nbsp;</p></td>
+  </tr>
+</table>
+<h3>Supplemental Information </h3>
+<ol>
+  <li>If  your system needs HL7 messages or other data to get demographics for this  subject, contact the Project Manager.</li>
+  <li>Add  a note about how to configure a web browser to see results.</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Two  files should be created in the directory 10141. These are 10141.out and  10141.jpg. The jpg file should contain a legal JPEG image.</li>
+  <li>Zip/tar  the files in directory 10141 and submit to the Project Manager.</li>
+</ol></td>
+</tr></table>
+<h2><a name="#test_10142" id="#test_10142">Test Case 10142: RID Retrieve Document PDF</a></h2>
+<p>Test case 10142 covers the RID transaction to retrieve a PDF  document. The information source is expected to have at least one document that  can be retrieved in PDF format.</p>
+<h3>References</h3>
+<p>ITI TF-2: 3.12.4</p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps using a DOS window or  terminal emulator:</p>
+<ol>
+  <li>Set  the current directory to $MESA_TARGET/mesa_tests/iti/actors/info_src.</li>
+  <li>Edit  the text file 10142/10142.txt. This file describes the information source under  test and the specific document to retrieve. Several values are fixed and should  not be changed. You should modify these values as appropriate for your system:</li>
+  <ol type="a">
+    <li>URLPrefix</li>
+    <li>documentUID</li>
+  </ol>
+  <li>The  tables below list the Query Keys and HTTP Request Fields the Information Source  under test will receive.</li>
+  <li>Run  the test script as follows:</li>
+</ol>
+<pre>      perl  scripts/info_src_wget.pl 10142 &lt;log level&gt;</pre>
+  <blockquote>
+    <p>where &lt;log level&gt; is a  value between 1 and 4.        </p>
+   
+  </blockquote>
+<p><strong>Test 10142 Query Keys</strong></p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="169" valign="top"><br />
+      Parameter </td>
+    <td width="78" valign="top"><p align="center">REQ</p></td>
+    <td width="391" valign="top"><p>Value</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>requestType</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>DOCUMENT</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>documentUID</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>Set by user; example is    1.2.840.113654.2.3.2003.100.102</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>preferredContentType</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>application/pdf</p></td>
+  </tr>
+</table>
+<p><strong>Test 10141 HTTP Request Fields</strong></p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="169" valign="top"><br />
+      HTTP Field </td>
+    <td width="78" valign="top"><p align="center">REQ</p></td>
+    <td width="391" valign="top"><p>Value</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>Accept</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>application/pdf</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>Accept-Language</p></td>
+    <td width="78" valign="top"><p align="center">O</p></td>
+    <td width="391" valign="top"><p>&nbsp;</p></td>
+  </tr>
+</table>
+<h3>Supplemental Information </h3>
+<ol>
+  <li>If  your system needs HL7 messages or other data to get demographics for this subject,  contact the Project Manager.</li>
+  <li>Add  a note about how to configure a web browser to see results.</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Two  files should be created in the directory 10142. These are 10142.out and  10142.pdf. The jpg file should contain a legal PDF document.</li>
+  <li>Zip/tar  the files in directory 10142 and submit to the Project Manager.</li>
+</ol>
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_10143" id="#test_10143">Test Case 10143: RID Retrieve Document CDA</a></h2>
+<p>Test case 10143 covers the RID transaction to retrieve a CDA  document. </p>
+<h3>References</h3>
+<p>ITI TF-2: 3.12.4</p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps using a DOS window or  terminal emulator:</p>
+<ol>
+  <li>Set  the current directory to $MESA_TARGET/mesa_tests/iti/actors/info_src.</li>
+  <li>Edit  the text file 10143/10143.txt. This file describes the information source under  test and the specific document to retrieve. Several values are fixed and should  not be changed. You should modify these values as appropriate for your system:</li>
+  <ol type="a">
+    <li>URLPrefix</li>
+    <li>documentUID</li>
+  </ol>
+  <li>The  tables below list the Query Keys and HTTP Request Fields the Information Source  under test will receive.</li>
+  <li>Run  the test script as follows:</li>
+</ol>
+<pre>      perl  scripts/info_src_wget.pl 10143 &lt;log level&gt;</pre>
+  <blockquote>
+    <p>where &lt;log level&gt; is a  value between 1 and 4.        </p>
+
+  </blockquote>
+  <p><strong>Test 10143 Query Keys</strong></p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="169" valign="top"><br />
+      Parameter </td>
+    <td width="78" valign="top"><p align="center">REQ</p></td>
+    <td width="391" valign="top"><p>Value</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>requestType</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>DOCUMENT</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>documentUID</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>Set by user; example is    1.2.840.113654.2.3.2003.100.103</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>preferredContentType</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>application/hl7-cda-level-one+xml</p></td>
+  </tr>
+</table>
+<p><strong>Test 10141 HTTP Request Fields</strong></p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="169" valign="top"><br />
+      HTTP Field </td>
+    <td width="78" valign="top"><p align="center">REQ</p></td>
+    <td width="391" valign="top"><p>Value</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>Accept</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>application/hl7-cda-level-one+xml</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>Accept-Language</p></td>
+    <td width="78" valign="top"><p align="center">O</p></td>
+    <td width="391" valign="top"><p>&nbsp;</p></td>
+  </tr>
+</table>
+<p>Notes:</p>
+<ol>
+  <li>If  your system needs HL7 messages or other data to get demographics for this  subject, contact the Project Manager.</li>
+  <li>Add  a note about how to configure a web browser to see results.</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Two  files should be created in the directory 10143. These are 10143.out and  10143.pdf. The jpg file should contain a legal PDF document.</li>
+  <li>Zip/tar  the files in directory 10143 and submit to the Project Manager.</li>
+</ol></td></tr></table>
+<h2><a name="#test_10144" id="#test_10144">Test Case 10144: RID Retrieve Document JPEG/PDF</a></h2>
+<p>Test case 10144 covers the RID transaction to retrieve a  JPEG or PDF document. In this test, the document can be returned by the  Information Source as a JPEG image or PDF document. The Display requests the  document (by UID) and can specify one or both formats in the HTTP Field  &ldquo;Accept&rdquo;.</p>
+<h3>References</h3>
+<p>ITI TF-2: 3.12.4</p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps using a DOS window or  terminal emulator:</p>
+<ol>
+  <li>Set  the current directory to $MESA_TARGET/mesa_tests/iti/actors/info_src.</li>
+  <li>Edit  the text file 10144/10144.txt.  This file describes the information source under test and the specific document  to retrieve. Several values are fixed and should not be changed. You should  modify these values as appropriate for your system:</li>
+  <ol type="a">
+    <li>URLPrefix</li>
+    <li>documentUID</li>
+  </ol>
+  <li>The  tables below list the Query Keys and HTTP Request Fields the Information Source  under test will receive.</li>
+  <li>Run  the test script as follows:</li>
+</ol>
+<pre>      perl  scripts/info_src_wget.pl 10144 &lt;log level&gt;</pre>
+  <blockquote>
+    <p>where &lt;log level&gt; is a  value between 1 and 4.        </p>
+
+  </blockquote>
+<p><strong>Test 10144 Query Keys</strong></p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="169" valign="top"><br />
+      Parameter </td>
+    <td width="78" valign="top"><p align="center">REQ</p></td>
+    <td width="391" valign="top"><p>Value</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>requestType</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>DOCUMENT</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>documentUID</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>Set by user; example is    1.2.840.113654.2.3.2003.100.103</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>preferredContentType</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>application/pdf</p></td>
+  </tr>
+</table>
+<p><strong>Test 10144 HTTP Request Fields</strong></p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="169" valign="top"><br />
+      HTTP Field </td>
+    <td width="78" valign="top"><p align="center">REQ</p></td>
+    <td width="391" valign="top"><p>Value</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>Accept</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>application/pdf</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>Accept-Language</p></td>
+    <td width="78" valign="top"><p align="center">O</p></td>
+    <td width="391" valign="top"><p>&nbsp;</p></td>
+  </tr>
+</table>
+<h3>Supplemental Information </h3>
+<ol>
+  <li>If  your system needs HL7 messages or other data to get demographics for this  subject, contact the Project Manager.</li>
+  <li>Add  a note about how to configure a web browser to see results.</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+
+  <li>Two  files should be created in the directory 10144. These are 10144.out and  10144.pdf. The pdf file should contain a legal PDF document.</li>
+  <li>Zip/tar  the files in directory 10144 and submit to the Project Manager.</li>
+</ol>
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_10145" id="#test_10145">Test Case 10145: RID Retrieve Document Bad  Request</a></h2>
+<p>Test case 10145 covers the RID transaction to retrieve a  JPEG. In this test, the value specified for preferredContentType is not one of  the values in the HTTP Accept request field. The Information Source is expected  to return a status value of 400 (Bad Request) in this case.</p>
+<h3>References</h3>
+<p>ITI TF-2: 3.12.4.1.3</p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps using a DOS window or  terminal emulator:</p>
+<ol>
+  <li>Set  the current directory to <em>$MESA_TARGET/mesa_tests/iti/actors/info_src</em>.</li>
+  <li>Edit  the text file 10145/10145.txt. This file describes the information source under  test and the specific document to retrieve. Several values are fixed and should  not be changed. You should modify these values as appropriate for your system:</li>
+  <ol type="a">
+    <li>URLPrefix</li>
+    <li>documentUID</li>
+  </ol>
+  <li>The  tables below list the Query Keys and HTTP Request Fields the Information Source  under test will receive.</li>
+  <li>Run  the test script as follows:</li>
+</ol>
+<pre>      perl  scripts/info_src_wget.pl 10145 &lt;log level&gt;</pre>
+  <blockquote>
+    <p>where &lt;log level&gt; is a  value between 1 and 4.        </p>
+  
+  </blockquote>
+  <p><strong>Test 10145 Query Keys</strong></p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="169" valign="top"><br />
+      Parameter </td>
+    <td width="78" valign="top"><p align="center">REQ</p></td>
+    <td width="391" valign="top"><p>Value</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>requestType</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>DOCUMENT</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>documentUID</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>Set by user; example is    1.2.840.113654.2.3.2003.100.101</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>preferredContentType</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>application/pdf</p></td>
+  </tr>
+</table>
+<p><strong>Test 10146 HTTP Request Fields</strong></p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="169" valign="top"><br />
+      HTTP Field </td>
+    <td width="78" valign="top"><p align="center">REQ</p></td>
+    <td width="391" valign="top"><p>Value</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>Accept</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>image/jpeg</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>Accept-Language</p></td>
+    <td width="78" valign="top"><p align="center">O</p></td>
+    <td width="391" valign="top"><p>&nbsp;</p></td>
+  </tr>
+</table>
+<h3>Supplemental Information </h3>
+<ol>
+  <li>If  your system needs HL7 messages or other data to get demographics for this  subject, contact the Project Manager.</li>
+  <li>Add  a note about how to configure a web browser to see results.</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>The  directory 10145 should contain the file 10145.out and a zero length file  10145.pdf.</li>
+  <li>Zip/tar  the files in directory 10145 and submit to the Project Manager.</li>
+</ol></td></tr></table>
+<h2><a name="#test_10146" id="#test_10146">Test Case 10146: RID Retrieve Document with  Unsupported Document Type</a></h2>
+<p>Test case 10146 covers the RID transaction to retrieve a  document that is stored in a format that is not supported by the Image Display.  The example is a CDA document that is stored; the Image Display is configured  to only support JPEG and PDF documents. This case tests one of the exception  modes; the Information Source will not return a document to the Image Display  but will return an error code.<br />
+  If your Information Source supports all listed formats,  this test is not to be used.</p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps using a DOS window or  terminal emulator:</p>
+<ol>
+  <li>Set  the current directory to <em>$MESA_TARGET/mesa_tests/iti/actors/info_src</em>.</li>
+  <li>Edit  the text file 10146/10146.txt. This file describes the information source under  test and the specific document to retrieve. Several values are fixed and should  not be changed. You should modify these values as appropriate for your system:</li>
+  <ol type="a">
+    <li>URL  Prefix</li>
+    <li>document UID</li>
+  </ol>
+</ol>
+<p>For the requestType and Accept  fields, you may have to change to values that indicate a format that is not  supported by your system.</p>
+<ol start="3">
+  <li>The  tables below list the Query Keys and HTTP Request Fields the Information Source  under test will receive.</li>
+  <li>Run  the test script as follows:</li>
+</ol>
+<pre>      perl  scripts/info_src_wget.pl 10146 &lt;log level&gt;</pre>
+  <blockquote>
+    <p>where &lt;log level&gt; is a  value between 1 and 4.        </p>
+
+  </blockquote>
+<p><strong>Test 10146 Query Keys</strong></p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="169" valign="top"><br />
+      Parameter </td>
+    <td width="78" valign="top"><p align="center">REQ</p></td>
+    <td width="391" valign="top"><p>Value</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>requestType</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>DOCUMENT</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>documentUID</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>Set by user; example is    1.2.840.113654.2.3.2003.100.101</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>preferredContentType</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>application/pdf</p></td>
+  </tr>
+</table>
+
+<p><strong>Test 10146 HTTP Request Fields</strong></p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="169" valign="top"><br />
+      HTTP Field </td>
+    <td width="78" valign="top"><p align="center">REQ</p></td>
+    <td width="391" valign="top"><p>Value</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>Accept</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>application/pdf</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>Accept-Language</p></td>
+    <td width="78" valign="top"><p align="center">O</p></td>
+    <td width="391" valign="top"><p>&nbsp;</p></td>
+  </tr>
+</table>
+<h3>Supplemental Information </h3>
+<ol>
+  <li>If  your system needs HL7 messages or other data to get demographics for this  subject, contact the Project Manager.</li>
+  <li>Add  a note about how to configure a web browser to see results.</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>The  directory 10146 should contain the file 10146.out.</li>
+  <li>Zip/tar  the files in directory 10146 and submit to the Project Manager.</li>
+</ol>
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_10147" id="#test_10147">Test Case 10147: RID Retrieve Non-Existing  Document</a></h2>
+<p>Test case 10147 covers the RID transaction to retrieve a  document that does not exist in the Information Source. This case tests one of  the exception modes; the Information Source will not return a document to the  Image Display but will return an error code.<br />
+  The Information Source is expected to return the Error  Code 404 &ndash; Not Found.</p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps using a DOS window or  terminal emulator:</p>
+<ol>
+  <li>Set  the current directory to <em>$MESA_TARGET/mesa_tests/iti/actors/info_src</em>.</li>
+  <li>Edit  the text file 10147/10147.txt. This file describes the information source under  test and the specific document to retrieve. Several values are fixed and should  not be changed. You should modify these values as appropriate for your system:</li>
+  <ol type="a">
+    <li>URL  Prefix</li>
+    <li>document  UID</li>
+  </ol>
+</ol>
+<p>For the requestType and Accept  fields, you may have to change to values that indicate a format that is not  supported by your system.</p>
+<ol start="3">
+  <li>The  tables below list the Query Keys and HTTP Request Fields the Information Source  under test will receive.</li>
+  <li>Run  the test script as follows:</li>
+</ol>
+<pre>      perl  scripts/info_src_wget.pl 10147 &lt;log level&gt;</pre>
+  <blockquote>
+    <p>where &lt;log level&gt; is a  value between 1 and 4.        </p>
+  
+  </blockquote>
+  <p><strong>Test 10147 Query Keys</strong></p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="169" valign="top"><br />
+      Parameter </td>
+    <td width="78" valign="top"><p align="center">REQ</p></td>
+    <td width="391" valign="top"><p>Value</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>requestType</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>DOCUMENT</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>documentUID</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>Set by user; example is    1.2.840.113654.2.3.2003.100.100</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>preferredContentType</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>application/pdf</p></td>
+  </tr>
+</table>
+<p><strong>Test 10146 HTTP Request Fields</strong></p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="169" valign="top"><br />
+      HTTP Field </td>
+    <td width="78" valign="top"><p align="center">REQ</p></td>
+    <td width="391" valign="top"><p>Value</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>Accept</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>application/pdf</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>Accept-Language</p></td>
+    <td width="78" valign="top"><p align="center">O</p></td>
+    <td width="391" valign="top"><p>&nbsp;</p></td>
+  </tr>
+</table>
+<h3>Supplemental Information </h3>
+<ol>
+  <li>If  your system needs HL7 messages or other data to get demographics for this  subject, contact the Project Manager.</li>
+  <li>Add  a note about how to configure a web browser to see results.</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>The  directory 10147 should contain the file 10147.out.</li>
+  <li>Zip/tar  the files in directory 10147 and submit to the Project Manager.</li>
+</ol>
+</td></tr></table>
+<h1>&nbsp;<a name="#test_cases_ecg" id="#test_cases_ecg">Test Cases: Retrieve ECG for Display</a></h1>
+<p>This section describes test cases that are generally  associated with the EUA Integration Profile. There may be some overlap with  other profiles.</p>
+<table><tr><td bgcolor="#FFFF99">
+<h2><a name="#test_20301" id="#test_20301">Test Case 20301: ECG D1: Simple Display of ECGs  &ndash; Basic Query/HTML Response &ndash; Summary and Display</a></h2>
+<p>Test case 20301 covers ECG Web Service Request Keys. The  MESA Display actor makes a request to the&nbsp;  Information Source, retrieves a report and displays that report. The  requestType is for SUMMARY, so the Information Source should respond with at  least one report.</p>
+<h3>References</h3>
+<p>CARD TF-1: 5.3.1</p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps:</p>
+<ol>
+  <li>Enter  a report in your system for a subject with patient ID ECG203011^^^RID. If you  need to use a different patientID, contact the Project Manager.</li>
+  <li>Edit  the file <em>$MESA_TARGET/html/ecg/ecg_203xx.html</em>. This HTML file has links  for requests for specific information. In the row for test 20301, replace  &ldquo;info-src:8080 with the specification for your Information Source.</li>
+  <li>Leave  the other request keys in the URL as the <em>ecg_203xx.html</em> file is shipped.</li>
+  <li>Use  a web browser (Internet Explorer, Mozilla, Opera, &hellip;) to open the modified  $MESA_TARGET/html/ecg.html. Select the link for test 20301. This will send an  HTTP request to your Information Source.</li>
+  <li>The  web browser should receive and display your report. Perform a screen catpure of  this report.</li>
+  <li>Your  report should contain links to one or more documents. Use the web browser to  retrieve/display one of those documents. Perform a screen capture of this  document.</li>
+</ol>
+<h3>Supplemental Information </h3>
+<ol>
+  <li>If  your system needs HL7 messages or other data to get demographics for this  subject, contact the Project Manager.</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Obtain  a screen capture (software, digital camera) of the web browser screen showing  the returned two results (summary and specific report). This should include the  address window of the browswer so we can see the URL that was used. Name the  screen captures ecg_20301a.xxx and ecg_20301b.xxx where xxx is the appropriate  extension (JPG, etc.).</li>
+  <li>Zip/tar  the screen capture file with other results and submit to the Project Manager.</li>
+</ol>
+</td></tr></table>
+<h2><a name="#test_20302" id="#test_20302">Test Case 20302: ECG D1: Simple of ECGs &ndash; Query  &ndash; Summary &ndash; No such Patient</a></h2>
+<p>Test case 20302 covers ECG Web Services Keys for a patient  that does not exist. This is a duplicate of tests 10132. Run that test instead  of this test.</p>
+<table><tr><td bgcolor="#FFFF99">
+<h2><a name="#test_20303" id="#test_20303">Test Case 20303: ECG D1: Simple Display of ECGs  &ndash; Basic Query &ndash; SUMMARY-CARDIOLOGY/HTML Response &ndash; Summary and Display</a></h2>
+<p>Test case 20303 covers ECG Web Service Request Keys. The  MESA Display actor makes a request to the&nbsp;  Information Source, retrieves a report and displays that report. The  requestType is for SUMMARY-CARDIOLOGY, so the Information Source should respond  with at least one report.</p>
+<h3>References</h3>
+<p>CARD TF-1: 5.3.1</p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps:</p>
+<ol>
+  <li>Enter  a report in your system for a subject with patient ID ECG203011^^^RID. If you  need to use a different patientID, contact the Project Manager.</li>
+  <li>Edit  the file <em>$MESA_TARGET/html/ecg/ecg_203xx.html</em>. This HTML file has links  for requests for specific information. In the row for test 20303, replace  &ldquo;info-src:8080 with the specification for your Information Source.</li>
+  <li>Leave  the other request keys in the URL as the <em>ecg_203xx.html</em> file is shipped.</li>
+  <li>Use  a web browser (Internet Explorer, Mozilla, Opera, &hellip;) to open the modified  $MESA_TARGET/html/ecg.html. Select the link for test 20303. This will send an  HTTP request to your Information Source.</li>
+  <li>The  web browser should receive and display your report. Perform a screen catpure of  this report.</li>
+  <li>Your  report should contain links to one or more documents. Use the web browser to  retrieve/display one of those documents. Perform a screen capture of this  document.</li>
+</ol>
+<h3>Supplemental Information </h3>
+<ol>
+  <li>If  your system needs HL7 messages or other data to get demographics for this  subject, contact the Project Manager.</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Obtain  a screen capture (software, digital camera) of the web browser screen showing  the returned two results (summary and specific report). This should include the  address window of the browswer so we can see the URL that was used. Name the  screen captures ecg_20303a.xxx and ecg_20303b.xxx where xxx is the appropriate  extension (JPG, etc.).</li>
+  <li>Zip/tar  the screen capture file with other results and submit to the Project Manager.</li>
+</ol></td>
+</tr></table>
+<h2><a name="#test_20304" id="#test_20304">Test Case 20304: ECG D1: Simple Display of ECGs  &ndash;CARD5 Query &ndash; SUMMARY-CARDIOLOGY-ECG/XML Response</a></h2>
+<p>Test case 20304 covers ECG Web Service Request Keys. The  MESA Display actor makes a request to the Information Source, retrieves a  report and displays that report. The requestType is for SUMMARY-CARDIOLOGY-ECG,  so the Information Source should respond with an XML list of reports.</p>
+<h3>References</h3>
+<p>CARD TF-1: 5.3.1</p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps:</p>
+<ol>
+  <li>Enter  a report in your system for a subject with patient ID ECG203011^^^RID. If you  need to use a different patientID, contact the Project Manager.</li>
+  <li>Edit  the file <em>$MESA_TARGET/html/ecg/ecg_203xx.html</em>. This HTML file has links  for requests for specific information. In the row for test 20304, replace  &ldquo;info-src:8080 with the specification for your Information Source.</li>
+  <li>Leave  the other request keys in the URL as the <em>ecg_203xx.html</em> file is shipped.</li>
+  <li>Use  a web browser (Internet Explorer, Mozilla, Opera, &hellip;) to open the modified  $MESA_TARGET/html/ecg.html. Select the link for test 20304. This will send an  HTTP request to your Information Source.</li>
+  <li>The  web browser should receive and display your XML list. Perform a screen catpure  of this report.</li>
+</ol>
+<h3>Supplemental Information </h3>
+<ol>
+  <li>If  your system needs HL7 messages or other data to get demographics for this  subject, contact the Project Manager.</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Obtain  a screen capture (software, digital camera) of the web browser screen showing  the returned result. This should include the address window of the browswer so  we can see the URL that was used. Name the screen captures ecg_20304a.xxx where  xxx is the appropriate extension (JPG, etc.).</li>
+  <li>Capture  the output XML from the web browser and store in a file: ecg_2034b.xml.</li>
+  <li>Zip/tar  the screen capture file with other results and submit to the Project Manager.</li>
+</ol>
+<table><tr><td bgcolor="#FFFF99">
+<h2><a name="#test_20305" id="#test_20305">Test Case 20305: ECG D1: Simple Display of ECGs  &ndash;CARD5 Query &ndash; SUMMARY-CARDIOLOGY-ECG &ndash; No such patient</a></h2>
+<p>Test case 20305 covers ECG Web Service Request Keys. The  MESA Display actor makes a request to the Information Source for a patient that  does not exist. The requestType is for SUMMARY-CARDIOLOGY-ECG.</p>
+<h3>References</h3>
+<p>CARD TF-1: 5.3.1</p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps:</p>
+<ol>
+  <li>This  test requests a report for a subject with patient ID ECG203019^^^RID. This  subject should not exist in your system.</li>
+  <li>Edit  the file <em>$MESA_TARGET/html/ecg/ecg_203xx.html</em>. This HTML file has links  for requests for specific information. In the row for test 20305, replace  &ldquo;info-src:8080 with the specification for your Information Source.</li>
+  <li>Leave  the other request keys in the URL as the <em>ecg_203xx.html</em> file is shipped.</li>
+  <li>Use  a web browser (Internet Explorer, Mozilla, Opera, &hellip;) to open the modified  $MESA_TARGET/html/ecg.html. Select the link for test 20305. This will send an  HTTP request to your Information Source.</li>
+  <li>The  web browser should receive an error response from you and display that response.  Perform a screen capture of the web browser display.</li>
+</ol>
+<h3>Supplemental Information </h3>
+<ol>
+  <li>If  your system needs HL7 messages or other data to get demographics for this  subject, contact the Project Manager.</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Obtain  a screen capture (software, digital camera) of the web browser screen showing  the returned result. This should include the address window of the browswer so  we can see the URL that was used. Name the screen captures ecg_20305.xxx where  xxx is the appropriate extension (JPG, etc.).</li>
+  <li>Zip/tar  the screen capture file with other results and submit to the Project Manager.</li>
+</ol>
+</td></tr></table>
+<h2><a name="#test_20307" id="#test_20307">Test Case 20307: ECG D1: Simply Display of ECGs  &ndash; Retrieve document without query</a></h2>
+<p>Test case 20307 tests the Information Sources and covers the  ECG transaction to retrieve an ECG document (either pdf or svg format). The  information source is expected to have at least one document that can be  retrieved in vector pdf format (the default format).</p>
+<h3>References</h3>
+<p>ITI TF-2: 3.12.4</p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps using a DOS window or  terminal emulator:</p>
+<ol>
+  <li>Set  the current directory to <em>$MESA_TARGET/mesa_tests/iti/actors/info_src</em>.</li>
+  <li>Edit  the text file <em>20307/20307.txt</em>. This file describes the information  source under test and the specific document to retrieve. Several values are  fixed and should not be changed. You should modify these values as appropriate  for your system:
+    <ol type="a">
+      <li>URLPrefix</li>
+      <li>documentUID</li>
+    </ol>
+  </li>
+  <li>The  tables below list the Query Keys and HTTP Request Fields the Information Source  under test will receive.</li>
+  <li>Run  the test script as follows:</li>
+</ol>
+<pre>      perl  scripts/info_src_wget.pl 20307 &lt;log level&gt;</pre>
+  <blockquote>
+    <p>where &lt;log level&gt; is a  value between 1 and 4.        </p>
+    
+  </blockquote>
+<p><strong>Test 20307 Query Keys</strong></p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="169" valign="top"><br />
+      Parameter </td>
+    <td width="78" valign="top"><p align="center">REQ</p></td>
+    <td width="391" valign="top"><p>Value</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>requestType</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>DOCUMENT</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>documentUID</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>Set by user; example is    1.2.840.113654.2.3.2003.100.101</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>preferredContentType</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>application/pdf</p></td>
+  </tr>
+</table>
+<p><strong>Test 20307 HTTP Request Fields</strong></p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="169" valign="top"><br />
+      HTTP Field </td>
+    <td width="78" valign="top"><p align="center">REQ</p></td>
+    <td width="391" valign="top"><p>Value</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>Accept</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>application/pdf</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>Accept-Language</p></td>
+    <td width="78" valign="top"><p align="center">O</p></td>
+    <td width="391" valign="top"><p>&nbsp;</p></td>
+  </tr>
+</table>
+<h3>Supplemental Information </h3>
+<ol>
+  <li>If  your system needs HL7 messages or other data to get demographics for this  subject, contact the Project Manager.</li>
+  <li>Add  a note about how to configure a web browser to see results.</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Two  files should be created in the directory 20307. The file 20307.out is a log  file. The second file is 20307.pdf or 20307.svg and should contain a legal PDF  or SVG file.</li>
+  <li>Zip/tar the files in directory 20307&nbsp; and submit to the Project Manager </li>
+</ol>
+<table><tr><td bgcolor="#FFFF99">
+<h2><a name="#test_20308" id="#test_20308">Test Case 20308: ECG D1: Simply Display of ECGs  &ndash; Retrieve vector pdf document</a></h2>
+<p>Test case 20308 covers the ECG transaction to retrieve a vector  PDF document. The information source is expected to have at least one document  that can be retrieved in vector PDF format.</p>
+<h3>References</h3>
+<p>ITI TF-2: 3.12.4</p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps using a DOS window or  terminal emulator:</p>
+<ol>
+  <li>Set  the current directory to <em>$MESA_TARGET/mesa_tests/iti/actors/info_src</em>.</li>
+  <li>Edit  the text file <em>20308/20308.txt</em>. This file describes the information  source under test and the specific document to retrieve. Several values are  fixed and should not be changed. You should modify these values as appropriate  for your system:
+    <ol type="a">
+      <li>URLPrefix</li>
+      <li>documentUID</li>
+    </ol>
+  </li>
+  <li>The  tables below list the Query Keys and HTTP Request Fields the Information Source  under test will receive.</li>
+  <li>Run  the test script as follows:</li>
+</ol>
+<pre>      perl  scripts/info_src_wget.pl 20308 &lt;log level&gt;</pre>
+  <blockquote>
+    <p>where &lt;log level&gt; is a  value between 1 and 4.        </p>
+  </blockquote>
+  <p><strong>Test 20308 Query Keys</strong></p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="169" valign="top"><br />
+      Parameter </td>
+    <td width="78" valign="top"><p align="center">REQ</p></td>
+    <td width="391" valign="top"><p>Value</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>requestType</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>DOCUMENT</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>documentUID</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>Set by user; example is    1.2.840.113654.2.3.2003.100.101</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>preferredContentType</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>application/pdf</p></td>
+  </tr>
+</table>
+<p><strong>Test 20308 HTTP Request Fields</strong></p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="169" valign="top"><br />
+      HTTP Field </td>
+    <td width="78" valign="top"><p align="center">REQ</p></td>
+    <td width="391" valign="top"><p>Value</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>Accept</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>application/pdf</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>Accept-Language</p></td>
+    <td width="78" valign="top"><p align="center">O</p></td>
+    <td width="391" valign="top"><p>&nbsp;</p></td>
+  </tr>
+</table>
+<h3>Supplemental Information </h3>
+<ol>
+  <li>If  your system needs HL7 messages or other data to get demographics for this  subject, contact the Project Manager.</li>
+  <li>Add  a note about how to configure a web browser to see results.</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Two  files should be created in the directory 20308. These are 20308.out and 20307.PDF.  The PDF file should contain a legal pdf image.</li>
+  <li>Zip/tar  the files in directory 20307&nbsp; and submit  to the Project Manager.</li>
+</ol></td>
+</tr></table>
+<h2><a name="#test_20309" id="#test_20309">Test Case 20309: ECG D1: Simply Display of ECGs  &ndash; Retrieve svg document</a></h2>
+<p>Test case 20309 covers the ECG transaction to retrieve a vector  PDF document. The information source is expected to have at least one document  that can be retrieved in SVG format.</p>
+<h3>References</h3>
+<p>ITI TF-2: 3.12.4</p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps using a DOS window or  terminal emulator:</p>
+<ol>
+  <li>Set  the current directory to <em>$MESA_TARGET/mesa_tests/iti/actors/info_src</em>.</li>
+  <li>Edit  the text file <em>20309/20309.txt</em>. This file describes the information  source under test and the specific document to retrieve. Several values are  fixed and should not be changed. You should modify these values as appropriate  for your system:
+    <ol type="a">
+      <li>URLPrefix</li>
+      <li>documentUID</li>
+    </ol>
+  </li>
+  <li>The  tables below list the Query Keys and HTTP Request Fields the Information Source  under test will receive.</li>
+  <li>Run  the test script as follows:</li>
+</ol>
+<pre>      perl  scripts/info_src_wget.pl 20309 &lt;log level&gt;</pre>
+  <blockquote>
+    <p>where &lt;log level&gt; is a  value between 1 and 4.
+    
+    </p>
+  </blockquote>
+<p><strong>Test 20309 Query Keys</strong></p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="169" valign="top"><br />
+      Parameter </td>
+    <td width="78" valign="top"><p align="center">REQ</p></td>
+    <td width="391" valign="top"><p>Value</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>requestType</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>DOCUMENT</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>documentUID</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>Set by user; example is    1.2.840.113654.2.3.2003.100.101</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>preferredContentType</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>image/svg+xml</p></td>
+  </tr>
+</table>
+<p><strong>Test 20309 HTTP Request Fields</strong></p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="169" valign="top"><br />
+      HTTP Field </td>
+    <td width="78" valign="top"><p align="center">REQ</p></td>
+    <td width="391" valign="top"><p>Value</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>Accept</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>image/svg+xml</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>Accept-Language</p></td>
+    <td width="78" valign="top"><p align="center">O</p></td>
+    <td width="391" valign="top"><p>&nbsp;</p></td>
+  </tr>
+</table>
+<h3>Supplemental Information </h3>
+<ol>
+  <li>If  your system needs HL7 messages or other data to get demographics for this  subject, contact the Project Manager.</li>
+  <li>Add  a note about how to configure a web browser to see results.</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Two  files should be created in the directory 20309. These are 20309.out and 20309.SVG.  The SVG file should contain a legal SVG document.</li>
+  <li>Zip/tar  the files in directory 20308&nbsp; and submit  to the Project Manager.</li>
+</ol>
+
+</body>
+</html>

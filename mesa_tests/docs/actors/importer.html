@@ -1,0 +1,541 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Untitled Document</title>
+<style type="text/css">
+<!--
+.style1 {font-size: 24px}
+.style2 {font-size: 36px}
+.style3 {
+	color: #FF0000;
+	font-style: italic;
+}
+.style4 {color: #FF00FF}
+.style5 {color: #000000}
+.style6 {color: #FF0000}
+-->
+</style>
+</head>
+
+<body>
+<p align="center"><span class="style1"><strong>HIMSS and RSNA</strong><br />
+<strong>Integrating the Healthcare Enterprise</strong></span></p>
+<p align="center"><strong>&nbsp;</strong></p>
+<p align="center"><span class="style2"><strong>&nbsp;</strong><strong>IHE/MESA Importer Tests</strong></span></p>
+<p>&nbsp;</p>
+<p align="center">Electronic Radiology  Laboratory<br />
+  Mallinckrodt Institute of  Radiology<br />
+  510 South    Kingshighway Blvd. <br />
+  St. Louis, MO&nbsp; 63110 <br />
+  314.362.6965 (Voice)<br />
+  314.362.6971 (Fax)</p>
+<p align="center">&nbsp;</p>
+<p align="center">Revision 10.1.0 <br />
+  August   25, 2006 </p>
+<strong>Contents</strong><br clear="all" />
+<p><a href="#imprt_tests">Importer Tests</a><br />
+  <a href="#intro">Introduction</a><br />
+  <a href="#msg_att"> Message  Attributes </a><br />
+  <a href="#msg_values"> Message  Values</a><br />
+  <a href="#config">Configuration</a><br />
+  <a href="#start_servers">Starting  the MESA Servers</a><br />
+  <a href="#load_data">Loading  Test Data</a><br />
+  <a href="#sub_results"> Submission  of Results</a><br />
+<a href="#cases_imprtr">Test Cases: Importer</a></p>
+<ol><li><a href="#test_3705">Test  Case 3705:&nbsp; MWL Test for Scheduled Import  Option </a><br />
+    </li>
+  <li><a href="#test_3720">Test  Case 3720:&nbsp; Importer (portable media)  Coerces Attributes &ndash; Unscheduled Import Option&nbsp;&nbsp;</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+  </li>
+  <li><a href="#test_3721">Test  Case 3721:&nbsp; Importer (digitizer) Coerces  Attributes &ndash; Unscheduled Import Option </a><br />
+  </li>
+  <li><a href="#test_3725">Test  Case 3725:&nbsp; Importer  Coerces Attributes &ndash; Scheduled Import Option </a><br />
+  </li>
+  <li><a href="#test_3726">Test  Case 3726:&nbsp; Importer (digitizer) Coerces  Attributes &ndash; Scheduled Import Option </a><br />
+  </li>
+  <li><a href="#test_3739">Test  Case 3739:&nbsp; PPS Exception Management &ndash;  abandoned import &ndash; unscheduled </a><br />
+  </li>
+  <li><a href="#test_3740">Test  Case 3740:&nbsp; PPS Exception Management &ndash; abandoned  import - scheduled </a><br />
+  </li>
+  <li><a href="#test_3741">Test  Case 3741:&nbsp; PPS Exception Management &ndash;  incorrect patient selected from list - unscheduled&nbsp;</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+  </li>
+  <li><a href="#test_3742">Test  Case 3742:&nbsp; PPS Exception Management &ndash;  incorrect worklist item - scheduled </a><br />
+  </li>
+  <li><a href="#test_3734">Test  Case 3734:&nbsp; Image Manager rejects  imported objects</a><br />
+  </li>
+  <li><a href="#test_3745">Test  Case 3745:&nbsp;&nbsp; Billing and Material  Management Option - unscheduled</a><br />
+  </li>
+  <li><a href="#test_3746">Test  Case 3746:&nbsp;&nbsp; Billing and Material  Management Option - scheduled</a><br />
+  </li>
+  <li><a href="#test_3750">Test  Case 3750:&nbsp; Instance Availability  Notification upon Import</a><br />
+    <br clear="all" />
+  &nbsp;</li>
+</ol>
+<h1><a name="#imprt_tests" id="#imprt_tests">Importer Tests</a></h1>
+<h2><a name="#intro" id="#intro">Introduction</a></h2>
+<p>This document lists a number of tests for Importer systems.  You may not be responsible for all of these tests.<br />
+  Please refer to the Connectathon web tool to list the  required tests for your system. The web address of this tool depends on the  year and project manager. Please contact the appropriate project manager to  obtain this information.</p>
+<h2><a name="#msg_att" id="#msg_att">Message Attributes</a></h2>
+<h2><a name="#msg_values" id="#msg_values">Message Values</a></h2>
+<h2><a name="#config" id="#config">Configuration</a></h2>
+<p>The Importer scripts use an ASCII configuration file to  identify parameters such as host names and port numbers.&nbsp; The configuration file is named <em>imp_test.cfg</em> and is included in the  directory <em>$MESA_TARGET/mesa_tests/rad/actors/importer</em>.&nbsp; Edit the file and change entries (host name,  port number) which pertain to your system.&nbsp;  Your system is identified by entries that begin with TEST.<br />
+  <span class="style4">For  IHE Basic Security tests, all messages are exchanged using TLS. MESA servers are run on  the same ports but with the TLS option. The configuration file that identifies  your information is <em>imp_secure.cfg</em>. This separate file allows you to use  different port numbers for secure and standard configurations. You may decide  to use the same port numbers for both types of communication. The MESA software will only  use all secure or all standard communication for a test; we do not mix  communication protocols.</span><br />
+  This version of the software assumes the AE title of your  Importer is<span class="style5"> IMPORTER1</span><span class="style4">.</span>&nbsp; That will be the Scheduled AE title and the  AE title we assume you use when you send images, mpps events and storage  commitment requests.&nbsp; Please use this AE  title for your Importer.<br />
+  Importers will communicate with two MESA servers during these tests.&nbsp; Parameters for the tests are listed  below.&nbsp; Worklist queries should be sent  to the MESA MWL Server.&nbsp; All other  messages (storage, storage commitment, MPPS) should be sent to the MESA Image Manager.<br />
+The file <em>$MESA_TARGET/runtime/imgmgr/ds_dcm.cfg</em> is used to configure the MESA Image Manager .&nbsp;  The only parameter users should change is the LOG_LEVEL value.&nbsp; Log levels are defined in the &quot;Starting MESA Servers&quot; section below.&nbsp; DICOM configuration parameters are listed in  the table below.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="213" valign="top"><br />
+      System </td>
+    <td width="213" valign="top"><p>Application Entity Title</p></td>
+    <td width="213" valign="top"><p>Port</p></td>
+  </tr>
+  <tr>
+    <td width="213" valign="top"><p>MESA Image    Manager</p></td>
+    <td width="213" valign="top"><p>MESA_IMG_MGR</p></td>
+    <td width="213" valign="top"><p>2350</p></td>
+  </tr>
+  <tr>
+    <td width="213" valign="top"><p>MESA    MWL Server</p></td>
+    <td width="213" valign="top"><p>MESA_MWL</p></td>
+    <td width="213" valign="top"><p>2250</p></td>
+  </tr>
+  <tr>
+    <td width="213" valign="top"><p>MESA    Audit Record Repository</p></td>
+    <td width="213" valign="top"><p>&nbsp;</p></td>
+    <td width="213" valign="top"><p>4000</p></td>
+  </tr>
+</table>
+<p>There is a one-time setup step to run before any tests are  started.&nbsp; DICOM UIDs and other identifiers  have seed values which are stored in the MESA  databases.&nbsp; You should reset the UIDs one  time before you start the tests.&nbsp; If you  decide to rerun tests, you should not have to reset the UIDs.&nbsp; If you decide to reload the Modality  Worklist, you will get different Study Instance UIDs (which is probably the  behavior that you want).<br />
+  To set the UIDs for the first time or reset them at a  later time:
+<pre>    perl  scripts/reset_uids.pl</pre>
+<h2><a name="#start_servers" id="#start_servers">Starting the </a>MESA Servers</h2>
+<p>These instructions assume you are using a terminal emulator  on Unix systems or an MS DOS command window under Windows NT.&nbsp; Each test uses a command line interface;  there is no graphical user interface. Before you start the test procedure, you  need to start the MESA Order Placer and MESA Order Filler servers.&nbsp; Make sure the appropriate database is running  (PostgreSQL, SQL Server).&nbsp; To start the MESA servers:</p>
+<ol start="1" type="1">
+  <li>Enter       the Importer exam folder: <em>mesa_tests/rad/actors/importer</em></li>
+  <li>Execute       the appropriate script to start the servers:
+    <blockquote>
+      <pre>scripts/start_mesa_servers.csh &nbsp;(Unix)</pre>
+        <pre>scripts\start_mesa_servers.bat  (Windows)</pre>
+  </li>
+</ol>
+<p>Log levels are set for the MESA Image Manager in the file: <em>$MESA_TARGET/runtime/rpt_manager/ds_dcm.cfg</em>.&nbsp; / Log levels are:</p>
+<ol start="0" type="1">
+  <li>no logging</li>
+  <li>errors</li>
+  <li>warnings</li>
+  <li>verbose</li>
+  <li>conversational  (really verbose)</li>
+</ol>
+<p>When you are finished running one or more tests, you can  stop the servers:
+<pre>    scripts/stop_mesa_servers.csh  (Unix)</pre>
+<pre>    scripts\stop_mesa_servers.bat  (Windows)</pre>
+  <p>Log files are stored in $MESA_TARGET/logs.<br />  
+    <br />
+        <span class="style4">For the security tests, the MESA servers are started with different  scripts. These are <em>scripts/start_mesa_secure.csh</em> and <em>scripts\start_mesa_secure.bat</em>.  The log levels are the same as for the standard tests. The MESA servers are stopped using these scripts: <em>scripts/stop_mesa_secure.csh</em> and <em>scripts\stop_mesa_secure.bat</em>.
+		</span>
+</p>
+        <h2><a name="#load_data" id="#load_data">Loading Test Data</a></h2>
+
+<h2><a name="#sub_results" id="#sub_results">Submission of Results</a> </h2>
+<p>Test descriptions  below inform the reader to &ldquo;submit results to the Project Manager&rdquo;. This is  does not mean &ldquo;email&rdquo;. The current submission process should be documented by  the Project Manager, but will not include emailing files directly to the  Project Manager.</p>
+
+<h1><a name="#cases_imprtr" id="#cases_imprtr">Test Cases: </a>Importer</h1>
+<p>These test cases are associated with the Radiology Import  Reconciliation Workflow (IRWF) profile</p>
+<table>
+  <tr>
+    <td bgcolor="#33FFFF"><h2><a name="#test283" id="#test283">Test 283: DICOM Composite Object Evaluation &ndash;  DVT</a></h2>
+      <p><strong>NOTE:</strong><span class="style6"> This test is not yet available in the importer directory; you must run this test from the <em>MESA_TARGET/rad/actors/mod</em> directory </span></p>
+        <p>In this test, you evaluate samples of Composite Objects  that you create using the Agfa/Philips DVT. The number of evaluations you run  depends on the types of images that you import/produce. We will not list specific  requirements, but ask you to apply good judgment. <br />
+          You need to evaluate and provide the output for at least  one DICOM Composite Object. Evaluating other objects can only help your implementation.</p>
+        <h3>References</h3>
+      <h3>Instructions</h3>
+      <ol>
+          <li>Produce  a DICOM Part 10 file containing your composite object for evaluation.</li>
+        <li>Run  the evaluation script for test 283 as follows:
+          <pre>perl  283/eval_283.pl &lt;output level&gt; &lt;path to file&gt;</pre>
+        </li>
+        <li>The  output is stored in 283/grade_283.txt. Submit the file to the Project Manager  for evaluation.</li>
+      </ol>
+      <h3>Evaluation</h3>
+      <h3>Supplemental Information</h3>
+      <p>Test 283 assumes you have installed the DVT on a Windows  system. You may elect not to run this test, but you will be required to run  test 284. If you choose not to run this test, create a file with a message that  indicates you have chosen to run test 284 and submit that file as the results  for test 283.</p></td>
+  </tr>
+</table>
+<h2><a name="#test284" id="#test284">Test 284: DICOM Composite Object Evaluation &ndash; DICOM3TOOLS</a></h2>
+<p><strong>NOTE:</strong><span class="style6"> This test is not yet available in the importer directory; you must run this test from the <em>MESA_TARGET/rad/actors/mod</em> directory </span></p>
+<p>In this test, you evaluate samples of Composite Objects  that you create using the Dave Clunie DICOM3TOOLS. The number of evaluations  you run depends on the types of images that you import/produce. We will not list  specific requirements, but ask you to apply good judgment. <br />
+  You need to evaluate and provide the output for at least  one DICOM Composite Object. Evaluating other objects can only help your  implementation.</p>
+<h3>References</h3>
+<h3>Instructions</h3>
+<ol>
+  <li>Produce  a DICOM Part 10 file containing your composite object for evaluation.</li>
+  <li>Run  the evaluation script for test 283 as follows:
+    <pre>perl  284/eval_284.pl &lt;output level&gt; &lt;path to file&gt;</pre>
+  </li>
+  <li>The  output is stored in 284/grade_284.txt. Submit the file to the Project Manager  for evaluation.</li>
+</ol>
+<h3>Evaluation</h3>
+<h3>Supplemental Information</h3>
+<p>Test 284 assumes you have installed the MESA tools on a Unix system. You may elect  not to run this test, but you will be required to run test 283. If you choose  not to run this test, create a file with a message that indicates you have  chosen to run test 283 and submit that file as the results for test 284.</p>
+<p>&nbsp;</p>
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_3705" id="#test_3705">Test Case 3705:&nbsp;  MWL Test for Scheduled Import Option</a></h2>
+<p>This  test case exercises the MWL SCU capabilities of the Importer actor for those Importer  actors supporting the Scheduled Import Option in the IRWF profile. The Importer&rsquo;s  requirements for transaction RAD-5 are the same as those for an Acquisition  Modality in Scheduled Workflow.</p>
+<h3>References</h3>
+<p><em>RAD TF-2: 4.5.4.1.2.2</em></p>
+<h3>Instructions</h3>
+<p><span class="style3">&lt;this test is intented to test the Importer&rsquo;s ability to  query the DSS/OF for MWL.&nbsp; It is not  implemented yet.&gt;</span></p>
+<h3>Evaluation</h3>
+<h3>Supplemental Information <br />
+  </h3>
+<p>&nbsp;</p></td></tr></table>
+<h2><a name="#test_3720" id="#test_3720">Test Case 3720:&nbsp;  Importer (portable media) Coerces Attributes &ndash; Unscheduled Import Option</a></h2>
+<p><span class="style3">&lt;This test is not yet implemented in the MESA tools.&gt;</span></p>
+<p>Test Case 3720 involves transactions for the patient GOLDENROD^G  for the Unscheduled Import Option in the IRWF profile.&nbsp; If you import scanned film or documents, you  should run test 3721 instead.<br />
+  Importers will query the Patient Demographics Supplier,  import a DICOM study from portable media, or via the network, coerce attributes  as required, and store the resulting DICOM objects to the Image Manager, with  associated PPS messages.&nbsp; Storage  Commitment is covered in a different test.<br />
+  In this test, the Patient ID (3720)&nbsp; and Date of Birth received in the  query response differs from that in the  DICOM objects imported from portable media.</p>
+<h3>References</h3>
+<p><em>RAD TF-1: 21.3.1.3  and RAD TF-2: Appendix A.2</em></p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps:</p>
+<ol>
+  <li>Create  the DICOM CD/DVD that will be imported. The CD image may be found at XXX.</li>
+  <li>Make sure the MESA servers have been started as described in the <a href="#start_servers">Starting MESA Servers</a> section above. </li>
+  <li>From the <em>$MESA_TARGET/mesa_tests/rad/actors/importer</em> directory, run  the following script:<br />
+    <pre>perl scripts/imp_irw.pl 3720</pre>
+  </li>
+</ol>
+<h3>Evaluation</h3>
+<p>To evaluate this test run:
+<pre>    perl 3720/eval_3720.pl &lt;log&gt; &lt;IMP AE title&gt;</pre>
+<h3>Supplemental Information</h3>
+  <table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_3721" id="#test_3721">Test Case 3721:&nbsp;  Importer (digitizer) Coerces Attributes &ndash; Unscheduled Import Option</a></h2>
+<p><span class="style3">&lt;This test is not yet implemented in the MESA tools.&gt;</span></p>
+<p>Test Case 3721 involves transactions for the patient  YELLOW^Y for the Unscheduled Import Option in the IRWF profile. If you import from  DICOM objects, eg from portable media such as CD or via the network, you should  run test 3720 instead.<br />
+  Importers will query the Patient Demographics Supplier,  digitize a film or document, coerce attributes as required, and store the  resulting DICOM objects to the Image Manager, with associated PPS messages.&nbsp; Storage Commitment is covered in a different  test.</p>
+<h3>References</h3>
+<p><em>RAD TF-1: 21.3.1.3  and RAD TF-2: Appendix A.2</em></p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps:</p>
+<ol>
+  <li>Make sure the MESA servers have been started as described in the <a href="#start_servers">Starting MESA Servers</a> section above. </li>
+  <li>Use  your application to scan one film or document for patient YELLOW^Y.</li>
+  <li>From the <em>$MESA_TARGET/mesa_tests/rad/actors/importer</em> directory, run  the following script:</li>
+  <pre>perl scripts/imp_irw.pl 3721</pre></ol>
+<h3>Evaluation</h3>
+<p>To evaluate this test run:
+  <pre>     perl 3721/eval_3721.pl &lt;log&gt; &lt;IMP AE title&gt;</pre>
+  <h3>Supplemental Information</h3>
+  </p></td></tr></table>
+<h2><a name="#test_3725" id="#test_3725">Test Case 3725:&nbsp;  Importer Coerces Attributes &ndash; Scheduled Import Option</a></h2>
+<p>Test Case 3725 involves transactions for the patient VIOLET^V  for the Scheduled Import Option in the IRWF profile.&nbsp; If you import scanned film or documents, you  should run test 3726 instead.</p>
+<p>Importers will query for modality worklist, import a DICOM  study from portable media or via the network, coerce attributes as required, and  store the resulting DICOM objects to the Image Manager, with associated PPS  messages.&nbsp; Storage Commitment is covered  in a different test.</p>
+<p>In this test, the Patient ID (3725) and Date of Birth  received in the MWL differ from that in  the DICOM objects imported from portable media. That is part of the test; use the data from the MWL entry to coerce the data from the CD.</p>
+<p>The test steps below reference the ISO image of the IRWF-FUSION-2006 CD. This CD is located with the MESA software distribution. It contains more than one study (and is therefore a good test of your ability to import selected data from a CD). </p>
+<h3>References</h3>
+<p><em>RAD TF-1:21.3.1.2 <br />
+RAD TF-1:Appendix A.2 </em></p>
+<p><a href="../rad/irwf/test_cases/html/3725.html">Test description/steps for test 3725.</a></p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps:</p>
+<ol>
+  <li>If you are importing from digital media, create  the DICOM CD/DVD that will be imported. The ISO image containing the study for this test may be found on the IRWF-FUSION-2006 CD located on the MESA software distribution page.</li>
+  <li>Make sure the MESA servers have been started as described in the <a href="#start_servers">Starting MESA Servers</a> section above. </li>
+    <li>From the <em>$MESA_TARGET/mesa_tests/rad/actors/importer</em> directory, run  the following script:</li>
+    <pre>perl scripts/imp_irw.pl 3725 &lt;log_level&gt;</pre>
+</ol>
+<h3>Evaluation</h3>
+<p>To evaluate this test run:
+<pre>     perl 3725/eval_3725.pl &lt;log_level: 1-4&gt; &lt;AE title of your MPPS SCU&gt;</pre>
+<h3>Supplemental Information</h3>
+<p>If you are a digitizer, you will not  run this test, but you will be required to run  test 3726. If you do not run this test, create a file with a message that  indicates you are a digitizer which will run test 3726 and submit that file as the results  for test 3725.</p>
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_3726" id="#test_3726">Test Case 3726:&nbsp;  Importer (digitizer) Coerces Attributes &ndash; Scheduled Import Option</a></h2>
+<p>Test Case 3726 involves transactions for the patient LAVENDER^L  for the Scheduled Import Option in the IRWF profile.&nbsp; If you import DICOM objects, eg from portable  media such as CD, or via the network you should run test 3725 instead.</p>
+<p>For this test, you should assume:<br />
+  - the original Patient Name on the scanned film/document is VIOLET^V<br />
+  - the original Patient ID on the scanned film/docment is 9999<br />
+  You will be expected to include these values in the Modified Attributes Sequence (0400,0550). </p>
+<p>Importers will query for modality worklist, scan a film or  document, coerce the attributes as required, and store the resulting DICOM  objects to the Image Manager, with associated PPS messages.&nbsp; Storage Commitment is covered in another  test.</p>
+<h3>References</h3>
+<p><em>RAD TF-1: 21.3.1.2 and RAD TF-2: Appendix A.2</em></p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps:</p>
+<ol>
+  <li>Use  your application to scan one film or document.</li>
+  <li>Make sure the MESA servers have been started as described in the <a href="#start_servers">Starting MESA Servers</a> section above. </li>
+  <li>From the <em>$MESA_TARGET/mesa_tests/rad/actors/importer</em> directory, run  the following script:</li>
+   <pre>perl scripts/imp_irw.pl 3726 &lt;log_level&gt;</pre>
+</ol>
+<h3>Evaluation</h3>
+<p>To evaluate this test run:
+ <pre>      perl 3726/eval_3726.pl  &lt;log_level: 1-4&gt; &lt;AE title of your MPPS SCU&gt;</pre>
+ <h3>Supplemental Information</h3>
+ <p>If you are a an Importer which imports via the network or portable media, you will not  run this test, but you will be required to run  test 3725. If you do not run this test, create a file with a message that  indicates you are not a digitize, so will run test 3725, and submit that file as the results  for test 3726.</p></td></tr></table>
+<h2><a name="#test_3739" id="#test_3739">Test Case 3739:&nbsp;  PPS Exception Management &ndash; abandoned import &ndash; unscheduled</a></h2>
+<p><span class="style3">&lt;This test is not yet implemented in the MESA tools.&gt;</span></p>
+<p>This tests the behavior of the Importer when the operator  abandons the import after storing one object to the Image Manager, and then  discontinues the PPS.&nbsp; This test is for  Importers which support the Unscheduled Import Option.</p>
+<h3>References</h3>
+<p><em>RAD TF-2: 21.3.2</em><br />
+    <em>RAD TF-3:  4.60.4.1.2.2 </em></p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps:</p>
+<ol>
+  <li>Use  your DICOM application to import two DICOM objects from CD or via the network, <em>or</em> digitize 2 films or documents from  hardcopy.<em><br />
+  </em></li>
+  <li>From the <em>$MESA_TARGET/mesa_tests/rad/actors/importer</em> directory, run  the following script:</li>
+    <pre>perl scripts/imp_irw.pl 3739 &lt;log_level&gt;</pre>
+</ol>
+<h3>Evaluation</h3>
+<p>To evaluate this test run:
+<pre>     perl 3739/eval_3739.pl  &lt;log_level: 1-4&gt; &lt;AE title of your MPPS SCU&gt;</pre>
+<h3>Supplemental Information</h3>
+  <table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_3740" id="#test_3740">Test Case 3740: &nbsp;PPS Exception Management &ndash; abandoned import -  scheduled</a></h2>
+<p>This tests the behavior of the Importer when the operator  abandons the import after storing one object to the Image Manager, and then discontinues  the PPS.&nbsp; This test is for Importers  which support the Scheduled Import Option. If you support the Unscheduled Import Option, you should run test 3739 instead. </p>
+<h3>References</h3>
+<p><em>RAD TF-2: 21.3.2</em><br />
+    <em>RAD TF-3:  4.60.4.1.2.2 </em></p>
+<p><a href="../rad/irwf/test_cases/html/3740.html">Test description/steps for test 3740.</a></p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps:</p>
+<ol>
+  <li>Use  your DICOM application to import at least two DICOM objects from CD or via the network, <em>or</em> digitize 2 films or documents from  hardcopy.</li>
+  <li>Make sure the MESA servers have been started as described in the <a href="#start_servers">Starting MESA Servers</a> section above. <em><br />
+  </em></li>
+  <li>From the <em>$MESA_TARGET/mesa_tests/rad/actors/importer</em> directory, run  the following script:</li>
+    <pre>perl scripts/imp_irw.pl 3740 &lt;log_level&gt;</pre>
+</ol>
+<h3>Evaluation</h3>
+<p>To evaluate this test run:
+ <pre>      perl 3740/eval_3740.pl  &lt;log_level: 1-4&gt; &lt;AE title of your MPPS SCU&gt;</pre>
+ <h3>Supplemental Information</h3>
+  </td></tr></table>
+<h2><a name="#test_3741" id="#test_3741">Test Case 3741:&nbsp;  PPS Exception Management &ndash; incorrect patient selected from list -  unscheduled</a></h2>
+<p><span class="style3">&lt;This test is not yet implemented in the MESA tools.&gt;</span></p>
+<p>This tests the behavior of the Importer when the operator  realizes, after storing one object to the Image Manager, that the wrong patient  was selected from the list received from the Patient Demographic Supplier.&nbsp; After the PPS is discontinued, the Importer selects  the correct patient, reconciles the imported objects and stores them to the  Image Manager.&nbsp; This test is for  Importers which support the Unscheduled Import Option.</p>
+<h3>References</h3>
+<p><em>RAD TF-2: 21.3.2</em><br />
+    <em>RAD TF-3:  4.60.4.1.2.2 </em></p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps:</p>
+<ol>
+  <li>Use  your DICOM application to import two DICOM objects from the CD, or digitize 2  from hardcopy.</li>
+  <li>Make sure the MESA servers have been started as described in the <a href="#start_servers">Starting MESA Servers</a> section above. </li>
+  <li>From the <em>$MESA_TARGET/mesa_tests/rad/actors/importer</em> directory, run  the following script:</li>
+  <pre>perl scripts/imp_irw.pl 3741 &lt;log_level&gt;</pre>
+</ol>
+<h3>Evaluation</h3>
+<p>To evaluate this test run:
+<pre>     perl 3741/eval_3741.pl  &lt;log_level: 1-4&gt; &lt;AE title of your MPPS SCU&gt;</pre>
+ <h3>Supplemental Information</h3>
+  <table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_3742" id="#test_3742">Test Case 3742:&nbsp;  PPS Exception Management &ndash; incorrect worklist item - scheduled</a></h2>
+<p>This tests the behavior of the Importer when the operator  realizes, after storing one object to the Image Manager, that the wrong item  was selected from the worklist received from the DSS/OF.&nbsp; After the PPS is discontinued, the Importer  re-queries the DSS/OF, reconciles the imported objects and stores them to the  Image Manager.&nbsp; This test is for  Importers which support the Scheduled Import Option.</p>
+<h3>References</h3>
+<p><em>RAD TF-2: 21.3.2</em><br />
+    <em>RAD TF-3:  4.60.4.1.2.2 </em></p>
+<p><a href="../rad/irwf/test_cases/html/3742.html">Test description/steps for test 3742.</a></p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps:</p>
+<ol>
+  <li>Use  your DICOM application to import at least two DICOM objects from the CD, or digitize 2  hardcopy films or documents.</li>
+  <li>Make sure the MESA servers have been started as described in the <a href="#start_servers">Starting MESA Servers</a> section above. </li>
+  <li>From the <em>$MESA_TARGET/mesa_tests/rad/actors/importer</em> directory, run  the following script:</li>
+    <pre>perl scripts/imp_irw.pl 3742 &lt;log_level&gt;</pre></ol>
+<h3>Evaluation</h3>
+<p>To evaluate this test run:
+  <pre>     perl 3742/eval_3742.pl  &lt;log_level: 1-4&gt; &lt;AE title of your MPPS SCU&gt;</pre>
+  <h3>Supplemental Information</h3>
+  </td></tr></table>
+<h2><a name="#test_3734" id="#test_3734">Test Case 3734:&nbsp;  Image Manager rejects imported objects</a></h2>
+<p><span class="style3">&lt;This test is not yet implemented in the MESA tools.&gt;</span></p>
+<p>This  tests the Importer behavior when the Image Manager fails to store the objects  which were imported (ie receives a non-zero (not success) status in response to  the C-STORE).&nbsp; </p>
+<h3>References</h3>
+<h3>Instructions</h3>
+<h3>Evaluation</h3>
+<h3>Supplemental Information </h3>
+<p>&nbsp;</p>
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_3745" id="#test_3745">Test Case 3745:&nbsp;&nbsp;  Billing and Material Management Option - unscheduled</a></h2>
+<p><span class="style3">&lt;This test is not yet implemented in the MESA tools.&gt;</span></p>
+<p>This is derived from Test Case 218 for Acquisition  Modalitites.</p>
+<p>Test 3745 exercises the Billing and Material Management  Option for Importer actors. With this option, a importer actor must provide the  Billing Supplies and Devices Sequence in the MPPS message, as specified in RAD  TF-3:&nbsp; Table 4.60-2.&nbsp; This test is for Importers which support the Unscheduled  Import Option.</p>
+<h3>References</h3>
+<p><em>RAD TF-3:  4.60.4.1.2.3</em></p>
+<h3>Instructions</h3>
+<ol>
+  <li>Query  the PDS for patient Billing^3745</li>
+  <li>Perform  one import for the one Patient in the worklist. Generate appropriate MPPS  messages and fill in this sequence:</li>
+</ol>
+  <pre>       0040 0324 Billing Supplies and Devices  Sequence</pre>
+  <ol start="3">
+  <li>The  table below lists the values to supply for the coded items in the sequences<br />
+  </li>
+</ol>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="211" valign="top"><p>Attribute Name</p></td>
+    <td width="156" valign="top"><p>Tag</p></td>
+    <td width="186" valign="top"><p>Value</p></td>
+  </tr>
+  <tr>
+    <td width="211" valign="top"><p>Billing Procedure Step Seque<br />
+      Nce</p></td>
+    <td width="156" valign="top"><p align="center">(0040,0320)</p></td>
+    <td width="186" valign="top"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="211" valign="top"><p>&gt; Code Value</p></td>
+    <td width="156" valign="top"><p align="center">(0008,0100)</p></td>
+    <td width="186" valign="top"><p>BP1001</p></td>
+  </tr>
+  <tr>
+    <td width="211" valign="top"><p>&gt; Coding Scheme Designator</p></td>
+    <td width="156" valign="top"><p align="center">(0008,0102)</p></td>
+    <td width="186" valign="top"><p>IHEDEMO</p></td>
+  </tr>
+  <tr>
+    <td width="211" valign="top"><p>&gt;Code Meaning </p></td>
+    <td width="156" valign="top"><p align="center">(0008,0104)</p></td>
+    <td width="186" valign="top"><p>Billing Procedure    1001</p></td>
+  </tr>
+  <tr>
+    <td width="211" valign="top"><p>Billing Supplies and Devices Sequence</p></td>
+    <td width="156" valign="top"><p align="center">(0040,0324)</p></td>
+    <td width="186" valign="top"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="211" valign="top"><p>&gt; Billing Item Sequence</p></td>
+    <td width="156" valign="top"><p align="center">(0040,0296)</p></td>
+    <td width="186" valign="top"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="211" valign="top"><p>&gt;&gt; Code Value</p></td>
+    <td width="156" valign="top"><p align="center">(0008,0100)</p></td>
+    <td width="186" valign="top"><p>These    values are still TBD from DICOM</p></td>
+  </tr>
+  <tr>
+    <td width="211" valign="top"><p>&gt;&gt; Coding Scheme Designator</p></td>
+    <td width="156" valign="top"><p align="center">(0008,0102)</p></td>
+    <td width="186" valign="top"><p>DCM</p></td>
+  </tr>
+  <tr>
+    <td width="211" valign="top"><p>&gt;&gt; Code Meaning</p></td>
+    <td width="156" valign="top"><p align="center">(0008,0104)</p></td>
+    <td width="186" valign="top"><p>See valudes in RAD TF-3:&nbsp;    Table 4.60-3. </p></td>
+  </tr>
+  <tr>
+    <td width="211" valign="top"><p>&gt;Quantity    Sequence</p></td>
+    <td width="156" valign="top"><p align="center">(0040,0293)</p></td>
+    <td width="186" valign="top"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="211" valign="top"><p>&gt;&gt;Quantity</p></td>
+    <td width="156" valign="top"><p align="center">(0040,0294)</p></td>
+    <td width="186" valign="top"><p>1</p></td>
+  </tr>
+</table>
+<h3>Evaluation</h3>
+<p>To evaluate your MPPS messages:
+<pre>     perl  3476/eval_3476.pl  &lt;log_level: 1-4&gt; &lt;AE title of your MPPS SCU&gt;</pre>
+<h3>Supplemental Information</h3>
+</td></tr></table>
+<h2><a name="#test_3746" id="#test_3746">Test Case 3746:&nbsp;&nbsp;  Billing and Material Management Option - scheduled</a></h2>
+<p><span class="style3">&lt;This test is not yet implemented in the MESA tools.&gt;</span></p>
+<p>This is derived from Test Case 218 for Acquisition  Modalitites.</p>
+<p>Test 3746 exercises the Billing and Material Management  Option for Importer actors. With this option, a importer actor must provide the  Billing Supplies and Devices Sequence in the MPPS message, as specified in RAD  TF-3:&nbsp; Table 4.60-2.&nbsp;&nbsp; This test is for Importers which support the  Scheduled Import Option.</p>
+<h3>References</h3>
+<p><em>RAD TF-3:  4.60.4.1.2.3</em></p>
+<h3>Instructions</h3>
+<ol>
+  <li>Query  the MESA DSS/OF  for patient Billing^3746</li>
+  <li>Perform  one import for the one Patient in the worklist. Generate appropriate MPPS  messages and fill in this sequence:</li>
+</ol>
+<pre>      0040 0324 Billing Supplies and Devices  Sequence</pre>
+<ol start="3">
+  <li>The  table below lists the values to supply for the coded items in the sequences<br />
+  </li>
+</ol>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="211" valign="top"><p>Attribute Name</p></td>
+    <td width="156" valign="top"><p>Tag</p></td>
+    <td width="186" valign="top"><p>Value</p></td>
+  </tr>
+  <tr>
+    <td width="211" valign="top"><p>Billing Procedure Step Seque<br />
+      Nce</p></td>
+    <td width="156" valign="top"><p align="center">(0040,0320)</p></td>
+    <td width="186" valign="top"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="211" valign="top"><p>&gt; Code Value</p></td>
+    <td width="156" valign="top"><p align="center">(0008,0100)</p></td>
+    <td width="186" valign="top"><p>BP1001</p></td>
+  </tr>
+  <tr>
+    <td width="211" valign="top"><p>&gt; Coding Scheme Designator</p></td>
+    <td width="156" valign="top"><p align="center">(0008,0102)</p></td>
+    <td width="186" valign="top"><p>IHEDEMO</p></td>
+  </tr>
+  <tr>
+    <td width="211" valign="top"><p>&gt;Code Meaning </p></td>
+    <td width="156" valign="top"><p align="center">(0008,0104)</p></td>
+    <td width="186" valign="top"><p>Billing Procedure    1001</p></td>
+  </tr>
+  <tr>
+    <td width="211" valign="top"><p>Billing Supplies and Devices Sequence</p></td>
+    <td width="156" valign="top"><p align="center">(0040,0324)</p></td>
+    <td width="186" valign="top"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="211" valign="top"><p>&gt; Billing Item Sequence</p></td>
+    <td width="156" valign="top"><p align="center">(0040,0296)</p></td>
+    <td width="186" valign="top"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="211" valign="top"><p>&gt;&gt; Code Value</p></td>
+    <td width="156" valign="top"><p align="center">(0008,0100)</p></td>
+    <td width="186" valign="top"><p>These    values are still TBD from DICOM</p></td>
+  </tr>
+  <tr>
+    <td width="211" valign="top"><p>&gt;&gt; Coding Scheme Designator</p></td>
+    <td width="156" valign="top"><p align="center">(0008,0102)</p></td>
+    <td width="186" valign="top"><p>DCM</p></td>
+  </tr>
+  <tr>
+    <td width="211" valign="top"><p>&gt;&gt; Code Meaning</p></td>
+    <td width="156" valign="top"><p align="center">(0008,0104)</p></td>
+    <td width="186" valign="top"><p>See valudes in RAD TF-3:&nbsp;    Table 4.60-3. </p></td>
+  </tr>
+  <tr>
+    <td width="211" valign="top"><p>&gt;Quantity    Sequence</p></td>
+    <td width="156" valign="top"><p align="center">(0040,0293)</p></td>
+    <td width="186" valign="top"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="211" valign="top"><p>&gt;&gt;Quantity</p></td>
+    <td width="156" valign="top"><p align="center">(0040,0294)</p></td>
+    <td width="186" valign="top"><p>1</p></td>
+  </tr>
+</table>
+<h3>Evaluation</h3>
+<p>To evaluate your MPPS messages:
+<pre>     perl  3476/eval_3476.pl &lt;log level&gt; &lt;AE Title MPPS SCU&gt;</pre>
+<h3>Supplemental Information</h3>
+<table>
+  <tr>
+    <td bgcolor="#33FFFF"><h2><a name="#test_3750" id="#test_3750">Test Case 3750:&nbsp;  Instance Availability Notification upon Import</a></h2>
+        <h3>References</h3>
+        <h3>Instructions</h3>
+        <p><span class="style3">&lt;This test is not yet implemented in the MESA tools.&gt;</span></p>
+        <h3>Evaluation</h3>
+        <h3>Supplemental Information </h3>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

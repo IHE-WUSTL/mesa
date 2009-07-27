@@ -1,0 +1,480 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Untitled Document</title></head>
+
+<body>
+<p align="center"><strong>&nbsp;</strong></p>
+<p align="center"><strong>HIMSS and RSNA</strong><br />
+    <strong>Integrating the Healthcare Enterprise</strong></p>
+<p align="center"><strong>&nbsp;</strong></p>
+<p align="center"><strong>&nbsp;</strong><strong>IHE/MESA Report Repository Tests</strong></p>
+<p>&nbsp;</p>
+<p align="center">Electronic Radiology  Laboratory<br />
+  Mallinckrodt Institute of  Radiology<br />
+  510 South    Kingshighway Blvd. <br />
+  St. Louis, MO&nbsp; 63110 <br />
+  314.362.6965 (Voice)<br />
+  314.362.6971 (Fax)</p>
+<p align="center">&nbsp;</p>
+<p align="center">Revision 9.1.0<br />
+  18-October-2005 </p>
+<strong>Contents:</strong><br clear="all" />
+<p><a href="#rpt_rep_tests">Report  Repository Tests</a><br />
+  <a href="#intro">Introduction</a><br />
+  <a href="#msg_att">Message  Attributes </a><br />
+  <a href="#msg_values">Message  Values </a><br />
+  <a href="#config">Configuration </a><br />
+  <a href="#start_servers">Starting  the MESA Servers </a><br />
+  <a href="#load_data">Loading  Test Data </a><br />
+  <a href="#indiv_tests">Individual Tests</a></p>
+<ol>
+  <li><a href="#test_801">Report  Repository Test 801: Modalities In Study</a><br />
+  </li>
+  <li><a href="#test_802">Report  Repository Test 802: Related Series/SOP Instances </a><br />
+  </li>
+  <li><a href="#test_803">Report  Repository Test 803: Other Report Repository Attributes</a><br />
+  </li>
+  <li><a href="#test_804">Report  Repository Test 804: Report Specific Queries </a><br />
+  </li>
+  <li><a href="#test_811">Report  Repository Test 811: SR Retrieve</a><br />
+  </li>
+</ol>
+<p><a href="#basic_sec">Basic Security Tests </a></p>
+<ol>
+  <li><a href="#test_1511">Report  Repository Test 1511: Simple Imaging Report </a><br />
+    </li>
+</ol>
+<h1><a name="#rpt_rep_tests" id="#rpt_rep_tests">Report Repository Tests</a></h1>
+<p>The MESA  tools are installed on a computer referred to as the MESA test system. The tools are written under  the assumption that this computer is distinct from your Report Repository (the  system under test). If you choose to run the MESA tools on the same system as your Report  Repository, you are likely to have conflicts in port assignments. You will need  to use different port numbers for your application because the MESA applications use hard-wired port  numbers.</p>
+<h2><a name="#intro" id="#intro">Introduction</a></h2>
+<p>Report Repositories are tested on responses to C-Find  requests and C-Move requests. Each test is run using the same procedure.&nbsp; We assume you are using an interactive  terminal or terminal emulator and are logged on to the MESA test system.&nbsp; Change directory to <em>$MESA_TARGET/mesa_tests/rad/actors/rpt_repos</em>.</p>
+<h3>Integration Profiles and Test Procedures</h3>
+<p>This document lists a number of tests for Report  Repository Systems. You may not be responsible for all of these tests.<br />
+  Please refer to the Connectathon web tool to list the  required tests for your system. The web address of this tool depends on the  year and project manager. Please contact the appropriate project manager to  obtain this information.</p>
+<h2><a name="#msg_att" id="#msg_att">Message Attributes</a></h2>
+<p>These tests will query the Report Repository for  attributes using the DICOM C-Find command.&nbsp;  The table below lists the attributes used in the queries.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="306" valign="top"><p><strong>Attribute Name</strong></p></td>
+    <td width="156" valign="top"><p align="center"><strong>Tag</strong></p></td>
+  </tr>
+  <tr>
+    <td width="462" colspan="2" valign="top"><p><strong>Study Level</strong><strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>Study Date</p></td>
+    <td width="156" valign="top"><p align="center">0008 0020</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>Study Time</p></td>
+    <td width="156" valign="top"><p align="center">0008    0030</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>Accession Number</p></td>
+    <td width="156" valign="top"><p align="center">0008    0050</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>Patient Name</p></td>
+    <td width="156" valign="top"><p align="center">0010    0010</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>Patient ID</p></td>
+    <td width="156" valign="top"><p align="center">0010    0020</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>Study ID</p></td>
+    <td width="156" valign="top"><p align="center">0020    0010</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>Study Instance UID</p></td>
+    <td width="156" valign="top"><p align="center">0020    000D</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>Modalities in Study</p></td>
+    <td width="156" valign="top"><p align="center">0008    0061</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>Referring Physician&rsquo;s Name</p></td>
+    <td width="156" valign="top"><p align="center">0008    0090</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>Patient&rsquo;s Birth Date</p></td>
+    <td width="156" valign="top"><p align="center">0010    0030</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>Patient&rsquo;s Sex</p></td>
+    <td width="156" valign="top"><p align="center">0010    0040</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>Number of Study Related    Series</p></td>
+    <td width="156" valign="top"><p align="center">0020    1206</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>Number of Study Related    Instances</p></td>
+    <td width="156" valign="top"><p align="center">0020    1208</p></td>
+  </tr>
+  <tr>
+    <td width="462" colspan="2" valign="top"><p align="center"><strong>Series    Level</strong><strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>Modality</p></td>
+    <td width="156" valign="top"><p align="center">0008    0060</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>Series Number</p></td>
+    <td width="156" valign="top"><p align="center">0020    0011</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>Series Instance UID</p></td>
+    <td width="156" valign="top"><p align="center">0020    000D</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>Number of Series Related    Instances</p></td>
+    <td width="156" valign="top"><p align="center">0020    1209</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>Request Attribute Sequence</p></td>
+    <td width="156" valign="top"><p align="center">0040    0275</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>&gt;Requested Procedure ID</p></td>
+    <td width="156" valign="top"><p align="center">0040    1001</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>&gt;Scheduled Procedure    Step ID</p></td>
+    <td width="156" valign="top"><p align="center">0040    0009</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>Performed Procedure Step    Start Date</p></td>
+    <td width="156" valign="top"><p align="center">0040    02444</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>Performed Procedure Step    Start Time</p></td>
+    <td width="156" valign="top"><p align="center">0040    0245</p></td>
+  </tr>
+  <tr>
+    <td width="462" colspan="2" valign="top"><p align="center"><strong>Composite    Object Instance Level</strong><strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>Image Number</p></td>
+    <td width="156" valign="top"><p align="center">0020    0013</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>SOP Instance UID</p></td>
+    <td width="156" valign="top"><p align="center">0008    0018</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>SOP Class UID</p></td>
+    <td width="156" valign="top"><p align="center">0008    0016</p></td>
+  </tr>
+  <tr>
+    <td width="462" colspan="2" valign="top"><p align="center"><strong>SR    Specific Attributes</strong><strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>Completion Flag</p></td>
+    <td width="156" valign="top"><p align="center">0040    A491</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>Verification Flag</p></td>
+    <td width="156" valign="top"><p align="center">0040    A493</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>Content Date</p></td>
+    <td width="156" valign="top"><p align="center">0008    0023</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>Content Time</p></td>
+    <td width="156" valign="top"><p align="center">0008    0033</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>Obsservation Date Time</p></td>
+    <td width="156" valign="top"><p align="center">0040    A032</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>Verifying Observer Sequence</p></td>
+    <td width="156" valign="top"><p align="center">0040    A073</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>&gt; Verifying Organization</p></td>
+    <td width="156" valign="top"><p align="center">0040    A027</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>&gt; Verification Date Time</p></td>
+    <td width="156" valign="top"><p align="center">0040    A030</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>&gt; Verifying Observer    Name</p></td>
+    <td width="156" valign="top"><p align="center">0040    A075</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>&gt; Verifying Observer    Identification Code Sequence</p></td>
+    <td width="156" valign="top"><p align="center">0040    A088</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>Referenced Request Sequence</p></td>
+    <td width="156" valign="top"><p align="center">0040    A370</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>&gt; Study Instance UID</p></td>
+    <td width="156" valign="top"><p align="center">0020    000D</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>&gt; Accession Number</p></td>
+    <td width="156" valign="top"><p align="center">0008    0050</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>&gt; Requested Procedure ID</p></td>
+    <td width="156" valign="top"><p align="center">0040    1000</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>&gt; Rrequested Procedure    Code Sequence</p></td>
+    <td width="156" valign="top"><p align="center">0032    1064</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>&gt;&gt; Code Value</p></td>
+    <td width="156" valign="top"><p align="center">0008    0100</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>&gt;&gt; Coding Scheme    Designator</p></td>
+    <td width="156" valign="top"><p align="center">0008    0102</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>&gt;&gt; Code Meaning</p></td>
+    <td width="156" valign="top"><p align="center">0008    0104</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>Concept Name Code Sequence</p></td>
+    <td width="156" valign="top"><p align="center">0040    A043</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>&gt; Code Value</p></td>
+    <td width="156" valign="top"><p align="center">0008    0100</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>&gt; Coding Scheme    Designator</p></td>
+    <td width="156" valign="top"><p align="center">0008    0102</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>&gt; Coding Scheme Version</p></td>
+    <td width="156" valign="top"><p align="center">0008    0103</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>&gt; Code Meaning</p></td>
+    <td width="156" valign="top"><p align="center">0008    0104</p></td>
+  </tr>
+</table>
+<h2><a name="#msg_values" id="#msg_values">Message Values</a></h2>
+<p>The expected values in C-Find responses and SR objects  retrieved from the Report Repository are taken directly from the SR instances  loaded into the Report Repository.&nbsp; We do  not further document these.&nbsp; If your  responses do not match expected values, the evaluation scripts will print both  your reponse and the expected value.</p>
+<h2><a name="#config" id="#config">Configuration</a></h2>
+<p>The Report Repository scripts described below use an ASCII  configuration file to identify parameters such as host names and port numbers.&nbsp; The configuration file is named <em>rptrepos_test.cfg</em> and is included in the  directory <em>$MESA_TARGET/mesa_tests/rad/actors/rpt_repos</em>.&nbsp; Edit the file and change entries (host name,  port number, AE title) which pertain to your system.&nbsp; Your system is identified by entries that  begin with TEST.<br />
+  The file <em>$MESA_TARGET/runtime/rpt_repos/ds_dcm.cfg</em> is used to configure the MESA Report Repository.&nbsp; A workstation server is used as a Report  Reader.&nbsp; The configuration file for this  server is found in <em>$MESA_TARGET/runtime/wkstation/ds_dcm.cfg.</em> The only parameter users should change is the LOG_LEVEL value.&nbsp; Log levels are defined in <a href="#start_servers">Starting  the MESA Servers </a>.<br />
+  The applications listed in the table below are MESA applications that  execute on the MESA  test system. Configure your system to recognize these servers; you will be  asked to move (C-Move) composite objects to the WORKSTATION1 application.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="151" valign="top"><p align="center">Application</p></td>
+    <td width="162" valign="top"><p align="center">AE Title</p></td>
+    <td width="141" valign="top"><p align="center">Host</p></td>
+    <td width="141" valign="top"><p align="center">Port</p></td>
+  </tr>
+  <tr>
+    <td width="151" valign="top"><p>MESA    Report Repository</p></td>
+    <td width="162" valign="top"><p align="center">REPORT_ARCHIVE</p></td>
+    <td width="141" valign="top"><p align="center">MESA test system</p></td>
+    <td width="141" valign="top"><p align="center">2800</p></td>
+  </tr>
+  <tr>
+    <td width="151" valign="top"><p>MESA    Report Reader</p></td>
+    <td width="162" valign="top"><p align="center">WORKSTATION1</p></td>
+    <td width="141" valign="top"><p align="center">MESA test system</p></td>
+    <td width="141" valign="top"><p align="center">3001</p></td>
+  </tr>
+  <tr>
+    <td width="151" valign="top"><p>MESA    Audit Record Repository</p></td>
+    <td width="162" valign="top"><p align="center">&nbsp;</p></td>
+    <td width="141" valign="top"><p align="center">MESA test system</p></td>
+    <td width="141" valign="top"><p align="center">4000</p></td>
+  </tr>
+</table>
+<p>Read the <em>Runtime  Notes</em> section of the<em> Installation  Guide</em> to determine the proper settings for the MESA runtime environment.</p>
+<h2><a name="#start_servers" id="#start_servers">Starting the </a>MESA Servers</h2>
+<p>These instructions assume you are using a terminal  emulator on Unix systems or an MS DOS command window under Windows NT.&nbsp; Each test uses a command line interface;  there is no graphical user interface. Before you start the test procedure, you  need to start the MESA Report Repository and MESA Report Reader.&nbsp; Make sure the appropriate database is running  (PostgreSQL, SQL Server).&nbsp; To start the MESA servers:</p>
+<ol start="1" type="1">
+  <li>Enter the Report Repository exam folder:  mesa_tests/rad/actors/rpt_repos</li>
+  <li>Execute       the appropriate script to start the servers:</li>
+</ol>
+<pre>     scripts/start_mesa_servers.csh &nbsp;(Unix)</pre>
+  <pre>     scripts\start_mesa_servers.bat  (Windows)</pre>
+  <p>When you are finished running one or more tests, you can  stop the servers:
+  <pre>     scripts/stop_mesa_servers.csh  (Unix)</pre>
+  <pre>     scripts\stop_mesa_servers.bat  (Windows)</pre>
+  Log files are stored in $MESA_TARGET/logs.<br />
+  For the security tests, the MESA servers are started with different  scripts. These are <em>scripts/start_mesa_secure.csh</em> and <em>scripts\start_mesa_secure.bat</em>.  The log levels are the same as for the standard tests. The MESA servers are stopped using these scripts: <em>scripts/stop_mesa_secure.csh</em> and <em>scripts\stop_mesa_secure.bat</em>.</p>
+<h2><a name="#load_data" id="#load_data">Loading Test Data</a></h2>
+<p>All tests will use a common set of test data.&nbsp; These should be loaded one time before any  tests are run.&nbsp; You need to start the MESA servers first as  described in <a href="#start_servers">Starting  the MESA Servers </a>. The MESA Report Repository receives a copy of the  test data.<br />
+  You should clear your Report Repository of all data before  loading the test data. Use this command to load the test SR objects into your  Report Repository:
+<pre>     perl  80x/load_80x.pl</pre>
+
+<h1><a name="#indiv_tests" id="#indiv_tests">Individual Tests</a></h1>
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_801" id="#test_801">Report Repository Test 801: Modalities In Study</a></h2>
+<p>The DICOM attribute 0008 0061 is named &ldquo;Modalities in  Study&rdquo;.&nbsp; The 801 series tests will send  four Study Level queries to the Report Repository and query on this  attribute.&nbsp; The table below lists the  four queries (a-d) and the values used for matching key.&nbsp; For the a query, the attribute 0008 0061 is  sent as zero length, so this becomes a return key.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="126" valign="top"><p align="center"><strong>Query</strong></p></td>
+    <td width="204" valign="top"><p align="center"><strong>Value for Attribute 0008 0061</strong></p></td>
+  </tr>
+  <tr>
+    <td width="126" valign="top"><p align="center">a</p></td>
+    <td width="204" valign="top"><p align="center">&ldquo;&rdquo;</p></td>
+  </tr>
+  <tr>
+    <td width="126" valign="top"><p align="center">b</p></td>
+    <td width="204" valign="top"><p align="center">&ldquo;SR&rdquo;</p></td>
+  </tr>
+  <tr>
+    <td width="126" valign="top"><p align="center">c</p></td>
+    <td width="204" valign="top"><p align="center">&ldquo;CT&rdquo;</p></td>
+  </tr>
+  <tr>
+    <td width="126" valign="top"><p align="center">d</p></td>
+    <td width="204" valign="top"><p align="center">&ldquo;SR\CT&rdquo;</p></td>
+  </tr>
+</table>
+<h3>References</h3>
+<h3>Instructions</h3>
+<p>The d query is actually an illegal query and is included for  your own testing.&nbsp; We do not evaluate the  results of your response.</p>
+<ol>
+  <li>Start the MESA  servers as decribed in <a href="#start_servers">Starting  the MESA Servers </a>.&nbsp; If  you have not already loaded the test data into your system, do so as described  in <a href="#load_data">Loading  Test Data </a>.</li>
+  <li>Run the script which sends four queries to your Report  Repository.&nbsp; This script sends the same  queries to the MESA Report Repository so that we can compare results.</li>
+</ol>
+<ul>
+  <pre>perl 801/801_rptrepos.pl</pre>
+  </ul>
+<h3>Evaluation</h3>
+<ol>
+  <li>Evaluate the response of your system to queries a, b,  and c:</li>
+  <pre>perl 801/eval_801.pl</pre></ol>
+<h3>Supplemental Information</h3>
+</td></tr></table>
+<h2><a name="#test_802" id="#test_802">Report Repository Test 802: Related Series/SOP  Instances</a></h2>
+<p>These tests query Report Repositories for DICOM attributes  Number of Study Related Series, Number of Study Related SOP Instances, and  Number of Series Related SOP Instances.</p>
+<h3>References</h3>
+<h3>Instructions</h3>
+<ol>
+  <li>Start the MESA  servers as decribed in <a href="#start_servers">Starting  the MESA Servers </a>.&nbsp; If  you have not already loaded the test data into your system, do so as described  in <a href="#load_data">Loading  Test Data </a>.</li>
+  <li>Run the script which sends two queries to your Report  Repository.&nbsp; This script sends the same  queries to the MESA Report Repository so that we can compare results.</li>
+</ol>
+<ul>
+  <pre>perl 802/802_rptrepos.pl</pre>
+</ul>
+<h3>Evaluation</h3>
+<ol>
+  <li>Evaluate the response of your system to queries 802a  and 802b:</li>
+  <pre>perl 802/eval_802.pl</pre></ol>
+  <h3>Supplemental Information</h3>
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_803" id="#test_803">Report Repository Test 803: Other Report  Repository Attributes</a></h2>
+<p>This test is not defined for IHE Year 4.</p>
+</td></tr></table>
+<h2><a name="#test_804" id="#test_804">Report Repository Test 804: Report Specific  Queries</a></h2>
+<p>This test queries for attributes at the SOP Instance level  and compares the results to values stored in the MESA system. The table below lists the  attributes requested in the queries.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="150" valign="top"><br />
+      0040 A491 </td>
+    <td width="348" valign="top"><p>Completion Flag</p></td>
+  </tr>
+  <tr>
+    <td width="150" valign="top"><p>0040 A493</p></td>
+    <td width="348" valign="top"><p>Verification Flag</p></td>
+  </tr>
+</table>
+<h3>References</h3>
+<h3>Instructions</h3>
+<ol>
+  <li>Start the MESA  servers as described in <a href="#start_servers">Starting  the MESA Servers </a>.&nbsp; If  you have not already loaded the test data into your system, do so as described  in <a href="#load_data">Loading  Test Data </a>.</li>
+  <li>Run the script to retrieve a report from the Report  Repository:</li>
+</ol>
+<ul>
+  <pre>perl 804/804_rptrepos.pl</pre>
+</ul>
+<h3>Evaluation</h3>
+<ol>
+  <li>Evaluate the SR object retrieved from the Report  Repository</li>
+</ol>
+<pre>     perl 804/eval_804.pl</pre>
+<h3>Supplemental Information</h3>
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_811" id="#test_811">Report Repository Test 811: SR Retrieve</a></h2>
+<p>These tests retrieve SR objects from the Report Repository  and compare them to the original data. The MESA tools will issue a C-Move request with a  Destination AE Title of WORKSTATION1.&nbsp;  That refers to a server on the MESA  system listening for DICOM Associations at port 3001.</p>
+<h3>References</h3>
+<h3>Instructions</h3>
+<ol>
+  <li>Start the MESA  servers as decribed in <a href="#start_servers">Starting  the MESA Servers </a>.&nbsp; If  you have not already loaded the test data into your system, do so as described  in <a href="#load_data">Loading  Test Data </a>.</li>
+  <li>Run the script to retrieve a report from the Report  Repository:</li>
+</ol>
+<ul>
+  <pre>perl 811/811_rptrepos.pl</pre>
+  </ul>
+<h3>Evaluation</h3>
+<ol>
+  <li>Evaluate the SR object retrieved from the Report  Repository</li>
+</ol><ul>
+  <pre>perl 811/eval_811.pl</pre></ul>
+<h3>Supplemental Information</h3></td>
+</tr></table>
+<h1><a name="#basic_sec" id="#basic_sec">Basic Security Tests</a></h1>
+<p>This section describes tests that are specific to the IHE  Basic Security integration profile. If you have the MESA servers running for the &ldquo;standard&rdquo;  tests, you should stop those servers now. You will need to start the MESA secure servers with  a different script.</p>
+<table><tr><td bgcolor="#FFFF99">
+<h2><a name="#test_1511" id="#test_1511">Report Repository Test 1511: Simple Imaging  Report</a></h2>
+<p>Report Repository test 1511 uses a combination of events  from other tests under the Basic Security integration profile. The Report  Repository is expected to communicate with other systems using TLS negotiation  and to send appropriate audit messages to the MESA syslog server.<br />
+  The table below lists the Audit Messages that should be  generated by your Report Repository. Please refer to the document <em>IHE Tests:  Transaction Sequences</em> for the full context of these messages. You might  trigger other messages to the Audit Record Repository based on your interaction  with your Report Repository. </p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="115" valign="top"><br />
+        <strong>Identifier</strong> </td>
+    <td width="246" valign="top"><p><strong>Description</strong></p></td>
+    <td width="144" valign="top"><p><strong>Source</strong></p></td>
+    <td width="133" valign="top"><p><strong>Destination</strong></p></td>
+  </tr>
+  <tr>
+    <td width="115" valign="top"><p>1511.016</p></td>
+    <td width="246" valign="top"><p>DICOMQuery</p></td>
+    <td width="144" valign="top"><p>Report Repository</p></td>
+    <td width="133" valign="top"><p>Audit Record Repos</p></td>
+  </tr>
+  <tr>
+    <td width="115" valign="top"><p>1511.020</p></td>
+    <td width="246" valign="top"><p>BeginStoringInstances</p></td>
+    <td width="144" valign="top"><p>Report Repository</p></td>
+    <td width="133" valign="top"><p>Audit Record Repos</p></td>
+  </tr>
+  <tr>
+    <td width="115" valign="top"><p>1511.022</p></td>
+    <td width="246" valign="top"><p>InstancesSent</p></td>
+    <td width="144" valign="top"><p>Report Repository</p></td>
+    <td width="133" valign="top"><p>Audit Record Repos</p></td>
+  </tr>
+</table>
+<h3>References</h3>
+<h3>Instructions</h3>
+<ol>
+  <li>Start the <strong><em><u>secure</u></em></strong> MESA servers as described in <a href="#start_servers">Starting  the MESA Servers </a>.&nbsp; Load the test data into your system  as follows:</li>
+  <pre>perl 15xx/load_15xx.pl</pre>
+  <li>Run the script to send queries to the Report Repository  in the secure mode:</li>
+  <pre>perl 1511/1511_rptrepos.pl</pre>
+  </ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Evaluate  the SR object retrieved from the Report Repository </li>
+  <pre>perl 804/eval_1511.pl</pre>
+  </ol>
+<h3>Supplemental Information </h3>
+<ol>
+  <li>Grab  all of the files (tar/zip) in <em>$MESA_TARGET/logs/syslog</em> and send these to  the Project Manager. </li>
+</ol></td>
+</tr></table>
+</body>
+</html>

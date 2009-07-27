@@ -1,0 +1,595 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>IHE/MESA ADT Tests</title>
+<style type="text/css">
+<!--
+.style1 {font-size: 24px}
+.style2 {font-size: 36px}
+-->
+</style>
+</head>
+
+<body>
+<p align="center"><span class="style1"><strong>HIMSS and RSNA</strong><br />
+<strong>Integrating the Healthcare Enterprise</strong></span></p>
+<p align="center"><strong>&nbsp;</strong></p>
+<p align="center"><span class="style2"><strong>&nbsp;</strong><strong>IHE/MESA ADT Registration Tests</strong></span></p>
+<p>&nbsp;</p>
+<p align="center">Electronic Radiology  Laboratory<br />
+  Mallinckrodt Institute of  Radiology<br />
+  510 South    Kingshighway Blvd. <br />
+  St. Louis, MO&nbsp; 63110 <br />
+  314.362.6965 (Voice)<br />
+  314.362.6971 (Fax)</p>
+<p align="center">&nbsp;</p>
+<p align="center">Revision 10.1.0<br />
+  25-August-2006 </p>
+<strong>Contents:</strong><br clear="all" />
+<p><a href="#test_overview">ADT Test  Overview</a><br />
+  <a href="#intro"> Introduction </a><br />
+  <a href="#msg_att">Message  Attributes</a><br />
+  <a href="#msg_values">Message  Values</a><br />
+  <a href="#start_servers"> Starting  the MESA Servers</a><br />
+  <a href="#test_instrt">Test  Instructions</a><br />
+<a href="#adt_tests"> ADT Tests</a></p>
+<ol>
+  <li><a href="#test_131">ADT  Test 131: Administrative and Procedure Performance Process Flow</a><br />
+  </li>
+  <li><a href="#test_132">ADT  Test 132: Order Change Flow Initiated by Order Filler</a><br />
+  </li>
+  <li><a href="#test_133">ADT  Test 133: PIR Case 2: Unidentified Patient Registered at ADT and Ordered at  Department System Scheduler/Order Filler</a><br />
+  </li>
+  <li><a href="#test_1301">ADT  Test 1301: Account Management: New Account</a><br />
+  </li>
+  <li><a href="#test_1302">ADT  Test 1302: Account Management: Update Account</a><br />
+  </li>
+  <li><a href="#test_1303">ADT Test 1303: Account Management: End Account </a><br />
+  </li>
+  <li><a href="#test_1305">ADT Test 1305: Charge Posting Process Flow #1 </a><br />
+  </li>
+</ol>
+<p><a href="#basic_sec_tests">Basic Security Tests</a></p>
+<ol>
+  <li><a href="#test_1240">ADT Test 1240: Basic Security, Registration </a><br />
+  </li>
+  <li><a href="#test_1531">ADT Test 1531: Basic Security, Administrative and Procedure Performance Process Flow</a></li>
+</ol>
+
+<p><a href="#eyecare_tests"> Eye Care Tests</a></p>
+<ol>
+  <li><a href="#test_50000">50000: Eye Care Workflow: Test 1</a></li>
+  <li><a href="#test_50002">50002: Eye Care Workflow: Patient Renamed</a></li>
+</ol>
+
+<h1><a name="#test_overview" id="#test_overview">1 AD</a>T Test Overview </h1>
+<h2><a name="#intro" id="#intro">Introduction</a> </h2>
+<p>This document describes  a series of tests for ADT Registration systems.&nbsp;  Such systems are expected to produce HL7 registration (ADT) messages  with content as defined by this document.&nbsp;  The message sequences used in this document are part of a larger  sequence of messages (ADT, Ordering, Modality procedures). You can find the  entire set of events for a complete test scenario in <em>IHE Tests: Radiology Transaction Sequences</em>.&nbsp; <br />
+  The ADT system under test generates HL7 events in response  to actions by a user.&nbsp; The ADT system  does not receive messages from other systems.<br />
+  The ADT tests are a series of tests that track registration  events for individual patients.&nbsp; Each  test consists of one or more ADT messages for a single patient as described in  section 2.</p>
+<h3>Integration Profiles and Test Procedures</h3>
+<p>This document lists a number of tests for ADT Systems. You  may not be responsible for all of these tests.<br />
+  Please refer to the Connectathon web tool to list the  required tests for your system. The web address of this tool depends on the  year and project manager. Please contact the appropriate project manager to  obtain this information.</p>
+<h2><a name="#msg_att" id="#msg_att">Message Attributes</a></h2>
+<p>ADT and other HL7 messages contain attributes that are not  used or required by the IHE Technical Framework.&nbsp; This section contains a table defining those  attributes that will be evaluated in the ADT tests.&nbsp; Other values may be required by the Technical  Framework but not evaluated with this software.<br />
+  In the table below, the columns marked <em>Value</em> and <em>Present</em> indicate the scope of the evaluation for these messages.&nbsp; Fields that are marked in the <em>V</em><em>alue</em> column indicate the tests will  expect a specific value in the field (for example, we specify the patient  name).&nbsp; Fields marked in the P<em>resent</em> column are tested to see if the  field contains a value, but the tests cannot evaluate for a specific  value.&nbsp; For example, the tests cannot  dictate the Patient ID generated by your system.<br />
+  Some fields only make sense in the context of a specific  transaction.&nbsp; MRG fields are not tested  in A01 messages; Admitting Doctor is not expected to have a value for  outpatient registration and is not checked for A04 messages.</p>
+<br clear="all" />
+<p>&nbsp;</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="66" valign="top"><p><strong>Segment</strong></p></td>
+    <td width="66" valign="top"><p align="center"><strong>Field #</strong></p></td>
+    <td width="168" valign="top"><p><strong>Description</strong></p></td>
+    <td width="66" valign="top"><p align="center"><strong>Value</strong></p></td>
+    <td width="66" valign="top"><p align="center"><strong>Present</strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>MSH</p></td>
+    <td width="66" valign="top"><p align="center">1</p></td>
+    <td width="168" valign="top"><p>Field Separator</p></td>
+    <td width="66" valign="top"><p>x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">2</p></td>
+    <td width="168" valign="top"><p>Encoding Characters</p></td>
+    <td width="66" valign="top"><p>x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">3</p></td>
+    <td width="168" valign="top"><p>Sending Application</p></td>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">4</p></td>
+    <td width="168" valign="top"><p>Sending Facility</p></td>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">5</p></td>
+    <td width="168" valign="top"><p>Receiving Application</p></td>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">6</p></td>
+    <td width="168" valign="top"><p>Receiving Facility</p></td>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">9</p></td>
+    <td width="168" valign="top"><p>Message Type</p></td>
+    <td width="66" valign="top"><p>x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">10</p></td>
+    <td width="168" valign="top"><p>Message Control ID</p></td>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">11</p></td>
+    <td width="168" valign="top"><p>Processing ID</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">12</p></td>
+    <td width="168" valign="top"><p>Version ID</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>EVN</p></td>
+    <td width="66" valign="top"><p align="center">2</p></td>
+    <td width="168" valign="top"><p>Recorded DateTime</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>PID</p></td>
+    <td width="66" valign="top"><p align="center">3</p></td>
+    <td width="168" valign="top"><p>Patient ID List</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">5</p></td>
+    <td width="168" valign="top"><p>Patient Name</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">7</p></td>
+    <td width="168" valign="top"><p>Date/Time of Birth</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">8</p></td>
+    <td width="168" valign="top"><p>Sex</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">10</p></td>
+    <td width="168" valign="top"><p>Race</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">11</p></td>
+    <td width="168" valign="top"><p>Patient Address</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">18</p></td>
+    <td width="168" valign="top"><p>Patient Account Number</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>PV1</p></td>
+    <td width="66" valign="top"><p align="center">2</p></td>
+    <td width="168" valign="top"><p>Patient Class</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">3</p></td>
+    <td width="168" valign="top"><p>Assigned Patient Location</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">7</p></td>
+    <td width="168" valign="top"><p>Attending Doctor</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">8</p></td>
+    <td width="168" valign="top"><p>Referring Doctor</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">17</p></td>
+    <td width="168" valign="top"><p>Admitting Doctor</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>MRG</p></td>
+    <td width="66" valign="top"><p align="center">1</p></td>
+    <td width="168" valign="top"><p>Prior Patient ID List</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">7</p></td>
+    <td width="168" valign="top"><p>Prior Patient Name</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+</table>
+<strong><br clear="all" />
+</strong>
+<h2><a name="#msg_values" id="#msg_values">Message Values</a></h2>
+<p>Each test described in section 2 expects ADT messages with  specific content. The MESA  test system includes files that describe these messages and expected  values.&nbsp; Use a web browser to open the  file: <em>$MESA_TARGET/mesa_tests/rad/msgs/doc/index.html</em>.&nbsp; This file contains links to the message  sequence for each test.&nbsp; You can examine  the test messages to see what values are expected by the MESA software.Configuration<br />
+  Read the <em>Runtime  Notes</em> section of the<em> Installation  Guide</em> to determine the proper settings for the MESA runtime environment.<br />
+  The table below lists the port numbers used by MESA applications for  receiving messages from the ADT system.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="264" valign="top"><br />
+      MESA    Actor </td>
+    <td width="258" valign="top"><p align="center">Port Number</p></td>
+  </tr>
+  <tr>
+    <td width="264" valign="top"><p>Order Placer</p></td>
+    <td width="258" valign="top"><p align="center">2100</p></td>
+  </tr>
+  <tr>
+    <td width="264" valign="top"><p>Order Filler</p></td>
+    <td width="258" valign="top"><p align="center">2200</p></td>
+  </tr>
+  <tr>
+    <td width="264" valign="top"><p>Audit Record Repository</p></td>
+    <td width="258" valign="top"><p align="center">4000 (UDP)</p></td>
+  </tr>
+</table>
+<h2><a name="#start_servers" id="#start_servers">Starting the </a>MESA Servers</h2>
+<p>These instructions assume you are using a terminal emulator  on Unix systems or an MS DOS command window under Windows NT.&nbsp; Each test uses a command line interface;  there is no graphical user interface. Before you start the test procedure, you  need to start the MESA Order Placer and MESA Order Filler servers.&nbsp; Make sure the appropriate database is running  (PostgreSQL, SQL Server).&nbsp; To start the MESA servers:</p>
+<ol>
+  <li>Enter  the ADT exam fileder: <em>mesa_tests/rad/actors/adt</em></li>
+  <li>Execute  the appropriate script to start the servers:</li>
+      <pre>scripts/start_mesa_servers.csh [loglevel] &nbsp;(Unix)</pre>
+       <pre>scripts\start_mesa_servers.bat  (Windows)</pre>
+</ol>
+<p>In the unix environment, loglevel is an optional argument (0  is default).&nbsp; Log levels are:</p>
+<ol start="0">
+  <li>no logging</li>
+  <li>errors</li>
+  <li>warnings</li>
+  <li>verbose</li>
+  <li>conversational (really verbose)</li>
+</ol>
+<p>To set the log level for Windows NT, set the environment  variable LOGLEVEL to the desired value before invoking the batch file.<br />
+  When you are finished running one or more tests, you can  stop the servers:
+<pre>      scripts/stop_mesa_servers.csh  (Unix)</pre>
+  <pre>      scripts\stop_mesa_servers.bat  (Windows)</pre>
+  For the security tests, the MESA servers are started with different  scripts. These are <em>scripts/start_mesa_secure.csh</em> and <em>scripts\start_mesa_secure.bat</em>.  The log levels are the same as for the standard tests. The MESA servers are stopped using these scripts: <em>scripts/stop_mesa_secure.csh</em> and <em>scripts\stop_mesa_secure.bat</em>.</p>
+<h2><a name="#test_instrt" id="#test_instrt">Test Instructions</a></h2>
+<p><strong><em>Please note the test instructions change starting  with the 6.7.0 release</em></strong>.<br />
+  Each test is independent of the others.&nbsp; You must collect the results of one test  before starting a new test.</p>
+<ol>
+  <li>Enter  the ADT exam directory: <em>mesa_tests/rad/actors/adt</em>.</li>
+  <li>Remember  the MESA  servers were started according to the directions in <a href="#start_servers">Starting the MESA Servers</a>.</li>
+</ol>
+<p>Workflow tests (1xx series) use a test engine that manages  the test process. This test engine is used for all 1xx series tests and is  driven by a text file that describes the events for a specific test. Each test  below will indicate which script is appropriate (usually the swf script for  Scheduled Workflow). The arguments to the script are the test number and the  log level for output:</p>
+<ol>
+  <li>errors only</li>
+  <li>warnings</li>
+  <li>verbose</li>
+  <li>reference  information (pointers into IHE Technical Framework)</li>
+</ol>
+<p>An example of the syntax used to invoke the script for the  131 test is:
+<pre>     perl scripts/adt_swf.pl 131 1</pre>
+  The test script will announce what events are about to  happen and will request that you send specific events according to the sequence  defined in <em>IHE Tests: Transaction  Sequences</em>. The IHE Technical Framework expects an ADT system to send  messages to both an Order Placer and an Order Filler. These tests assume your  system is capable of sending the same message to multiple actors. The tests  require that you send your ADT messages to the MESA Order Filler (listening on  port 2200). If you send messages to the MESA Order Placer (port 2100), these  messages will be ignored.<br />
+  Each test requires an accurate construction of HL7 messages  by the ADT system. The specifications for the messages are contained in  variable files located in the mesa_tests/rad/msgs/adt  directory. The values in the files describe some attributes that will be  the same for all messages (Sending Facility) and some attributes that will  differ for messages (Patient Name).<br />
+  When you have completed the sequence of events, results can  be evaluated by running the evaluation script:
+  <pre>     perl  &lt;test&gt;/eval_&lt;test&gt;.pl &lt;log level&gt;</pre>
+  For example: perl 131/eval_131.pl 3<br />
+  The log level for evaluation is defined as:</p>
+<ol>
+  <li>errors only</li>
+  <li>warnings</li>
+  <li>context information (verbose)</li>
+  <li>reference information (pointer into IHE Technical  Framework)</li>
+</ol>
+<p>Starting with version 6.7.0 of the MESA software, the user can change the  patient name and patient ID of the test subject prior to running the test. This  allows one to rerun a test without clearning the database of the prior subject.  This is done from the directory <em>$MESA_TARGET/mesa_tests/rads/msgs</em>.<br />
+  A perl script is used to query the user for a new patient  name and other demographics; the script automatically generates the new patient  identifier. The perl script can also use an existing text file to specify the  new demographics. The software is shipped with text files that are designed for  IHE United States. It would be a simple task to make different text files for  other countries. As listed in each sectio below, invoke the perl script with no  arguments for interactive questions. If you specify an argument, it is the name  of a text file with the demographic values.</p>
+
+<h1><a name="#adt_tests" id="#adt_tests">2 ADT Tests</a></h1>
+<p>This section lists the events for a series of tests to be  completed for an ADT system.&nbsp; Each of the  subsections below contains one table listing the ADT events to be produced by  the ADT system and the order of those events within the test.<br />
+  For each test (<em>xxx</em>),  generate the test result as described above (<em>xxx/grade_xxx.txt</em>) and submit to the Project Manager.&nbsp; Remember to reset the MESA servers before each test and run the  evaluation script immediately after sending your ADT messages.<br />
+  This document does not list the expected values for each  message. As described in <a href="#msg_values">Message Values</a>, the web page $MESA_TARGET/mesa_tests/rad/msgs/doc/index.html serves as  an entry point and allows the user to determine what values are expected in the  messages. Rather than document the values here, the actual messages provide  better synchronization with the test software. For each test below, please  refer to the appropriate sequence of messages as found in $MESA_TARGET/mesa_tests/rad/msgs/doc/index.html.</p>
+
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_131" id="#test_131">ADT Test 131: Administrative and Procedure  Performance Process Flow</a></h2>
+<p>Test 131 covers Administrative and Procedure Performance  Process Flow in the Scheduled Workflow profile (see IHE TF Vol I, section  3.2.1).</p>
+<h3>References</h3>
+<h3>Instructions</h3>
+<p>The nominal patient name is BLACK^CHARLES.<br />
+  To run this test, follow these steps using a DOS window or  terminal emulator:</p>
+<ol>
+  <li>Set  the current directory to $MESA_TARGET/mesa_tests/rad/actors/adt.</li>
+  <li>Make  sure the MESA  servers have been started as described in <a href="#start_servers">Starting the MESA Servers</a> above.</li>
+  <li>Run  the test script as follows:</li>
+      <pre>perl scripts/adt_swf.pl 131 &lt;log&gt;</pre>
+<li>Run  the evaluation script below.</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Run  the evaluation script</li>
+      <pre>perl  131/eval_131.pl &lt;log&gt;</pre>
+<li>The  evaluation output is found in 131/grade_131.txt. The final result should  indicate 0 errors. Submit the result run at log level 4 to the Project Manager. </li>
+</ol>
+<h3>Supplemental Information  </h3>
+<p>To change patient name, patient ID prior to the test:
+  <pre>     cd $MESA_TARGET/mesa_tests/rad/msgs</pre>
+  <pre>     perl mesa_reset/131.pl ihe-us/131.var  (or)</pre>
+  <pre>     perl mesa_reset/131.pl</pre>
+  </td></tr></table>
+  
+<h2><a name="#test_132" id="#test_132">ADT Test 132: Order Change Flow Initiated by  Order Filler</a></h2>
+<p>Test 132 covers order change flow initiated by the Order  Filler in the Scheduled Workflow profile (see IHE TF Vol I, section 3.2.4).</p>
+<h3>References</h3>
+<h3>Instructions</h3>
+<p>The nominal patient name is WISTERIA^MATTHEW.<br />
+  To run this test, follow these steps using a DOS window or  terminal emulator:</p>
+<ol>
+  <li>Set  the current directory to $MESA_TARGET/mesa_tests/rad/actors/adt.</li>
+  <li>Make  sure the MESA  servers have been started as described in <a href="#start_servers">Starting the MESA Servers</a> above.</li>
+  <li>Run  the test script as follows:</li>
+      <pre>perl scripts/adt_swf.pl 132 &lt;log&gt;</pre>
+<li>Run  the evaluation script below.</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Run  the evaluation script</li>
+      <pre>perl  132/eval_132.pl &lt;log&gt;</pre>
+  <li>The  evaluation output is found in 132/grade_132.txt. The final result should  indicate 0 errors. Submit the result run at log level 4 to the Project Manager. </li>
+</ol>
+<h3>Supplemental Information </h3>
+<p>To change patient name, patient ID prior to the test:
+<pre>     cd $MESA_TARGET/mesa_tests/rad/msgs</pre>
+  <pre>     perl mesa_reset/132.pl ihe-us/132.var  (or)</pre>
+  <pre>     perl mesa_reset/132.pl</pre>
+  <table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_133" id="#test_133">ADT Test 133: PIR Case 2: Unidentified Patient  Registered at ADT and Ordered at Department System Scheduler/Order Filler</a></h2>
+<p>Test Case 133 involves transactions for the patient Ivan  Indigo and tests the Unidentified Case 2: Unidentified Patient Registered at  ADT and Ordered at the DSS/Order Filler (see IHE TF Vol I, section 4.4.2).</p>
+<h3>References</h3>
+<h3>Instructions</h3>
+<p>The nominal patient name is INDGO^IVAN.<br />
+  To run this test, follow these steps using a DOS window or  terminal emulator:</p>
+<ol>
+  <li>Set  the current directory to $MESA_TARGET/mesa_tests/rad/actors/adt.</li>
+  <li>Make  sure the MESA  servers have been started as described in <a href="#start_servers">Starting the MESA Servers</a> above.</li>
+  <li>Run  the test script as follows:</li>
+      <pre>perl scripts/adt_swf.pl 133 &lt;log&gt;</pre>
+  <li>Run  the evaluation script below.</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Run  the evaluation script</li>
+      <pre>perl 133/eval_133.pl &lt;log&gt;</pre>
+<li>The  evaluation output is found in 133/grade_133.txt. The final result should  indicate 0 errors. Submit the result run at log level 4 to the Project Manager. </li>
+</ol>
+<h3>Supplemental Information </h3>
+<p>To change patient name, patient ID prior to the test:
+  <pre>     cd $MESA_TARGET/mesa_tests/rad/msgs</pre>
+  <pre>     perl mesa_reset/133.pl ihe-us/133.var  (or)</pre>
+  <pre>     perl mesa_reset/133.pl<strong><br clear="all" />
+</strong></pre>
+  </td></tr></table>
+<h2><a name="#test_1301" id="#test_1301">ADT Test 1301: Account Management: New Account</a></h2>
+<p>This test assumes you are able to send the appropriate A01  messages to admit a patient. It will require you to send one BAR message to the  MESA Charge Processor to create a new account. If your software is configured  to send the ADT message automatically, that should not hurt the evaluation. If  your software sends the ADT message to the Charge Processor before the BAR  message, that will confuse the MESA  software. Please consult with the Project Manager to obtain the proper results.</p>
+<h3>References</h3>
+<h3>Instructions</h3>
+<p>The nominal patient name is ALABAMA^MONTGOMERY.<br />
+  To run this test:
+<pre>     perl scripts/adt_chg.pl 1301 &lt;log&gt;</pre>
+<h3>Evaluation</h3>
+<p>To evaluate this test:
+<pre>     perl 1301/eval_1301.pl &lt;log&gt;</pre>
+<h3>Supplemental Information </h3>
+<p> To change patient name, patient ID prior to the test:
+<pre>     cd $MESA_TARGET/mesa_tests/rad/msgs</pre>
+<pre>     perl mesa_reset/1301.pl ihe-us/1301.var  (or)</pre>
+<pre>     perl mesa_reset/1301.pl</pre>
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_1302" id="#test_1302">ADT Test 1302: Account Management: Update  Account</a></h2>
+<p>Test Case 1302 covers account management and the P05 message  used to update a patient account. See IHE TF Vol 3, section 4.36.4.2. Your  system needs to send the BAR and ADT messages listed in the document <em>IHE  Tests: Transaction Sequences.</em></p>
+<h3>References</h3>
+<h3>Instructions</h3>
+<p>The nominal patient name is ALASKA^JUNEAU.<br />
+  If your software sends the ADT message to the Charge  Processor before the BAR message, that will confuse the MESA software. Please consult with the  Project Manager to obtain the proper results.<br />
+  To run this test:
+<pre>     perl scripts/adt_chg.pl 1302 &lt;log&gt;</pre>
+<h3>Evaluation</h3>
+<p>To evaluate this test:
+<pre>     perl 1302/eval_1302.pl &lt;log&gt;</pre>
+<h3>Supplemental Information </h3>
+<p> To change patient name, patient ID prior to the test:
+<pre>     cd $MESA_TARGET/mesa_tests/rad/msgs</pre>
+<pre>     perl mesa_reset/1302.pl ihe-us/1302.var  (or)</pre>
+<pre>     perl mesa_reset/1302.pl</pre>
+</td></tr></table>
+<h2><a name="#test_1303" id="#test_1303">ADT Test 1303: Account Management: End Account</a></h2>
+<p>Test Case 1303 covers account management and the P06 message  used to end a patient account. See IHE TF Vol 3, section 4.36.4.3. Your system  needs to send the BAR and ADT messages listed in the document <em>IHE Tests:  Transaction Sequences.</em></p>
+<h3>References</h3>
+<h3>Instructions</h3>
+<p>
+  The nominal patient name is ARIZONA^PHOENIX.<br />
+  If your software sends the ADT message to the Charge  Processor before the BAR message, that will confuse the MESA software. Please consult with the  Project Manager to obtain the proper results.<br />
+  To run this test:
+<pre>     perl scripts/adt_chg.pl 1303 &lt;log&gt;</pre>
+<h3>Evaluation</h3>
+<p>To evaluate this test:
+<pre>     perl 1303/eval_1303.pl &lt;log&gt;</pre>
+<h3>Supplemental Information </h3>
+<p> To change patient name, patient ID prior to the test:
+<pre>     cd $MESA_TARGET/mesa_tests/rad/msgs</pre>
+<pre>     perl mesa_reset/1303.pl ihe-us/1303.var  (or)</pre>
+<pre>     perl mesa_reset/1303.pl</pre>
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_1305" id="#test_1305">ADT Test 1305: Charge Posting Process Flow #1</a></h2>
+<p>Test Case 1305 involves all of the actors and transactions  for a fully integrated Charge Processing Process Flow. See IHE TF Vol I,  section 11.3. Your system needs to send the BAR and ADT messages listed in the  document <em>IHE Tests: Transaction Sequences.</em></p>
+<h3>References</h3>
+<h3>Instructions</h3>
+<p>
+  The nominal patient name is CALIFORNIA^SACRAMENTO.<br />
+  If your software sends the ADT message to the Charge  Processor before the BAR message, that will confuse the MESA software. Please consult with the  Project Manager to obtain the proper results.<br />
+  To run this test:
+<pre>     perl scripts/adt_chg.pl 1305 &lt;log&gt;</pre>
+<h3>Evaluation</h3>
+<p>To evaluate this test:
+<pre>     perl 1305/eval_1305.pl &lt;log&gt;</pre>
+<h3>Supplemental Information </h3>
+<p> To change patient name, patient ID prior to the test:
+<pre>     cd $MESA_TARGET/mesa_tests/rad/msgs</pre>
+<pre>     perl mesa_reset/1305.pl ihe-us/1305.var  (or)</pre>
+<pre>     perl mesa_reset/1305.pl<strong><br clear="all" /></strong></pre>
+</td></tr></table>
+<h1><a name="#basic_sec_tests" id="#basic_sec_tests">3 Basic Security Tests</a></h1>
+<p>This section describes tests that are specific to the IHE  Basic Security integration profile. If you have the MESA servers running for the &ldquo;standard&rdquo;  tests, you should stop those servers now. You will need to start the MESA secure servers with a  different script.</p>
+<strong><br clear="all" />
+</strong>
+<table><tr><td bgcolor="#FFFF99">
+<h2><a name="#test_1240" id="#test_1240">ADT Test 1240: Basic Security, Registration</a></h2>
+<p>Test case 1240 exercises ADT registration messages  (ADT^A04) in the context of Basic Security. No audit messages are included in  this test.</p>
+<h3>References</h3>
+<h3>Instructions</h3>
+<p><br />
+  The nominal patient name is BOSTON^BOB.<br />
+  Notes:<br />
+  Before starting this test, make  sure you have stopped the MESA servers for the  standard mode tests and started the MESA  servers for the secure mode tests.<br />
+  To run this test:
+<pre>      perl scripts/adt_secure.pl 1240 &lt;log&gt;</pre>
+<h3>Evaluation</h3>
+<p>To evaluate this test:
+<pre>      perl 1240/eval_1240.pl &lt;log&gt;</pre>
+<h3>Supplemental Information </h3>
+<p> To change patient name, patient ID prior to the test:
+<pre>      cd $MESA_TARGET/mesa_tests/rad/msgs</pre>
+<pre>      perl mesa_reset/1240.pl ihe-us/1240.var  (or)</pre>
+<pre>      perl mesa_reset/1240.pl</pre>
+</td></tr></table>
+<h2><a name="#test_1531" id="#test_1531">ADT Test 1531: Basic Security, Administrative  and Procedure Performance Process Flow</a></h2>
+<p>Test case 1531 uses the same transactions as defined for  test 131: Administrative and Procedure Performance Process Flow.</p>
+<h3>References</h3>
+<h3>Instructions</h3>
+<p>
+  The nominal patient name is BLACK^CHARLES.<br />
+  Notes:<br />
+  Before starting this test, make  sure you have stopped the MESA servers for the  standard mode tests and started the MESA  servers for the secure mode tests.<br />
+  To run this test (the reference to 131 below is  intentional):
+<pre>      perl scripts/adt_secure.pl 131 &lt;log&gt;</pre>
+<h3>Evaluation</h3>
+<p>To evaluate this test (1531, not 131):
+<pre>      perl 1531/eval_1531.pl &lt;log&gt;</pre>
+<h3>Supplemental Information </h3>
+<p>To change patient name, patient ID prior to the test (131  is intentional):
+<pre>      cd $MESA_TARGET/mesa_tests/rad/msgs</pre>
+  <pre>      perl mesa_reset/131.pl ihe-us/131.var  (or)</pre>
+  <pre>      perl mesa_reset/131.pl</pre>
+  
+  
+ <h1><a name="#eyecare_tests" id="#eyecare_tests">Eye Care Tests</a></h1>
+<p>This section contains tests for ADT systems in the Eye Care profile.</p>
+<p> This document does not list the expected values for each  message. As described in <a href="#msg_values">Message Values</a>, the web page $MESA_TARGET/mesa_tests/rad/msgs/doc/index.html serves as  an entry point and allows the user to determine what values are expected in the  messages. Rather than document the values here, the actual messages provide  better synchronization with the test software. For each test below, please  refer to the appropriate sequence of messages as found in $MESA_TARGET/mesa_tests/rad/msgs/doc/index.html.</p>
+
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_50000" id="#test_50000">50000: Eye Care Workflow: Test 1</a></h2>
+<p>Test 50000 covers Eye Care workflow for the simple case of a patient registered as
+   an outpatient for treatment.</p>
+<h3>References</h3>
+<h3>Instructions</h3>
+<p>The nominal patient name is BALTIMORE^CHARLES.<br />
+  To run this test, follow these steps using a DOS window or  terminal emulator:</p>
+<ol>
+  <li>Set the current directory to $MESA_TARGET/mesa_tests/rad/actors/adt.</li>
+  <li>Make sure the MESA  servers have been started as described in <a href="#start_servers">Starting the MESA Servers</a> above.</li>
+  <li>Run  the test script as follows:
+      <pre>perl scripts/adt_swf.pl 50000 &lt;log&gt;</pre>
+  </li>
+  <li>Run  the evaluation script below.</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Run the evaluation script</li>
+      <pre>perl 50000/eval_50000.pl &lt;log&gt;</pre>
+<li>The evaluation output is found in 50000/grade_50000.txt. The final result should  indicate 0 errors. Submit the result run at log level 4 to the Project Manager. </li>
+</ol>
+<h3>Supplemental Information  </h3>
+
+</td></tr></table>
+ 
+
+<table><tr><td bgcolor="#FFFFF">
+<h2><a name="#test_50002" id="#test_5000">50002: Eye Care Workflow: Patient Renamed</a></h2>
+<p>Test 50002 covers Eye Care workflow for the case of the patient changing name after
+   original registration, order and image generation.</p>
+<h3>References</h3>
+<h3>Instructions</h3>
+<p>The nominal patient name is BRANSON^JANE, renamed to SPRINGFIELD^JANE.<br />
+  To run this test, follow these steps using a DOS window or  terminal emulator:</p>
+<ol>
+  <li>Set the current directory to $MESA_TARGET/mesa_tests/rad/actors/adt.</li>
+  <li>Make sure the MESA  servers have been started as described in <a href="#start_servers">Starting the MESA Servers</a> above.</li>
+  <li>Run  the test script as follows:
+      <pre>perl scripts/adt_swf.pl 50002 &lt;log&gt;</pre>
+  </li>
+  <li>Run the evaluation script below.</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Run the evaluation script</li>
+      <pre>perl 50002/eval_50002.pl &lt;log&gt;</pre>
+<li>The evaluation output is found in 50002/grade_50002.txt. The final result should  indicate 0 errors. Submit the result run at log level 4 to the Project Manager. </li>
+</ol>
+<h3>Supplemental Information</h3>
+
+</td></tr></table>
+
+</body>
+</html>

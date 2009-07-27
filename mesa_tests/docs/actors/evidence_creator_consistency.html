@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Untitled Document</title>
+<style type="text/css">
+<!--
+.style3 {font-size: 18px}
+-->
+</style>
+</head>
+
+<body>
+<p align="center">&nbsp;</p>
+<p align="center"><span class="style3">HIMMS and RSNA
+  <br />
+  Integrating  the Healthcare Enterprise</span><br />
+</p>
+<p align="center">&nbsp;</p>
+<p align="center"><span class="style3">Display  Consistency Test Plan for Evidence Creator<br />
+  2003-07-01</span><br />
+</p>
+<p align="center">&nbsp;</p>
+<p align="center">Marco Eichelberg, Klaus Kleber,  J&ouml;rg Riesmeier<br />
+  Adapted for Year 5 by David Maffitt<br />
+</p>
+<blockquote>
+  <blockquote>
+    <blockquote>
+      <blockquote>
+        <blockquote>
+          <blockquote>
+            <p align="left">&nbsp;</p>
+            <p align="left">Kuratorium OFFIS e.V., Escherweg 2, 26121 Oldenburg, Germany<br />
+              Institute for Microtherapy,  Universit&auml;tsstra&szlig;e 142, 44799 Bochum,   Germany<br />
+              Mallinckrodt Institute of Radiology, Washington University,  St. Louis, MO, USA</p>
+          </blockquote>
+        </blockquote>
+      </blockquote>
+    </blockquote>
+  </blockquote>
+</blockquote>
+<p>&nbsp;</p>
+<strong><br clear="all" />
+</strong>
+<h1><a name="_Toc478190932" id="_Toc478190932"></a><a name="_Toc513283536" id="_Toc513283536"></a><a name="_Toc486853000" id="_Toc486853000">Introduction</a> </h1>
+<p>This document is intended for vendors  participating in the IHE Connectathon who will supply one or more Evidence  Creator Actors participating in the Consistent Presentation of Images (CPI)  Integration Profile as defined in the IHE Technical Framework.&nbsp; In principle, it is also applicable to  Acquisition Modality Actors.<br />
+  Evidence Creators are systems that create additional evidence  objects such as images and/or Grayscale Softcopy Presentation States, Key Image  Notes, and/or Evidence Documents and transmits them to an Image Archive.&nbsp; They also make requests for the storage commitment  of the Image Manager for the data previously transmitted. They  may also retrieve worklist entries for post-processing steps from the  Post-Processing Manager and provide notification of completion of the step,  allowing the enterprise to track the status of post-processing work.<br />
+  This test plan is for those Evidence  Creators/Acquistion Modalities participating in CPI and contains the procedures  for testing the display consistency aspects of the Evidence Creator&rsquo;s  role.&nbsp; As such, it focuses only on the  following transactions:</p>
+<ul>
+  <li>&ldquo;Creator  Images Stored&rdquo; transaction 18 of the Technical Framework.</li>
+  <li>&ldquo;Creator  Presentation State Stored&rdquo; transaction 19 of the Technical Framework.</li>
+</ul>
+<p>A reference Image Display actor (DICOMscope) is  specified.&nbsp; This tool is to be used to  display created images/presentation states for visual verification that the  rendering is as expected. DICOMscope also contains a tool that allows the  validation of selected DICOM objects against the DICOM standard.&nbsp; The other aspects of Evidence Creators are  tested elsewhere in the IHE test plan.</p>
+<p>This test plan corresponds to MESA test number 521.</p>
+<h2>Submission  of Results</h2>
+<p>Test descriptions below inform the reader to  &ldquo;submit results to the Project Manager&rdquo;. This is does not mean &ldquo;email&rdquo;. The  current submission process should be documented by the Project Manager, but  will not include emailing files directly to the Project Manager.</p>
+<strong><br clear="all" />
+</strong>
+<h1><a name="_Toc513283537" id="_Toc513283537"></a><a name="_Toc486853032" id="_Toc486853032"></a><a name="_Toc485802476" id="_Toc485802476">Test  Procedure for Evidence </a>Creators</h1>
+<p>The IHE MESA Tools  contain, among other components, a Java-based GUI application called &ldquo;DICOMscope&rdquo;.&nbsp; This application is used in the test  procedure for Evidence Creators&nbsp;/&nbsp;Acquisition Modalities.&nbsp; Installation instructions and a simple user  manual for the DICOMscope application are provided in different documents with  the IHE MESA distribution.&nbsp; The following  discussion assumes that the application has been successfully installed and  that the user has a basic understanding of the application&rsquo;s concepts as laid  out in the user manual.&nbsp; However, not all  functions offered by the DICOMscope application are required or used in this  test procedure.<br />
+  DICOMscope contains  a Query/Retrieve Server that implements the requirements of the IHE &ldquo;Query  Image&rdquo;, &ldquo;Retrieve Image&rdquo;, &ldquo;Query Presentation State&rdquo;,  and &ldquo;Retrieve Presentation State&rdquo;  transactions.&nbsp; It should be noted that  interoperability between an Image Creator&nbsp;/&nbsp;Acquisition Modality and  the DICOMscope testing Query/Retrieve Server does improve the probability for  interoperabi&shy;lity between the SCU and SCP of the specified provided by a  different vendor, but is in no way a guarantee for interoperability.<br />
+  Images and  Presentation States created with any Evidence Creator&nbsp;/&nbsp;Acquisition  Modality should be validated with DICOMscope.&nbsp;  DICOMscope is a Storage Service Class Provider.&nbsp; Every Evidence Creator&nbsp;/&nbsp;Acquisition  Modality can send images and/or Presentation States to DICOMscope where they  can be rendered and visually inspected to verify that the rendering is as  expected.&nbsp; It should be noted that  DICOMscope is not able to display color images and that Presentation States are  only defined for grayscale images.<br />
+  DICOMscope also  contains a tool that will allow you to check selected IOD (information object  definition, called &ldquo;instance&rdquo; in this document) for conformance with the DICOM  standard (correct value representation, value length etc., but the presence of  mandatory attributes only for presentation states) and displays a report in a  separate application (see the DICOMscope user manual for details<br />
+  Note:&nbsp; The current version of DICOMscope (3.5.1) has  a known problem rendering some GSPS with spatial transformations.</p>
+<p><strong>You are required  to submit</strong> one example of the  images and presentation states representative of the type created by your  system.&nbsp; You can locate the  images/presentation states that were sent to DICOMscope using the following  procedure.<br />
+  The directory  DICOMscope uses to store its DICOM object files is set in the Database section  of the configuration file DICOMscope.cfg.&nbsp;  The default location is &ldquo;database&rdquo; which appears as a subdirectory in  DICOMscope&rsquo;s installation directory.&nbsp; Set  the Browser window to display filenames.&nbsp;  This is done by clicking on the Options icon, selecting the Browser tab,  and checking Filename.&nbsp; This will allow  you to quickly match up objects in the browser with their corresponding files  on disk.</p>
+<p>Please submit the  images and GSPS in a zipped archive.</p>
+</body>
+</html>

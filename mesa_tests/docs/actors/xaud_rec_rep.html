@@ -1,0 +1,279 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Untitled Document</title>
+<style type="text/css">
+<!--
+.style1 {font-size: 24px}
+.style2 {
+	font-size: 36px;
+	font-weight: bold;
+}
+-->
+</style>
+</head>
+
+<body>
+<p align="center" class="style1"><strong>HIMSS and RSNA</strong></p>
+<p align="center" class="style1"><strong>Integrating the Healthcare Enterprise</strong></p>
+<p align="center">&nbsp;</p>
+<p align="center">&nbsp;</p>
+<p align="center" class="style2">IHE Audit Record Repository Tests</p>
+<p align="center"><strong>&nbsp;</strong></p>
+<p align="center"><strong>&nbsp;</strong>Electronic Radiology Laboratory<br />
+  Mallinckrodt Institute of  Radiology<br />
+  510 South    Kingshighway Blvd. <br />
+  St. Louis, MO&nbsp; 63110 <br />
+  314.362.6965 (Voice)<br />
+  314.362.6971 (Fax)</p>
+<p align="center">&nbsp;</p>
+<p align="center">Revision 8.1.0<br />
+  November 8, 2004</p>
+<p align="center">Copyright &copy; 2004:  HIMSS/RSNA</p>
+<strong><br clear="all" />
+</strong>
+<p><strong>&nbsp;</strong></p>
+<p><a href="#_Toc87687882">1.... Audit Record Repository Tests</a> <br />
+    <a href="#_Toc87687883">1.1&nbsp;&nbsp;&nbsp;&nbsp; Introduction</a> <br />
+    <a href="#_Toc87687884">1.2&nbsp;&nbsp;&nbsp;&nbsp; Message Attributes</a> <br />
+    <a href="#_Toc87687885">1.3&nbsp;&nbsp;&nbsp;&nbsp; Message Values</a> <br />
+    <a href="#_Toc87687886">1.4&nbsp;&nbsp;&nbsp;&nbsp; Configuration</a> <br />
+    <a href="#_Toc87687887">1.5&nbsp;&nbsp;&nbsp;&nbsp; Starting the MESA Servers</a> <br />
+    <a href="#_Toc87687888">2.... Audit  Record Repository Tests</a> <br />
+    <a href="#_Toc87687889">2.1&nbsp;&nbsp;&nbsp;&nbsp; Test Instructions: 12xx and 15xx  Tests</a> <br />
+    <a href="#_Toc87687890">2.2&nbsp;&nbsp;&nbsp;&nbsp; Audit Record Repository Test 1201:  Actor Start</a> <br />
+    <a href="#_Toc87687891">2.3&nbsp;&nbsp;&nbsp;&nbsp; Audit Record Repository Test 1202:  System Configuration</a> <br />
+    <a href="#_Toc87687892">2.4&nbsp;&nbsp;&nbsp;&nbsp; Audit Record Repository Test 1203:  User Authentication</a> <br />
+    <a href="#_Toc87687893">2.5&nbsp;&nbsp;&nbsp;&nbsp; Audit Record Repository Test 1211:  Time Synchronization</a> <br />
+    <a href="#_Toc87687894">2.6&nbsp;&nbsp;&nbsp;&nbsp; Audit Record Repository Test 1502:  Pre-reg/Order Cancel/Reorder</a> <br />
+    <a href="#_Toc87687895">2.7&nbsp;&nbsp;&nbsp;&nbsp; Audit Record Repository Test 1503:  Unidentified #1</a> <br />
+    <a href="#_Toc87687896">2.8&nbsp;&nbsp;&nbsp;&nbsp; Audit Record Repository Test 1505:  Unidentified #3</a> <br />
+    <a href="#_Toc87687897">2.9&nbsp;&nbsp;&nbsp;&nbsp; ATNA Audit Record Repository Test  11121: Actor Start</a> <br />
+    <a href="#_Toc87687898">2.10&nbsp;&nbsp; ATNA Audit Record Repository Test  11122: System Configuration</a> <br />
+    <a href="#_Toc87687899">2.11&nbsp;&nbsp; ATNA Audit Record Repository Test 11123:  User Authentication</a> <br />
+  <a href="#_Toc87687900">2.12&nbsp;&nbsp; ATNA Audit Record Repository Test  11125: Patient Record</a> </p>
+<h1><a name="_Toc87687882" id="_Toc87687882"></a><a name="_Toc1456606" id="_Toc1456606"></a><a name="_Toc1388579" id="_Toc1388579"></a><a name="_Toc1388425" id="_Toc1388425"></a><a name="_Toc530206505" id="_Toc530206505"></a><a name="_Toc504625752" id="_Toc504625752">1 Audit Record Repository Tests</a></h1>
+<h2><a name="_Toc87687883" id="_Toc87687883">Introduction</a></h2>
+<p>We assume you are using an  interactive terminal or terminal emulator and are logged on to the MESA test system.&nbsp; Change directory to <em>$MESA_TARGET/testsuite/y3_actor/actors/audit_rep</em>.&nbsp; Make sure the <em>$MESA_TARGET</em> and <em>$MESA_STORAGE</em> environment variables are set properly.</p>
+<h3>Integration Profiles and Test Procedures</h3>
+<p>The Audit Record Repository  only participates in the Security Integration Profile. This document lists a  number of tests for such repositories. Please refer to the <em>IHE_YR4_Test_Requirements.xls</em> spreadsheet to determine the required and optional tests.</p>
+<h2><a name="_Toc87687884" id="_Toc87687884">Message Attributes</a></h2>
+<p>This section is applicable  for other actors and other tests.</p>
+<h2><a name="_Toc87687885" id="_Toc87687885">Message Values</a></h2>
+<p>This section is applicable  for other actors and other tests.</p>
+<h2><a name="_Toc87687886" id="_Toc87687886">Configuration</a></h2>
+<p>The Audit Record Repository  scripts described below use an ASCII configuration file to identify parameters  such as host names and port numbers.&nbsp; The  configuration file is named <em>audit_test.cfg</em> and is included in the directory <em>$MESA_TARGET/testsuite/y3_actor/actors/audit_rep</em>.&nbsp; Edit the file and change entries (host name, port  number) that pertain to your system.&nbsp;  Your system is identified by entries that begin with TEST.<br />
+  Read the Runtime Notes  section of the <em>Installation Guide</em> to  determine the proper settings for the MESA  runtime environment.</p>
+<strong><br clear="all" />
+</strong>
+<h2><a name="_Toc87687887" id="_Toc87687887">Starting the </a>MESA Servers</h2>
+<p>These instructions assume  you are using a terminal emulator on Unix systems or an MS DOS command window  under Windows NT.&nbsp; Each test uses a  command line interface; there is no graphical user interface. Before you start the  test procedure, you need to start several MESA  servers.&nbsp; Make sure the appropriate  database is running (PostgreSQL, SQL Server).&nbsp;  To start the MESA  servers:</p>
+<ol>
+  <li>Enter the Audit  Record Repository exam directory: <em>testsuite/y3_actor/actors/audit_rep</em></li>
+  <li>Execute the  appropriate script to start the servers:
+    <blockquote>
+      <p>scripts/start_mesa_servers.csh  [loglevel]&nbsp;  (Unix)<br />
+      scripts\start_mesa_servers.bat (Windows)</p>
+    </blockquote>
+    <p>In the unix environment,  loglevel is an optional argument (0 is default).&nbsp; Log levels are:<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; no logging<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; errors<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; warnings<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; verbose<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; conversational (really verbose)<br />
+      To set the log level for  Windows NT, set the environment variable LOGLEVEL to the desired value before  invoking the batch file.<br />
+      When you are finished  running one or more tests, you can stop the servers:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; scripts/stop_mesa_servers.csh (Unix)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; scripts\stop_mesa_servers.bat (Windows)<br />
+Log files are stored in  $MESA_TARGET/logs.</p>
+  </li>
+</ol>
+<p>&nbsp;</p>
+<h1><a name="_Toc87687888" id="_Toc87687888">Audit Record Repository Tests</a></h1>
+<p>Each section below lists one  test for an Audit Record Repository.</p>
+<h2><a name="_Toc87687889" id="_Toc87687889">Test Instructions: 12xx and 15xx Tests</a></h2>
+<p>Each test is independent of  the others.&nbsp; You must collect the results  of one test before starting a new test.</p>
+<ol>
+  <li>Enter the Secure  Node exam directory: <em>testsuite/y3_actor/actors/audit_rep.</em></li>
+  <li>Remember the MESA servers were started  according to the directions in section 1.5.</li>
+  <li>Start the  interactive script for the desired test.&nbsp;  Each perl script is found in &lt;test&gt;/&lt;test&gt;_client.pl.&nbsp; For example, to run test 1201:
+    <blockquote>
+      <p>perl  1201/1201_audit_rep.pl</p>
+    </blockquote>
+  </li>
+
+  <li>Follow the  directions of the test script.&nbsp; In most  cases, you are merely waiting for messages from the MESA applications.</li>
+  <li>Answer the question or questions that are presented in  this document. These questions are below and in the file <em>audit_questions.txt</em>.  Modify this file and email the responses to the Project Manager. </li>
+</ol>
+<p>If you want to run a  different test, start at step 3.</p>
+<h2><a name="_Toc87687890" id="_Toc87687890">Audit Record Repository Test 1201: Actor Start</a></h2>
+<p>This sequence sends an audit record to the Audit Record  Repository under test. This test covers the basic functionality of transmitting  the message and the proper XML format of the message. The Actor Start message  is chosen as that is required of all actors and is independent of other IHE  transactions.</p>
+<ol>
+  <li>If  not already done, start the MESA  servers according to the directions in section 1.5.</li>
+  <li>If  not already done, start your Audit Record Repository server.</li>
+  <li>Run  the script that sends one message to your Audit Record Repository:
+    <blockquote>
+      <p>perl 1201/1201_audit_rep.pl</p>
+    </blockquote>
+  </li>
+
+  <li>Observe  the data sent to your system. Answer this question and email response to the  Project Manager:
+    <blockquote>
+      <p>What is the type of actor that  was started and what is the name of the local user?</p>
+    </blockquote>
+  </li>
+</ol>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2><a name="_Toc87687891" id="_Toc87687891">Audit Record Repository Test 1202: System  Configuration</a></h2>
+<p>This sequence sends an audit record to the Audit Record  Repository under test. This test covers the basic functionality of transmitting  the message and the proper XML format of the message. The System Configuration  message is chosen as that is required of all actors and is independent of other  IHE transactions.</p>
+<ol>
+  <li>If  not already done, start the MESA  servers according to the directions in section 1.5.</li>
+  <li>If  not already done, start your Audit Record Repository server.</li>
+  <li>Run  the script that sends one message to your Audit Record Repository:
+    <blockquote>
+      <p>perl 1202/1202_audit_rep.pl</p>
+    </blockquote>
+  </li>
+
+  <li>Observe  the data sent to your system. Answer these questions and email response to the  Project Manager:
+    <blockquote>
+      <p>What was the configuration  change?<br />
+        What is the name of the local  user who made the change?</p>
+    </blockquote>
+  </li>
+</ol>
+<p>&nbsp;</p>
+<h2><a name="_Toc87687892" id="_Toc87687892">Audit Record Repository Test 1203: User  Authentication</a></h2>
+<p>This sequence sends an audit record to the Audit Record  Repository under test. This test covers the basic functionality of transmitting  the message and the proper XML format of the message. The User Authentication  message is chosen.</p>
+<ol>
+  <li>If  not already done, start the MESA  servers according to the directions in section 1.5.</li>
+  <li>If  not already done, start your Audit Record Repository server.</li>
+  <li>Run  the script that sends one message to your Audit Record Repository:
+    <blockquote>
+      <p>perl 1203/1203_audit_rep.pl</p>
+    </blockquote>
+  </li>
+
+  <li>Observe  the data sent to your system. Answer this question and email response to the  Project Manager:
+    <blockquote>
+      <p>What is the name of the  authenticated user?</p>
+    </blockquote>
+  </li>
+</ol>
+<p>&nbsp;</p>
+<h2><a name="_Toc87687893" id="_Toc87687893">Audit Record Repository Test 1211: Time  Synchronization</a></h2>
+<p>Time synchronization requires an external system that  serves as an NTP server. The MESA  tools do not include such a server, but they are readily available.<br />
+  If time permits, the Project Manager will load the time  server software and allow access for participants. As of this version of the  document, that is not available.</p>
+<ol>
+  <li>Read  about NTP at the site <a href="http://www.ntp.org/">http://www.ntp.org</a></li>
+  <li>Select/locate  a public NTP server. Follow any rules of etiquette posted for that server.</li>
+  <li>Configure  your system to synchronize time with that public NTP server.</li>
+  <li>At  exactly 13:00 local time,  August 1, send an email to the Project Manager (just kidding).</li>
+</ol>
+<p>&nbsp;</p>
+<blockquote>
+  <p>We do not require proof that you have performed this test.</p>
+</blockquote>
+<p>&nbsp;</p>
+<strong><br clear="all" />
+</strong>
+<h2><a name="_Toc87687894" id="_Toc87687894">Audit Record Repository Test 1502: Pre-reg/Order  Cancel/Reorder</a></h2>
+<p>This test covers all of the Audit Record messages from a  sequence of events involving a number of different actors. Your system will  receive all of the messages; you will then be asked to answer questions about  those messages.</p>
+<ol>
+  <li>If  not already done, start the MESA  servers according to the directions in section 1.5.</li>
+  <li>If  not already done, start your Audit Record Repository server.</li>
+  <li>Run  the script that sends one message to your Audit Record Repository:
+    <blockquote>
+      <p>perl 1502/1502_audit_rep.pl</p>
+    </blockquote>
+  </li>
+
+  <li>Observe  the data sent to your system. Answer these questions and email response to the  Project Manager:
+    <blockquote>
+      <p>Name all of the users who had  access to the patient record of BROWN^JAMES<br />
+        Who was the last user who had  access to the patient record of BROWN^JAMES?</p>
+    </blockquote>
+  </li>
+</ol>
+<p>&nbsp;</p>
+<strong><br clear="all" />
+</strong>
+<h2><a name="_Toc87687895" id="_Toc87687895">Audit Record Repository Test 1503: Unidentified  #1</a></h2>
+<h2><a name="_Toc87687896" id="_Toc87687896">Audit Record Repository Test 1505: Unidentified  #3</a></h2>
+<h2><a name="_Toc87687897" id="_Toc87687897">ATNA Audit Record Repository Test 11121: Actor  Start</a></h2>
+<p>This sequence sends an audit record to the Audit Record  Repository under test. This test covers the basic functionality of transmitting  the message and the proper XML format of the message. The Actor Start message  is chosen as that is required of all actors and is independent of other IHE  transactions.</p>
+<ol>
+  <li>If  not already done, start the MESA  servers according to the directions in section 1.5.</li>
+  <li>If  not already done, start your Audit Record Repository server.</li>
+  <li>Run  the script that sends one message to your Audit Record Repository:
+    <blockquote>
+      <p>perl 11121/11121_audit_rep.pl</p>
+    </blockquote>
+  </li>
+
+  <li>Observe  the data sent to your system. Answer this question and email response to the  Project Manager:
+    <blockquote>
+      <p>What is the type of actor that  was started and what is the name of the local user?</p>
+    </blockquote>
+  </li>
+</ol>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2><a name="_Toc87687898" id="_Toc87687898">ATNA Audit Record Repository Test 11122: System  Configuration</a></h2>
+<p>This sequence sends an audit record to the Audit Record  Repository under test. This test covers the basic functionality of transmitting  the message and the proper XML format of the message. The System Configuration  message is chosen as that is required of all actors and is independent of other  IHE transactions.</p>
+<ol>
+  <li>If  not already done, start the MESA  servers according to the directions in section 1.5.</li>
+  <li>If  not already done, start your Audit Record Repository server.</li>
+  <li>Run  the script that sends one message to your Audit Record Repository:
+    <blockquote>
+      <p>perl 11122/11122_audit_rep.pl</p>
+    </blockquote>
+  </li>
+
+  <li>Observe  the data sent to your system. Answer these questions and email response to the  Project Manager:
+    <blockquote>
+      <p>What was the configuration  change?<br />
+        What is the name of the local  user who made the change?</p>
+    </blockquote>
+  </li>
+</ol>
+<p>&nbsp;</p>
+<h2><a name="_Toc87687899" id="_Toc87687899">ATNA Audit Record Repository Test 11123: User  Authentication</a></h2>
+<p>This sequence sends an audit record to the Audit Record  Repository under test. This test covers the basic functionality of transmitting  the message and the proper XML format of the message. The User Authentication  message is chosen.</p>
+<ol>
+  <li>If  not already done, start the MESA  servers according to the directions in section 1.5.</li>
+  <li>If  not already done, start your Audit Record Repository server.</li>
+  <li>Run  the script that sends one message to your Audit Record Repository:
+    <blockquote>
+      <p>perl 11123/11123_audit_rep.pl</p>
+    </blockquote>
+  </li>
+
+  <li>Observe  the data sent to your system. Answer this question and email response to the  Project Manager:
+    <blockquote>
+      <p>What is the name of the  authenticated user?</p>
+    </blockquote>
+  </li>
+</ol>
+<h2><a name="_Toc87687900" id="_Toc87687900">ATNA Audit Record Repository Test 11125: Patient  Record</a></h2>
+<p>This test covers all of the Audit Record messages from a  sequence of events involving a number of different actors. Your system will  receive all of the messages; you will then be asked to answer questions about  those messages.</p>
+<ol>
+  <li>If  not already done, start the MESA  servers according to the directions in section 1.5.</li>
+  <li>If  not already done, start your Audit Record Repository server.</li>
+  <li>Run  the script that sends one message to your Audit Record Repository:
+    <blockquote>
+      <p>perl 11125/11125_audit_rep.pl</p>
+    </blockquote>
+  </li>
+
+  <li>Observe  the data sent to your system. Answer these questions and email response to the  Project Manager:
+    <blockquote>
+      <p>Name all of the users who had  access to the patient record of Sick^Patient</p>
+    </blockquote>
+  </li>
+</ol>
+<h2>&nbsp;</h2>
+</body>
+</html>

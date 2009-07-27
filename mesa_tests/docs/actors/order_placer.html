@@ -1,0 +1,847 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>IHE/MESA Order Placer Tests</title>
+</head>
+
+<body>
+<p align="center"><strong>&nbsp;</strong></p>
+<p align="center"><strong>HIMSS and RSNA</strong><br />
+    <strong>Integrating the Healthcare Enterprise</strong></p>
+<p align="center"><strong>&nbsp;</strong></p>
+<p align="center"><strong>&nbsp;</strong><strong>IHE/MESA Order Placer Tests</strong></p>
+<p>&nbsp;</p>
+<p align="center">Electronic Radiology  Laboratory<br />
+  Mallinckrodt Institute of  Radiology<br />
+  510 South    Kingshighway Blvd. <br />
+  St. Louis, MO&nbsp; 63110 <br />
+  314.362.6965 (Voice)<br />
+  314.362.6971 (Fax)</p>
+<p align="center">&nbsp;</p>
+<p align="center">Revision 10.1.0<br />
+  25-August-2006 </p>
+<strong>Contents:</strong><br clear="all" />
+<p> <a href="#ord_plcr_tests">Order Placer  Tests</a><br />
+  <a href="#intro">Introduction</a><br />
+  <a href="#msg_att">Message Attributes</a><br />
+  <a href="#msg_values">Message Values</a><br />
+  <a href="#config">Configuration</a><br />
+  <a href="#start_servers">Starting  the MESA Servers</a><br />
+  <a href="#unique_id">Unique  Identifiers</a><br />
+  <a href="#test_instrt">Test  Instructions</a><br />
+  <a href="#indiv_tests">Individual Tests</a></p>
+<ol>
+  <li><a href="#test_103">Order  Placer Test 103: Unidentified Patient Registered at ADT and Ordered at the  Order Placer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a><br />
+  </li>
+  <li><a href="#test_104">Order  Placer Test 104: Green</a><br />
+  </li>
+  <li><a href="#test_105">Order  Placer Test 105: PIR Case #3: Unidentified Patient Registered at ADT but  Completed at Modality Prior to Order</a><br />
+  </li>
+  <li><a href="#test_107">Order  Placer Test 107: Status Update</a><br />
+  </li>
+  <li><a href="#test_131">Order  Placer Test 131: Administrative and Procedure Performance Process Flow</a><br />
+  </li>
+  <li><a href="#test_132">Order  Placer Test 132: Order Change Flow Initiated by Order Filler</a><br />
+  </li>
+  <li><a href="#test_151">Order  Filler Test 151: Appointment Notification &ndash; New Bookings</a><br />
+  </li>
+  <li><a href="#test_152">Order  Filler Test 152: Appointment Notification &ndash; Reschedule Bookings</a><br />
+  </li>
+  <li><a href="#test_153">Order  Filler Test 153: Appointment Notification &ndash; Cancel Bookings</a></li>
+</ol>
+<p><a href="#basic_sec_tests">Basic Security Tests</a></p>
+<ol>
+  <li><a href="#test_1240">Order  Placer Test 1240: Basic Security, Registration </a><br />
+  </li>
+  <li><a href="#test_1531">Order  Placer Test 1531: Basic Security, Administrative and Procedure Performance  Process Flow</a></li>
+</ol>
+
+<p><a href="#eyecare_tests">Eye Care Tests</a></p>
+<ol>
+  <li><a href="#test_50000">50000: Eye Care Workflow: Test 1</a></li>
+  <li><a href="#test_50001">50001: Eye Care Workflow: Order Initiated by Order Filler</a></li>
+  <li><a href="#test_50002">50002: Eye Care Workflow: Patient Renamed</a></li>
+</ol>
+
+
+<h1><a name="#ord_plcr_tests" id="#ord_plcr_tests">Order Placer Tests</a></h1>
+<h2><a name="#intro" id="#intro">Introduction</a></h2>
+<p>Read the document <em>IHE  Tests: Transaction Sequences</em>.&nbsp; This  document lists all the transactions in a series of use cases which drive tests  for individual actors.&nbsp; Order Placers  will participate in a subset of the transactions.&nbsp; Reading that document will allow you to  understand the full set of transactions for each test.<br />
+  Each test is run using the same procedure.&nbsp; We assume you are using an interactive  terminal or terminal emulator and are logged on to the MESA test system.&nbsp; Change directory to <em>$MESA_TARGET/mesa_tests/rad/actors/ordplc</em>.&nbsp; Make sure the $MESA_TARGET and $MESA_STORAGE  environment variables are set properly.</p>
+<h3>Integration Profiles and Test Procedures</h3>
+<p>This document lists a number of tests for Order Placer  Systems. You may not be responsible for all of these tests.</p>
+<p><br />
+  Please refer to the Kudu web tool to list the  required tests for your system. The web address of this tool depends on the  year and project manager. Please contact the appropriate project manager to  obtain this information.</p>
+<h2><a name="#msg_att" id="#msg_att">Message Attributes</a></h2>
+<p>ORM and other HL7 messages contain attributes that are not  used or required by the IHE Technical Framework.&nbsp; This section contains a table defining those  attributes that will be evaluated in the Order Placer tests.&nbsp; Other values may be required by the Technical  Framework but not evaluated with this software.<br />
+  In the table below, the columns marked <em>Value</em> and <em>Present</em> indicate the scope of the evaluation for these messages.&nbsp; Fields that are marked in the V<em>alue</em> column indicate the tests will  expect a specific value in the field (for example, we specify the patient  name).&nbsp; Fields marked in the P<em>resent</em> column are tested to see if the  field contains a value, but the tests cannot evaluate for a specific value.<br />
+  Some fields only make sense in the context of a specific  transaction.&nbsp; The fields evaluated for an  ORM message differ from those evaluated for an ORR message.</p>
+<p>Fields Evaluated for ORM Message from Order Placer</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="66" valign="top"><br />
+        <strong>Segment</strong> </td>
+    <td width="66" valign="top"><p align="center"><strong>Field #</strong></p></td>
+    <td width="168" valign="top"><p><strong>Description</strong></p></td>
+    <td width="66" valign="top"><p align="center"><strong>Value</strong></p></td>
+    <td width="66" valign="top"><p align="center"><strong>Present</strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>MSH</p></td>
+    <td width="66" valign="top"><p align="center">1</p></td>
+    <td width="168" valign="top"><p>Field Separator</p></td>
+    <td width="66" valign="top"><p>x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">2</p></td>
+    <td width="168" valign="top"><p>Encoding Characters</p></td>
+    <td width="66" valign="top"><p>x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">3</p></td>
+    <td width="168" valign="top"><p>Sending Application</p></td>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">4</p></td>
+    <td width="168" valign="top"><p>Sending Facility</p></td>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">5</p></td>
+    <td width="168" valign="top"><p>Receiving Application</p></td>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">6</p></td>
+    <td width="168" valign="top"><p>Receiving Facility</p></td>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">9</p></td>
+    <td width="168" valign="top"><p>Message Type</p></td>
+    <td width="66" valign="top"><p>x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">10</p></td>
+    <td width="168" valign="top"><p>Message Control ID</p></td>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">11</p></td>
+    <td width="168" valign="top"><p>Processing ID</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">12</p></td>
+    <td width="168" valign="top"><p>Version ID</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>PID</p></td>
+    <td width="66" valign="top"><p align="center">3</p></td>
+    <td width="168" valign="top"><p>Patient ID List</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">5</p></td>
+    <td width="168" valign="top"><p>Patient Name</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">18</p></td>
+    <td width="168" valign="top"><p>Patient Account Number</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>PV1</p></td>
+    <td width="66" valign="top"><p align="center">2</p></td>
+    <td width="168" valign="top"><p>Patient Class</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>ORC</p></td>
+    <td width="66" valign="top"><p align="center">1</p></td>
+    <td width="168" valign="top"><p>Order Control</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">2</p></td>
+    <td width="168" valign="top"><p>Placer Order Number</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">7</p></td>
+    <td width="168" valign="top"><p>Quantity/Timing</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">12</p></td>
+    <td width="168" valign="top"><p>Ordering Provider</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">17</p></td>
+    <td width="168" valign="top"><p>Entering Organization</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>OBR</p></td>
+    <td width="66" valign="top"><p align="center">2</p></td>
+    <td width="168" valign="top"><p>Placer Order Number</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">4</p></td>
+    <td width="168" valign="top"><p>Universal Service ID</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">16</p></td>
+    <td width="168" valign="top"><p>Ordering Provider</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">27</p></td>
+    <td width="168" valign="top"><p>Quantity/Timing</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">31</p></td>
+    <td width="168" valign="top"><p>Reason for Study</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+<p>Fields Evaluated for ORR Message from Order Placer</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="66" valign="top"><br />
+        <strong>Segment</strong> </td>
+    <td width="66" valign="top"><p align="center"><strong>Field #</strong></p></td>
+    <td width="168" valign="top"><p><strong>Description</strong></p></td>
+    <td width="66" valign="top"><p align="center"><strong>Value</strong></p></td>
+    <td width="66" valign="top"><p align="center"><strong>Present</strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>MSH</p></td>
+    <td width="66" valign="top"><p align="center">1</p></td>
+    <td width="168" valign="top"><p>Field Separator</p></td>
+    <td width="66" valign="top"><p>x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">2</p></td>
+    <td width="168" valign="top"><p>Encoding Characters</p></td>
+    <td width="66" valign="top"><p>x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">3</p></td>
+    <td width="168" valign="top"><p>Sending Application</p></td>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">4</p></td>
+    <td width="168" valign="top"><p>Sending Facility</p></td>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">5</p></td>
+    <td width="168" valign="top"><p>Receiving Application</p></td>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">6</p></td>
+    <td width="168" valign="top"><p>Receiving Facility</p></td>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">9</p></td>
+    <td width="168" valign="top"><p>Message Type</p></td>
+    <td width="66" valign="top"><p>x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">10</p></td>
+    <td width="168" valign="top"><p>Message Control ID</p></td>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">11</p></td>
+    <td width="168" valign="top"><p>Processing ID</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">12</p></td>
+    <td width="168" valign="top"><p>Version ID</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>MSA</p></td>
+    <td width="66" valign="top"><p align="center">1</p></td>
+    <td width="168" valign="top"><p>Acknowledgment Code</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">2</p></td>
+    <td width="168" valign="top"><p>Message Control ID</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>ORC</p></td>
+    <td width="66" valign="top"><p align="center">1</p></td>
+    <td width="168" valign="top"><p>Order Control</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">2</p></td>
+    <td width="168" valign="top"><p>Placer Order Number</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">3</p></td>
+    <td width="168" valign="top"><p>Filler Order Number</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">7</p></td>
+    <td width="168" valign="top"><p>Quantity/Timing</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">9</p></td>
+    <td width="168" valign="top"><p>Date/Time of Transaction</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">12</p></td>
+    <td width="168" valign="top"><p>Ordering Provider</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">17</p></td>
+    <td width="168" valign="top"><p>Entering Organization</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>OBR</p></td>
+    <td width="66" valign="top"><p align="center">2</p></td>
+    <td width="168" valign="top"><p>Placer Order Number</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">3</p></td>
+    <td width="168" valign="top"><p>Filler Order Number</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">4</p></td>
+    <td width="168" valign="top"><p>Universal Service ID</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">16</p></td>
+    <td width="168" valign="top"><p>Ordering Provider</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">27</p></td>
+    <td width="168" valign="top"><p>Quantity/Timing</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p>&nbsp;</p></td>
+    <td width="66" valign="top"><p align="center">31</p></td>
+    <td width="168" valign="top"><p>Reason for Study</p></td>
+    <td width="66" valign="top"><p align="center">x</p></td>
+    <td width="66" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+<h2><a name="#msg_values" id="#msg_values">Message Values</a></h2>
+<p>Each test described in section 2 expects ORM or ORR  messages with specific content.&nbsp; The MESA test system includes  files that describe these messages and expected values.&nbsp; Use a web browser to open the file:<a href="../../rad/msgs/doc/index.html">$MESA_TARGET/mesa_tests/rad/msgs/doc/index.html</a>.&nbsp; This file contains links to the message  sequence for each test.&nbsp; You can examine  the test messages to see what values are expected by the MESA software.</p>
+<h2><a name="#config" id="#config">Configuration</a></h2>
+<p>The Order Placer scripts described below use an ASCII  configuration file to identify parameters such as host names and port  numbers.&nbsp; The configuration file is named <a href="../../rad/actors/ordplc/ordplc_test.cfg">ordplc_test.cfg</a> and is included in  the directory <em>$MESA_TARGET/mesa_tests/rad/actors/ordplc</em>.&nbsp; Edit the file and change entries (host name,  port number) which pertain to your system.&nbsp;  Your system is identified by entries that begin with TEST.<br />
+  The MESA Order Filler is configured to receive HL7 messages  on port 2200.</p>
+<p><br />
+  Read the <em>Runtime Notes</em> section of the<em> Installation Guide</em> to  determine the proper settings for the MESA  runtime environment.<br />
+</p>
+<p>For IHE Basic Security tests, all messages are exchanged  using TLS. MESA  servers are run on the same ports but with the TLS option. The configuration  file that identifies your information is <em>ordplc_secure.cfg</em>. This  separate file allows you to use different port numbers for secure and standard  configurations. You may decide to use the same port numbers for both types of  communication. The MESA  software will only use all secure or all standard communication for a test; we  do not mix communication protocols.</p>
+<h2><a name="#start_servers" id="#start_servers">Starting the </a>MESA Servers</h2>
+<p>These instructions assume you are using a terminal  emulator on Unix systems or an MS DOS command window under Windows 2000 or XP.&nbsp; Each test uses a command line interface;  there is no graphical user interface. Before you start the test procedure, you  need to start the MESA Order Placer and MESA Order Filler servers.&nbsp; Make sure the appropriate database is running  (PostgreSQL, SQL Server).&nbsp; To start the MESA servers:</p>
+<ol start="1" type="1">
+  <li>Enter       the Order Placer exam folder: mesa_tests/rad/actors/ordplc</li>
+  <li>Execute       the appropriate script to start the servers:</li>
+</ol>
+<pre>     scripts/start_mesa_servers.csh [loglevel] &nbsp;(Unix)</pre>
+  <pre>     scripts\start_mesa_servers.bat [loglevel] (Windows)</pre>
+Loglevel is an optional argument (0  is default).&nbsp; Log levels are:</p>
+<ol start="0">
+  <li>no logging</li>
+  <li>errors</li>
+  <li>warnings</li>
+  <li>verbose</li>
+  <li>conversational (really verbose)</li>
+</ol>
+<p>
+  When you are finished running one or more tests, you can  stop the servers:
+<pre>     scripts/stop_mesa_servers.csh  (Unix)</pre>
+  <pre>     scripts\stop_mesa_servers.bat  (Windows)</pre>
+  Log files are stored in $MESA_TARGET/logs.<br />
+  For the security tests, the MESA servers are started with different  scripts. These are <em>scripts/start_mesa_secure.csh</em> and <em>scripts\start_mesa_secure.bat</em>.  The log levels are the same as for the standard tests. The MESA servers are stopped using these scripts: <em>scripts/stop_mesa_secure.csh</em> and <em>scripts\stop_mesa_secure.bat.</em></p>
+<h2><a name="#unique_id" id="#unique_id">Unique Identifiers</a></h2>
+<h2><a name="#test_instrt" id="#test_instrt">Test Instructions</a></h2>
+<p> Each test is independent of the others.&nbsp; You must collect the results of one test  before starting a new test.</p>
+<ol>
+  <li>Enter  the Order Placer exam directory: <em>mesa_tests/rad/actors/ordplc</em>.</li>
+  <li>Remember  the MESA  servers were started according to the directions in <a href="#start_servers">Starting the MESA Servers</a>.</li>
+</ol>
+<p>Workflow tests (1xx series) use a test engine that manages  the test process. This test engine is used for all 1xx series tests and is  driven by a text file that describes the events for a specific test. Each test  below will indicate which script is appropriate (usually the swf script for  Scheduled Workflow). The arguments to the script are the test number and the  log level for output:</p>
+<ol>
+  <li>errors only</li>
+  <li>warnings</li>
+  <li>verbose</li>
+  <li>reference  information (pointers into IHE Technical Framework)</li>
+</ol>
+<p>An example of the syntax used to invoke the script for the  131 test is:
+<pre>     perl scripts/ordplc_swf.pl 131 1</pre>
+  The test script will announce what events are about to  happen and will request that you send specific events according to the sequence  defined in <em>IHE Tests: Transaction  Sequences</em>.&nbsp; When you have completed  the sequence of events, results can be evaluated by running the evaluation  script:
+  <pre>     perl  &lt;test&gt;/eval_&lt;test&gt;.pl &lt;log level&gt;</pre>
+  For example: <pre>     perl 131/eval_131.pl 3</pre>
+  The log level for evaluation is defined as:</p>
+<ol>
+  <li>errors only</li>
+  <li>warnings</li>
+  <li>context information (verbose)</li>
+  <li>reference information (pointer into IHE Technical  Framework)</li>
+</ol>
+<p>Starting with version 6.7.0 of the MESA software, the user can change the  patient name and patient ID of the test subject prior to running the test. This  allows one to rerun a test without clearning the database of the prior subject.  This is done from the directory <em>$MESA_TARGET/mesa_tests/rads/msgs</em>.<br />
+  A perl script is used to query the user for a new patient  name and other demographics; the script automatically generates the new patient  identifier. The perl script can also use an existing text file to specify the  new demographics. The software is shipped with text files that are designed for  IHE United States. It would be a simple task to make different text files for  other countries. As listed in each section below, invoke the perl script with  no arguments for interactive questions. If you specify an argument, it is the  name of a text file with the demographic values.<br />
+  For all 1xx series tests, users should reset the MESA HL7  files as described above if the user tests different actors using the same MESA test configuration.  An example is a system that tests as both an Order Placer and an Order Filler.  The MESA tests  for one actor may leave the HL7 messages in the wrong state for those same  tests by the other actor. By regenerating the HL7 messages before you run the  test script, you will avoid those problems.<br />
+  Each test is independent of the others.&nbsp; You must collect the results of one test before  starting a new test.</p>
+<h2>Submission of Results</h2>
+<p>Test descriptions below inform the reader to &ldquo;submit  results to the Project Manager&rdquo;. This is does not mean &ldquo;email&rdquo;. The current  submission process should be documented by the Project Manager, but will not  include emailing files directly to the Project Manager.</p>
+
+
+<h1><a name="#indiv_tests" id="#indiv_tests">Individual Tests</a></h1>
+<p>The set of events for a complete test scenario are defined  in <em>IHE Tests: Transaction Sequences</em>.&nbsp; Each section below lists the messages from  the Order Placer that are evaluated by the MESA software.</p>
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_103" id="#test_103">Order Placer Test 103: Unidentified Patient  Registered at ADT and Ordered at the Order Placer</a></h2>
+<p>Test Case 103 involves transactions for the patient Jay  Silverheels and tests the Unidentified Case 1: Unidentified Patient Registered  at ADT and Ordered at the Order Placer (see IHE TF Vol I, section 4.4.1).</p>
+<h3>References</h3>
+<p><a href="../rad/swf/test_cases/html/103.html">Test description/steps for test 103.</a></p>
+<h3>Instructions</h3>
+<p>The nominal patient name is SILVERHEELS^JAY.<br />
+  To run this test, follow these steps using a DOS window or  terminal emulator:</p>
+<ol>
+  <li>Read the <a href="../rad/swf/test_cases/html/103.html">Test Description/Steps document for Test 103</a>. This describes the context of the test and lists all transactions that occur during the test.</li>
+  <li>Set  the current directory to $MESA_TARGET/mesa_tests/rad/actors/ordplc.</li>
+  <li>Make  sure the MESA  servers have been started as described in <a href="#start_servers">Starting the MESA Servers</a>.</li>
+  <li>Run  the test script as follows:</li>
+</ol>
+<pre>     perl  scripts/ordplc_swf.pl 103 &lt;log&gt;</pre>
+<h3>Evaluation</h3>
+<ol>
+  <li>Run  the evaluation script</li>
+</ol>
+<pre>     perl  103/eval_103.pl &lt;log&gt;</pre>
+<ol start="2">
+  <li>The  evaluation output is found in 103/grade_103.txt. The final result should  indicate 0 errors. Submit the result run at log level 4 to the Project Manager.</li>
+</ol>
+<h3>Supplemental Information </h3>
+<p>To change patient name, patient ID prior to the test:
+  <pre>     cd $MESA_TARGET/mesa_tests/rad/msgs</pre>
+  <pre>     perl mesa_reset/103.pl ihe-us/103.var  (or)</pre>
+  <pre>     perl mesa_reset/103.pl</pre>
+  </td></tr></table>
+  
+  
+  
+<h2><a name="#test_104" id="#test_104">Order Placer Test 104: Green</a></h2>
+<p><strong><em>This test has become obsolete; it is replaced by  other tests. Do not use this test</em></strong>.</p>
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_105" id="#test_105">Order Placer Test 105: PIR Case #3: Unidentified  Patient Registered at ADT but Completed at Modality Prior to Order</a></h2>
+<p>Test Case 105 involves transactions for the patient  Stephen Mustard and tests the Unidentified Case 3: Unidentified Patient  Registered at ADT but Completed at Modality Prior to Order (see IHE TF Vol I,  section 4.4.3).</p>
+<h3>References</h3>
+<p><a href="../rad/swf/test_cases/html/105.html">Test description/steps for test 105.</a></p>
+<h3>Instructions</h3>
+<p>The nominal patient name is MUSTARD^STEPHEN.<br />
+  To run this test, follow these steps using a DOS window or  terminal emulator:</p>
+<ol>
+  <li>Read the <a href="../rad/swf/test_cases/html/105.html">Test Description/Steps document for Test 105</a>. This describes the context of the test and lists all transactions that occur during the test.</li>
+  <li>Set  the current directory to $MESA_TARGET/mesa_tests/rad/actors/ordplc.</li>
+  <li>Make  sure the MESA  servers have been started as described in <a href="#start_servers">Starting the MESA Servers</a> above.</li>
+  <li>Run  the test script as follows:</li>
+</ol>
+<pre>     perl  scripts/ordplc_swf.pl 105 &lt;log&gt;</pre>
+<h3>Evaluation</h3>
+<ol>
+  <li>Run  the evaluation script</li>
+</ol>
+<pre>     perl  105/eval_105.pl &lt;log&gt;</pre>
+<ol start="2">
+  <li>The  evaluation output is found in 105/grade_105.txt. The final result should  indicate 0 errors. Submit the result run at log level 4 to the Project Manager.</li>
+</ol>
+<h3>Supplemental Information </h3>
+<p>To change patient name, patient ID prior to the test:
+  <pre>     cd $MESA_TARGET/mesa_tests/rad/msgs</pre>
+  <pre>     perl mesa_reset/105.pl ihe-us/105.var  (or)</pre>
+  <pre>     perl mesa_reset/105.pl</pre>
+</td></tr></table>
+<h2><a name="#test_107" id="#test_107">Order Placer Test 107: Status Update</a></h2>
+<p>Test Case 107 is a specialized test for Administrative and  Procedure Performance Process Flow in the Scheduled Workflow prifile (see IHE  TF Vol I, section 3.2.1).&nbsp; In this test,  your Order Placer <strong><em>will</em></strong> receive Order Status Update messages from  the MESA Order Filler (see IHE TF Vol II, section 4.3.4.2).</p>
+<h3>References</h3>
+<p><a href="../rad/swf/test_cases/html/107.html">Test description/steps for test 107.</a></p>
+<h3>Instructions</h3>
+<p>The nominal patient name is ROSE^CARL.<br />
+  To run this test, follow these steps using a DOS window or  terminal emulator:</p>
+<ol>
+  <li>Read the <a href="../rad/swf/test_cases/html/107.html">Test Description/Steps document for Test 107</a>. This describes the context of the test and lists all transactions that occur during the test.</li>
+  <li>Set  the current directory to $MESA_TARGET/mesa_tests/rad/actors/ordplc.</li>
+  <li>Make  sure the MESA  servers have been started as described in <a href="#start_servers">Starting the MESA Servers</a> above.</li>
+  <li>Run  the test script as follows:</li>
+</ol>
+<pre>     perl  scripts/ordplc_swf.pl 107 &lt;log&gt;</pre>
+<h3>Evaluation</h3>
+<p>This test has no evaluation for Order Placers. You should  run this test to make certain you can receive the status messages and process  them. There is no expected action that these tools can test.</p>
+<h3>Supplemental Information </h3>
+<p>To change patient name, patient ID prior to the test:
+<pre>     cd $MESA_TARGET/mesa_tests/rad/msgs</pre>
+  <pre>     perl mesa_reset/107.pl ihe-us/107.var  (or)</pre>
+  <pre>     perl mesa_reset/107.pl</pre>
+  <table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_131" id="#test_131">Order Placer Test 131: Administrative and  Procedure Performance Process Flow</a></h2>
+<p>Test 131 covers Administrative and Procedure Performance  Process Flow in the Scheduled Workflow profile (see IHE TF Vol I, section  3.2.1). In this test, you <strong><em>will not</em></strong> receive Order Status Update  messages from the MESA Order Filler (see IHE TF Vol II, section 4.3.4.2).</p>
+<h3>References</h3>
+<p><a href="../rad/swf/test_cases/html/131.html">Test description/steps for test 131.</a></p>
+<h3>Instructions</h3>
+<p>The nominal patient name is BLACK^CHARLES.<br />
+  To run this test, follow these steps using a DOS window or  terminal emulator:</p>
+<ol>
+  <li>Read the <a href="../rad/swf/test_cases/html/131.html">Test Description/Steps document for Test 131</a>. This describes the context of the test and lists all transactions that occur during the test.</li>
+  <li>Set  the current directory to $MESA_TARGET/mesa_tests/rad/actors/ordplc.</li>
+  <li>Make  sure the MESA  servers have been started as described in <a href="#start_servers">Starting the MESA Servers</a> above.</li>
+  <li>Run  the test script as follows:</li>
+</ol>
+<pre>     perl  scripts/ordplc_swf.pl 131 &lt;log&gt;</pre>
+<h3>Evaluation</h3>
+<ol>
+  <li>Run  the evaluation script</li>
+</ol>
+<pre>     perl  131/eval_131.pl &lt;log&gt;</pre>
+<ol start="2">
+  <li>The  evaluation output is found in 131/grade_131.txt. The final result should  indicate 0 errors. Submit the result run at log level 4 to the Project Manager.</li>
+</ol>
+<h3>Supplemental Information </h3>
+<p>To change patient name, patient ID prior to the test:
+  <pre>     cd $MESA_TARGET/mesa_tests/rad/msgs</pre>
+  <pre>     perl mesa_reset/131.pl ihe-us/131.var  (or)</pre>
+  <pre>     perl mesa_reset/131.pl</pre>
+  </td></tr></table>
+<h2><a name="#test_132" id="#test_132">Order Placer Test 132: Order Change Flow  Initiated by Order Filler</a></h2>
+<p>Test 132 covers order change flow initiated by the Order  Filler in the Scheduled Workflow profile (see IHE TF Vol I, section 3.2.4). ).  In this test, you will not receive Order Status Update messages from the MESA  Order Filler (see IHE TF Vol II, section 4.3.4.2).</p>
+<h3>References</h3>
+<p><a href="../rad/swf/test_cases/html/132.html">Test description/steps for test 132.</a></p>
+<h3>Instructions</h3>
+<p>The nominal patient name is WISTERIA^MATTHEW.<br />
+  To run this test, follow these steps using a DOS window or  terminal emulator:</p>
+<ol>
+  <li>Read the <a href="../rad/swf/test_cases/html/132.html">Test Description/Steps document for Test 132</a>. This describes the context of the test and lists all transactions that occur during the test.</li>
+  <li>Set  the current directory to $MESA_TARGET/mesa_tests/rad/actors/ordplc.</li>
+  <li>Make  sure the MESA  servers have been started as described in <a href="#start_servers">Starting the MESA Servers</a> above.</li>
+  <li>Run  the test script as follows:</li>
+</ol>
+<pre>     perl  scripts/ordplc_swf.pl 132 &lt;log&gt;</pre>
+<h3>Evaluation</h3>
+<ol>
+  <li>Run  the evaluation script</li>
+</ol>
+<pre>     perl  132/eval_132.pl &lt;log&gt;</pre>
+<ol start="2">
+  <li>The  evaluation output is found in 132/grade_132.txt. The final result should  indicate 0 errors. Submit the result run at log level 4 to the Project Manager.</li>
+</ol>
+<h3>Supplemental Information </h3>
+<p>To change patient name, patient ID prior to the test:
+<pre>     cd $MESA_TARGET/mesa_tests/rad/msgs</pre>
+  <pre>     perl mesa_reset/132.pl ihe-us/132.var  (or)</pre>
+  <pre>     perl mesa_reset/132.pl</pre>
+  <table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_151" id="#test_151">Order Filler Test 151: Appointment Notification  &ndash; New Bookings</a></h2>
+<p>Test case 151 involves transactions for patient Joe  Periwinkle and tests new appointment bookings notification from Order Placer to  Order Filler (see IHE TF Supplements, section 4.48.4.1)</p>
+<h3>References</h3>
+<p><a href="../rad/swf/test_cases/html/151.html">Test description/steps for test 151.</a></p>
+<h3>Instructions</h3>
+<p>The nominal patient name is PERIWINKLE^JOE<br />
+  To run this test, follow these steps using a DOS window or  terminal emulator:</p>
+<ol>
+  <li>Read the <a href="../rad/swf/test_cases/html/151.html">Test Description/Steps document for Test 151</a>. This describes the context of the test and lists all transactions that occur during the test.</li>
+  <li>Set  the current directory to $MESA_TARGET/mesa_tests/rad/actors/ordplc.</li>
+  <li>Make  sure the MESA  servers have been started as described in <a href="#start_servers">Starting the MESA Servers</a> above.</li>
+  <li>Run  the test script as follows:</li>
+</ol>
+<pre>     perl  scripts/ordplc_swf.pl 151 &lt;log&gt;</pre>
+<h3>Evaluation</h3>
+<p>There is no evaluation that produces output for this test.  You should accept the notification message and determine if it meets your  expectations. Inform the Project Manager that you have completed this test.  Inform the Project Manager if the test data you receive needs repair.</p>
+<h3>Supplemental Information </h3>
+<p>To change patient name, patient ID prior to the test:
+  <pre>     cd $MESA_TARGET/mesa_tests/rad/msgs</pre>
+  <pre>     perl mesa_reset/151.pl ihe-us/151.var  (or)</pre>
+  <pre>     perl mesa_reset/151.pl</pre>
+  </td></tr></table>
+<h2><a name="#test_152" id="#test_152">Order Filler Test 152: Appointment Notification  &ndash; Reschedule Bookings</a></h2>
+<p>Test case 152 involves transactions for patient Joe  Periwinkle and tests reschedule appointment bookings notification from Order  Placer to Order Filler (see IHE TF Supplements, section 4.48.4.1)</p>
+<h3>References</h3>
+<p><a href="../rad/swf/test_cases/html/152.html">Test description/steps for test 152.</a></p>
+<h3>Instructions</h3>
+<p>The nominal patient name is PERIWINKLE^JOE<br />
+  To run this test, follow these steps using a DOS window or  terminal emulator:</p>
+<ol>
+  <li>Read the <a href="../rad/swf/test_cases/html/152.html">Test Description/Steps document for Test 152</a>. This describes the context of the test and lists all transactions that occur during the test.</li>
+  <li>Set  the current directory to $MESA_TARGET/mesa_tests/rad/actors/ordplc.</li>
+  <li>Make  sure the MESA  servers have been started as described in <a href="#start_servers">Starting the MESA Servers</a> above.</li>
+  <li>Run  the test script as follows:</li>
+</ol>
+<pre>     perl  scripts/ordplc_swf.pl 152 &lt;log&gt;</pre>
+<h3>Evaluation</h3>
+<p>There is no evaluation that produces output for this test.  You should accept the notification message and determine if it meets your  expectations. Inform the Project Manager that you have completed this test.  Inform the Project Manager if the test data you receive needs repair.</p>
+<h3>Supplemental Information </h3>
+<p>To change patient name, patient ID prior to the test:
+<pre>     cd $MESA_TARGET/mesa_tests/rad/msgs</pre>
+  <pre>     perl mesa_reset/152.pl ihe-us/152.var  (or)</pre>
+  <pre>     perl mesa_reset/152.pl</pre>
+  <table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_153" id="#test_153">Order Filler Test 153: Appointment Notification  &ndash; Cancel Bookings</a></h2>
+<p>Test case 153 involves transactions for patient Joe  Periwinkle and tests cancel appointment bookings notification from Order Placer  to Order Filler (see IHE TF Supplements, section 4.48.4.1)</p>
+<h3>References</h3>
+<p><a href="../rad/swf/test_cases/html/153.html">Test description/steps for test 153.</a></p>
+<h3>Instructions</h3>
+<p>The nominal patient name is PERIWINKLE^JOE<br />
+  To run this test, follow these steps using a DOS window or  terminal emulator:</p>
+<ol>
+  <li>Read the <a href="../rad/swf/test_cases/html/153.html">Test Description/Steps document for Test 153</a>. This describes the context of the test and lists all transactions that occur during the test.</li>
+  <li>Set  the current directory to $MESA_TARGET/mesa_tests/rad/actors/ordplc.</li>
+  <li>Make  sure the MESA  servers have been started as described in <a href="#start_servers">Starting the MESA Servers</a> above.</li>
+  <li>Run  the test script as follows:</li>
+</ol>
+<pre>     perl  scripts/ordplc_swf.pl 153 &lt;log&gt;</pre>
+<h3>Evaluation</h3>
+<p>There is no evaluation that produces output for this test.  You should accept the notification message and determine if it meets your  expectations. Inform the Project Manager that you have completed this test.  Inform the Project Manager if the test data you receive needs repair.</p>
+<h3>Supplemental Information </h3>
+<p>To change patient name, patient ID prior to the test:
+  <pre>     cd $MESA_TARGET/mesa_tests/rad/msgs</pre>
+  <pre>     perl mesa_reset/153.pl ihe-us/153.var  (or)</pre>
+  <pre>     perl mesa_reset/153.pl</pre>
+</td></tr></table>
+<h1><a name="#basic_sec_tests" id="#basic_sec_tests">Basic Security Tests</a></h1>
+<p>This section describes tests that are specific to the IHE  Basic Security integration profile. If you have the MESA servers running for the &ldquo;standard&rdquo;  tests, you should stop those servers now. You will need to start the MESA secure servers with a  different script.</p>
+<table><tr><td bgcolor="#FFFF99">
+<h2><a name="#test_1240" id="#test_1240">Order Placer Test 1240: Basic Security,  Registration</a></h2>
+<p>Test case 1240 exercises ADT registration messages  (ADT^A04) in the context of Basic Security. No audit messages are included in  this test.
+<h3>References</h3>
+<h3>Instructions</h3>
+<p>The nominal patient name is BOSTON^BOB.<br />
+  Notes:<br />
+  Before starting this test, make  sure you have stopped the MESA servers for the  standard mode tests and started the MESA  servers for the secure mode tests.<br />
+  To run this test:
+<pre>     perl scripts/ordplc_secure.pl 1240  &lt;log&gt;</pre>
+  <h3>Evaluation</h3>
+  <p>To evaluate this test:
+  </p>
+  <pre>     perl 1240/eval_1240.pl &lt;log&gt;</pre>
+  <h3>Supplemental Information </h3>
+  <p>To change patient name, patient ID prior to the test:
+  </p>
+  <pre>     cd $MESA_TARGET/mesa_tests/rad/msgs</pre>
+  <pre>     perl mesa_reset/1240.pl ihe-us/1240.var  (or)</pre>
+  <pre>     perl mesa_reset/1240.pl</pre>
+  </td></tr></table>
+<h2><a name="#test_1531" id="#test_1531">Order Placer Test 1531: Basic Security,  Administrative and Procedure Performance Process Flow</a></h2>
+<p>Test case 1531 uses the same transactions as defined for  test 131: Administrative and Procedure Performance Process Flow.
+<h3>References</h3>
+<h3>Instructions</h3>
+<p>The nominal patient name is BLACK^CHARLES.<br />
+  Notes:<br />
+  Before starting this test, make  sure you have stopped the MESA servers for the  standard mode tests and started the MESA  servers for the secure mode tests.<br />
+  To run this test (the reference to 131 is intentional):
+<pre>     perl scripts/ordplc_secure.pl 131 &lt;log&gt;</pre>
+  <h3>Evaluation</h3>
+  <p>To evaluate this test (use 1531 in the command below):
+  </p>
+  <pre>     perl 1531/eval_1531.pl &lt;log&gt;</pre>
+  <h3>Supplemental Information </h3>
+  <p>To change patient name, patient ID prior to the test (the  reference to 131 is intentional):
+  </p>
+  <pre>     cd $MESA_TARGET/mesa_tests/rad/msgs</pre>
+  <pre>     perl mesa_reset/131.pl ihe-us/131.var  (or)</pre>
+  <pre>     perl mesa_reset/131.pl</pre>
+  
+
+<h1><a name="#eyecare_tests" id="#eyecare_tests">Eye Care Tests</a></h1>
+<p>These tests are generally associated with the Eye Care profile</p>
+
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_50000" id="#test_50000">50000: Eye Care Workflow: Test 1</a></h2>
+<p>Test Case 50000 involves the Eye Care workflow for the simple case of a registered patient with one order placed for eye care.</p>
+<h3>References</h3>
+<p><a href="../eyecare/eyecare/test_cases/html/50000.html">Test description/steps for test 50000.</a></p>
+<h3>Instructions</h3>
+<p>The nominal patient name is BALTIMORE^CHARLES.<br />
+  To run this test, follow these steps using a DOS window or  terminal emulator:</p>
+<ol>
+  <li>Read the <a href="../eyecare/eyecare/test_cases/html/50000.html">Test Description/Steps document for Test 50000</a>. This describes the context of the test and lists all transactions that occur during the test.</li>
+  <li>Set  the current directory to $MESA_TARGET/mesa_tests/rad/actors/ordplc.</li>
+  <li>Make  sure the MESA  servers have been started as described in <a href="#start_servers">Starting the MESA Servers</a>.</li>
+  <li>Run  the test script as follows:
+  <pre>     perl  scripts/ordplc_swf.pl 50000 &lt;log&gt;</pre>
+  </li>
+ </ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Run the evaluation script
+  <pre>     perl  50000/eval_50000.pl &lt;log&gt;</pre>
+  </li>
+  <li>The  evaluation output is found in 50000/grade_50000.txt. The final result should  indicate 0 errors. Submit the result run at log level 4 to the Project Manager.</li>
+</ol>
+<h3>Supplemental Information </h3>
+
+</td></tr></table>
+  
+<table><tr><td bgcolor="#FFFFFF">
+<h2><a name="#test_50001" id="#test_50000">50001: Eye Care Workflow: Order Initiated by Order Filler</a></h2>
+<p>Test Case 50001 involves the Eye Care workflow for the simple case of a registered patient with one order placed for eye care. In this case, the order is placed by the Order Filler actor.</p>
+<h3>References</h3>
+<p><a href="../eyecare/eyecare/test_cases/html/50000.html">Test description/steps for test 50000.</a></p>
+<h3>Instructions</h3>
+<p>The nominal patient name is RICHMOND^STEVEN.<br />
+  To run this test, follow these steps using a DOS window or  terminal emulator:</p>
+<ol>
+  <li>Read the <a href="../eyecare/eyecare/test_cases/html/50001.html">Test Description/Steps document for Test 50001</a>. This describes the context of the test and lists all transactions that occur during the test.</li>
+  <li>Set  the current directory to $MESA_TARGET/mesa_tests/rad/actors/ordplc.</li>
+  <li>Make  sure the MESA  servers have been started as described in <a href="#start_servers">Starting the MESA Servers</a>.</li>
+  <li>Run  the test script as follows:
+  <pre>     perl  scripts/ordplc_swf.pl 50001 &lt;log&gt;</pre>
+  </li>
+ </ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Run the evaluation script
+  <pre>     perl  50000/eval_50001.pl &lt;log&gt;</pre>
+  </li>
+  <li>The  evaluation output is found in 50001/grade_50001.txt. The final result should  indicate 0 errors. Submit the result run at log level 4 to the Project Manager.</li>
+</ol>
+<h3>Supplemental Information </h3>
+
+</td></tr></table>
+  
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_50002" id="#test_50002">50002: Eye Care Workflow: Patient Renamed</a></h2>
+<p>Test 50002 covers Eye Care workflow for the case of the patient changing name after
+   original registration, order and image generation.</p>
+<h3>References</h3>
+<p><a href="../eyecare/eyecare/test_cases/html/50002.html">Test description/steps for test 50002.</a></p>
+<h3>Instructions</h3>
+<p>The nominal patient name is BRANSON^JANE (renamed to SPRINGFIELD^JANE).<br />
+  To run this test, follow these steps using a DOS window or  terminal emulator:</p>
+<ol>
+  <li>Read the <a href="../eyecare/eyecare/test_cases/html/50002.html">Test Description/Steps document for Test 50002</a>. This describes the context of the test and lists all transactions that occur during the test.</li>
+  <li>Set  the current directory to $MESA_TARGET/mesa_tests/rad/actors/ordplc.</li>
+  <li>Make  sure the MESA  servers have been started as described in <a href="#start_servers">Starting the MESA Servers</a>.</li>
+  <li>Run  the test script as follows:
+  <pre>     perl  scripts/ordplc_swf.pl 50002 &lt;log&gt;</pre>
+  </li>
+ </ol>
+<h3>Evaluation</h3>
+<p>This test has no evaluation script. Make sure the patient is properly updated in your database and submit a note to the Project Manager indicating you have completed this test.</p>
+<h3>Supplemental Information </h3>
+
+</td></tr></table>
+
+ 
+</body>
+</html>

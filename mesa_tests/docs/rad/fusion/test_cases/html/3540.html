@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mesa="urn:mir">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<!--
+                    Do NOT edit this HTML directly, it was generated via an XSLt
+                    transformation from the original release 2 n1 Document.
+                -->
+<title>3540 - Evidence Creator stores BSPS IOD - Same FoR </title>
+</head>
+<body style="width: 95%" class="base">
+<h2>3540 - Evidence Creator stores BSPS IOD - Same FoR </h2>
+<hr>
+<h3>Profiles Covered</h3>
+  
+<p class="text">Image Fusion (FUS)</p>
+ 
+<h3>Actors Involved</h3>
+  
+<p class="text">Acquisition Modaity</p>
+  
+<p class="text">Evidence Creator</p>
+  
+<p class="text">Image Manager/Archive</p>
+ 
+<h3>Technical Framework References</h3>
+  
+<p class="text">RAD TF-1: 20.4.3</p>
+  
+<p class="text">RAD TF-3: 4.57</p>
+ 
+<h3>References to Other Standards/Documents</h3>
+  
+<p class="text">DICOM PS3.3 - 2004 A.30</p>
+ 
+<h3>Prerequisite Tests</h3>
+  
+<p class="text">283 - DICOM Composite Object Evaluation  - DVT</p>
+  
+<p class="text">284 - DICOM Composite Object Evaluation  - DICOM3TOOLS</p>
+ 
+<h3>Test Description</h3>
+  
+<p class="text">In this test, the Evidence Creator creates a Blended Softcopy Presentation State (BSPS) 
+   object that specifies how to blend for display two series of images.  These series were created on a hybrid
+   Acquisition Modaity and have the same Frame of Reference.  This tests  transaction [RAD-57] in the Image 
+   Fusion Profile and Storage Commitment [RAD-10].  Spatial Registration is tested in another test</p>
+ 
+<h3>Test Setup</h3>
+   
+<p class="text">The Evidence Creator imports 2 series (1 PET, 1 CT) provided with the MESA
+    distribution, prior to using its application to specify blending parameters (window width and center, 
+    color map and transparency) and encode them in a BSPS object.  The Evidence Creator C-STOREs 
+    the BSPS object to the Image Manager and requests Storage Commitment.
+   </p>
+  
+<h3>Sequence of Transactions</h3>
+<TABLE border="2">
+<tr>
+<th>Identifier</th><th>Description</th><th>Transaction</th><th>Source</th><th>Destination</th><th>Verb</th>
+</tr>
+<tr>
+<td>3540.100</td><td>C-STORE a CT series for patient Papaya^P to the Evidence Creator</td><td>RAD-8</td><td>MOD</td><td>EC</td><td>TRANSACTION</td>
+</tr>
+<tr>
+<td>3540.120</td><td>C-STORE a PET series for the same patient to the Evidence Creator</td><td>RAD-8</td><td>MOD</td><td>EC</td><td>TRANSACTION</td>
+</tr>
+<tr>
+<td>3540.130</td><td>C-STORE a BSPS IOD to the Image Manager</td><td>RAD-57</td><td>EC</td><td>IM</td><td>TRANSACTION</td>
+</tr>
+<tr>
+<td>3540.140</td><td>Storage Commitment (N-ACTION)</td><td>RAD-10</td><td>EC</td><td>IM</td><td>TRANSACTION</td>
+</tr>
+<tr>
+<td>3540.150</td><td>Storage Commitment (N-EVENT REPORT)</td><td>RAD-10</td><td>IM</td><td>EC</td><td>TRANSACTION</td>
+</tr>
+</TABLE>
+<br>
+</body>
+<hr>
+</html>

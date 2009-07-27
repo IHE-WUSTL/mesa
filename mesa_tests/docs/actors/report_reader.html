@@ -1,0 +1,387 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Untitled Document</title></head>
+
+<body>
+<p align="center"><strong>&nbsp;</strong></p>
+<p align="center"><strong>HIMSS and RSNA</strong><br />
+    <strong>Integrating the Healthcare Enterprise</strong></p>
+<p align="center"><strong>&nbsp;</strong></p>
+<p align="center"><strong>&nbsp;</strong><strong>IHE/MESA Report Reader Tests</strong></p>
+<p>&nbsp;</p>
+<p align="center">Electronic Radiology  Laboratory<br />
+  Mallinckrodt Institute of  Radiology<br />
+  510 South    Kingshighway Blvd. <br />
+  St. Louis, MO&nbsp; 63110 <br />
+  314.362.6965 (Voice)<br />
+  314.362.6971 (Fax)</p>
+<p align="center">&nbsp;</p>
+<p align="center">Revision 9.1.0<br />
+  18-October-2005 </p>
+<strong>Contents:</strong><br clear="all" />
+<p><a href="#rpt_reader_tests">Report Reader  Tests</a><br />
+  <a href="#intro">Introduction</a><br />
+  <a href="#msg_att">Message Attributes</a><br />
+  <a href="#msg_values">Message Values</a><br />
+  <a href="#config">Configuration</a><br />
+  <a href="#start_servers">Starting  the MESA Servers</a><br />
+  <a href="#load_data">Loading  Test Data</a><br />
+  <a href="#indiv_tests">Individual Tests</a></p>
+<ol>
+  <li><a href="#test_901"> Report  Reader Test 901: SR SCU Query Keys</a><br />
+  </li>
+  <li><a href="#test_902">Report  Reader Test 902: SCU Query Evaluation</a><br />
+  </li>
+  <li><a href="#test_601">Report  Reader Test 601: Simple Image Report</a><br />
+  </li>
+  <li><a href="#test_603">Report  Reader Test 602: Simple Image Report with One Reference</a><br />
+  </li>
+  <li><a href="#test_603">Report  Reader Test 603: Simple Image Report with Two References</a><br />
+  </li>
+  <li><a href="#test_611">Report  Reader Test 611: Numeric Report</a><br />
+  </li>
+</ol>
+<p><a href="#basic_sec">Basic Security Tests</a></p>
+<ol>
+  <li><a href="#test_1511"> Report  Reader Test 1511: Simple Imaging Report</a><br />
+  </li>
+</ol>
+<p><a href="#test_cases_pdi">Test Cases: PDI</a></p>
+<ol>
+  <li><a href="#test_1931"> Test  Case 1931: Media &ldquo;Reader&rdquo; Read RSNA 2004 CD</a><br />
+  </li>
+  <li><a href="#test_1932"> Test  Case 1932: Media &ldquo;Reader&rdquo; Reads Vendor CDs</a><br />
+</li>
+</ol>
+<h1><a name="#rpt_reader_tests" id="#rpt_reader_tests">Report Reader Tests</a></h1>
+<h2><a name="#intro" id="#intro">Introduction</a></h2>
+<p>Report Reader systems are tested in three areas.</p>
+<ol>
+  <li>Each  Report Reader will be asked to send queries (DICOM C-Find, DICOM C-Move) to a  MESA Report Repository.&nbsp; These queries  are analyzed for correctness according to the DICOM Standard.</li>
+  <li>Each  Report Repository will be asked to query by specific attributes (e.g. Accession  Number as a matching key) as defined in section 6.14 of the IHE Technical  Framework: Year 3.</li>
+  <li>Each  Report Repository will be asked to render a set of SR objects and send a copy  of the display to the Technical Project Manager (email, mail, fax).</li>
+</ol>
+<h3>Integration Profiles and Test Procedures</h3>
+<p>This document lists a number of tests for Report Reader  Systems. You may not be responsible for all of these tests.<br />
+  Please refer to the Connectathon web tool to list the  required tests for your system. The web address of this tool depends on the  year and project manager. Please contact the appropriate project manager to  obtain this information.</p>
+<h2><a name="#msg_att" id="#msg_att">Message Attributes</a></h2>
+<p>Report Readers may make queries using a number of  attributes.&nbsp; The tests defined in this  document will request queries by specific attributes listed in the table  below.&nbsp; It is expected that the Report  Reader software will contain other attributes as well; the tests require only  that some attributes are present.<br />
+  The tests also allow you to perform multiple queries to  cover all of the requested attributes.&nbsp;  That is, we list a number of attributes in the table below and do not  expect your system to use all of these attributes as matching keys in a single  query.</p>
+<p>Matching Key Attributes for Report Readers</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="306" valign="top"><br />
+        <strong>Attribute Name</strong> </td>
+    <td width="156" valign="top"><p align="center"><strong>Tag</strong></p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>Study Date</p></td>
+    <td width="156" valign="top"><p align="center">0008 0020</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>Accession Number</p></td>
+    <td width="156" valign="top"><p align="center">0008    0050</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>Patient Name</p></td>
+    <td width="156" valign="top"><p align="center">0010    0010</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>Patient ID</p></td>
+    <td width="156" valign="top"><p align="center">0010    0020</p></td>
+  </tr>
+  <tr>
+    <td width="306" valign="top"><p>Modalities in Study</p></td>
+    <td width="156" valign="top"><p align="center">0008    0061</p></td>
+  </tr>
+</table>
+<h2><a name="#msg_values" id="#msg_values">Message Values</a></h2>
+<p>Tests described in section 2 will require specific values  in the matching keys.&nbsp; These are defined  in tables in section 2.</p>
+<h2><a name="#config" id="#config">Configuration</a></h2>
+<p>The MESA Image Manager and MESA Report Repository each  maintain a database of DICOM applications used for C-Move operations.&nbsp; Add an entry for the storage SCP associated  with your workstation.&nbsp; Edit the text  file <em>$MESA_TARGET/db/loaddicomapp.pgsql</em> (Unix) or <em>$MESA_TARGET/db/loaddicomapp.sql</em> (Windows NT)&nbsp; Use the existing entries as  a template and add entries for your workstations as appropriate.&nbsp; The column names found in the SQL insert  statements are described in the following table.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="247" valign="top"><p align="center"><strong>Column Name</strong></p></td>
+    <td width="391" valign="top"><p align="center"><strong>Description</strong></p></td>
+  </tr>
+  <tr>
+    <td width="247" valign="top"><p>aet</p></td>
+    <td width="391" valign="top"><p>DICOM Application Entity Title.&nbsp; Must be unique.</p></td>
+  </tr>
+  <tr>
+    <td width="247" valign="top"><p>host</p></td>
+    <td width="391" valign="top"><p>Host name (or IP address) of the application.</p></td>
+  </tr>
+  <tr>
+    <td width="247" valign="top"><p>port</p></td>
+    <td width="391" valign="top"><p>TCP/IP port number for receiving associations.</p></td>
+  </tr>
+  <tr>
+    <td width="247" valign="top"><p>org</p></td>
+    <td width="391" valign="top"><p>The organization that operates the device.&nbsp; Useful if multiple organizations use the    Image Manager.</p></td>
+  </tr>
+  <tr>
+    <td width="247" valign="top"><p>com</p></td>
+    <td width="391" valign="top"><p>A comment field.</p></td>
+  </tr>
+</table>
+<p>You can test your work as follows:
+<pre>     perl  load_apps.pl imgmgr</pre>
+   <pre>     perl load_apps.pl  rpt_repos</pre>
+  The files <em>$MESA_TARGET/runtime/rpt_repos/ds_dcm.cfg</em> and <em>$MESA_TARGET/runtime/imgmgr/ds_dcm.cfg</em> are used to configure the MESA Report Repository and MESA Image Manager  (separately).&nbsp; The only parameter users  should change is the LOG_LEVEL value.&nbsp;  Log levels are defined in <a href="#start_servers">Starting  the MESA Servers</a>.&nbsp;  DICOM configuration parameters are listed in the table below.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="192" valign="top"><p align="center">Application</p></td>
+    <td width="190" valign="top"><p align="center">AE Title</p></td>
+    <td width="122" valign="top"><p align="center">Port</p></td>
+  </tr>
+  <tr>
+    <td width="192" valign="top"><p>MESA    Report Repository</p></td>
+    <td width="190" valign="top"><p align="center">REPORT_ARCHIVE</p></td>
+    <td width="122" valign="top"><p align="center">2800</p></td>
+  </tr>
+  <tr>
+    <td width="192" valign="top"><p>MESA Image Manager</p></td>
+    <td width="190" valign="top"><p align="center">MESA_IMG_MGR</p></td>
+    <td width="122" valign="top"><p align="center">2350</p></td>
+  </tr>
+</table>
+<p>Read the <em>Runtime Notes</em> section of the<em> Installation Guide</em> to  determine the proper settings for the MESA  runtime environment.</p>
+<h2><a name="#start_servers" id="#start_servers">Starting the </a>MESA Servers</h2>
+<p>These instructions assume you are using a terminal  emulator on Unix systems or an MS DOS command window under Windows NT.&nbsp; Each test uses a command line interface;  there is no graphical user interface. Before you start the test procedure, you  need to start the MESA Report Repository and MESAImage Manager servers.&nbsp; Make sure the appropriate database is running  (PostgreSQL, SQL Server).&nbsp; To start the MESA servers:</p>
+<ol start="1" type="1">
+  <li>Enter       the Report Reader exam folder: <em>mesa_tests/rad/actors/rpt_reader</em>.</li>
+  <li>Execute       the appropriate script to start the servers:</li>
+</ol>
+<pre>      scripts/start_mesa_servers.csh &nbsp;(Unix)</pre>
+   <pre>      scripts\start_mesa_servers.bat  (Windows)</pre>
+  Log levels are set for the MESA Image Manager in the file: <em>$MESA_TARGET/runtime/imgmgr/ds_dcm.cfg</em>.&nbsp; Log levels are:</p>
+<ol start="0">
+  <li>no logging</li>
+  <li>errors</li>
+  <li>warnings</li>
+  <li>verbose</li>
+  <li>conversational  (really verbose)</li>
+</ol>
+<p>When you are finished running one or more tests, you can  stop the servers:
+<pre>     scripts/stop_mesa_servers.csh  (Unix)</pre>
+   <pre>     scripts\stop_mesa_servers.bat  (Windows)</pre>
+  Log files are stored in $MESA_TARGET/logs.<br />
+  For the security tests, the MESA servers are started with different  scripts. These are <em>scripts/start_mesa_secure.csh</em> and <em>scripts\start_mesa_secure.bat</em>.  The log levels are the same as for the standard tests. The MESA servers are stopped using these scripts: <em>scripts/stop_mesa_secure.csh</em> and <em>scripts\stop_mesa_secure.bat</em>.</p>
+<h2><a name="#load_data" id="#load_data">Loading Test Data</a></h2>
+<p>The Report Reader tests use a common set of Image and SR  objects. &nbsp;Report Readers that are not  image displays may ignore the Image objects.&nbsp;  You may load these objects into the MESA servers one time before any of the tests  are started.&nbsp; After you start the MESA servers as described  in <a href="#start_servers">Starting  the MESA Servers</a>, load the test data:
+<pre>     perl  90x/load_90x.pl</pre>
+  This script loads images into the MESA Image Manager and  SR objects into the MESA Report Repository.</p>
+<strong><br clear="all" />
+</strong>
+<h1><a name="#indiv_tests" id="#indiv_tests">Individual Tests</a></h1>
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_901" id="#test_901">Report Reader Test 901: SR SCU Query Keys</a></h2>
+<p>In this test, the Report Reader is required to query the  MESA Report Repository using specific matching keys.&nbsp; For each matching key and value in the table  below, direct the Report Reader to make one or more queries of the MESA Report  Repository.&nbsp; Repeat or multiple queries  are allowed.&nbsp; That is, you might choose  to query several times with a certain matching key.&nbsp; We do not expect the Report Repository to  send individual queries with multiple matching keys (Patient Name and Patient  ID), but the test software will allow that.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="162" valign="top"><p><strong>Attribute Name</strong></p></td>
+    <td width="174" valign="top"><p align="center"><strong>Tag</strong></p></td>
+    <td width="174" valign="top"><p align="center"><strong>Matching    Key Value</strong></p></td>
+  </tr>
+  <tr>
+    <td width="162" valign="top"><p>Study Date</p></td>
+    <td width="174" valign="top"><p>0008 0020</p></td>
+    <td width="174" valign="top"><p>19950126</p></td>
+  </tr>
+  <tr>
+    <td width="162" valign="top"><p>Accession Number</p></td>
+    <td width="174" valign="top"><p align="center">0008    0050</p></td>
+    <td width="174" valign="top"><p align="center">2001B20</p></td>
+  </tr>
+  <tr>
+    <td width="162" valign="top"><p>Patient Name</p></td>
+    <td width="174" valign="top"><p align="center">0010    0010</p></td>
+    <td width="174" valign="top"><p align="center">CRTHREE*</p></td>
+  </tr>
+  <tr>
+    <td width="162" valign="top"><p>Patient ID</p></td>
+    <td width="174" valign="top"><p align="center">0010    0020</p></td>
+    <td width="174" valign="top"><p align="center">CR3</p></td>
+  </tr>
+  <tr>
+    <td width="162" valign="top"><p>Modalities in Study</p></td>
+    <td width="174" valign="top"><p align="center">0008    0061</p></td>
+    <td width="174" valign="top"><p align="center">MR</p></td>
+  </tr>
+</table>
+<h3>References</h3>
+<h3>Instructions</h3>
+<ol>
+  <li>Create/modify  the SQL script to identify theReport Reader under test.</li>
+  <li>Start  the MESA  servers as described in <a href="#start_servers">Starting  the MESA Servers</a> above.</li>
+  <li>Load  the data sets into the MESA Report Repository as described in <a href="#load_data">Loading  Test Data</a>  above. </li>
+  <li>Send  at least one DICOM Study Level C-Find request (Study Root model) to the MESA  Report Repository for each attribute/matching key value defined in the table  above.</li>
+  </ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Run  the evaluation script to verify that each attribute was requested in a query.</li>
+</ol>
+<pre>     perl 901/eval_901.pl &lt;AE Title of  Report Reader&gt;</pre>
+  <h3>Supplemental Information </h3>
+  <p>Results will be found in the file 9<em>01/grade_901.txt</em>.&nbsp; If you  need to clear the existing queries to run the test again, you can restart at  step 3 or run this script: </p>
+  <pre>     perl  scripts/clear_queries.pl</pre>
+</td>
+</tr></table>
+<h2><a name="#test_902" id="#test_902">Report Reader Test 902: SCU Query Evaluation</a></h2>
+<p>This test uses the queries sent by the Report Reader  during Test 901 and any other queries you want to evaluate.&nbsp; This test examines all queries sent by the  Report Reader to determine if they are legal DICOM queries.<br />
+  After you conclude Test 901, the MESA Report Repository  will still have a record of the queries sent by your Report Reader.&nbsp; If you want to send more queries to the  Report Repository, you may do so.&nbsp; There  are no required queries.&nbsp; You might want  to send queries at the Series and SOP Instance level.
+<h3>References
+</h3>
+<h3>Instructions</h3>
+<h3>Evaluation
+</h3>
+<p>Evaluate the Report Reader queries as follows:
+<pre>     perl  902/eval_902.pl &lt;AE Title of Report Reader&gt;</pre>
+  <h3>Supplemental Information </h3>
+  <p>Query results are stored in the file <em>902/grade_902.txt</em>.<br />
+  As above, you can clear the queries stored by the MESA  Report Repository as follows:
+  </p>
+  <pre>     perl scripts/clear_rpt_repos_queries.pl</pre>
+   <table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_601" id="#test_601">Report Reader Test 601: Simple Image Report</a></h2>
+<h3>References</h3>
+<h3>Instructions</h3>
+<ol>
+  <li>Create/modify  the SQL script to identify the Report Reader under test.</li>
+  <li>Start  the MESA  servers as described in <a href="#start_servers">Starting  the MESA Servers</a> above.</li>
+  <li>Load  the data sets into the MESA Report Repository as described in <a href="#load_data">Loading  Test Data</a>  above.</li>
+  <li>Retrieve  the SR for patient CRTHREE^PAUL.&nbsp; This  report will have 0 image references.&nbsp;  Render the report and send a copy of the rendered report to the Project  Manager.</li>
+  </ol>
+<h3>Evaluation</h3><h3>Supplemental Information </h3></td>
+   </tr></table>
+<h2><a name="#test_602" id="#test_602">Report Reader Test 602: Simple Image Report with  One Reference</a></h2>
+<h3>References</h3>
+<h3>Instructions</h3>
+<ol>
+  <li>Create/modify  the SQL script to identify theReport Reader under test.</li>
+  <li>Start  the MESA  servers as described in <a href="#start_servers">Starting  the MESA Servers</a> above.</li>
+  <li>Load  the data sets into the MESA Report Repository as described in <a href="#load_data">Loading  Test Data</a>  above.</li>
+  <li>Retrieve  the SR for patient CTFIVE^JIM.&nbsp; This  report will have 1 image reference to an image stored on the MESA Image  Manager.&nbsp; You may retrieve and display  that image if your application supports that feature.&nbsp; If you do not display images, you need to at  least indicate there is a reference to an image.</li>
+  <li>Render  the report and send a copy of the rendered report to the Project Manager.</li>
+</ol>
+<h3>Evaluation</h3>
+<h3>Supplemental Information </h3>
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_603" id="#test_603">Report Reader Test 603: Simple Image Report with  Two References</a></h2>
+<h3>References</h3>
+<h3>Instructions</h3>
+<ol>
+  <li>Create/modify  the SQL script to identify the Report Reader under test.</li>
+  <li>Start  the MESA  servers as described in <a href="#start_servers">Starting  the MESA Servers</a> above.</li>
+  <li>Load  the data sets into the MESA Report Repository as described in <a href="#load_data">Loading  Test Data</a>  above.</li>
+  <li>Retrieve  the SR for patient MRTHREE^STEVE.&nbsp; This  report will have 2 references to images stored on the MESA Image Manager.&nbsp; You may retrieve and display those images if  your application supports that feature.&nbsp;  If you do not display images, you need to at least indicate there is a  reference to an image.</li>
+  <li>Render  the report and send a copy of the rendered report to the Project Manager.</li>
+  </ol>
+<h3>Evaluation</h3><h3>Supplemental Information </h3></td>
+</tr></table>
+<h2><a name="#test_611" id="#test_611">Report Reader Test 611: Numeric Report</a></h2>
+<h3>References</h3>
+<h3>Instructions</h3>
+<ol>
+  <li>Create/modify  the SQL script to identify theReport Reader under test.</li>
+  <li>Start  the MESA  servers as described in <a href="#start_servers">Starting  the MESA Servers</a> above.</li>
+  <li>Load  the data sets into the MESA Report Repository as described in <a href="#load_data">Loading  Test Data</a>  above.</li>
+  <li>Retrieve  the SR for patient CRTEN^GEORGE.&nbsp; This  report has a measurement of the length of the patient&rsquo;s left leg.</li>
+  <li>Render  the report and send a copy of the rendered report to the Project Manager.</li>
+</ol>
+
+<h3>Evaluation</h3>
+<h3>Supplemental Information </h3>
+<h1><a name="#basic_sec" id="#basic_sec">Basic Security Tests</a></h1>
+<p>This section describes tests that are specific to the IHE  Basic Security integration profile. If you have the MESA servers running for the &ldquo;standard&rdquo;  tests, you should stop those servers now. You will need to start the MESA secure servers with  a different script.</p>
+<table><tr><td bgcolor="#FFFF99">
+<h2><a name="#test_1511" id="#test_1511">Report Reader Test 1511: Simple Imaging Report</a></h2>
+<p>Report Reader Test 1511 uses the same structure as test  601. The Report Reader is expected to communicate with other systems using TLS  negotiation and to send appropriate audit messages to the MESA syslog server.<br />
+  The table below lists the Audit Messages that should be  generated by your Report Reader. Please refer to the document <em>IHE Tests:  Transaction Sequences</em> for the full context of these messages. You might  trigger other messages to the Audit Record Repository based on your interaction  with your Report Reader.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="115" valign="top"><br />
+        <strong>Identifier</strong> </td>
+    <td width="246" valign="top"><p><strong>Description</strong></p></td>
+    <td width="144" valign="top"><p><strong>Source</strong></p></td>
+    <td width="133" valign="top"><p><strong>Destination</strong></p></td>
+  </tr>
+  <tr>
+    <td width="115" valign="top"><p>1511.022</p></td>
+    <td width="246" valign="top"><p>DICOM-instances-used</p></td>
+    <td width="144" valign="top"><p>Report Reader</p></td>
+    <td width="133" valign="top"><p>Audit Record Repos</p></td>
+  </tr>
+</table>
+<h3>References</h3>
+<h3>Instructions</h3>
+<ol>
+  <li>Create/modify  the SQL script to identify the Report Reader under test. This may be different  from the step for test 601 for your secure node.</li>
+  <li>Start  the <strong><em><u>secure</u></em></strong> MESA  servers as instructed in <a href="#start_servers">Starting  the MESA Servers</a>.</li>
+  <li>Load  the data sets into the MESA Report Repository:</li>
+</ol>
+<pre>     perl 90x/load_90x_secure.pl</pre>
+<ol start="4">
+  <li>Clear  the MESA Audit  Record Repository:</li>
+</ol>
+<pre>     perl scripts/clear_audit.pl</pre>
+<ol start="5">
+  <li>Retrieve  the SR for patient CRTHREE^PAUL. This report will have 0 image references.  Render the report and send a copy of the rendered report to the Project  Manager.</li>
+  </ol>
+<h3>Evaluation</h3>
+<ol start="1">
+  <li>Evaluate  the Audit Records produced by your system:</li>
+</ol>
+<pre>     perl 1511/eval_1511.pl</pre>
+<h3>Supplemental Information </h3>
+<ol>
+  <li>Grab  all of the files (tar/zip) in <em>$MESA_TARGET/logs/syslog</em> and send these to  the Project Manager.</li>
+</ol></td>
+</tr></table>
+<h1><a name="#test_cases_pdi" id="#test_cases_pdi">Test Cases: PDI</a></h1>
+<p>These test cases are generally associated with the  Radiology PDI profile</p>
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_1931" id="#test_1931">Test Case 1931: Media &ldquo;Reader&rdquo; Read RSNA 2004 CD</a></h2>
+<p>The purpose of this test is for the Display actor to open  the DICOMDIR file on the RSNA 2004 CD and render the images and other composite  objects on the CD.</p>
+<h3><a name="_Toc88806707" id="_Toc88806707">References</a></h3>
+<p>RAD TF</p>
+<h3><a name="_Toc88806708" id="_Toc88806708">Instructions</a></h3>
+<p>To run this test, follow these steps:</p>
+<ol>
+  <li>Obtain  the RSNA 2004 PDI Demonstration CD. If you do not have a physical copy of the  CD, download the ISO image of the CD from the MESA distribution page and create a CD from  the ISO image.</li>
+  <li>Obtain  the text file RSNA2004CD.txt from the MESA  documentation page. This file will list all of the vendor studies on the RSNA  CD.</li>
+  <li>Use  your DICOM application to open the DICOMDIR file on the RSNA CD.</li>
+  <li>Select  and display all of the studies on the CD. For those studies with multiple  images, you can select a small subset of the images.</li>
+  <li>For  each set of vendor data, modify the file RSNA2004CD.doc to indicate if you can  successfully render the data. Questions are Yes/No. You can add comments at the  bottom of the file.</li>
+</ol>
+<h3><a name="_Toc88806709" id="_Toc88806709">Evaluation</a></h3>
+<ol>
+  <li>Submit  the modified text file to the Project Manager.</li>
+  <li>If  there are problems with rendering, submit a screen capture demonstrating the  problem and/or submit additional documentation in the RSNA2004CD.doc file.</li>
+  </ol>
+<h3>Supplemental Information </h3></td>
+</tr></table>
+<h2><a name="_Toc88878195" id="_Toc88878195"></a><a name="#test_1932" id="#test_1932">Test Case 1932: Media &ldquo;Reader&rdquo; Reads Vendor CDs</a></h2>
+<p>The purpose of this test is for the Display actor to open  the DICOMDIR file on CDs provided by vendors for the RSNA 2004 PDI  demonstration and to render the composite objects on those CDs.</p>
+<h3><a name="_Toc88806711" id="_Toc88806711">References</a></h3>
+<p>RAD TF</p>
+<h3><a name="_Toc88806712" id="_Toc88806712">Instructions</a></h3>
+<p>To run this test, follow these steps:</p>
+<ol>
+  <li>Obtain  the vendor CDs from the RSNA 2004 PDI Demonstration. If you do not have a  physical copy of the CDs, download the ISO images from the MESA distribution page and create a CD from  the ISO image.</li>
+  <li>Obtain  the text file VENDOR2004CD.doc from the MESA  documentation page. This file will list all of the vendor CDs.</li>
+  <li>Use  your DICOM application to open the DICOMDIR file on each vendor CD.</li>
+  <li>Select  and display all of the studies on the CD. For those studies with multiple  images, you can select a small subset of the images.</li>
+  <li>For  each set of vendor data, modify the file VENDOR2004CD.doc to indicate if you  can successfully render the data. Questions are Yes/No. You can add comments at  the bottom of the file.</li>
+</ol>
+<h3><a name="_Toc88806713" id="_Toc88806713">Evaluation</a></h3>
+<ol>
+  <li>Submit  the modified text file to the Project Manager.</li>
+  <li>If  there are problems with rendering, submit a screen capture demonstrating the  problem and/or submit additional documentation in the VENDOR2004CD.doc file.</li>
+</ol>
+<h3>Supplemental Information </h3>
+</body>
+</html>

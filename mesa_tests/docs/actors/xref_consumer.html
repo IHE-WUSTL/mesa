@@ -1,0 +1,378 @@
+<html>
+
+<head>
+ <title>Cross Reference Consumer Tests</title>
+ <style type="text/css">
+<!--
+.style1 {font-size: 18pt}
+.style2 {font-size: 24pt; }
+-->
+ </style>
+</head>
+
+<body>
+
+
+ 
+ 
+
+<p align="center" class="style1">HIMSS and RSNA</p>
+
+<p align="center" class="style2">Integrating the Healthcare Enterprise</p>
+
+<p align="center" class="style2">IHE/MESA Cross Reference Consumer Tests</p>
+<p align="center" class="style2">&nbsp;</p>
+<p align="center">Electronic Radiology Laboratory</p>
+
+<p align="center">Mallinckrodt Institute of Radiology</p>
+
+<p align="center">510 South Kingshighway Blvd.</p>
+
+<p align="center">St. Louis, MO 63110</p>
+
+<p align="center">314.362.6965 (Voice)</p>
+
+<p align="center">314.362.6971 (Fax)</p>
+
+<p align="center">Version 10.11.0 </p>
+<p align="center">29-November-2006</p>
+<p><a href="#introduction">Introduction</a></p>
+<p><a href="#_patient_identification">Patient Identification</a></p>
+<p><a href="#_configuration">Configuration</a></p>
+<p><a href="#_starting_servers">Starting the MESA Servers</a></p>
+<p><a href="#_installation_test">Installation Test</a></p>
+<p><a href="#_submission_results">Submission of Results</a></p>
+
+<p><a href="#_pix_tests">Test Cases Pix</a></p>
+
+<ul>
+ <li><a href="#_test_10501">10501: PIX Query Case 1 and Case 2</a></li>
+ <li><a href="#_test_10502">10502: PIX Query Case 3</a></li>
+ <li><a href="#_test_10503">10503: PIX Query Case 4</a></li>
+ <li><a href="#_test_10531">10531: PIX Update Notification: MESA 1</a></li>
+ <li><a href="#_test_10532">10532: PIX Update Notification: MESA 2</a></li>
+ <li><a href="#_test_10533">10533: PIX Update Notification: MESA 3</a></li>
+ <li><a href="#_test_10541">10541: PIX Integrated Test 1</a></li>
+ <li><a href="#_test_10542">10542: PIX Integreted Test 2</a></li>
+ <li><a href="#_test_10543">10543: PIX Integrated Test 3</a></li> 
+</ul>
+
+
+<h1><a name="_xref_consumer">Cross Reference Consumer</a></h1>
+
+ <h2><a name="introduction">Introduction</a></h2>
+
+  <p>The MESA tests include a number of cases each of which
+     rely on a sequence of messages between actors. These tests range across
+     different integration profiles:</p>
+
+  <ul>
+   <li>Patient Identity Cross Reference for MPI</li>
+  </ul>
+
+  <p>This document lists the transactions and messages for a number of cases.
+     It may not describe the clinical scenario behind each case, but listing the
+	 transactions should define what is expected of each actor.</p>
+	 
+  <p>These are all of the transactions involving all of the actors.
+     When you test with your particular actor, you may see only a subset of
+	 these messages.</p>
+
+ <h2><a name="_patient_identification">Patient Identification</a></h2>
+
+ <h2><a name="_configuration">Configuration</a></h2>
+ 
+  <p>The MESA scripts are run from the directory
+    <i>$MESA_TARGET/mesa_tests/iti/xref_consumer</i>.
+    The ASCII configuration file <i>xref_consumer.cfg</i> contains parameters that
+	configure the MESA Cross Reference Manager. The default port number is 3600.
+	You should only change this port number if there is a conflict with another
+	service on the MESA test computer. There will be no conflicts with other
+	MESA servers; the only conflict would occur with something from the operating
+	system or other software package.</p>
+
+  <p>You should configure your Cross Reference Consumer to send HL7 query messages
+     to the MESA Cross Reference Manager listening on port 3600.
+	 HL7 communication uses TCP sockets and the minimal lower level protocol.</p>
+
+  <h2><a name="_starting_servers">Starting the MESA Servers</a></h2>
+
+  <p>MESA servers are started from a DOS/CMD window
+     or a terminal emulator. Follow these steps for Unix systems:</p>
+  <ol>
+   <li>cd $MESA_TARGET/mesa_tests/rid/actors/xref_consumer</li>
+   <li>scripts/start_mesa_servers.csh</li>
+  </ol>
+  
+  <p>To stop the servers:</p>
+  <ol>
+   <li>scripts/stop_mesa_servers.csh</li>
+  </ol>
+  
+  <p>The start instructions for MESA tools on a Windows system are:</p>
+  <ol>
+   <li>cd %MESA_TARGET%\mesa_tests\rid\actors\xref_consumer</li>
+   <li>scripts\start_mesa_servers.bat</li>
+  </ol>
+  <p>To stop the MESA servers:</p>
+  <ol>
+   <li>scripts\stop_mesa_servers.bat</li>
+  </ol>
+  
+ <h2><a name="_installation_test">Installation Test</a></h2>
+ <h2><a name="_submission_results">Submission of Results</a></h2>
+
+  <p>Test descriptions below inform the reader to “submit results to the
+     Project Manager”. This is does not mean “email”. The current submission
+	 process should be documented by the Project Manager, but will not include
+	 emailing files directly to the Project Manager.</p>
+
+ <h1><a name="_pix_tests">Test Cases: PIX</a></h1>
+
+  <p>This section describes test cases that are generally
+     associated with the PIX Integration Profile. There may be some overlap with
+	 other profiles.</p>
+
+  <p>Each test case involves a series of transactions involving one test patient.
+     Some patients may require that a single actor participate in multiple
+	 transactions. The tables in this section give the order of messages for an
+	 integrated system with all actors. This is provided as a centralized reference.
+	 To test an individual IHE actor, refer to the appropriate test document.</p>
+
+ <table><tr><td bgcolor="#FFFF99">
+  <h2><a name="_test_10501">10501: PIX Query Case 1 and Case 2</a></h2>
+
+   <p>Test case 10501 covers the PIX Query Case 1 and 2. One patient (ALPHA) is
+      registered in two different domains. A second patient (SIMPSON) is registered
+	  in a single domain. Three registration messages are sent to a Cross Reference
+	  Manager.</p>
+
+   <p>A PIX Query is sent to resolve a reference to ALPHA. A second PIX Query is sent
+      to resolve a reference to SIMPSON. Because SIMPSON is not registered in the second
+	  domain, the response to that PIX Query will indicate no data.</p>
+
+  <h3>References</h3>
+
+   <p>ITI TF-2: 3.9.4.2.2</p>
+
+  <h3>Instructions</h3>
+
+   <p>To run this test, follow these steps using a DOS window or terminal emulator:</p>
+
+   <ol>
+    <li>Set the current directory to $MESA_TARGET/mesa_tests/iti/actors/xref_consumer.</li>
+	<li>The file <i>xref_consumer.cfg</i> describes the MESA servers for this test.
+	    You should be aware of this file but should not modify it unless you have
+		problems starting the MESA servers.</li>
+
+    <li>Make sure the MESA servers have been started. See <a href="#_starting_servers">Starting the MESA Servers</a> for details.</li>
+
+    <li>Run the test script as follows:
+     <pre>perl scripts/xref_cons_pix.pl 10501 &lt;log level&gt;</pre>
+     where &lt;log level&gt; is a value between 1 and 4.</li>
+
+    <li>The test script will send three A04 registration messages to the MESA Cross
+	    Reference Manager. After the three A04 messages, your system is prompted to
+		send two PIX queries.</li>
+   </ol>
+   
+  <h3>Evaluation</h3>
+
+   <p>To evaluate your response to this test:</p>
+
+   <ol>
+    <li>Run the evaluation script:
+     <pre>perl 10501/eval_10501.pl 4</pre>
+    </li>
+	<li>The output file is 10501/grade_10501.txt. This test is successfully completed
+	    when the last line in the output file indicates 0 errors.</li>
+    <li>The evaluation script does not examine the contents of your query messages.
+	    The script dumps the contents of the QPD segment; the Project Manager will
+		examine the query parameters. This will allow you to send multiple queries
+		and vary the order.</li>
+    <li>Submit the grade file to the Project Manager. The Project Manager may examine
+        the file and require you to modify your query and/or to perform additional
+	    queries.</li>
+   </ol>
+
+  <h3>Supplemental Information</h3>
+   <p>If you want to see a query generated by a MESA Cross Reference Consumer, run
+      test 10501 in self test mode. Then run the evaluation as above and examine the
+	  grade file. To run in self test mode:</p>  
+   <p>perl scripts/xref_cons_pix.pl 10501 4 self</p>
+ </td></tr></table>
+
+ <table><tr><td>
+  <h2><a name="_test_10502">10502: PIX Query Case 3</a></h2>
+
+   <p>Test case 10502 covers the PIX Query case 3. Two patients
+      are registered in a single domain. A PIX consumer sends a query for a third
+      patient who is not recognized as one of the two registered patients.</p>
+
+  <h3>References</h3>
+
+   <p>ITI TF-2: 3.9.4.2.2</p>
+
+  <h3>Instructions</h3>
+   <p>To run this test, follow these steps using a DOS window or terminal emulator:</p>
+
+   <ol>
+    <li>Set the current directory to $MESA_TARGET/mesa_tests/iti/actors/xref_consumer.</li>
+    <li>The file <i>xref_consumer.cfg</i> describes the MESA
+        servers for this test. You should be aware of this file but should not
+		modify it unless you have problems starting the MESA servers.</li>
+
+    <li>Make sure the MESA servers have been started. See <a href="#_starting_servers">Starting the MESA Servers</a> for details.</li>
+
+    <li>Run the test script as follows:
+     <pre>perl scripts/xref_cons_pix.pl 10502 &lt;log level&gt;</pre>
+     where &lt;log level&gt; is a value between 1 and 4.</li>
+
+    <li>The test script will send two A04 registration messages to the MESA
+	    Cross Reference Manager. After the two A04 messages, the script prompts you
+		to send a query for a third patient who is not recognized as one of the
+		two registered patients.</li>
+   </ol>
+   
+  <h3>Evaluation</h3>
+
+   <p>To evaluate your response to this test:</p>
+
+   <ol>
+    <li>Run the evaluation script
+     <pre>perl 10502/eval_10502.pl 4</pre></li>
+    <li>The output file is 10502/grade_10502.txt. This test is successfully completed
+	    when the last line in the output file indicates 0 errors.</li>
+    <li>The evaluation script does not examine the contents of your query messages.
+	    The script dumps the contents of the QPD segment; the Project Manager will
+		examine the query parameters. This will allow you to send multiple queries
+		and vary the order.</li>
+    <li>Submit the grade file to the Project Manager. The Project Manager may examine
+	    the file and require you to modify your query and/or to perform
+		additional queries.</li>
+   </ol>
+ </td></tr></table>
+ 
+ <table><tr><td bgcolor="#FFFF99">
+  <h2><a name="_test_10503">10503: PIX Query Case 4</a></h2>
+
+   <p>Test case 10503 covers the PIX Query case 4. No new patients
+      are registered. A PIX query is sent with a Patient ID that includes an unknown
+	  issuer (value is ‘XXXX’). The Cross Reference Manager responds appropriately.</p>
+
+  <h3>References</h3>
+
+   <p>ITI TF-2: 3.9.4.2.2</p>
+
+  <h3>Instructions</h3>
+
+   <p>To run this test, follow these steps using a DOS window or terminal emulator:</p>
+
+   <ol>
+    <li>Set the current directory to $MESA_TARGET/mesa_tests/iti/actors/xref_consumer.</li>
+    <li>The file <i>xref_consumer.cfg</i> describes the MESA servers for this test.
+	    You should be aware of this file but should not modify it unless you have
+		problems starting the MESA servers.</li>
+
+    <li>Make sure the MESA servers have been started. See <a href="#_starting_servers">Starting the MESA Servers</a> for details.</li>
+	<li>Run the test script as follows:
+	 <pre>perl scripts/xref_cons_pix.pl 10503 &lt;log level&gt;</pre>
+     where &lt;log level&gt; is a value between 1 and 4.</li>
+    <li>The test script will prompt the user to send a query with a PID that includes
+	    the issuer XXXX. The MESA Cross Reference Manager should respond as defined
+		in Case 4.</li>
+   </ol>
+  <h3>Evaluation</h3>
+   <p>To evaluate your response to this test:</p>
+   <ol>
+    <li>Run the evaluation script:
+     <pre>perl 10503/eval_10503.pl 4</pre></li>
+    <li>The output file is 10503/grade_10503.txt. This test is successfully completed
+	    when the last line in the output file indicates 0 errors.</li>
+    <li>The evaluation script does not examine the contents of your query messages.
+	    The script dumps the contents of the QPD segment; the Project Manager will
+		examine the query parameters. This will allow you to send multiple queries
+		and vary the order.</li>
+    <li>Submit the grade file to the Project Manager. The Project Manager may examine
+	    the file and require you to modify your query and/or to perform additional
+		queries.</li>
+  </ol>
+  
+  <h3>Supplemental Information</h3>
+ </td></tr></table>
+
+
+ <table><tr><td>
+  <h2><a name="_test_10531">10531: PIX Update Notification: MESA 1</a></h2>
+
+   <p>Test case 10531 covers a use case involving the PIX Update
+      Notification transaction and behavior of the Cross-reference Manager.</p>
+
+  <h3>References</h3>
+
+   <p>ITI TF-2: 3.10</p>
+ </td></tr></table>
+
+
+ <table><tr><td bgcolor="#FFFF99">
+  <h2><a name="_test_10532">10532: PIX Update Notification: MESA 2</a></h2>
+
+   <p>Test case 10532 covers a use case involving the PIX Update
+      Notification transaction and behavior of the Cross-reference Manager.</p>
+
+  <h3>References</h3>
+
+   <p>ITI TF-2: 3.10</p>
+ </td></tr></table>
+
+
+ <table><tr><td>
+  <h2><a name="_test_10533">10533: PIX Update Notification: MESA 3</a></h2>
+
+   <p>Test case 10533 covers a use case involving the PIX Update
+      Notification transaction and behavior of the Cross-reference Manager.</p>
+
+  <h3>References</h3>
+
+   <p>ITI TF-2: 3.10</p>
+ </td></tr></table>
+
+ <table width="100%">
+   <tr><td bgcolor="#FFFF99">
+  <h2><a name="_test_10541">10541: PIX Integrated Test 1</a></h2>
+
+   <p>Test case 10541 covers a use case with several PIX transactions integrated
+      into a larger test.</p>
+
+  <h3>References</h3>
+
+   <p>ITI TF-2: 3.10</p>
+</td></tr></table> 
+ 
+ 
+ <table><tr><td>
+  <h2><a name="_test_10542">10542: PIX Integrated Test 2</a></h2>
+
+   <p>Test case 10542 covers a use case with several PIX transactions integrated
+      into a larger test.</p>
+
+  <h3>References</h3>
+
+   <p>ITI TF-2: 3.10</p>
+ </td></tr></table> 
+
+ <table width="100%">
+   <tr><td bgcolor="#FFFF99">
+  <h2><a name="_test_10543">10543: PIX Integrated Test 3</a></h2>
+
+   <p>Test case 10543 covers a use case with several PIX transactions integrated
+      into a larger test.</p>
+
+  <h3>References</h3>
+
+   <p>ITI TF-2: 3.10</p>
+</td></tr></table> 
+
+</body>
+
+</html>

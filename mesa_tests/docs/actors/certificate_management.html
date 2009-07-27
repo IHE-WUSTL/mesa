@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Untitled Document</title></head>
+
+<body>
+<p align="center"><strong>HIMSS and RSNA</strong></p>
+<p align="center"><strong>Integrating the Healthcare Enterprise</strong></p>
+<p align="center">&nbsp;</p>
+<p align="center">&nbsp;</p>
+<p align="center"><strong>IHE/MESA Certificate Management</strong></p>
+<p align="center"><strong>&nbsp;</strong></p>
+<p align="center"><strong>&nbsp;</strong>Electronic Radiology Laboratory<br />
+  Mallinckrodt Institute of  Radiology<br />
+  510 South    Kingshighway Blvd. <br />
+  St. Louis, MO&nbsp; 63110 <br />
+  314.362.6965 (Voice)<br />
+  314.362.6971 (Fax)</p>
+<p align="center">&nbsp;</p>
+<p align="center">Revision 6.5.0<br />
+  September 3, 2002</p>
+<p align="center">Copyright &copy; 2002:  HIMSS/RSNA</p>
+<strong><br clear="all" />
+</strong>
+<p><strong>&nbsp;</strong><strong>Contents:</strong></p>
+<p><a href="#intro">Introduction</a> <br />
+    <a href="#mesa_certificates">MESA and &ldquo;System Under Test&rdquo; Certificates</a> <br />
+    <a href="#inst_dig_cert">Installing Digital Certificates</a> <br />
+  <a href="#gen_new_cert">Generating New Certificates</a> </p>
+<h1><a name="#intro" id="#intro">Introduction</a> </h1>
+<p>The MESA tests for the Basic  Security integration profile require the use of digital certificates to  identify/authenticate actors. This document describes how these certificates  are managed for the MESA  tests. This does not include how the certificates are managed for  Connectathons, exhibits, demonstrations or in clinical settings.</p>
+<h1><a name="#mesa_certificates" id="#mesa_certificates"></a>MESA and &ldquo;System Under Test&rdquo; Certificates</h1>
+<p>The MESA actors will use a single certificate to identify all  of the MESA  actors. This is not the normal case. One would expect the different MESA actors to use  different digital certificates. This is done in the interest of simplicity.<br />
+  We make  the same simplifying assumption for the system under test. The MESA tools include one certificate to be used  for all systems under test.</p>
+<h2><a name="#inst_dig_cert" id="#inst_dig_cert">Installing Digital Certificates</a></h2>
+<p>The MESA software (binary) is  shipped with the digital certificates installed in $MESA_TARGET/certificates.  Your application will need a key value and digital certificates. These are  stored in the files: <em>test_sys_1.key.pem</em> and <em>test_sys_1.cert.pem. </em>There  is a second key/certificate pair named <em>test_sys_2</em>. You can use those  files for testing your system. The MESA  system as shipped is configured to accept either certificate from systems under  test.<br />
+  The MESA software will  present one of two certificates to your application. These are found in the  same directory. The certificates are found in the files <em>mesa_1_cert.pem</em> and <em>mesa_2_cert.pem</em>. You should load these into your system so that you  recognize these certificates from the MESA  applications.<br />
+  Some  organizations would prefer to generate their own certificates or obtain  certificates from a third party. If you wish to test this, you need to  configure the MESA  software to recognize that certificate. Place a copy of that certificate in  $MESA_TARGET/runtime/certificates/test_list.cert. That should be sufficient  (although you probably will have to restart MESA servers). If that does not work, email a  copy of your certificate to the Project Manager and ask for assistance.</p>
+<h2><a name="#gen_new_cert" id="#gen_new_cert">Generating New Certificates</a></h2>
+<p>This section is intended for Project Managers who  distribute certificates. End users are not expected to generate their own  certificates (but are welcome to if they so desire).<br />
+  The scripts for generating certificates are found in <em>$MESA_ROOT/tls</em>.  The script <em>cert_v01.csh</em> generates the certificates used for MESA actors, the system  under test and some special certificates, such as an expired certificate. Run  the script cert_v01.csh. </p>
+</body>
+</html>

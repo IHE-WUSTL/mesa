@@ -1,0 +1,833 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>IHE/MESA MEDIA Creator Test Document</title>
+<style type="text/css">
+<!--
+.style1 {
+	color: #FF0000;
+	font-style: italic;
+	font-weight: bold;
+}
+-->
+</style>
+<body>
+<p align="center"><strong>&nbsp;</strong></p>
+<p align="center"><strong>RSNA</strong><br />
+    <strong>Integrating the Healthcare Enterprise</strong></p>
+<p align="center"><strong>&nbsp;</strong></p>
+<p align="center"><strong>&nbsp;</strong><strong>IHE/MESA Media Creator Tests</strong></p>
+<p>&nbsp;</p>
+<p align="center">Electronic Radiology  Laboratory<br />
+  Mallinckrodt Institute of  Radiology<br />
+  510 South Kingshighway Blvd. <br />
+  St. Louis, MO&nbsp; 63110 <br />
+  314.362.6965 (Voice)<br />
+  314.362.6971 (Fax)</p>
+<p align="center">&nbsp;</p>
+<p align="center">Revision 10.11.0<br />
+  29-Nov-2006
+</p>
+<br clear="all" />
+
+  <p><strong>Contents:</strong></p>
+  <p><a href="#med_creator">Media Creator</a> <br />
+    <a href="#intro">Introduction</a> <br />
+    <a href="#pat_id">Patient Identification</a> <br />
+    <a href="#config"> Configuration</a> <br />
+    <a href="#start_servers">Starting the MESA Servers</a> <br />
+    <a href="#inst_test"> Installation Test</a> <br />
+  <a href="#cases_pdi"> Test  Cases: PDI</a> </p>
+  <ol>
+    <li><a href="#test_1901">Test Case 1901: Media Creator Mount  Point</a> <br />
+    </li>
+    <li><a href="#test_1902">Test Case 1902: Media Creator General Disk Format</a></li>
+    <li><a href="#test_1903">Test Case 1903: Media Creator File Conventions</a></li>
+    <li><a href="#test_1904">Test Case 1904: Media Creator DICOMDIR Content</a></li>
+    <li><a href="#test_1905">Test Case 1905: Media Creator Object Content</a></li>
+    <li><a href="#test_1910">Test Case 1910: Media Creator Basic Web Content</a></li>
+    <li><a href="#test_1911">Test Case 1911: Media Creator Naming Conflicts</a></li>
+    <li><a href="#test_1912">Test Case 1912: Media Creator Prefix Conflicts</a> </li>
+  </ol>
+  
+   <a href="#cases_xdm"> Test  Cases: XDM</a><ol>
+     <li><a href="#test_11962">11962: XDM - Submit XDM Content for Evaluation</a></li>
+	 <li><a href="#test_13511">13511: XDM Media Creator File Coventions</a></li>
+	 <li><a href="#test_13514">13514: XDM Media Creator, One Submission Set, Single Part Doc</a></li>
+	<li><a href="#test_13515">13515: XDM Media Creator, One Submission Set, Multi Part Doc</a></li>
+	<li><a href="#test_13516">13516: XDM Media Creator, Two Submission Sets, Single Part Doc</a></li>
+	<li><a href="#test_13517">13517: XDM Media Creator, Two Submission Sets, Multi Part Doc</a></li>
+	<li><a href="#test_13520">13520: XDM Media Creator, ATNA Logging</a></li>
+	</ol>
+
+
+<h1><a name="#med_creator" id="#med_creator">Media Creator</a> </h1>
+<h2><a name="#intro" id="#intro">Introduction</a></h2>
+<p>This document describes  a series of tests for Media Creator systems.&nbsp; </p>
+<h3>Integration Profiles and Test Procedures</h3>
+<p>This document lists a number of tests for Media Creator  Systems. You may not be responsible for all of these tests.<br />
+  Please refer to the Connectathon web tool to list the  required tests for your system. The web address of this tool depends on the  year and project manager. Please contact the appropriate project manager to  obtain this information.</p>
+<h2><a name="#pat_id" id="#pat_id">Patient Identification</a> </h2>
+<h2><a name="#config" id="#config">Configuration</a></h2>
+<p>The MESA scripts are run from  the directory <em>$MESA_TARGET/mesa_tests/rad/actors/media_crt</em> or <em>$MESA_TARGET/mesa_tests/iti/actors/media_crt</em>. See specific instructions in each test. </p>
+<h2><a name="#start_servers" id="#start_servers">Starting the </a>MESA Servers</h2>
+<p>MESA servers are started from a DOS/CMD window or a terminal emulator.
+   Follow these steps for Unix systems</p>
+ <ol>
+  <li>cd $MESA_TARGET/mesa_tests/iti/actors/media_crt</li>
+  <li>scripts/start_mesa_servers.csh [loglevel]</li>
+ </ol>
+<p>To stop the   servers: </p>
+<pre>     scripts/stop_mesa_servers.csh</pre>
+<p>The start  instructions for MESA tools on a Windows system are:</p>
+<ol>
+  <li>cd %MESA_TARGET%\mesa_tests\iti\actors\media_crt</li>
+  <li>scripts\start_mesa_servers.bat [LOGLEVEL]</li>
+</ol>
+<p>To stop the MESA servers: 
+<pre>     scripts/stop_mesa_servers.bat</pre>
+
+
+<h2><a name="#inst_test" id="#inst_test">Installation Test</a></h2>
+
+<h1><a name="#cases_pdi" id="#cases_pdi">Test Cases: PDI</a></h1>
+<p>This section describes test cases that are generally  associated with the PDI Integration Profile. There may be some overlap with  other profiles.</p>
+
+<!--Begin test 1901 -->
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_1901" id="#test_1901">Test Case 1901: Media Creator Mount Point</a></h2>
+<p>Test 1901 is used to make sure we have the proper mount  point for the removable media. On Windows systems, this will be something like  D:\ or E:\. On Linux or other varieties of Unix, it will be something like this: 
+<div align="center">
+  <pre>/mnt/cdrom</pre>
+</div>
+</p>
+<p>There are two implementations of test 1901. The preferred implementation is the RSNA 2005 PDI Software (runs on Windows only). The deprecated implementation is the original MESA tool.
+<h3>References</h3>
+<h3>Instructions</h3>
+<h3>RSNA 2005 PDI Software</h3>
+<ol>
+ <li>Start the RSNA 2005 PDI Software (desktop icon or Programs->RSNA PDI Media Tester -> RSNA PDI</li>
+ <li>Select and execute test 1901</li>
+</ol>
+<H3>Evaluation</H3>
+<ol>
+ <li>When you complete the test, look at the bottom left hand corner to see the location where the log files are written. Go to that directory and retrieve grade_pdi_media.txt and error_pdi_media.txt. Submit the files along with a screen capture of RSNA PDI Media Tester your final result to the project manager.</li>
+</ol>
+
+<h3>MESA Command Line Tool</h3>
+<p>To run this test, follow these steps using a DOS window or  terminal emulator:</p>
+<ol>
+  <li>Set  the current directory to<em> $MESA_TARGET/mesa_tests/rad/actors/media_crt.</em></li>
+  <li>Mount  your disk on the MESA  system. Determine the mount point.</li>
+</ol>
+<h3>Evaluation</h3>
+<p>To evaluate your response to this test:</p>
+<ol>
+  <li>Run  the evaluation script</li>
+</ol>
+<pre>     perl  1901/eval_1901.pl 4 &lt;mount point&gt;</pre>
+<ol start="2">
+  <li>The  output file is 1901/grade_1901.txt. This test is successfully completed when  the last line in the output file indicates 0 errors.</li>
+  <li>Submit the grade file to the Project Manager. The Project Manager may examine the file and require you to modify your query and/or to perform additional tests.</li>
+</ol>
+<h3>Supplemental Information </h3>
+<ol>
+  <li>The  evaluation script takes a single argument, &lt;log level&gt;. When debugging  output, it is sometimes helpful to use a log level of 1 to see only  differences. When submitting results, we prefer the output with the most  verbose level, 4.</li>
+</ol></td></tr></table>
+<!--End test 1901 -->
+
+
+<h2><a name="#test_1902" id="#test_1902">Test Case 1902: Media Creator General Disk  Format</a></h2>
+<p>This test is not ready with this release of software.<br />
+  In test 1902, the media is tested for general format. This  is a test of the media file system (conformance with ISO 9660 Level 1).</p>
+<h3>References</h3>
+<p>ITI TF-3: 4.47.4.1.2.1</p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps using a DOS window or  terminal emulator:</p>
+<ol>
+  <li>Set  the current directory to <em>$MESA_TARGET/mesa_tests/rad/actors/media_crt</em>.</li>
+  <li>Mount  your disk on the MESA  system. Determine the mount point.</li>
+</ol>
+<h3>Evaluation</h3>
+<p>To evaluate your response to this test:</p>
+<ol>
+  <li>Run  the evaluation script</li>
+</ol>
+<pre>     perl  1902/eval_1902.pl 4 &lt;mount point&gt;</pre>
+<ol start="2">
+  <li>The  output file is 1902/grade_1902.txt. This test is successfully completed when  the last line in the output file indicates 0 errors.</li>
+  <li>Submit the grade file to the Project Manager. The Project Manager may examine the file  and require you to modify your query and/or to perform additional queries.</li>
+</ol>
+<h3>Supplemental Information </h3>
+<ol>
+  <li>The  evaluation script takes a single argument, &lt;log level&gt;. When debugging  output, it is sometimes helpful to use a log level of 1 to see only  differences. When submitting results, we prefer the output with the most  verbose level, 4.</li>
+</ol>
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_1903" id="#test_1903">Test Case 1903: Media Creator File Conventions</a></h2>
+<p>Test 1903 examines the media for general file conventions.  This includes naming conventions and finding DICOM instances in the root  directory.</p>
+<h3>References</h3>
+<p>ITI TF-3 4.47</p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps using a DOS window or  terminal emulator:</p>
+<ol>
+  <li>Set  the current directory to<em> $MESA_TARGET/mesa_tests/rad/actors/media_crt</em>.</li>
+  <li>Mount  your disk on the MESA  system. Determine the mount point.</li>
+</ol>
+<h3>Evaluation</h3>
+<p>To evaluate your response to this test:</p>
+<ol>
+  <li>Run  the evaluation script</li>
+</ol>
+<pre>     perl  1903/eval_1903.pl 4 &lt;mount point&gt;</pre>
+<ol start="2">
+  <li>The  output file is 1903/grade_1903.txt. This test is successfully completed when  the last line in the output file indicates 0 errors.</li>
+  <li>Email  the grade file to the Project Manager. The Project Manager may examine the file  and require you to modify your query and/or to perform additional queries.</li>
+</ol>
+<h3>Supplemental Information </h3>
+<ol>
+  <li>The  evaluation script takes a single argument, &lt;log level&gt;. When debugging  output, it is sometimes helpful to use a log level of 1 to see only  differences. When submitting results, we prefer the output with the most  verbose level, 4.</li>
+</ol></td></tr></table>
+<h2><a name="#test_1904" id="#test_1904">Test Case 1904: Media Creator DICOMDIR Content</a></h2>
+<p>Test 1904 examines the content of the DICOMDIR file. A  number of different tests are run on this file.</p>
+<h3>References</h3>
+<p>ITI TF-3 4.47</p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps using a DOS window or  terminal emulator:</p>
+<ol>
+  <li>Set  the current directory to <em>$MESA_TARGET/mesa_tests/rad/actors/media_crt</em>.</li>
+  <li>Mount  your disk on the MESA  system. Determine the mount point.</li>
+</ol>
+<h3>Evaluation</h3>
+<p>To evaluate your response to this test:</p>
+<ol>
+  <li>Run  the evaluation script</li>
+</ol>
+<pre>     perl  1904/eval_1904.pl 4 &lt;mount point&gt;</pre>
+<ol start="2">
+  <li>The  output file is 1904/grade_1904.txt. This test is successfully completed when  the last line in the output file indicates 0 errors.</li>
+  <li>Email  the grade file to the Project Manager. The Project Manager may examine the file  and require you to modify your query and/or to perform additional queries.</li>
+</ol>
+<h3>Supplemental Information </h3>
+<ol>
+  <li>The  evaluation script takes a single argument, &lt;log level&gt;. When debugging  output, it is sometimes helpful to use a log level of 1 to see only  differences. When submitting results, we prefer the output with the most  verbose level, 4.</li>
+</ol>
+<table><tr><td bgcolor="#33FFFF">
+<h2>&nbsp;<a name="#test_1905" id="#test_1905">Test Case 1905: Media Creator Object Content</a></h2>
+<p>Test 1905 examines the content of the DICOM instance files.  A number of different tests are run on each file.</p>
+<h3>References</h3>
+<p>Rad TF-3 4.47</p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps using a DOS window or  terminal emulator:</p>
+<ol>
+  <li>Set  the current directory to <em>$MESA_TARGET/mesa_tests/rad/actors/media_crt</em>.</li>
+  <li>Mount  your disk on the MESA  system. Determine the mount point.</li>
+</ol>
+<h3>Evaluation</h3>
+<p>To evaluate your response to this test:</p>
+<ol>
+  <li>Run  the evaluation script</li>
+</ol>
+<pre>     perl  1905/eval_1905.pl 4 &lt;mount point&gt;</pre>
+<ol start="2">
+  <li>The  output file is 1905/grade_1905.txt. This test is successfully completed when  the last line in the output file indicates 0 errors.</li>
+  <li>Email  the grade file to the Project Manager. The Project Manager may examine the file  and require you to modify your query and/or to perform additional queries.</li>
+</ol>
+<h3>Supplemental Information </h3>
+<ol>
+  <li>The  evaluation script takes a single argument, &lt;log level&gt;. When debugging  output, it is sometimes helpful to use a log level of 1 to see only  differences. When submitting results, we prefer the output with the most  verbose level, 4.</li>
+</ol></td></tr></table>
+<h2><a name="#test_1910" id="#test_1910">Test Case 1910: Media Creator Basic Web Content</a></h2>
+<p>Test 1910 examines media supporting the Web option. It tests  for requirements listed in that option.</p>
+<h3>References</h3>
+<p>ITI TF-3</p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps using a DOS window or  terminal emulator:</p>
+<ol>
+  <li>Set  the current directory to <em>$MESA_TARGET/mesa_tests/rad/actors/media_crt</em>.</li>
+  <li>Mount  your disk on the MESA  system. Determine the mount point.</li>
+</ol>
+<h3>Evaluation</h3>
+<p>To evaluate your response to this test:</p>
+<ol>
+  <li>Run  the evaluation script</li>
+</ol>
+<pre>     perl  1910/eval_1910.pl 4 &lt;mount point&gt;</pre>
+<ol start="2">
+  <li>The  output file is 1910/grade_1910.txt. This test is successfully completed when  the last line in the output file indicates 0 errors.</li>
+  <li>Email  the grade file to the Project Manager. The Project Manager may examine the file  and require you to modify your query and/or to perform additional queries.</li>
+</ol>
+<h3>Supplemental Information </h3>
+<ol>
+  <li>The  evaluation script takes a single argument, &lt;log level&gt;. When debugging  output, it is sometimes helpful to use a log level of 1 to see only  differences. When submitting results, we prefer the output with the most  verbose level, 4.</li>
+</ol>
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_1911" id="#test_1911">Test Case 1911: Media Creator Naming Conflicts</a></h2>
+<p>Test 1911 examines to determine if there are naming  conflicts in violation of the rules listed for media creators.</p>
+<h3>References</h3>
+<p>ITI TF-3</p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps using a DOS window or  terminal emulator:</p>
+<ol>
+  <li>Set  the current directory to <em>$MESA_TARGET/mesa_tests/rad/actors/media_crt</em>.</li>
+  <li>Mount  your disk on the MESA  system. Determine the mount point.</li>
+</ol>
+<h3>Evaluation</h3>
+<p>To evaluate your response to this test:</p>
+<ol>
+  <li>Run  the evaluation script</li>
+</ol>
+<pre>     perl  1911/eval_1911.pl 4 &lt;mount point&gt;</pre>
+<ol start="2">
+  <li>The  output file is 1911/grade_1911.txt. This test is successfully completed when  the last line in the output file indicates 0 errors.</li>
+  <li>Email  the grade file to the Project Manager. The Project Manager may examine the file  and require you to modify your query and/or to perform additional queries.</li>
+</ol>
+<h3>Supplemental Information </h3>
+<ol>
+  <li>The  evaluation script takes a single argument, &lt;log level&gt;. When debugging  output, it is sometimes helpful to use a log level of 1 to see only  differences. When submitting results, we prefer the output with the most  verbose level, 4.</li>
+</ol></td></tr></table>
+<h2><a name="#test_1912" id="#test_1912">Test Case 1912: Media Creator Prefix Conflicts</a></h2>
+<p>Test 1912 examines to determine if there are prefix  conflicts in violation of the rules listed for media creators. Files/folders  are not allowed to start with certain prefixes.</p>
+<h3>References</h3>
+<p>ITI TF-3</p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps using a DOS window or  terminal emulator:</p>
+<ol>
+  <li>Set  the current directory to <em>$MESA_TARGET/mesa_tests/rad/actors/media_crt</em>.</li>
+  <li>Mount  your disk on the MESA  system. Determine the mount point..</li>
+</ol>
+<h3>Evaluation</h3>
+<p>To evaluate your response to this test:</p>
+<ol>
+  <li>Run  the evaluation script</li>
+</ol>
+<pre>     perl  1912/eval_1912.pl 4 &lt;mount point&gt;</pre>
+<ol start="2">
+  <li>The  output file is 19112grade_1912.txt. This test is successfully completed when  the last line in the output file indicates 0 errors.</li>
+  <li>Email  the grade file to the Project Manager. The Project Manager may examine the file  and require you to modify your query and/or to perform additional queries.</li>
+</ol>
+<h3>Supplemental Information </h3>
+<ol>
+  <li>The  evaluation script takes a single argument, &lt;log level&gt;. When debugging  output, it is sometimes helpful to use a log level of 1 to see only  differences. When submitting results, we prefer the output with the most  verbose level, 4.</li>
+</ol>
+
+
+<h1><a name="#cases_xdm" id="#cases_xdm">Test Cases: XDM</a></h1>
+<p>The first two test in this section is provided by NIST and is available on its website. The URL is contained in the text of the test below. The remainder of the tests in this section, 13511-13520, can be run using the MESA tools</p>
+<!--End test 13501 -->
+<!--Begin test 13502 -->
+<!--End test 13502 -->
+<!--Begin test 13511 -->
+<table><tr><td width="725" bgcolor="#FFFF99">
+<h2><a name="#test_11962" id="#test_11962">11962: XDM - Submit XDM Content for Evaluation </a></h2>
+<p>This test is provided by NIST. </p>
+<p>Please see <a href="http://hcxw2k1.nist.gov/wiki/index.php/NIST_XDS_Test_Kit_2006-2007_Test_Requirements#XDM.2FXDR">http://hcxw2k1.nist.gov/wiki/index.php/NIST_XDS_Test_Kit_2006-2007_Test_Requirements#XDM.2FXDR</a></p></td></tr>
+</table>
+<!--End test 13511 -->
+
+<!--Begin test 13512 -->
+<table><tr><td bgcolor="#FFFFFF">
+<h2>&nbsp;</h2>
+</td>
+</tr>
+</table>
+<!--End test 13512 -->
+
+
+<!--Begin test 13513 -->
+<table><tr><td bgcolor="#FFFF99">
+<h2><a name="#test_13511" id="#test_13511">13511: XDM Media Creator File Coventions</a></h2>
+<p>Test 13511 examines the file names and folder structure of media created by the Media Creator in the XDM Integration Profile</p>
+<h3>References</h3>
+<p>ITI TF-2 3.32.4.1.2</p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps using a DOS window or terminal emulator:</p>
+<ol>
+  <li>Create media to be exported by the XDM profile (USB/CDR/ZIP). This can be with any combination of submission sets and documents per submission set. If a zip file, unzip the file, honoring the folder structure you created.</li>
+  <li>Set the current directory to<em> $MESA_TARGET/mesa_tests/iti/actors/media_crt</em>.</li>
+  <li>Determine the mount point/folder name for the data and run the evaluation script below.</li>
+</ol>
+<h3>Evaluation</h3>
+<p>To evaluate your response to this test:</p>
+<ol>
+  <li>Run the evaluation script
+    <pre>     perl  13511/eval_13511.pl 4 &lt;mount point/folder name&gt;</pre>
+  </li>
+  <li>The output file is 13511/grade_13511.txt. This test is successfully completed when  the last line in the output file indicates 0 errors.</li>
+  <li>Submit the grade file to the Project Manager..</li>
+</ol>
+<h3>Supplemental Information</h3>
+The features of the files/folders that are tested are:
+<ol>
+  <li>README.TXT is present at the root level.</li>
+  <li>INDEX.HTM is present at the root level and contains properly formatted XHTML</li>
+  <li>The root directory contains a folder IHE_XDM.</li>
+  <li>IHE_XDM contains at least one subfolder entry for the contents of the submission set: eg SUBSET01 --the folder name itself is not prescribed but it must follow the conventions in ITI-TF2:3.32.4.1.2.1 </li>
+  <li>All submission set subfolders (eg SUBSET01) are tested as follows:
+    <ul>
+        <li>The file METADATA.XML is present.</li>
+      <li>The folders contain a single file referenced by the METADATA.XML for a single document, or a subfolder with 2 or more documents.for multi part documents </li>
+    </ul>
+  </li>
+</ol></td></tr>
+</table>
+<!--End test 13513 -->
+
+
+<!--Begin test 13514 -->
+<table><tr><td bgcolor="#FFFFFF">
+<h2><a name="#test_13514" id="#test_13514">13514: XDM Media Creator, One Submission Set, Single Part Doc</a></h2>
+<p>In test 13514, the Media Creator creates data for export in the XDM profile with one submission set and a single document.</p>
+<h3>References</h3>
+<p>ITI TF-2:3.32.4.1.2.2 </p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps using a DOS window or terminal emulator:</p>
+<ol>
+  <li>Create media to be exported by the XDM profile (USB/CDR/ZIP). This data should contain one (and only one) submission set with one (and only one) document. If a zip file, unzip the file, honoring the folder structure you created.</li>
+  <li>Set the current directory to<em> $MESA_TARGET/mesa_tests/iti/actors/media_crt</em>.</li>
+  <li>Determine the mount point/folder name for the data and run the evaluation script below.</li>
+</ol>
+<h3>Evaluation</h3>
+<p>To evaluate your response to this test:</p>
+<ol>
+  <li>Run the evaluation script
+  <pre>     perl  13514/eval_13514.pl 4 &lt;mount point/folder name&gt;</pre>
+  </li>
+  <li>The  output file is 13514/grade_13514.txt. This test is successfully completed when  the last line in the output file indicates 0 errors.</li>
+  <li>Submit the grade file to the Project Manager.</li>
+</ol>
+<h3>Supplemental Information</h3>
+The features of the files/folders that are tested are:
+<ol>
+  <li>README.TXT is present at the root level.</li>
+  <li>INDEX.HTM is present at the root level and contains properly formatted XHTML</li>
+  <li>The root directory contains a folder IHE_XDM.</li>
+  <li>IHE_XDM contains one subfolder for the contents of the submission set; the folder name itself is not prescribed but it must follow the conventions in ITI-TF2:3.32.4.1.2.1 </li>
+  <li>The subfolder must contain: </li>
+  <ul>
+    <li>the file METADATA.XML</li>
+    <li> one file that is single document; file name must follow the conventions in ITI-TF2:3.32.4.1.2.1</li>
+  </ul>
+  </ol>
+</td>
+</tr>
+</table>
+<!--End test 13514 -->
+
+<!--Begin test 13515 -->
+<table><tr><td bgcolor="#FFFF99">
+<h2><a name="#test_13515" id="#test_13515">13515: XDM Media Creator, One Submission Set, Multi Part Doc</a></h2>
+<p>In test 13515, the Media Creator creates data for export in the XDM profile with one submission set containing a multi-part document.</p>
+<h3>References</h3>
+<p>ITI TF-2:3.32.4.1.2.2 </p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps using a DOS window or terminal emulator:</p>
+<ol>
+  <li>Create media to be exported by the XDM profile (USB/CDR/ZIP). This data should contain one (and only one) submission set with a multi-part document. If a zip file, unzip the file, honoring the folder structure you created.</li>
+  <li>Set the current directory to <em>$MESA_TARGET/mesa_tests/iti/actors/media_crt</em>.</li>
+  <li>Determine the mount point/folder name for the data and run the evaluation script below.</li>
+</ol>
+<h3>Evaluation</h3>
+<p>To evaluate your response to this test:</p>
+<ol>
+  <li>Run the evaluation script
+  <pre>     perl  13515/eval_13515.pl 4 &lt;mount point/folder name&gt;</pre>
+  </li>
+  <li>The  output file is 13515/grade_13515.txt. This test is successfully completed when  the last line in the output file indicates 0 errors.</li>
+  <li>Submit the grade file to the Project Manager.</li>
+</ol>
+<h3>Supplemental Information</h3>
+The features of the files/folders that are tested are:
+<ol>
+  <li>README.TXT is present at the root level.</li>
+  <li>INDEX.HTM is present at the root level and contains properly formatted XHTML</li>
+  <li>The root directory contains a folder IHE_XDM.</li>
+  <li>IHE_XDM contains one subfolder for the contents of the submission set; the folder name itself is not prescribed but it must follow the conventions in ITI-TF2:3.32.4.1.2.1 </li>
+  <li>The subfolder must contain: </li>
+  <ul>
+    <li>the file METADATA.XML</li>
+    <li>a subfolder  which contains the multi part document; there may be 2 or more documents in this folder. Their file names must follow the conventions in ITI-TF2:3.32.4.1.2.1</li>
+  </ul>
+  </ol>
+</td></tr>
+</table>
+<!--End test 13515 -->
+
+
+
+<!--Begin test 13516 -->
+<table><tr><td bgcolor="#FFFFFF">
+<h2><a name="#test_13516" id="#test_13516">13516: XDM Media Creator, Two Submission Sets, Single Part Doc</a></h2>
+<p>In test 13516, the Media Creator creates data for export in the XDM profile with two submission sets, each with a single document.</p>
+<h3>References</h3>
+<p>ITI TF-2:3.32.4.1.2.2 </p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps using a DOS window or terminal emulator:</p>
+<ol>
+  <li>Create media to be exported by the XDM profile (USB/CDR/ZIP). This data should contain exactly submission sets, each with one (and only one) document. If a zip file, unzip the file, honoring the folder structure you created.</li>
+  <li>Set the current directory to <em>$MESA_TARGET/mesa_tests/iti/actors/media_crt</em>.</li>
+  <li>Determine the mount point/folder name for the data and run the evaluation script below.</li>
+</ol>
+<h3>Evaluation</h3>
+<p>To evaluate your response to this test:</p>
+<ol>
+  <li>Run the evaluation script
+  <pre>     perl  13516/eval_13516.pl 4 &lt;mount point/folder name&gt;</pre>
+  </li>
+  <li>The  output file is 13516/grade_13516.txt. This test is successfully completed when  the last line in the output file indicates 0 errors.</li>
+  <li>Submit the grade file to the Project Manager.</li>
+</ol>
+<h3>Supplemental Information</h3>
+The features of the files/folders that are tested are:
+<ol>
+  <li>README.TXT is present at the root level.</li>
+  <li>INDEX.HTM is present at the root level and contains properly formatted XHTML</li>
+  <li>The root directory contains a folder IHE_XDM.</li>
+  <li>IHE_XDM contains two subfolders for the contents of the submission sets. </li>
+  <li>The two subfolders  each contain the file METADATA.XML</li>
+  <li>The two subfolders  each contain one file that is single document referenced by the METADATA.XML </li>
+</ol>
+</td></tr>
+</table>
+<!--End test 13516 -->
+
+<!--Begin test 13517 -->
+<table><tr><td bgcolor="#FFFF99">
+<h2><a name="#test_13517" id="#test_13517">13517: XDM Media Creator, Two Submission Sets, Multi Part Doc</a></h2>
+<p>In test 13517, the Media Creator creates data for export in the XDM profile with two submission sets, each with a multi-part document.</p>
+<h3>References</h3>
+<p>ITI TF-2:3.32.4.1.2.2 </p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps using a DOS window or terminal emulator:</p>
+<ol>
+  <li>Create media to be exported by the XDM profile (USB/CDR/ZIP). This data should contain two submission sets, each with a multi-part document. If it is a zip file, unzip the file, honoring the folder structure you created.</li>
+  <li>Set the current directory to <em>$MESA_TARGET/mesa_tests/iti/actors/media_crt</em>.</li>
+  <li>Determine the mount point/folder name for the data and run the evaluation script below.</li>
+</ol>
+<h3>Evaluation</h3>
+<p>To evaluate your response to this test:</p>
+<ol>
+  <li>Run the evaluation script
+  <pre>     perl  13517/eval_13517.pl 4 &lt;mount point/folder name&gt;</pre>
+  </li>
+  <li>The  output file is 13517/grade_13517.txt. This test is successfully completed when  the last line in the output file indicates 0 errors.</li>
+  <li>Submit the grade file to the Project Manager.</li>
+</ol>
+<h3>Supplemental Information</h3>
+The features of the files/folders that are tested are:
+<ol>
+  <li>README.TXT is present at the root level.</li>
+  <li>INDEX.HTM is present at the root level and contains properly formatted XHTML</li>
+  <li>The root directory contains a folder IHE_XDM.</li>
+  <li>IHE_XDM contains two subfolders, one each for the contents of two submission sets</li>
+  <li>Each of the two  subfolders (submission sets) must contain: </li>
+  <ul>
+    <li>the file METADATA.XML</li>
+    <li>another subfolder which contains the multi part document (ie 2 or more documents) </li>
+  </ul>
+  </ol>
+</td></tr>
+</table>
+<h2><a name="#test_13520" id="#test_13520">13520: XDM Media Creator, ATNA Logging</a></h2>
+<p>In test 13520, the Media Creator generates an ATNA log message that indicates PHI was
+  exported. The Media Creator will create media for a specific patient so that the log
+  message can be properly evaluated.</p>
+<p>The Media Creator shall not use the IHE Year 4 provisional schema. This test
+  will specify the required log message.</p>
+<h3>References</h3>
+<p>ITI TF-2:3.32.4.1.4 </p>
+<p>ITI TF-2:3.20.6</p>
+<h3>Instructions</h3>
+<p>Perform these instructions using a DOS/Command prompt window or terminal
+  emulator.</p>
+<ol>
+  <li>Set the current directory to <em>$MESA_TARGET/mesa_tests/iti/actors/pmi</em>.</li>
+  <li>Make sure the MESA servers have been started.
+    See <a href="#start_servers">Starting the MESA Servers</a> for details.</li>
+  <li>Create media to be exported by the XDM profile. Use the demographics listed below:
+    <ul>
+        <li>Name = FILLMORE^MARCUS</li>
+      <li>Patient ID = 13520</li>
+      <li>DOB = 19750428</li>
+      <li>Sex = M</li>
+    </ul>
+  </li>
+  <li>Perform the media export, generating an ATNA log message (see Supplemental
+    Information). Transmit the ATNA log message to the MESA Audit Record Repository
+    (Syslog UDP protocol, port 4000).</li>
+</ol>
+<h3>Evaluation</h3>
+<p>To evaluate your response to this test:</p>
+<ol>
+  <li>From <em>$MESA_TARGET/mesa_tests/iti/actors/media_crt</em>, run the evaluation script
+    <pre>     perl  13520/eval_13520.pl 4</pre>
+  </li>
+  <li>The output file is 13520/grade_13520.txt. This test is successfully completed
+    when the last line in the output file indicates 0 errors.</li>
+  <li>Submit the grade file to the Project Manager.</li>
+</ol>
+<h3>Supplemental Information</h3>
+<p>The trigger event is PHI-import. See DICOM Supplement 95 for details.
+  This section defines the values expected/required by this test. If your
+  interpretation of the values for these fields differs from ours, please
+  contact us.</p>
+<table border="2" cellspacing="2" cellpadding="2">
+  <tr>
+    <th>Element</th>
+    <th>Value</th>
+    <th>Attribute</th>
+    <th>Value</th>
+    <th>Comments</th>
+  </tr>
+  <tr>
+    <td>EventIdentification</td>
+    <td>&nbsp;</td>
+    <td>EventActionCode</td>
+    <td>R</td>
+    <td>DICOM Supplement 95, A.1.3.4 </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>EventDateTime</td>
+    <td>&nbsp;</td>
+    <td>Proper date/time format </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>EventOutcomeIndicator</td>
+    <td>0</td>
+    <td>RFC 3881 5.1.4 </td>
+  </tr>
+  <tr>
+    <td>+EventID</td>
+    <td>&nbsp;</td>
+    <td>code</td>
+    <td>110106</td>
+    <td>DICOM Supplement 95, A.1.3.4</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>codeSystemName</td>
+    <td>DCM</td>
+    <td>DICOM Supplement 95, A.1.3.4</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>displayName</td>
+    <td>Export</td>
+    <td>DICOM Supplement 95, A.1.3.4</td>
+  </tr>
+  <tr>
+    <td colspan="5">The next entry identifies the source of the data </td>
+  </tr>
+  <tr>
+    <td>ActiveParticipant</td>
+    <td>&nbsp;</td>
+    <td>UserID</td>
+    <td>zebra@hosp.org</td>
+    <td>Required value RFC 3881, 5.2.1, arbitrary value selected by tester.
+      This is the source of the data. </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>AlternativeUserID</td>
+    <td>&nbsp;</td>
+    <td>Optional, not tested </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>UserName</td>
+    <td>&nbsp;</td>
+    <td>Optional, not tested </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>UserIsRequester</td>
+    <td>&nbsp;</td>
+    <td>Optional, not tested </td>
+  </tr>
+  <tr>
+    <td>+RoleIDCode</td>
+    <td>&nbsp;</td>
+    <td>code</td>
+    <td>110153</td>
+    <td>DICOM Supplement 95, A.1.3.4 </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>codeSystemName</td>
+    <td>DCM</td>
+    <td>DICOM Supplement 95, A.1.3.4</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>displayName</td>
+    <td>Source </td>
+    <td>DICOM Supplement 95, A.1.3.4</td>
+  </tr>
+  <tr>
+    <td colspan="5">The next entry identifies the Exporter. </td>
+  </tr>
+  <tr>
+    <td>ActiveParticipant</td>
+    <td>&nbsp;</td>
+    <td>UserID</td>
+    <td>smm@ihe.org</td>
+    <td>Required value RFC 3881, 5.2.1, arbitrary value selected by tester.
+      This is the intended recipient performing the export. </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>AlternativeUserID</td>
+    <td>&nbsp;</td>
+    <td>Optional, not tested </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>UserName</td>
+    <td>&nbsp;</td>
+    <td>Optional, not tested </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>UserIsRequester</td>
+    <td>&nbsp;</td>
+    <td>Optional, not tested </td>
+  </tr>
+  <tr>
+    <td>+RoleIDCode</td>
+    <td>&nbsp;</td>
+    <td>code</td>
+    <td>110154</td>
+    <td>DICOM Supplement 95, A.1.3.4</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>codeSystemName</td>
+    <td>DCM</td>
+    <td>DICOM Supplement 95, A.1.3.4</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>displayName</td>
+    <td>Destination Media </td>
+    <td>DICOM Supplement 95, A.1.3.4</td>
+  </tr>
+  <tr>
+    <td>AuditSourceIdentification</td>
+    <td>&nbsp;</td>
+    <td>AuditEnterpriseSiteID</td>
+    <td>&nbsp;</td>
+    <td>Optional, not tested </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>AuditSourceID</td>
+    <td>CAM 11A </td>
+    <td>Required value RFC 3881, 5.4.2, arbitrary value selected by tester.</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>AuditSourceTypeCode</td>
+    <td>&nbsp;</td>
+    <td>Optional, not tested </td>
+  </tr>
+  <tr>
+    <td>ParticipantObjectIdentification</td>
+    <td>&nbsp;</td>
+    <td>ParticipantObjectID</td>
+    <td>13520</td>
+    <td>DICOM Supplement 95, A.1.3.4</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>ParticipantObjectTypeCode</td>
+    <td>1</td>
+    <td>DICOM Supplement 95, A.1.3.4</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>ParticipantObjectTypeCodeRole</td>
+    <td>1</td>
+    <td>DICOM Supplement 95, A.1.3.4</td>
+  </tr>
+  <tr>
+    <td>ParticipantObjectIDTypeCode</td>
+    <td>&nbsp;</td>
+    <td>code</td>
+    <td>2</td>
+    <td>DICOM Supplement 95, A.1.3.4</td>
+  </tr>
+  <tr>
+    <td>ParticipantObjectName</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>FILLMORE^MARCUS</td>
+    <td>Optional, not tested</td>
+  </tr>
+  <tr>
+    <td>+ParticipantObjectDetail</td>
+    <td>&nbsp;</td>
+    <td>type</td>
+    <td>DOB</td>
+    <td>Optional, not tested</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>value</td>
+    <td>19750428</td>
+    <td>Optional, not tested</td>
+  </tr>
+  <tr>
+    <td>+ParticipantObjectDetail</td>
+    <td>&nbsp;</td>
+    <td>type</td>
+    <td>SEX</td>
+    <td>Optional, not tested</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>value</td>
+    <td>M</td>
+    <td>Optional, not tested</td>
+  </tr>
+</table>
+<h2></h2>
+<p>&nbsp;</p>
+<h2></h2>
+<!--End test 13517 -->
+
+<!--Begin test 13520 -->
+<!--End test 13520 -->
+<!--Begin test 13521 --><!--End test 13521 -->
+
+
+<!--Begin test 13522 -->
+<!--End test 13522 -->
+<!--Begin test 13523 --><!--End test 13523 -->
+
+
+<!--Begin test 13524 -->
+<!--End test 13524 -->
+</body>
+</html>

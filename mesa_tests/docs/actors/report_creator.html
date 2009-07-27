@@ -1,0 +1,2187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Untitled Document</title></head>
+
+<body>
+<p align="center"><strong>&nbsp;</strong></p>
+<p align="center"><strong>HIMSS and RSNA</strong><br />
+    <strong>Integrating the Healthcare Enterprise</strong></p>
+<p align="center"><strong>&nbsp;</strong></p>
+<p align="center"><strong>&nbsp;</strong><strong>IHE/MESA Report Creator Tests</strong></p>
+<p>&nbsp;</p>
+<p align="center">Electronic Radiology  Laboratory<br />
+  Mallinckrodt Institute of  Radiology<br />
+  510 South    Kingshighway Blvd. <br />
+  St. Louis, MO&nbsp; 63110 <br />
+  314.362.6965 (Voice)<br />
+  314.362.6971 (Fax)</p>
+<p align="center">&nbsp;</p>
+<p align="center">Revision 10.0.0<br />
+  15-August-2006 </p>
+<strong>Contents:</strong><br clear="all" />
+<p><a href="#rpt_crt_tests">Report Creator  Tests</a><br />
+  <a href="#intro">Introduction</a><br />
+  <a href="#msg_att">Message  Attributes</a><br />
+  <a href="#msg_values">Message Values</a><br />
+  <a href="#config">Configuration</a><br />
+  <a href="#start_servers">Starting  the MESA Servers</a><br />
+  <a href="#load_data">Loading  Test Data</a><br />
+  <a href="#eval_scripts">Evaluation  Scripts</a><br />
+  <a href="#sub_results">Submission  of Results</a><br />
+  <a href="#indiv_tests">Individual Tests for  Diagnostic Workstations</a></p>
+<ol><li><a href="#test_600">Test  600: Example SR Object</a><br />
+    </li>
+  <li><a href="#test_601">Report  Creator Test 601: Simple Imaging Report</a><br />
+  </li>
+  <li><a href="#test_602">Report  Creator Test 602: Simple Imaging Report with Image Reference</a><br />
+  </li>
+  <li><a href="#test_603">Report  Creator Test 603: Simple Imaging Report with Two Image References</a><br />
+  </li>
+  <li><a href="#test_604">Report  Creator Test 604: Partial and Unverified</a><br />
+  </li>
+  <li><a href="#test_605">Report  Creator Test 605: Partial and Verified </a><br />
+  </li>
+  <li><a href="#test_606">Report  Creator Test 606: Complete and Verified</a><br />
+  </li>
+  <li><a href="#test_607">Report  Creator Test 607: Amended Report</a><br />
+  </li>
+</ol>
+<p><a href="#indiv_tests_workstations">Individual Tests for  Measurement Workstations</a></p>
+<ol><li><a href="#test_651"> Report  Creator Test 651: SINR for Measurement Workstations</a><br />
+    </li>
+</ol>
+<p><a href="#tests_for_rpt_work">Tests for Reporting Working</a></p>
+<ol>
+  <li><a href="#test_1601">Report  Creator Test 1601: Interpretation Worklist </a><br />
+  </li>
+</ol>
+<p><a href="#basic_sec_tests">Basic Security Tests </a></p>
+<ol>
+  <li><a href="#test_1511">Report  Creator Test 1511: Simple Imaging Report</a><br />
+  </li>
+</ol>
+<p><a href="#indiv_tests_card">Individual Tests for  Cardiology</a></p>
+<ol><li><a href="#test_20501"> Report  Creator Test 20501: Verify HL7 Encapsulated Report Message Content (CARD-7) </a><br />
+    </li>
+  <li><a href="#test_20502">Test  Case 20502:&nbsp; Visual Verify of PDF Content  (CARD-7)</a><br />
+  </li>
+  <li><a href="#test_20510">Test  Case 20510: Describe Report Creator Methods</a><br />
+    <br clear="all" />
+  &nbsp;</li>
+</ol>
+<h1><a name="#rpt_crt_tests" id="#rpt_crt_tests">Report Creator Tests</a> </h1>
+<h2><a name="#intro" id="#intro">Introduction</a></h2>
+<p>We invent the term Diagnostic Reporting  Station for use in this document.&nbsp; This  is not an IHE term, but we use it to describe workstations that are used to  create reports in the context of the user reviewing other evidence first (such  as images).&nbsp; This term will be used to  designate tests that are mandatory for your system.&nbsp; This does not imply that your system must  display images.</p>
+<p><br />
+  We use the term Measurement Station to  describe a device that creates original data (such as numeric measurements in  an Ultrasound report).&nbsp; Again, this is  not an IHE term but is needed to document test requirements.</p>
+<p><br />
+  If your Report Creator is not described by  either category, you should contact the Technical Project Manager and describe  your application.&nbsp; This will allow us to  construct reasonable tests for your system.<br />
+  For more details on this template, please  reference Supplement 53: DICOM Content Mapping Resource.</p>
+<h3>Integration Profiles and Test Procedures</h3>
+<p>This document lists a number of tests for  Report Creator Systems. You may not be responsible for all of these tests.<br />
+  Please refer to the Connectathon web tool to  list the required tests for your system. The web address of this tool depends  on the year and project manager. Please contact the appropriate project manager  to obtain this information.</p>
+<h2><a name="#msg_att" id="#msg_att">Message  Attributes</a> </h2>
+<p>DICOM SR Objects contain attributes that are not used or  required by the IHE Technical Framework. This section contains a table defining those  attributes that will be evaluated in the Report Creator tests. Other values may be required by the Technical  Framework but not evaluated with this software.<br />
+  In the table below, the columns marked <em>Value</em> and <em>Present</em> indicate the scope of the evaluation for these messages. Fields that are marked in the V<em>alue</em> column indicate the tests will  expect a specific value in the field (for example, we specify the patient  name). Fields marked in the P<em>resent</em> column are tested to see if the  field contains a value, but the tests cannot evaluate for a specific value.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="121" valign="top"><p>Tag</p></td>
+    <td width="264" valign="top"><p>Attribute Name</p></td>
+    <td width="60" valign="top"><p>Value</p></td>
+    <td width="73" valign="top"><p>Present</p></td>
+  </tr>
+  <tr>
+    <td width="121" valign="top"><p>0008 0016</p></td>
+    <td width="264" valign="top"><p>SOP Class UID</p></td>
+    <td width="60" valign="top"><p align="center">x</p></td>
+    <td width="73" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="121" valign="top"><p>0008 0050</p></td>
+    <td width="264" valign="top"><p>Accession Number</p></td>
+    <td width="60" valign="top"><p align="center">x</p></td>
+    <td width="73" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="121" valign="top"><p>0008 0060 </p></td>
+    <td width="264" valign="top"><p>Modality</p></td>
+    <td width="60" valign="top"><p align="center">x</p></td>
+    <td width="73" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="121" valign="top"><p>0010 0010</p></td>
+    <td width="264" valign="top"><p>Patient Name</p></td>
+    <td width="60" valign="top"><p align="center">x</p></td>
+    <td width="73" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="121" valign="top"><p>0010 0020</p></td>
+    <td width="264" valign="top"><p>Patient ID</p></td>
+    <td width="60" valign="top"><p align="center">x</p></td>
+    <td width="73" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="121" valign="top"><p>0020 000D</p></td>
+    <td width="264" valign="top"><p>Study Instance UID</p></td>
+    <td width="60" valign="top"><p align="center">x</p></td>
+    <td width="73" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="121" valign="top"><p>0040 A040</p></td>
+    <td width="264" valign="top"><p>Value Type </p></td>
+    <td width="60" valign="top"><p align="center">x</p></td>
+    <td width="73" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="121" valign="top"><p>0040 A043</p></td>
+    <td width="264" valign="top"><p>Concept Name Code Sequence (Report Title)</p></td>
+    <td width="60" valign="top"><p align="center">&nbsp;</p></td>
+    <td width="73" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="121" valign="top"><p>&gt; 0008 0100</p></td>
+    <td width="264" valign="top"><p>Code Value</p></td>
+    <td width="60" valign="top"><p align="center">x</p></td>
+    <td width="73" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="121" valign="top"><p>&gt; 0008 0102</p></td>
+    <td width="264" valign="top"><p>Coding Scheme Designator</p></td>
+    <td width="60" valign="top"><p align="center">x</p></td>
+    <td width="73" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="121" valign="top"><p>&gt; 0008 0104</p></td>
+    <td width="264" valign="top"><p>Code Meaning</p></td>
+    <td width="60" valign="top"><p align="center">x</p></td>
+    <td width="73" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="121" valign="top"><p>0040 A491</p></td>
+    <td width="264" valign="top"><p>Completion Flag</p></td>
+    <td width="60" valign="top"><p align="center">x</p></td>
+    <td width="73" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="121" valign="top"><p>0040 A493</p></td>
+    <td width="264" valign="top"><p>Verification Flag</p></td>
+    <td width="60" valign="top"><p align="center">x</p></td>
+    <td width="73" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="121" valign="top"><p>0040 A504</p></td>
+    <td width="264" valign="top"><p>Content Template Sequence</p></td>
+    <td width="60" valign="top"><p align="center">&nbsp;</p></td>
+    <td width="73" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="121" valign="top"><p>&gt; 0008 0101</p></td>
+    <td width="264" valign="top"><p>Mapping Resource</p></td>
+    <td width="60" valign="top"><p align="center">x</p></td>
+    <td width="73" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="121" valign="top"><p>&gt; 0040 DB00</p></td>
+    <td width="264" valign="top"><p>Template Identifier</p></td>
+    <td width="60" valign="top"><p align="center">x</p></td>
+    <td width="73" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="121" valign="top"><p>0040 A730</p></td>
+    <td width="264" valign="top"><p>Content Sequence</p></td>
+    <td width="60" valign="top"><p align="center">&nbsp;</p></td>
+    <td width="73" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="121" valign="top"><p>&gt; 0040 A010</p></td>
+    <td width="264" valign="top"><p>Rerlationship Type</p></td>
+    <td width="60" valign="top"><p align="center">x</p></td>
+    <td width="73" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="121" valign="top"><p>&gt; 0040 A040</p></td>
+    <td width="264" valign="top"><p>Relationship Value</p></td>
+    <td width="60" valign="top"><p align="center">x</p></td>
+    <td width="73" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="121" valign="top"><p>Other attributes</p></td>
+    <td width="264" valign="top"><p>As needed for the Relationship Value</p></td>
+    <td width="60" valign="top"><p align="center">x</p></td>
+    <td width="73" valign="top"><p align="center">&nbsp;</p></td>
+  </tr>
+</table>
+<h2><a name="#msg_values" id="#msg_values">Message Values</a> </h2>
+<h2><a name="#config" id="#config">Configuration</a> </h2>
+<h3>General Configuration Information</h3>
+<p>The table below gives parameters for MESA servers that will receive messages from  your system.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="337" valign="top"><p align="center"><strong>Application</strong></p></td>
+    <td width="180" valign="top"><p align="center"><strong>AE Title / Receiving Application </strong></p></td>
+    <td width="121" valign="top"><p align="center"><strong>Port Number</strong></p></td>
+  </tr>
+  <tr>
+    <td width="337" valign="top"><p>MESA Image Manager</p></td>
+    <td width="180" valign="top"><p>MESA_IMG_MGR</p></td>
+    <td width="121" valign="top"><p>2350</p></td>
+  </tr>
+  <tr>
+    <td width="337" valign="top"><p>MESA Report Manager</p></td>
+    <td width="180" valign="top"><p>REPORT_MANAGER</p></td>
+    <td width="121" valign="top"><p>2700</p></td>
+  </tr>
+  <tr>
+    <td width="337" valign="top"><p>MESA    Audit Record Repository</p></td>
+    <td width="180" valign="top"><p>&lt;none&gt;</p></td>
+    <td width="121" valign="top"><p>4000</p></td>
+  </tr>
+  <tr>
+    <td width="337" valign="top"><p>MESA Report Manager for HL7 message</p></td>
+    <td width="180" valign="top"><p>MESA_RPTMGR</p></td>
+    <td width="121" valign="top"><p>2750</p></td>
+  </tr>
+</table>
+<h3>Configuration of MESA Tools for Report Creator/Image Display</h3>
+<p>This section details configuration information if the  Report Creator under test is coupled to an Image Display.&nbsp; It describes configuration for the Image  Display.<br />
+The MESA Image Manager maintains a database of DICOM  applications used for C-Move operations.
+Add an entry for the storage SCP associated with your workstation. Edit the text file <em>$MESA_TARGET/db/loaddicomapp.pgsql</em> (Unix) or <em>$MESA_TARGET/db/loaddicomapp.sql</em> (Windows 2000 or XP)&nbsp; Use the existing entries as a template and  add entries for your workstations as appropriate.&nbsp; The column names found in the SQL insert  statements are described in the following table.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="247" valign="top"><p align="center"><strong>Column Name</strong></p></td>
+    <td width="391" valign="top"><p align="center"><strong>Description</strong></p></td>
+  </tr>
+  <tr>
+    <td width="247" valign="top"><p>aet</p></td>
+    <td width="391" valign="top"><p>DICOM Application Entity Title.&nbsp; Must be unique.</p></td>
+  </tr>
+  <tr>
+    <td width="247" valign="top"><p>host</p></td>
+    <td width="391" valign="top"><p>Host name (or IP address) of the application.</p></td>
+  </tr>
+  <tr>
+    <td width="247" valign="top"><p>port</p></td>
+    <td width="391" valign="top"><p>TCP/IP port number for receiving associations.</p></td>
+  </tr>
+  <tr>
+    <td width="247" valign="top"><p>org</p></td>
+    <td width="391" valign="top"><p>The organization that operates the device.&nbsp; Useful if multiple organizations use the    Image Manager.</p></td>
+  </tr>
+  <tr>
+    <td width="247" valign="top"><p>com</p></td>
+    <td width="391" valign="top"><p>A comment field.</p></td>
+  </tr>
+</table>
+<p>You can test your work as follows:
+<pre>     perl load_apps.pl imgmgr</pre>
+  <h2><a name="#start_servers" id="#start_servers">Starting the </a>MESA Servers </h2>
+<p>These instructions assume you are using a terminal emulator on Unix systems or an MS DOS command window under Windows 2000/XP.
+Each test uses a command line interface;  there is no graphical user interface.
+Before you start the test procedure, you  need to start the MESA Order Placer and MESA Order Filler servers.
+Make sure the appropriate database is running  (PostgreSQL, SQL Server).
+To start the MESA servers:</p>
+<ol start="1" type="1">
+  <li>Enter       the Report Creator exam fileder: mesa_tests/rad/actors/rpt_crt</li>
+  <li>Execute       the appropriate script to start the servers:</li>
+</ol>
+<pre>     scripts/start_mesa_servers.csh  &nbsp;(Unix)</pre>
+  <pre>     scripts\start_mesa_servers.bat  (Windows)</pre>
+  Log levels are set for the MESA Image Manager in the file: <em>$MESA_TARGET/runtime/rpt_manager/ds_dcm.cfg</em>.&nbsp; / Log levels are:</p>
+<ol start="0">
+  <li>no logging</li>
+  <li>errors</li>
+  <li>warnings</li>
+  <li>verbose</li>
+  <li>conversational  (really verbose)</li>
+</ol>
+<p>When you are finished running one or more tests, you can  stop the servers:
+<pre>     scripts/stop_mesa_servers.csh  (Unix)</pre>
+  <pre>     scripts\stop_mesa_servers.bat  (Windows)</pre>
+  Log files are stored in $MESA_TARGET/logs.<br />
+  For the security tests,  the MESA  servers are started with different scripts. These are <em>scripts/start_mesa_secure.csh</em> and <em>scripts\start_mesa_secure.bat</em>. The log levels are the same as for  the standard tests. The MESA  servers are stopped using these scripts: <em>scripts/stop_mesa_secure.csh</em> and <em>scripts\stop_mesa_secure.bat</em>.</p>
+<h2><a name="#load_data" id="#load_data">Loading Test  Data</a> </h2>
+<p>Some Report Creator  tests will make use of images retrieved from the MESA Image Manager.&nbsp; If the Report Creator under test is coupled  with an Image Display, you should load test images into the MESA Image Manager.</p>
+<ol>
+  <li>Create/modify  the SQL script to identify the Image Display that will retrieve images.</li>
+  <li>Start  the MESA  servers as described in <a href="#start_servers">Starting the MESA Servers</a>.</li>
+  <li>Load  the data sets into the MESA Image Manager.</li>
+</ol>
+<pre>     perl  60x/load_img_mgr.pl </pre>
+<h2><a name="#eval_scripts" id="#eval_scripts">Evaluation Scripts</a></h2>
+<p>The test and evaluation scripts are modified  to take a &lt;log&gt; parameter. This number indicates how much logging to  include in the output. Defined values are listed in the table below. </p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="120" valign="top"><p>Level</p></td>
+    <td width="366" valign="top"><p>Meaning</p></td>
+  </tr>
+  <tr>
+    <td width="120" valign="top"><p align="center">1</p></td>
+    <td width="366" valign="top"><p>Errors only</p></td>
+  </tr>
+  <tr>
+    <td width="120" valign="top"><p align="center">2</p></td>
+    <td width="366" valign="top"><p>Warnings + level 1</p></td>
+  </tr>
+  <tr>
+    <td width="120" valign="top"><p align="center">3</p></td>
+    <td width="366" valign="top"><p>Verbose mode + level 2</p></td>
+  </tr>
+  <tr>
+    <td width="120" valign="top"><p align="center">4</p></td>
+    <td width="366" valign="top"><p>References in Technical Framework + level 3</p></td>
+  </tr>
+</table>
+
+<p>Not all test and evaluation scripts have been updated as  of this release. When you run the scripts with no arguments, they will tell you  what the real arguments are. Each test description that follows in this  document will be updated correctly when the test script is updated.</p>
+<h2><a name="#sub_results" id="#sub_results">Submission of Results</a></h2>
+<p>Test descriptions below inform the reader to &ldquo;submit  results to the Project Manager&rdquo;. This is does not mean &ldquo;email&rdquo;. The current  submission process should be documented by the Project Manager, but will not  include emailing files directly to the Project Manager.</p>
+
+<h1><a name="#indiv_tests" id="#indiv_tests">Individual Tests for Diagnostic Workst</a></h1>
+<table>
+  <tr>
+    <td bgcolor="#33FFFF"><h2><a name="#test_600" id="#test_600">Test 600: Example SR Object</a></h2>
+        <p>In test 600, the Report Creator creates a sample SR object  and submits it to the Project Manager. The purpose is to distribute the SR  document to other participants.</p>
+        <h3>References </h3>
+        <h3>Instructions</h3>
+        <ol>
+          <li>Create  a DICOM SR object that is representative of the types of reports created by  your system.</li>
+        <li>Format  the Patient Name field (0010 0010) using the format: COMPANY^SYSTEM_NAME.</li>
+        <li>Format  the Patient ID field (0010 0020) using the format: 600COMPANY.</li>
+        <li>Submit  the sample SR object to the Project Manager for distribution to other vendors</li>
+        <li>Please  submit the sample 3 weeks in advance of the normal deadline of possible.</li>
+      </ol>
+        <h3>Evaluation</h3>
+      <h3>Supplemental Information </h3></td>
+  </tr>
+</table>
+<h2><a name="#test_601" id="#test_601">Report Creator Test 601: Simple Imaging Report</a></h2>
+<p>Test 601 is required of Diagnostic Reporting  Stations.&nbsp; This test will require you to  create a structured report according to the <em>Basic  Diagnostic Imaging Report</em> template (TID 2000).&nbsp; All items in the template that are marked  mandatory will be tested.&nbsp; In addition,  values in the following tables will also be required.&nbsp;&nbsp; Items not specified in the tables may be  assigned any value.&nbsp; Table 2.1-1 lists  the header attributes that will be tested.&nbsp;  Report Creators may be standalone or coupled with an Image Display.&nbsp; Standalone Report Creators are expected to  fill in most attributes found in Table 2.1-1, but not all.&nbsp; The attributes marked with x in the  Standalone or w/Image Display columns indicate those values for which the tests  expect an exact match.&nbsp; For example, a  Report Creator coupled with an Image Display is expected to reuse the Study  Instance UID from the images and not create a new study for this report.</p>
+<p>Table 2.1-1 Selected Attributes tested in Test 601</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="160" valign="top"><br />
+        <strong>Attribute Name</strong> </td>
+    <td width="160" valign="top"><p align="center"><strong>Tag</strong></p></td>
+    <td width="160" valign="top"><p align="center"><strong>Standalone</strong></p></td>
+    <td width="160" valign="top"><p align="center"><strong>w/Image Display</strong></p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Patient Name</p></td>
+    <td width="160" valign="top"><p align="center">0010    0010</p></td>
+    <td width="160" valign="top"><p align="center">x</p></td>
+    <td width="160" valign="top"><p align="center">x</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Patient ID</p></td>
+    <td width="160" valign="top"><p align="center">0010    0020</p></td>
+    <td width="160" valign="top"><p align="center">x</p></td>
+    <td width="160" valign="top"><p align="center">x</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Patient Sex</p></td>
+    <td width="160" valign="top"><p align="center">0010    0040</p></td>
+    <td width="160" valign="top"><p align="center">x</p></td>
+    <td width="160" valign="top"><p align="center">x</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Accession Number</p></td>
+    <td width="160" valign="top"><p align="center">0008    0050</p></td>
+    <td width="160" valign="top"><p align="center">x</p></td>
+    <td width="160" valign="top"><p align="center">x</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Requested Procedure ID</p></td>
+    <td width="160" valign="top"><p align="center">&nbsp;</p></td>
+    <td width="160" valign="top"><p align="center">&nbsp;</p></td>
+    <td width="160" valign="top"><p align="center">x</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Study Instance UID</p></td>
+    <td width="160" valign="top"><p align="center">0020 000D</p></td>
+    <td width="160" valign="top"><p align="center">&nbsp;</p></td>
+    <td width="160" valign="top"><p align="center">x</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Completion    Flag</p></td>
+    <td width="160" valign="top"><p align="center">0040    A491</p></td>
+    <td width="160" valign="top"><p align="center">x</p></td>
+    <td width="160" valign="top"><p align="center">x</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Verification Flag</p></td>
+    <td width="160" valign="top"><p align="center">0040    A493</p></td>
+    <td width="160" valign="top"><p align="center">x</p></td>
+    <td width="160" valign="top"><p align="center">x</p></td>
+  </tr>
+</table>
+<p>The 601 suite of tests require you to create a report  according to TID2000, but we specify observation context and three sections of  the report.&nbsp; Figure 2-1 below shows the  overall structure and relationship of content items required for the 601  tests. You are expected to create a  report with the section headings as defined in the tables found in the  following sections. We do not require  the text in the sections to match the text in our samples. The text is only provided as an example.</p>
+<p align="center"><img src="images/clip_image002_0000.gif" alt="image" width="407" height="359" /><br />
+Figure 2-1 Content Item Requirements for Test 601</p>
+<p>The 601 tests are broken down further by imaging modality:  CR, CT, or MR.
+If your Report Creator is  not coupled with an Image Display, run test 601.
+If you are coupled with an Image Display, run  test 601CR, 601CT, or 601MR as appropriate.
+You may run all four tests, but are only required to submit results for one.
+Values for content items (listed in  Value Set Constraint) that are italicized are suggested for each modality, and not required.
+That is, the software  tests report headings but not the exact text in a section of the report.</p>
+<h3>Report Creator Test 601: No Image Display</h3>
+<h3>References</h3>
+<h3>Instructions</h3>
+<ol>
+  <li>Clear  existing reports from the MESA Report Manager:
+  <pre>     perl scripts/reset_rpt_mgr.pl </pre>
+  </li>
+  <li>Create a DICOM SR object according to the values in the tables below.</li>
+  <li>Transmit this DICOM SR object to the MESA Report Manager (port 2700).</li>
+</ol>
+<h3>Evaluation</h3>
+<ol start="1">
+  <li>Evaluate  your DICOM SR object:
+    <pre>     perl 601/eval_601.pl</pre>
+  </li>
+</ol>
+
+<H3>Supplemental Information</H3>
+The tables below specify the demographics for the patient for this test and the expected coded values for the section in the DICOM SR object.
+<br />
+<table border="1" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="160" valign="top"><p align="center"><strong>Attribute</strong></p></td>
+    <td width="256" valign="top"><p align="center"><strong>Value</strong></p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Patient Name</p></td>
+    <td width="256" valign="top"><p>CRTHREE^PAUL</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Patient ID</p></td>
+    <td width="256" valign="top"><p>CR3</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Patient Sex</p></td>
+    <td width="256" valign="top"><p>M</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Accession Number</p></td>
+    <td width="256" valign="top"><p>2001C30</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Completion Flag</p></td>
+    <td width="256" valign="top"><p>COMPLETE</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Verification Flag</p></td>
+    <td width="256" valign="top"><p>UNVERIFIED</p></td>
+  </tr>
+</table>
+<table border="1" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="31" valign="top"><p>&nbsp;</p></td>
+    <td width="36" valign="top"><p><strong>NL</strong></p></td>
+    <td width="78" valign="top"><p><strong>Rel with Parent</strong></p></td>
+    <td width="84" valign="top"><p><strong>VT</strong></p></td>
+    <td width="192" valign="top"><p><strong>Concept Name</strong></p></td>
+    <td width="216" valign="top"><p>&nbsp;<strong>Value    Set Constraint</strong></p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>1</p></td>
+    <td width="36" valign="top"><p>&nbsp;</p></td>
+    <td width="78" valign="top"><p>&nbsp;</p></td>
+    <td width="84" valign="top"><p>CONTAINER</p></td>
+    <td width="192" valign="top"><p>BCID    (7000) Diagnostic Imaging Report Document Titles</p></td>
+    <td width="216" valign="top"><p>(LN,    11528-7, &ldquo;Radiology Report&rdquo;)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>2</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>HAS    CONCEPT MOD</p></td>
+    <td width="84" valign="top"><p>CODE</p></td>
+    <td width="192" valign="top"><p>(121049,DCM,&rdquo;Language    of Content Item and Descendents&rdquo;)</p></td>
+    <td width="216" valign="top"><p>(ISO639_2,    eng, English)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>3</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>HAS    OBS CONTEXT</p></td>
+    <td width="84" valign="top"><p>CODE</p></td>
+    <td width="192" valign="top"><p>(DCM, 121005, &ldquo;Observer Type&rdquo;)</p></td>
+    <td width="216" valign="top"><p>(DCM, 121006, Person)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>4</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>HAS    OBS<br />
+      CONTEXT</p></td>
+    <td width="84" valign="top"><p>PNAME</p></td>
+    <td width="192" valign="top"><p>(DCM,    121008, &ldquo;Person Observer Name&rdquo;)</p></td>
+    <td width="216" valign="top"><p><em>MOORE</em><em>^STEVE</em></p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>5</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>CONTAINER</p></td>
+    <td width="192" valign="top"><p>BCID    (7001) Diagnostic Imaging Report Headings</p></td>
+    <td width="216" valign="top"><p>(DCM,    121060, History)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>6</p></td>
+    <td width="36" valign="top"><p>&gt;&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>TEXT</p></td>
+    <td width="192" valign="top"><p>&nbsp;(DCM, 121060, History)</p></td>
+    <td width="216" valign="top"><p><em>&ldquo;Cough&rdquo;</em></p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>7</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>CONTAINER</p></td>
+    <td width="192" valign="top"><p>BCID    (7001) Diagnostic Imaging Report Headings</p></td>
+    <td width="216" valign="top"><p>(DCM,    121070, Findings)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>8</p></td>
+    <td width="36" valign="top"><p>&gt;&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>TEXT</p></td>
+    <td width="192" valign="top"><p>(DCM,    121071, Finding)</p></td>
+    <td width="216" valign="top"><p>&nbsp;<em>&ldquo;PA    evaluation of the chest demonstrates the lungs to be expanded and clear.&rdquo;</em></p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>9</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>CONTAINER</p></td>
+    <td width="192" valign="top"><p>BCID    (7001) Diagnostic Imaging Report Headings</p></td>
+    <td width="216" valign="top"><p>(DCM, 121076, Conclusions)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>10</p></td>
+    <td width="36" valign="top"><p>&gt;&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>TEXT</p></td>
+    <td width="192" valign="top"><p>(DCM,    121077, Conclusion)</p></td>
+    <td width="216" valign="top"><p>&nbsp;<em>&ldquo;Normal PA    chest x-ray.&rdquo;</em></p></td>
+  </tr>
+</table>
+<h3>Report Creator Test 601: CR Images</h3>
+<h3>References</h3>
+<h3>Instructions</h3>
+<ol>
+  <li>Clear  existing reports from the MESA Report Manager:
+  <pre>     perl scripts/reset_rpt_mgr.pl</pre>
+  </li>
+  <li>Query  the MESA Image Manager and retrieve the CR study with Accession Number 2001C30.</li>
+  <li>Create a DICOM SR object according to the values in the tables below.</li>
+  <li>Transmit this DICOM SR object to the MESA Report Manager (port 2700).</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Evaluate  your DICOM SR object:
+  <pre>     perl 601/eval_601_cr.pl</pre>
+  </li>
+</ol>
+<H3>Supplemental Information</H3>
+The tables below list the demographics to be used for this test and the coded values for the sections in the DICOM SR the Report Creator is expected to produce.
+<br />
+
+<table border="1" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="160" valign="top"><p><strong>Attribute</strong></p></td>
+    <td width="256" valign="top"><p><strong>Value</strong></p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Patient    Name</p></td>
+    <td width="256" valign="top"><p>CRTHREE^PAUL</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Patient    ID</p></td>
+    <td width="256" valign="top"><p>CR3</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Patient    Sex</p></td>
+    <td width="256" valign="top"><p>M</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Accession    Number</p></td>
+    <td width="256" valign="top"><p>2001C30</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Study    Instance UID</p></td>
+    <td width="256" valign="top"><p>1.113654.1.2001.30</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Completion    Flag</p></td>
+    <td width="256" valign="top"><p>COMPLETE</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Verification    Flag</p></td>
+    <td width="256" valign="top"><p>UNVERIFIED</p></td>
+  </tr>
+</table>
+<table border="1" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="31" valign="top"><p>&nbsp;</p></td>
+    <td width="36" valign="top"><p><strong>NL</strong></p></td>
+    <td width="78" valign="top"><p><strong>Rel with Parent</strong></p></td>
+    <td width="84" valign="top"><p><strong>VT</strong></p></td>
+    <td width="192" valign="top"><p><strong>Concept Name</strong></p></td>
+    <td width="216" valign="top"><p>&nbsp;<strong>Value    Set Constraint</strong></p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>1</p></td>
+    <td width="36" valign="top"><p>&nbsp;</p></td>
+    <td width="78" valign="top"><p>&nbsp;</p></td>
+    <td width="84" valign="top"><p>CONTAINER</p></td>
+    <td width="192" valign="top"><p>BCID    (7000) Diagnostic Imaging Report Document Titles</p></td>
+    <td width="216" valign="top"><p>(LN,    11528-7, &ldquo;Radiology Report&rdquo;)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>2</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>HAS    CONCEPT MOD</p></td>
+    <td width="84" valign="top"><p>CODE</p></td>
+    <td width="192" valign="top"><p>(121049,DCM,&rdquo;Language    of Content Item and Descendents&rdquo;)</p></td>
+    <td width="216" valign="top"><p>(ISO639_2,    eng, English)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>3</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>HAS    OBS CONTEXT</p></td>
+    <td width="84" valign="top"><p>CODE</p></td>
+    <td width="192" valign="top"><p>(DCM, 121005, &ldquo;Observer Type&rdquo;)</p></td>
+    <td width="216" valign="top"><p>(DCM, 121006, Person)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>4</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>HAS    OBS<br />
+      CONTEXT</p></td>
+    <td width="84" valign="top"><p>PNAME</p></td>
+    <td width="192" valign="top"><p>(DCM,    121008, &ldquo;Person Observer Name&rdquo;)</p></td>
+    <td width="216" valign="top"><p><em>MOORE</em><em>^STEVE</em></p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>5</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>CONTAINER</p></td>
+    <td width="192" valign="top"><p>BCID    (7001) Diagnostic Imaging Report Headings</p></td>
+    <td width="216" valign="top"><p>(DCM,    121060, History)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>6</p></td>
+    <td width="36" valign="top"><p>&gt;&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>TEXT</p></td>
+    <td width="192" valign="top"><p>&nbsp;(DCM, 121060, History)</p></td>
+    <td width="216" valign="top"><p><em>&ldquo;Cough&rdquo;</em></p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>7</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>CONTAINER</p></td>
+    <td width="192" valign="top"><p>BCID    (7001) Diagnostic Imaging Report Headings</p></td>
+    <td width="216" valign="top"><p>(DCM,    121070, Findings)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>8</p></td>
+    <td width="36" valign="top"><p>&gt;&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>TEXT</p></td>
+    <td width="192" valign="top"><p>(DCM,    121071, Finding)</p></td>
+    <td width="216" valign="top"><p>&nbsp;<em>&ldquo;PA    evaluation of the chest demonstrates the lungs to be expanded and clear.&rdquo;</em></p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>9</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>CONTAINER</p></td>
+    <td width="192" valign="top"><p>BCID    (7001) Diagnostic Imaging Report Headings</p></td>
+    <td width="216" valign="top"><p>(DCM, 121076, Conclusions)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>10</p></td>
+    <td width="36" valign="top"><p>&gt;&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>TEXT</p></td>
+    <td width="192" valign="top"><p>(DCM,    121077, Conclusion)</p></td>
+    <td width="216" valign="top"><p>&nbsp;<em>&ldquo;Normal PA    chest x-ray.&rdquo;</em></p></td>
+  </tr>
+</table>
+<h3>Report Creator Test 601: CT Images</h3>
+<h3>References</h3>
+<h3>Instructions</h3>
+<ol>
+  <li>Clear  existing reports from the MESA Report Manager:
+  <pre>     perl  scripts/reset_rpt_mgr.pl</pre>
+  </li>
+  <li>Query the MESA Image Manager and retrieve the CR study with Accession Number 2001B20.</li>
+  <li>Create a DICOM SR object according to the values in the tables below.</li>
+  <li>Transmit this DICOM SR object to the MESA Report Manager (port 2700)</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Evaluate  your DICOM SR object:
+   <pre>     perl 601/eval_601_ct.pl</pre>
+  </li>
+</ol>
+
+<H3>Supplemental Information</H3>
+The tables below list the demographics for the patient to be used for this test and the coded values for the sections in the DICOM SR object to be produced.
+<br />
+
+<table border="1" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="160" valign="top"><p><strong>Attribute</strong></p></td>
+    <td width="346" valign="top"><p align="center"><strong>Value</strong></p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Patient    Name</p></td>
+    <td width="346" valign="top"><p align="left">CTFIVE^JIM</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Patient    ID</p></td>
+    <td width="346" valign="top"><p>CT5</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Patient    Sex</p></td>
+    <td width="346" valign="top"><p>M</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Accession    Number</p></td>
+    <td width="346" valign="top"><p>2001B20</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Study    Instance UID</p></td>
+    <td width="346" valign="top"><p>1.113654.1.2001.20</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Completion    Flag</p></td>
+    <td width="346" valign="top"><p>COMPLETE</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Verification    Flag</p></td>
+    <td width="346" valign="top"><p>UNVERIFIED</p></td>
+  </tr>
+</table>
+<table border="1" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="31" valign="top"><p>&nbsp;</p></td>
+    <td width="36" valign="top"><p><strong>NL</strong></p></td>
+    <td width="78" valign="top"><p><strong>Rel with Parent</strong></p></td>
+    <td width="84" valign="top"><p><strong>VT</strong></p></td>
+    <td width="192" valign="top"><p><strong>Concept Name</strong></p></td>
+    <td width="216" valign="top"><p>&nbsp;<strong>Value    Set Constraint</strong></p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>1</p></td>
+    <td width="36" valign="top"><p>&nbsp;</p></td>
+    <td width="78" valign="top"><p>&nbsp;</p></td>
+    <td width="84" valign="top"><p>CONTAINER</p></td>
+    <td width="192" valign="top"><p>BCID    (7000) Diagnostic Imaging Report Document Titles</p></td>
+    <td width="216" valign="top"><p>(LN,    18747-6, &ldquo;CT Report&rdquo;)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>2</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>HAS    CONCEPT MOD</p></td>
+    <td width="84" valign="top"><p>CODE</p></td>
+    <td width="192" valign="top"><p>(121049,DCM,&rdquo;Language    of Content Item and Descendents&rdquo;)</p></td>
+    <td width="216" valign="top"><p>(ISO639_2,    eng, English)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>3</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>HAS    OBS CONTEXT</p></td>
+    <td width="84" valign="top"><p>CODE</p></td>
+    <td width="192" valign="top"><p>(DCM, 121005, &ldquo;Observer Type&rdquo;)</p></td>
+    <td width="216" valign="top"><p>(DCM, 121006, Person)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>4</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>HAS    OBS<br />
+      CONTEXT</p></td>
+    <td width="84" valign="top"><p>PNAME</p></td>
+    <td width="192" valign="top"><p>(DCM,    121008, &ldquo;Person Observer Name&rdquo;)</p></td>
+    <td width="216" valign="top"><p><em>MOORE</em><em>^STEVE</em></p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>5</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>CONTAINER</p></td>
+    <td width="192" valign="top"><p>BCID    (7001) Diagnostic Imaging Report Headings</p></td>
+    <td width="216" valign="top"><p>(DCM,    121060, History)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>6</p></td>
+    <td width="36" valign="top"><p>&gt;&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>TEXT</p></td>
+    <td width="192" valign="top"><p>(DCM,    121060, History)</p></td>
+    <td width="216" valign="top"><p>&nbsp;<em>&ldquo;46-year-old male presented to the emergency room with parasternal    and epigastric pain. &rdquo;</em></p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>7</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>CONTAINER</p></td>
+    <td width="192" valign="top"><p>BCID    (7001) Diagnostic Imaging Report Headings</p></td>
+    <td width="216" valign="top"><p>(DCM,    121070, Findings)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>8</p></td>
+    <td width="36" valign="top"><p>&gt;&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>TEXT</p></td>
+    <td width="192" valign="top"><p>(DCM,    121071, Finding)</p></td>
+    <td width="216" valign="top"><p>&nbsp;<em>&ldquo;There is an aneurysm of the entire thoracic aorta measuring up to    6.2 cm in diameter. &rdquo;</em></p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>9</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>CONTAINER</p></td>
+    <td width="192" valign="top"><p>BCID    (7001) Diagnostic Imaging Report Headings</p></td>
+    <td width="216" valign="top"><p>(DCM, 121076, Conclusions)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>10</p></td>
+    <td width="36" valign="top"><p>&gt;&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>TEXT</p></td>
+    <td width="192" valign="top"><p>(DCM,    121077, Conclusion)</p></td>
+    <td width="216" valign="top"><p>&nbsp;<em>&ldquo;Aneurysm of thoracic aorta with dissection affecting ascending and    descending aorta.&rdquo;</em></p></td>
+  </tr>
+</table>
+<h3>Report Creator Test 601: MR Images</h3>
+<h3>References</h3>
+<h3>Instructions</h3>
+<ol>
+  <li>Clear  existing reports from the MESA Report Manager:
+  <pre>     perl  scripts/reset_rpt_mgr.pl</pre>
+  </li>
+  <li>Query  the MESA Image Manager and retrieve the CR study with Accession Number 2001A10.</li>
+  <li>Create  a DICOM SR object according to the values in the tables below.</li>
+  <li>Transmit  this DICOM SR object to the MESA Report Manager (port 2700).</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Evaluate  your DICOM SR object:
+  <pre>     perl 601/eval_601_mr.pl</pre>
+  </li>
+</ol>
+
+<H3>Supplemental Information</H3>
+The tables below list the demographics to be ued for this test and the coded values for the sections in the DICOM SR to be produced.
+<br />
+<table border="1" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="160" valign="top"><p><strong>Attribute</strong></p></td>
+    <td width="190" valign="top"><p><strong>Value</strong></p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Patient    Name</p></td>
+    <td width="190" valign="top"><p align="left">MRTHREE^STEVE</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Patient    ID</p></td>
+    <td width="190" valign="top"><p>MR3</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Patient    Sex</p></td>
+    <td width="190" valign="top"><p>M</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Accession    Number</p></td>
+    <td width="190" valign="top"><p>2001A10</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Study    Instance UID</p></td>
+    <td width="190" valign="top"><p>1.113654.1.2001.10</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Completion    Flag</p></td>
+    <td width="190" valign="top"><p>COMPLETE</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Verification    Flag</p></td>
+    <td width="190" valign="top"><p>UNVERIFIED</p></td>
+  </tr>
+</table>
+<table border="1" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="31" valign="top"><p>&nbsp;</p></td>
+    <td width="36" valign="top"><p><strong>NL</strong></p></td>
+    <td width="78" valign="top"><p><strong>Rel with Parent</strong></p></td>
+    <td width="84" valign="top"><p><strong>VT</strong></p></td>
+    <td width="192" valign="top"><p><strong>Concept Name</strong></p></td>
+    <td width="216" valign="top"><p>&nbsp;<strong>Value    Set Constraint</strong></p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>1</p></td>
+    <td width="36" valign="top"><p>&nbsp;</p></td>
+    <td width="78" valign="top"><p>&nbsp;</p></td>
+    <td width="84" valign="top"><p>CONTAINER</p></td>
+    <td width="192" valign="top"><p>BCID    (7000) Diagnostic Imaging Report Document Titles</p></td>
+    <td width="216" valign="top"><p>(LN,    18755-9, &ldquo;MRI Report&rdquo;)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>2</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>HAS    CONCEPT MOD</p></td>
+    <td width="84" valign="top"><p>CODE</p></td>
+    <td width="192" valign="top"><p>(121049,DCM,&rdquo;Language    of Content Item and Descendents&rdquo;)</p></td>
+    <td width="216" valign="top"><p>(ISO639_2,    eng, English)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>3</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>HAS    OBS CONTEXT</p></td>
+    <td width="84" valign="top"><p>CODE</p></td>
+    <td width="192" valign="top"><p>(DCM, 121005, &ldquo;Observer Type&rdquo;)</p></td>
+    <td width="216" valign="top"><p>(DCM, 121006, Person)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>4</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>HAS    OBS<br />
+      CONTEXT</p></td>
+    <td width="84" valign="top"><p>PNAME</p></td>
+    <td width="192" valign="top"><p>(DCM,    121008, &ldquo;Person Observer Name&rdquo;)</p></td>
+    <td width="216" valign="top"><p><em>MOORE</em><em>^STEVE</em></p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>5</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>CONTAINER</p></td>
+    <td width="192" valign="top"><p>BCID    (7001) Diagnostic Imaging Report Headings</p></td>
+    <td width="216" valign="top"><p>(DCM,    121060, History)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>6</p></td>
+    <td width="36" valign="top"><p>&gt;&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>TEXT</p></td>
+    <td width="192" valign="top"><p>(DCM,    121060, History)</p></td>
+    <td width="216" valign="top"><p>&nbsp;<em>&ldquo;Rule    out internal derangement.&rdquo;</em></p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>7</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>CONTAINER</p></td>
+    <td width="192" valign="top"><p>BCID    (7001) Diagnostic Imaging Report Headings</p></td>
+    <td width="216" valign="top"><p>(DCM,    121070, Findings)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>8</p></td>
+    <td width="36" valign="top"><p>&gt;&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>TEXT</p></td>
+    <td width="192" valign="top"><p>(DCM,    121071, Finding)</p></td>
+    <td width="216" valign="top"><p>&nbsp;<em>&ldquo;Within    the posterior horn of the medial meniscus there is minimal increase in signal    intensity.&rdquo;</em></p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>9</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>CONTAINER</p></td>
+    <td width="192" valign="top"><p>BCID    (7001) Diagnostic Imaging Report Headings</p></td>
+    <td width="216" valign="top"><p>(DCM, 121076, Conclusions)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>10</p></td>
+    <td width="36" valign="top"><p>&gt;&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>TEXT</p></td>
+    <td width="192" valign="top"><p>(DCM,    121077, Conclusion)</p></td>
+    <td width="216" valign="top"><p>&nbsp;<em>&ldquo;Joint diffusion with superior joint plicae.&rdquo;</em></p></td>
+  </tr>
+</table>
+<table><tr><td bgcolor="#33FFFF">
+<br  />
+<h2><a name="#test_602" id="#test_602">Report Creator Test 602: Simple Imaging Report  with Image Reference</a></h2>
+<p>Test 602 is required of Diagnostic Reporting Stations that  are coupled with an Image Display. This  test uses the same format as Report Creator Test 601.&nbsp; This test requires the Report Creator to add  a reference to an image in the SR document.<br />Table 2.1-1 lists the header attributes that will be  tested.<br />
+  The 602 suite of tests require you to create a report  according to TID2000, but we specify observation context and three sections of  the report.&nbsp; Figure 2-2 below shows the  overall structure and relationship of content items required for the 602  tests.&nbsp; You are expected to create a  report with the section headings as defined in the tables found in the  following sections.&nbsp; We do not require  the text in the sections to match the text in our samples.&nbsp; The text is only provided as an example.<br />
+  The tests require you to reference a specific image in the  study.&nbsp; The tables below will have an  entry like the example show below.&nbsp; The  rightmost column indicates the image that should be used as a reference.&nbsp; We use the triplet (accession number / series  number / image number).&nbsp; In the example  below, the series number happens to be blank because that is how the original  image is formatted.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="31" valign="top"><p>9</p></td>
+    <td width="36" valign="top"><p>&gt;&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>IMAGE</p></td>
+    <td width="192" valign="top"><p>(DCM,    121080, &ldquo;Best illustration of findings&rdquo;)</p></td>
+    <td width="216" valign="top"><p>2001C30    /&nbsp; / 16</p></td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p align="center"><img src="images/clip_image002_0001.gif" alt="image" width="407" height="382" /><br />
+  Figure 2-2 Content Item Requirements for Test 602</p>
+<p>The 602 tests are broken down by imaging modality: CR, CT,  or MR.&nbsp; Run test 602CR, 602CT, or 602MR  as appropriate.&nbsp; You may run all three  tests, but are only required to submit results for one.&nbsp; Values for content items (listed in Value Set  Constraint) that are italicized are suggested for each modality, and not  required.&nbsp; That is, the software tests  report headings but not the exact text in a section of the report.</p>
+<h3>Report Creator Test 602: CR Images</h3>
+<p>The CR study has 3 images in one series.&nbsp; The original image is a normal chest  image.&nbsp; The other two images are derived  from the original image and only show the left half and right half.&nbsp; The SR report should use the original (full)  image.</p>
+<h3>References</h3>
+<h3>Instructions</h3>
+<ol>
+  <li>Clear  existing reports from the MESA Report Manager:
+  <pre>     perl  scripts/reset_rpt_mgr.pl</pre>
+  </li>
+  <li>Query the MESA Image Manager and retrieve the CR study with Accession Number 2001C30.</li>
+  <li>Create a DICOM SR object according to the values in the tables below.</li>
+  <li>Transmit this DICOM SR object to the MESA Report Manager (port 2700).</li>
+  </ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Evaluate  your DICOM SR object:
+  <pre>     perl 602/eval_602_cr.pl</pre>
+  </li>
+</ol>
+<H3>Supplemental Information</H3>
+The tables below list the demographics for the patient for this test and the coded values for the sections in the DICOM SR to be created.
+<br />
+
+<table border="1" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="160" valign="top"><p><strong>Attribute</strong></p></td>
+    <td width="256" valign="top"><p><strong>Value</strong></p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Patient    Name</p></td>
+    <td width="256" valign="top"><p>CRTHREE^PAUL</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Patient    ID</p></td>
+    <td width="256" valign="top"><p>CR3</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Patient    Sex</p></td>
+    <td width="256" valign="top"><p>M</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Accession    Number</p></td>
+    <td width="256" valign="top"><p>2001C30</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Study    Instance UID</p></td>
+    <td width="256" valign="top"><p>1.113654.1.2001.30</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Completion    Flag</p></td>
+    <td width="256" valign="top"><p>COMPLETE</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Verification    Flag</p></td>
+    <td width="256" valign="top"><p>UNVERIFIED</p></td>
+  </tr>
+</table>
+<table border="1" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="31" valign="top"><p>&nbsp;</p></td>
+    <td width="36" valign="top"><p><strong>NL</strong></p></td>
+    <td width="78" valign="top"><p><strong>Rel with Parent</strong></p></td>
+    <td width="84" valign="top"><p><strong>VT</strong></p></td>
+    <td width="192" valign="top"><p><strong>Concept Name</strong></p></td>
+    <td width="216" valign="top"><p>&nbsp;<strong>Value    Set Constraint</strong></p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>1</p></td>
+    <td width="36" valign="top"><p>&nbsp;</p></td>
+    <td width="78" valign="top"><p>&nbsp;</p></td>
+    <td width="84" valign="top"><p>CONTAINER</p></td>
+    <td width="192" valign="top"><p>BCID    (7000) Diagnostic Imaging Report Document Titles</p></td>
+    <td width="216" valign="top"><p>(LN,    11528-7, &ldquo;Radiology Report&rdquo;)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>2</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>HAS    CONCEPT MOD</p></td>
+    <td width="84" valign="top"><p>CODE</p></td>
+    <td width="192" valign="top"><p>(121049,DCM,&rdquo;Language    of Content Item and Descendents&rdquo;)</p></td>
+    <td width="216" valign="top"><p>(ISO639_2,    eng, English)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>3</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>HAS    OBS CONTEXT</p></td>
+    <td width="84" valign="top"><p>CODE</p></td>
+    <td width="192" valign="top"><p>(DCM, 121005, &ldquo;Observer Type&rdquo;)</p></td>
+    <td width="216" valign="top"><p>(DCM, 121006, Person)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>4</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>HAS    OBS<br />
+      CONTEXT</p></td>
+    <td width="84" valign="top"><p>PNAME</p></td>
+    <td width="192" valign="top"><p>(DCM,    121008, &ldquo;Person Observer Name&rdquo;)</p></td>
+    <td width="216" valign="top"><p><em>MOORE</em><em>^STEVE</em></p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>5</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>CONTAINER</p></td>
+    <td width="192" valign="top"><p>BCID    (7001) Diagnostic Imaging Report Headings</p></td>
+    <td width="216" valign="top"><p>(DCM,    121060, History)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>6</p></td>
+    <td width="36" valign="top"><p>&gt;&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>TEXT</p></td>
+    <td width="192" valign="top"><p>&nbsp;(DCM, 121060, History)</p></td>
+    <td width="216" valign="top"><p><em>&ldquo;Cough&rdquo;</em></p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>7</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>CONTAINER</p></td>
+    <td width="192" valign="top"><p>BCID    (7001) Diagnostic Imaging Report Headings</p></td>
+    <td width="216" valign="top"><p>(DCM,    121070, Findings)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>8</p></td>
+    <td width="36" valign="top"><p>&gt;&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>TEXT</p></td>
+    <td width="192" valign="top"><p>(DCM,    121071, Finding)</p></td>
+    <td width="216" valign="top"><p>&nbsp;<em>&ldquo;PA    evaluation of the chest demonstrates the lungs to be expanded and clear.&rdquo;</em></p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>9</p></td>
+    <td width="36" valign="top"><p>&gt;&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>IMAGE</p></td>
+    <td width="192" valign="top"><p>(DCM,    121080, &ldquo;Best illustration of findings&rdquo;)</p></td>
+    <td width="216" valign="top"><p>2001C30 /&nbsp;    / 16</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>10</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>CONTAINER</p></td>
+    <td width="192" valign="top"><p>BCID    (7001) Diagnostic Imaging Report Headings</p></td>
+    <td width="216" valign="top"><p>(DCM, 121076, Conclusions)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>11</p></td>
+    <td width="36" valign="top"><p>&gt;&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>TEXT</p></td>
+    <td width="192" valign="top"><p>(DCM,    121077, Conclusion)</p></td>
+    <td width="216" valign="top"><p>&nbsp;<em>&ldquo;Normal PA    chest x-ray.&rdquo;</em></p></td>
+  </tr>
+</table>
+<h3>Report Creator Test 602: CT Images</h3>
+<h3>References</h3>
+<h3>Instructions</h3>
+<ol>
+  <li>Clear  existing reports from the MESA Report Manager.
+  <pre>     perl  scripts/reset_rpt_mgr.pl</pre>
+  </li>
+  <li>Query  the MESA Image Manager and retrieve the CR study with Accession Number 2001B20.</li>
+  <li>Create a DICOM SR object according to the values in the tables below.</li>
+  <li>Transmit this DICOM SR object to the MESA Report Manager (port 2700).</li>
+  </ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Evaluate  your DICOM SR object:
+  <pre>     perl 602/eval_602_ct.pl</pre>
+  </li>
+</ol>
+
+<H3>Supplemental Information</H3>
+The tables below list the demographics for the patient for this test and the coded values for the sections in the DICOM SR to be created.
+<br />
+
+<table border="1" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="160" valign="top"><p><strong>Attribute</strong></p></td>
+    <td width="346" valign="top"><p align="center"><strong>Value</strong></p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Patient    Name</p></td>
+    <td width="346" valign="top"><p align="left">CTFIVE^JIM</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Patient    ID</p></td>
+    <td width="346" valign="top"><p>CT5</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Patient    Sex</p></td>
+    <td width="346" valign="top"><p>M</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Accession    Number</p></td>
+    <td width="346" valign="top"><p>2001B20</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Study    Instance UID</p></td>
+    <td width="346" valign="top"><p>1.113654.1.2001.20</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Completion    Flag</p></td>
+    <td width="346" valign="top"><p>COMPLETE</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Verification    Flag</p></td>
+    <td width="346" valign="top"><p>UNVERIFIED</p></td>
+  </tr>
+</table>
+<table border="1" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="31" valign="top"><p>&nbsp;</p></td>
+    <td width="36" valign="top"><p><strong>NL</strong></p></td>
+    <td width="78" valign="top"><p><strong>Rel with Parent</strong></p></td>
+    <td width="84" valign="top"><p><strong>VT</strong></p></td>
+    <td width="192" valign="top"><p><strong>Concept Name</strong></p></td>
+    <td width="216" valign="top"><p>&nbsp;<strong>Value    Set Constraint</strong></p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>1</p></td>
+    <td width="36" valign="top"><p>&nbsp;</p></td>
+    <td width="78" valign="top"><p>&nbsp;</p></td>
+    <td width="84" valign="top"><p>CONTAINER</p></td>
+    <td width="192" valign="top"><p>BCID    (7000) Diagnostic Imaging Report Document Titles</p></td>
+    <td width="216" valign="top"><p>(LN,    18747-6, &ldquo;CT Report&rdquo;)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>2</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>HAS    CONCEPT MOD</p></td>
+    <td width="84" valign="top"><p>CODE</p></td>
+    <td width="192" valign="top"><p>(121049,DCM,&rdquo;Language    of Content Item and Descendents&rdquo;)</p></td>
+    <td width="216" valign="top"><p>(ISO639_2,    eng, English)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>3</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>HAS    OBS CONTEXT</p></td>
+    <td width="84" valign="top"><p>CODE</p></td>
+    <td width="192" valign="top"><p>(DCM, 121005, &ldquo;Observer Type&rdquo;)</p></td>
+    <td width="216" valign="top"><p>(DCM, 121006, Person)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>4</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>HAS    OBS<br />
+      CONTEXT</p></td>
+    <td width="84" valign="top"><p>PNAME</p></td>
+    <td width="192" valign="top"><p>(DCM,    121008, &ldquo;Person Observer Name&rdquo;)</p></td>
+    <td width="216" valign="top"><p><em>MOORE</em><em>^STEVE</em></p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>5</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>CONTAINER</p></td>
+    <td width="192" valign="top"><p>BCID    (7001) Diagnostic Imaging Report Headings</p></td>
+    <td width="216" valign="top"><p>(DCM,    121060, History)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>6</p></td>
+    <td width="36" valign="top"><p>&gt;&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>TEXT</p></td>
+    <td width="192" valign="top"><p>(DCM,    121060, History)</p></td>
+    <td width="216" valign="top"><p>&nbsp;<em>&ldquo;46-year-old male presented to the emergency room with parasternal    and epigastric pain. &rdquo;</em></p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>7</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>CONTAINER</p></td>
+    <td width="192" valign="top"><p>BCID    (7001) Diagnostic Imaging Report Headings</p></td>
+    <td width="216" valign="top"><p>(DCM,    121070, Findings)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>8</p></td>
+    <td width="36" valign="top"><p>&gt;&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>TEXT</p></td>
+    <td width="192" valign="top"><p>(DCM,    121071, Finding)</p></td>
+    <td width="216" valign="top"><p>&nbsp;<em>&ldquo;There is an aneurysm of the entire thoracic aorta measuring up to    6.2 cm in diameter. &rdquo;</em></p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>9</p></td>
+    <td width="36" valign="top"><p>&gt;&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>IMAGE</p></td>
+    <td width="192" valign="top"><p>(DCM,    121080, &ldquo;Best illustration of findings&rdquo;)</p></td>
+    <td width="216" valign="top"><p>2001B20 / 1 / 67</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>10</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>CONTAINER</p></td>
+    <td width="192" valign="top"><p>BCID    (7001) Diagnostic Imaging Report Headings</p></td>
+    <td width="216" valign="top"><p>(DCM, 121076, Conclusions)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>11</p></td>
+    <td width="36" valign="top"><p>&gt;&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>TEXT</p></td>
+    <td width="192" valign="top"><p>(DCM,    121077, Conclusion)</p></td>
+    <td width="216" valign="top"><p>&nbsp;<em>&ldquo;Aneurysm of thoracic aorta with dissection affecting ascending and    descending aorta.&rdquo;</em></p></td>
+  </tr>
+</table>
+
+<h3>Report Creator Test 602: MR Images</h3>
+<h3>References</h3>
+<h3>Instructions</h3>
+<ol>
+  <li>Clear  existing reports from the MESA Report Manager:
+  <pre>     perl  scripts/reset_rpt_mgr.pl</pre>
+  </li>
+  <li>Query the MESA Image Manager and retrieve the CR study with Accession Number 2001A10.</li>
+  <li>Create a DICOM SR object according to the values in the tables below.</li>
+  <li>Transmit this DICOM SR object to the MESA Report Manager (port 2700).</li>
+  </ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Evaluate  your DICOM SR object:
+  <pre>     perl 602/eval_602_mr.pl</pre>
+  </li>
+</ol>
+<H3>Supplemental Information</H3>
+The tables below list the demographics for the patient for this test and the coded values for the sections in the DICOM SR to be created.
+<br />
+<table border="1" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="160" valign="top"><p><strong>Attribute</strong></p></td>
+    <td width="190" valign="top"><p><strong>Value</strong></p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Patient    Name</p></td>
+    <td width="190" valign="top"><p align="left">MRTHREE^STEVE</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Patient    ID</p></td>
+    <td width="190" valign="top"><p>MR3</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Patient    Sex</p></td>
+    <td width="190" valign="top"><p>M</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Accession    Number</p></td>
+    <td width="190" valign="top"><p>2001A10</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Study    Instance UID</p></td>
+    <td width="190" valign="top"><p>1.113654.1.2001.10</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Completion    Flag</p></td>
+    <td width="190" valign="top"><p>COMPLETE</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Verification    Flag</p></td>
+    <td width="190" valign="top"><p>UNVERIFIED</p></td>
+  </tr>
+</table>
+<table border="1" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="31" valign="top"><p>&nbsp;</p></td>
+    <td width="36" valign="top"><p><strong>NL</strong></p></td>
+    <td width="78" valign="top"><p><strong>Rel with Parent</strong></p></td>
+    <td width="84" valign="top"><p><strong>VT</strong></p></td>
+    <td width="192" valign="top"><p><strong>Concept Name</strong></p></td>
+    <td width="216" valign="top"><p>&nbsp;<strong>Value    Set Constraint</strong></p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>1</p></td>
+    <td width="36" valign="top"><p>&nbsp;</p></td>
+    <td width="78" valign="top"><p>&nbsp;</p></td>
+    <td width="84" valign="top"><p>CONTAINER</p></td>
+    <td width="192" valign="top"><p>BCID    (7000) Diagnostic Imaging Report Document Titles</p></td>
+    <td width="216" valign="top"><p>(LN,    18755-9, &ldquo;MRI Report&rdquo;)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>2</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>HAS    CONCEPT MOD</p></td>
+    <td width="84" valign="top"><p>CODE</p></td>
+    <td width="192" valign="top"><p>(121049,DCM,&rdquo;Language    of Content Item and Descendents&rdquo;)</p></td>
+    <td width="216" valign="top"><p>(ISO639_2,    eng, English)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>3</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>HAS    OBS CONTEXT</p></td>
+    <td width="84" valign="top"><p>CODE</p></td>
+    <td width="192" valign="top"><p>(DCM, 121005, &ldquo;Observer Type&rdquo;)</p></td>
+    <td width="216" valign="top"><p>(DCM, 121006, Person)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>4</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>HAS    OBS<br />
+      CONTEXT</p></td>
+    <td width="84" valign="top"><p>PNAME</p></td>
+    <td width="192" valign="top"><p>(DCM,    121008, &ldquo;Person Observer Name&rdquo;)</p></td>
+    <td width="216" valign="top"><p><em>MOORE</em><em>^STEVE</em></p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>5</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>CONTAINER</p></td>
+    <td width="192" valign="top"><p>BCID    (7001) Diagnostic Imaging Report Headings</p></td>
+    <td width="216" valign="top"><p>(DCM,    121060, History)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>6</p></td>
+    <td width="36" valign="top"><p>&gt;&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>TEXT</p></td>
+    <td width="192" valign="top"><p>(DCM,    121060, History)</p></td>
+    <td width="216" valign="top"><p>&nbsp;<em>&ldquo;Rule    out internal derangement.&rdquo;</em></p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>7</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>CONTAINER</p></td>
+    <td width="192" valign="top"><p>BCID    (7001) Diagnostic Imaging Report Headings</p></td>
+    <td width="216" valign="top"><p>(DCM,    121070, Findings)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>8</p></td>
+    <td width="36" valign="top"><p>&gt;&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>TEXT</p></td>
+    <td width="192" valign="top"><p>(DCM,    121071, Finding)</p></td>
+    <td width="216" valign="top"><p>&nbsp;<em>&ldquo;Within    the posterior horn of the medial meniscus there is minimal increase in signal    intensity.&rdquo;</em></p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>9</p></td>
+    <td width="36" valign="top"><p>&gt;&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>IMAGE</p></td>
+    <td width="192" valign="top"><p>(DCM,    121080, &ldquo;Best illustration of findings&rdquo;)</p></td>
+    <td width="216" valign="top"><p>2001A10 / 103 / 46</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>10</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>CONTAINER</p></td>
+    <td width="192" valign="top"><p>BCID    (7001) Diagnostic Imaging Report Headings</p></td>
+    <td width="216" valign="top"><p>(DCM, 121076, Conclusions)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>11</p></td>
+    <td width="36" valign="top"><p>&gt;&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>TEXT</p></td>
+    <td width="192" valign="top"><p>(DCM,    121077, Conclusion)</p></td>
+    <td width="216" valign="top"><p>&nbsp;<em>&ldquo;Joint diffusion with superior joint plicae.&rdquo;</em></p></td>
+  </tr>
+</table>
+</td>
+</tr></table>
+<h2><a name="#test_603" id="#test_603">Report Creator Test 603: Simple Imaging Report  with Two Image References</a></h2>
+<p>Test 603 is required of Diagnostic Reporting Stations that are coupled with an Image Display. This  test uses the same format as Report Creator Test 601. This test requires the Report Creator to add  references to two images in the SR document.  This is quite similar to the 602 test.<br />
+Table 2.1-1 lists the header attributes that will be  tested. Report Creators may be  standalone or coupled with an Image Display. <br />
+The 603 suite of tests require you to create a report according to TID2000, but we specify observation context and three sections of  the report.
+Figure 2-3 below shows the overall structure and relationship of content items required for the 603 tests.
+You are expected to create a  report with the section headings as defined in the tables found in the following sections.
+We do not require the text in the sections to match the text in our samples.
+The text is only provided as an example.<br />
+The tests require you to reference two specific images in  the study. The tables below will have an  entry like the example show below.
+The  rightmost column indicates the image that should be used as a reference.
+We use the triplet (accession number / series  number / image number).
+In the example  below, the series number happens to be blank because that is how the original  image is formatted.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="31" valign="top"><p>9</p></td>
+    <td width="36" valign="top"><p>&gt;&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>IMAGE</p></td>
+    <td width="192" valign="top"><p>(DCM,    121080, &ldquo;Best illustration of findings&rdquo;)</p></td>
+    <td width="216" valign="top"><p>2001C30    /&nbsp; / 40</p></td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p align="center"><img src="images/clip_image002_0002.gif" alt="image" width="506" height="382" /><br />
+Figure 2-3 Content Item Requirements for Test 603</p>
+<p>The 603 tests are broken down by imaging modality: CR, CT,  or MR.&nbsp; Run test 603CR, 603CT, or 603MR  as appropriate.&nbsp; You may run all three  tests, but are only required to submit results for one.&nbsp; Values for content items (listed in Value Set  Constraint) that are italicized are suggested for each modality, and not  required.&nbsp; That is, the software tests  report headings but not the exact text in a section of the report.</p>
+<h3>Report Creator Test 603: CR Images</h3>
+<p>The CR study has 3 images in one series.&nbsp; The original image is a normal chest  image.&nbsp; The other two images are derived  from the original image and only show the left half and right half.&nbsp; The SR report should use the two derived  images (left view, right view).</p>
+<h3>References</h3>
+<h3>Instructions</h3>
+<ol>
+  <li>Clear  existing reports from the MESA Report Manager:
+  <pre>     perl  scripts/reset_rpt_mgr.pl</pre>
+  </li>
+  <li>Query  the MESA Image Manager and retrieve the CR study with Accession Number 2001C30.</li>
+  <li>Create  a DICOM SR object according to the values in the tables below.</li>
+  <li>Transmit  this DICOM SR object to the MESA Report Manager (port 2700).</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Evaluate  your DICOM SR object:
+  <pre>     perl 603/eval_603_cr.pl</pre>
+  </li>
+</ol>
+<H3>Supplemental Information</H3>
+The tables below list the demographics for the patient for this test and the coded values for the sections in the DICOM SR to be created.
+<br />
+
+<table border="1" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="160" valign="top"><p><strong>Attribute</strong></p></td>
+    <td width="256" valign="top"><p><strong>Value</strong></p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Patient    Name</p></td>
+    <td width="256" valign="top"><p>CRTHREE^PAUL</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Patient    ID</p></td>
+    <td width="256" valign="top"><p>CR3</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Patient    Sex</p></td>
+    <td width="256" valign="top"><p>M</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Accession    Number</p></td>
+    <td width="256" valign="top"><p>2001C30</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Study    Instance UID</p></td>
+    <td width="256" valign="top"><p>1.113654.1.2001.30</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Completion    Flag</p></td>
+    <td width="256" valign="top"><p>COMPLETE</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Verification    Flag</p></td>
+    <td width="256" valign="top"><p>UNVERIFIED</p></td>
+  </tr>
+</table>
+<table border="1" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="31" valign="top"><p>&nbsp;</p></td>
+    <td width="36" valign="top"><p><strong>NL</strong></p></td>
+    <td width="81" valign="top"><p><strong>Rel with Parent</strong></p></td>
+    <td width="91" valign="top"><p><strong>VT</strong></p></td>
+    <td width="192" valign="top"><p><strong>Concept Name</strong></p></td>
+    <td width="217" valign="top"><p>&nbsp;<strong>Value    Set Constraint</strong></p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>1</p></td>
+    <td width="36" valign="top"><p>&nbsp;</p></td>
+    <td width="81" valign="top"><p>&nbsp;</p></td>
+    <td width="91" valign="top"><p>CONTAINER</p></td>
+    <td width="192" valign="top"><p>BCID    (7000) Diagnostic Imaging Report Document Titles</p></td>
+    <td width="217" valign="top"><p>(LN,    11528-7, &ldquo;Radiology Report&rdquo;)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>2</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="81" valign="top"><p>HAS    CONCEPT MOD</p></td>
+    <td width="91" valign="top"><p>CODE</p></td>
+    <td width="192" valign="top"><p>(121049,DCM,&rdquo;Language    of Content Item and Descendents&rdquo;)</p></td>
+    <td width="217" valign="top"><p>(ISO639_2,    eng, English)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>3</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="81" valign="top"><p>HAS    OBS CONTEXT</p></td>
+    <td width="91" valign="top"><p>CODE</p></td>
+    <td width="192" valign="top"><p>(DCM, 121005, &ldquo;Observer Type&rdquo;)</p></td>
+    <td width="217" valign="top"><p>(DCM, 121006, Person)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>4</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="81" valign="top"><p>HAS    OBS<br />
+    CONTEXT</p></td>
+    <td width="91" valign="top"><p>PNAME</p></td>
+    <td width="192" valign="top"><p>(DCM,    121008, &ldquo;Person Observer Name&rdquo;)</p></td>
+    <td width="217" valign="top"><p><em>MOORE</em><em>^STEVE</em></p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>5</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="81" valign="top"><p>CONTAINS</p></td>
+    <td width="91" valign="top"><p>CONTAINER</p></td>
+    <td width="192" valign="top"><p>BCID    (7001) Diagnostic Imaging Report Headings</p></td>
+    <td width="217" valign="top"><p>(DCM,    121060, History)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>6</p></td>
+    <td width="36" valign="top"><p>&gt;&gt;&nbsp;</p></td>
+    <td width="81" valign="top"><p>CONTAINS</p></td>
+    <td width="91" valign="top"><p>TEXT</p></td>
+    <td width="192" valign="top"><p>&nbsp;(DCM, 121060, History)</p></td>
+    <td width="217" valign="top"><p><em>&ldquo;Cough&rdquo;</em></p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>7</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="81" valign="top"><p>CONTAINS</p></td>
+    <td width="91" valign="top"><p>CONTAINER</p></td>
+    <td width="192" valign="top"><p>BCID    (7001) Diagnostic Imaging Report Headings</p></td>
+    <td width="217" valign="top"><p>(DCM,    121070, Findings)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>8</p></td>
+    <td width="36" valign="top"><p>&gt;&gt;&nbsp;</p></td>
+    <td width="81" valign="top"><p>CONTAINS</p></td>
+    <td width="91" valign="top"><p>TEXT</p></td>
+    <td width="192" valign="top"><p>(DCM,    121071, Finding)</p></td>
+    <td width="217" valign="top"><p>&nbsp;<em>&ldquo;PA    evaluation of the chest demonstrates the lungs to be expanded and clear.&rdquo;</em></p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>9</p></td>
+    <td width="36" valign="top"><p>&gt;&gt;&nbsp;</p></td>
+    <td width="81" valign="top"><p>CONTAINS</p></td>
+    <td width="91" valign="top"><p>IMAGE</p></td>
+    <td width="192" valign="top"><p>(DCM,    121080, &ldquo;Best illustration of findings&rdquo;)</p></td>
+    <td width="217" valign="top"><p>2001C30 /&nbsp;    / 40</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>10</p></td>
+    <td width="36" valign="top"><p>&gt;&gt;&nbsp;</p></td>
+    <td width="81" valign="top"><p>CONTAINS</p></td>
+    <td width="91" valign="top"><p>IMAGE</p></td>
+    <td width="192" valign="top"><p>(DCM,    121080, &ldquo;Best illustration of findings&rdquo;)</p></td>
+    <td width="217" valign="top"><p>2001C30 /&nbsp;    / 60</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>11</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="81" valign="top"><p>CONTAINS</p></td>
+    <td width="91" valign="top"><p>CONTAINER</p></td>
+    <td width="192" valign="top"><p>BCID    (7001) Diagnostic Imaging Report Headings</p></td>
+    <td width="217" valign="top"><p>(DCM, 121076, Conclusions)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>12</p></td>
+    <td width="36" valign="top"><p>&gt;&gt;&nbsp;</p></td>
+    <td width="81" valign="top"><p>CONTAINS</p></td>
+    <td width="91" valign="top"><p>TEXT</p></td>
+    <td width="192" valign="top"><p>(DCM,    121077, Conclusion)</p></td>
+    <td width="217" valign="top"><p>&nbsp;<em>&ldquo;Normal PA    chest x-ray.&rdquo;</em></p></td>
+  </tr>
+</table>
+
+<h3>Report Creator Test 602: CT Images</h3>
+<h3>References</h3>
+<h3>Instructions</h3>
+<ol>
+  <li>Clear  existing reports from the MESA Report Manager:
+  <pre>     perl  scripts/reset_rpt_mgr.pl</pre>
+  </li>
+  <li>Query the MESA Image Manager and retrieve the CR study with Accession Number 2001B20.</li>
+  <li>Create a DICOM SR object according to the values in the tables below.</li>
+  <li>Transmit this DICOM SR object to the MESA Report Manager (port 2700).</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Evaluate  your DICOM SR object:
+  <pre>     perl 603/eval_603_ct.pl</pre>
+  </li>
+</ol>
+<H3>Supplemental Information</H3>
+The tables below list the demographics for the patient for this test and the coded values for the sections in the DICOM SR to be created.
+<br />
+
+<table border="1" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="160" valign="top"><p><strong>Attribute</strong></p></td>
+    <td width="346" valign="top"><p align="center"><strong>Value</strong></p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Patient    Name</p></td>
+    <td width="346" valign="top"><p align="left">CTFIVE^JIM</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Patient    ID</p></td>
+    <td width="346" valign="top"><p>CT5</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Patient    Sex</p></td>
+    <td width="346" valign="top"><p>M</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Accession    Number</p></td>
+    <td width="346" valign="top"><p>2001B20</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Study    Instance UID</p></td>
+    <td width="346" valign="top"><p>1.113654.1.2001.20</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Completion    Flag</p></td>
+    <td width="346" valign="top"><p>COMPLETE</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Verification    Flag</p></td>
+    <td width="346" valign="top"><p>UNVERIFIED</p></td>
+  </tr>
+</table>
+<table border="1" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="31" valign="top"><p>&nbsp;</p></td>
+    <td width="36" valign="top"><p><strong>NL</strong></p></td>
+    <td width="78" valign="top"><p><strong>Rel with Parent</strong></p></td>
+    <td width="84" valign="top"><p><strong>VT</strong></p></td>
+    <td width="192" valign="top"><p><strong>Concept Name</strong></p></td>
+    <td width="216" valign="top"><p>&nbsp;<strong>Value    Set Constraint</strong></p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>1</p></td>
+    <td width="36" valign="top"><p>&nbsp;</p></td>
+    <td width="78" valign="top"><p>&nbsp;</p></td>
+    <td width="84" valign="top"><p>CONTAINER</p></td>
+    <td width="192" valign="top"><p>BCID    (7000) Diagnostic Imaging Report Document Titles</p></td>
+    <td width="216" valign="top"><p>(LN,    18747-6, &ldquo;CT Report&rdquo;)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>2</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>HAS    CONCEPT MOD</p></td>
+    <td width="84" valign="top"><p>CODE</p></td>
+    <td width="192" valign="top"><p>(121049,DCM,&rdquo;Language    of Content Item and Descendents&rdquo;)</p></td>
+    <td width="216" valign="top"><p>(ISO639_2,    eng, English)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>3</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>HAS    OBS CONTEXT</p></td>
+    <td width="84" valign="top"><p>CODE</p></td>
+    <td width="192" valign="top"><p>(DCM, 121005, &ldquo;Observer Type&rdquo;)</p></td>
+    <td width="216" valign="top"><p>(DCM, 121006, Person)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>4</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>HAS    OBS<br />
+      CONTEXT</p></td>
+    <td width="84" valign="top"><p>PNAME</p></td>
+    <td width="192" valign="top"><p>(DCM,    121008, &ldquo;Person Observer Name&rdquo;)</p></td>
+    <td width="216" valign="top"><p><em>MOORE</em><em>^STEVE</em></p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>5</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>CONTAINER</p></td>
+    <td width="192" valign="top"><p>BCID    (7001) Diagnostic Imaging Report Headings</p></td>
+    <td width="216" valign="top"><p>(DCM,    121060, History)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>6</p></td>
+    <td width="36" valign="top"><p>&gt;&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>TEXT</p></td>
+    <td width="192" valign="top"><p>(DCM,    121060, History)</p></td>
+    <td width="216" valign="top"><p>&nbsp;<em>&ldquo;46-year-old male presented to the emergency room with parasternal    and epigastric pain. &rdquo;</em></p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>7</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>CONTAINER</p></td>
+    <td width="192" valign="top"><p>BCID    (7001) Diagnostic Imaging Report Headings</p></td>
+    <td width="216" valign="top"><p>(DCM,    121070, Findings)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>8</p></td>
+    <td width="36" valign="top"><p>&gt;&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>TEXT</p></td>
+    <td width="192" valign="top"><p>(DCM,    121071, Finding)</p></td>
+    <td width="216" valign="top"><p>&nbsp;<em>&ldquo;There is an aneurysm of the entire thoracic aorta measuring up to    6.2 cm in diameter. &rdquo;</em></p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>9</p></td>
+    <td width="36" valign="top"><p>&gt;&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>IMAGE</p></td>
+    <td width="192" valign="top"><p>(DCM,    121080, &ldquo;Best illustration of findings&rdquo;)</p></td>
+    <td width="216" valign="top"><p>2001B20 / 1 / 66</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>10</p></td>
+    <td width="36" valign="top"><p>&gt;&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>IMAGE</p></td>
+    <td width="192" valign="top"><p>(DCM,    121080, &ldquo;Best illustration of findings&rdquo;)</p></td>
+    <td width="216" valign="top"><p>2001B20 / 1 / 67</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>11</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>CONTAINER</p></td>
+    <td width="192" valign="top"><p>BCID    (7001) Diagnostic Imaging Report Headings</p></td>
+    <td width="216" valign="top"><p>(DCM, 121076, Conclusions)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>12</p></td>
+    <td width="36" valign="top"><p>&gt;&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>TEXT</p></td>
+    <td width="192" valign="top"><p>(DCM,    121077, Conclusion)</p></td>
+    <td width="216" valign="top"><p>&nbsp;<em>&ldquo;Aneurysm of thoracic aorta with dissection affecting ascending and    descending aorta.&rdquo;</em></p></td>
+  </tr>
+</table>
+
+<h3>Report Creator Test 603: MR Images</h3>
+<h3>References</h3>
+<h3>Instructions</h3>
+<ol>
+  <li>Clear  existing reports from the MESA Report Manager:
+  <pre>     perl  scripts/reset_rpt_mgr.pl</pre>
+  </li>
+  <li>Query the MESA Image Manager and retrieve the CR study with Accession Number 2001A10.</li>
+  <li>Create a DICOM SR object according to the values in the tables below.</li>
+  <li>Transmit this DICOM SR object to the MESA Report Manager (port 2700).</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Evaluate  your DICOM SR object:
+  <pre>     perl 602/eval_602_mr.pl</pre>
+  </li>
+</ol>
+
+<H3>Supplemental Information</H3>
+The tables below list the demographics for the patient for this test and the coded values for the sections in the DICOM SR to be created.
+<br />
+
+<table border="1" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="160" valign="top"><p><strong>Attribute</strong></p></td>
+    <td width="190" valign="top"><p><strong>Value</strong></p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Patient    Name</p></td>
+    <td width="190" valign="top"><p align="left">MRTHREE^STEVE</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Patient    ID</p></td>
+    <td width="190" valign="top"><p>MR3</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Patient    Sex</p></td>
+    <td width="190" valign="top"><p>M</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Accession    Number</p></td>
+    <td width="190" valign="top"><p>2001A10</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Study    Instance UID</p></td>
+    <td width="190" valign="top"><p>1.113654.1.2001.10</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Completion    Flag</p></td>
+    <td width="190" valign="top"><p>COMPLETE</p></td>
+  </tr>
+  <tr>
+    <td width="160" valign="top"><p>Verification    Flag</p></td>
+    <td width="190" valign="top"><p>UNVERIFIED</p></td>
+  </tr>
+</table>
+<table border="1" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td width="31" valign="top"><p>&nbsp;</p></td>
+    <td width="36" valign="top"><p><strong>NL</strong></p></td>
+    <td width="78" valign="top"><p><strong>Rel with Parent</strong></p></td>
+    <td width="84" valign="top"><p><strong>VT</strong></p></td>
+    <td width="192" valign="top"><p><strong>Concept Name</strong></p></td>
+    <td width="216" valign="top"><p>&nbsp;<strong>Value    Set Constraint</strong></p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>1</p></td>
+    <td width="36" valign="top"><p>&nbsp;</p></td>
+    <td width="78" valign="top"><p>&nbsp;</p></td>
+    <td width="84" valign="top"><p>CONTAINER</p></td>
+    <td width="192" valign="top"><p>BCID    (7000) Diagnostic Imaging Report Document Titles</p></td>
+    <td width="216" valign="top"><p>(LN,    18755-9, &ldquo;MRI Report&rdquo;)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>2</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>HAS    CONCEPT MOD</p></td>
+    <td width="84" valign="top"><p>CODE</p></td>
+    <td width="192" valign="top"><p>(121049,DCM,&rdquo;Language    of Content Item and Descendents&rdquo;)</p></td>
+    <td width="216" valign="top"><p>(ISO639_2,    eng, English)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>3</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>HAS    OBS CONTEXT</p></td>
+    <td width="84" valign="top"><p>CODE</p></td>
+    <td width="192" valign="top"><p>(DCM, 121005, &ldquo;Observer Type&rdquo;)</p></td>
+    <td width="216" valign="top"><p>(DCM, 121006, Person)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>4</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>HAS    OBS<br />
+      CONTEXT</p></td>
+    <td width="84" valign="top"><p>PNAME</p></td>
+    <td width="192" valign="top"><p>(DCM,    121008, &ldquo;Person Observer Name&rdquo;)</p></td>
+    <td width="216" valign="top"><p><em>MOORE</em><em>^STEVE</em></p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>5</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>CONTAINER</p></td>
+    <td width="192" valign="top"><p>BCID    (7001) Diagnostic Imaging Report Headings</p></td>
+    <td width="216" valign="top"><p>(DCM,    121060, History)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>6</p></td>
+    <td width="36" valign="top"><p>&gt;&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>TEXT</p></td>
+    <td width="192" valign="top"><p>(DCM,    121060, History)</p></td>
+    <td width="216" valign="top"><p>&nbsp;<em>&ldquo;Rule    out internal derangement.&rdquo;</em></p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>7</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>CONTAINER</p></td>
+    <td width="192" valign="top"><p>BCID    (7001) Diagnostic Imaging Report Headings</p></td>
+    <td width="216" valign="top"><p>(DCM,    121070, Findings)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>8</p></td>
+    <td width="36" valign="top"><p>&gt;&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>TEXT</p></td>
+    <td width="192" valign="top"><p>(DCM,    121071, Finding)</p></td>
+    <td width="216" valign="top"><p>&nbsp;<em>&ldquo;Within    the posterior horn of the medial meniscus there is minimal increase in signal    intensity.&rdquo;</em></p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>9</p></td>
+    <td width="36" valign="top"><p>&gt;&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>IMAGE</p></td>
+    <td width="192" valign="top"><p>(DCM,    121080, &ldquo;Best illustration of findings&rdquo;)</p></td>
+    <td width="216" valign="top"><p>2001A10 / 103 / 45</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>10</p></td>
+    <td width="36" valign="top"><p>&gt;&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>IMAGE</p></td>
+    <td width="192" valign="top"><p>(DCM,    121080, &ldquo;Best illustration of findings&rdquo;)</p></td>
+    <td width="216" valign="top"><p>2001A10 / 103 / 46</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>11</p></td>
+    <td width="36" valign="top"><p>&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>CONTAINER</p></td>
+    <td width="192" valign="top"><p>BCID    (7001) Diagnostic Imaging Report Headings</p></td>
+    <td width="216" valign="top"><p>(DCM, 121076, Conclusions)</p></td>
+  </tr>
+  <tr>
+    <td width="31" valign="top"><p>12</p></td>
+    <td width="36" valign="top"><p>&gt;&gt;&nbsp;</p></td>
+    <td width="78" valign="top"><p>CONTAINS</p></td>
+    <td width="84" valign="top"><p>TEXT</p></td>
+    <td width="192" valign="top"><p>(DCM,    121077, Conclusion)</p></td>
+    <td width="216" valign="top"><p>&nbsp;<em>&ldquo;Joint diffusion with superior joint plicae.&rdquo;</em></p></td>
+  </tr>
+</table>
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_604" id="#test_604">Report Creator Test 604: Partial and Unverified</a></h2>
+<p>This test is identical to the 601 tests, except for the  values of document flags in the SR objects.&nbsp;  The <em>Completion Flag</em> (0040  A491) should be set to PARTIAL, and the <em>Verification Flag</em> (0040 A493) should be set to  UNVERIFIED.</p>
+</td></tr></table>
+<h2><a name="#test_605" id="#test_605">Report Creator Test 605: Partial and Verified</a></h2>
+<p>This test is identical to the 601 tests, except for the  values of document flags in the SR objects.&nbsp;  The <em>Completion Flag</em> (0040  A491) should be set to PARTIAL, and the <em>Verification Flag</em> (0040 A493) should be set to  VERIFIED.</p>
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_606" id="#test_606">Report Creator Test 606: Complete and Verified</a></h2>
+<p>This test is identical to the 601 tests, except for the  values of document flags in the SR objects.&nbsp;  The <em>Completion Flag</em> (0040  A491) should be set to COMPLETE, and the <em>Verification Flag</em> (0040 A493) should be set to  VERIFIED.</p>
+</td></tr></table>
+<h2><a name="#test_607" id="#test_607">Report Creator Test 607: Amended Report</a></h2>
+<p>This test is identical to Test 601 with the addtion of the  Predecessor Documents Sequence.&nbsp; The goal  of this test is to create one report and then to create a second, amended  report.&nbsp; You will send both reports to  the MESA Report Manager.&nbsp; Follow the  instructions for the 601 test, but send both the original and the amended  report to the MESA Report Manager.&nbsp;  Remember to clear the Report Manager if you need to start the test over.<br />
+  After the second report has been transmitted, run the  evaluation script as appropriate for your system.&nbsp; In addition to the attributes tested in the  601 tests, we evaluate the contents of the <em>Predecessor  Documents Sequence</em> (0040 A360) found in your second report.<br />
+  These tests are for functionality that might not be  included with your application.&nbsp; This is  an optional test.</p>
+<h1><a name="#indiv_tests_workstations" id="#indiv_tests_workstations">Individual Tests for Measurement Workstations</a></h1>
+<table><tr><td bgcolor="#FFFF99">
+<h2><a name="#test_651" id="#test_651">Report Creator Test 651: SINR for Measurement Workstations</a></h2>
+<p>Test 651 is required of Measurement Workstations.&nbsp; This test will require you to create a  structured report according to the <em>Basic  Diagnostic Imaging Report</em> template (TID 2000).&nbsp; All items in the template that are marked  mandatory will be tested.</p>
+<h3>References</h3>
+<h3>Instructions</h3>
+<ol>
+  <li>Clear  existing reports from the MESA Report Manager:
+  <pre>     perl  scripts/reset_rpt_mgr.pl</pre>
+  </li>
+  <li>Create a numeric report that conforms to DICOM TID 2000. Make sure the report contains a Patient ID. Transmit that report to the MESA  Report Manager.</li>
+  </ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Evaluate  the report as follows:
+  <pre>     perl 651/eval_651.pl &lt;Patient ID&gt;  [-v]</pre>
+  </li>
+</ol>
+<h3>Supplemental Information </h3>
+<ol>
+  <li>The  name of the file that is evaluated is listed in 651/grade_651.txt.
+Send this file to the Project Manager for  further evaluation and for distribution to other participants.</li>
+</ol></td>
+</tr></table>
+<h1><a name="#tests_for_rpt_work" id="#tests_for_rpt_work">Tests for Reporting Working</a></h1>
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_1601" id="#test_1601">Report Creator Test 1601: Interpretation  Worklist</a></h2>
+<p>Test 1601 covers the Interpretation task in the Reporting  Workflow integration profile (see IHE TF, Vol I: section 13.3). This test only  covers the interpretation step and does not include creation of any other items  (such as transcriptions or reports).</p>
+<h3>References</h3>
+<h3>Instructions</h3>
+<p>To complete this test, your Report Creator needs to be  able to:</p>
+<ol>
+  <li>Obtain  the General Purpose Worklist from the MESA Report Manager.</li>
+  <li>Claim  the one worklist entry on the Report Manager.</li>
+  <li>Send  appropriate GPPPS messages to complete the interpretation step.</li>
+  <li>Release  the worklist entry.</li>
+</ol>
+<p>To run this test:
+  <pre>     perl scripts/rptcrt_rwf.pl 1601 &lt;log&gt;</pre>
+  <h3>Evaluation</h3>
+  <p>To evaluate this test:
+  </p>
+  <pre>     perl 1601/eval_1601.pl &lt;log&gt; &lt;GPPS  AE title&gt;</pre>
+  Where log is the amount of logging :</p>
+</td></tr></table>
+<h1><a name="#basic_sec_tests" id="#basic_sec_tests">Basic Security Tests</a></h1>
+<p>This section describes tests that are specific to the IHE  Basic Security integration profile. If you have the MESA servers running for the &ldquo;standard&rdquo;  tests, you should stop those servers now. You will need to start the MESA secure servers with a  different script.</p>
+<table><tr><td bgcolor="#FFFF99">
+<h2><a name="#test_1511" id="#test_1511">Report Creator Test 1511: Simple Imaging Report</a></h2>
+<p>Report Creator Test 1511 uses the same structure as test  601. The Report Creator is expected to communicate with other systems using TLS  negotiation and to send appropriate audit messages to the MESA syslog server.<br />
+  The table below lists the Audit Messages that should be  generated by your Report Creator. Please refer to the document <em>IHE Tests:  Transaction Sequences</em> for the full context of these messages. You might  trigger other messages to the Audit Record Repository based on your interaction  with your Report Creator.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="115" valign="top"><p><strong>Identifier</strong></p></td>
+    <td width="246" valign="top"><p><strong>Description</strong></p></td>
+    <td width="144" valign="top"><p><strong>Source</strong></p></td>
+    <td width="133" valign="top"><p><strong>Destination</strong></p></td>
+  </tr>
+  <tr>
+    <td width="115" valign="top"><p>1511.010</p></td>
+    <td width="246" valign="top"><p>Begin-storing-instances</p></td>
+    <td width="144" valign="top"><p>Report Creator</p></td>
+    <td width="133" valign="top"><p>Report Manager</p></td>
+  </tr>
+</table>
+<h3>References</h3>
+<h3>Instructions</h3>
+<ol>
+  <li>Start  the <strong><em><u>secure</u></em></strong> MESA  servers as instructed in <a href="#start_servers">Starting the MESA Servers</a>.</li>
+  <li>Clear  existing reports from the MESA Report Manager:
+    <pre>perl scripts/reset_rpt_mgr.pl </pre>
+  </li>
+  <li>Create  a DICOM SR object according to the values in the tables in section 2.1.1</li>
+  <li>Transmit  this DICOM SR object to the MESA Report Manager (port 2700). As part of this  process, you are expected to send an Audt Record to the MESA Audit Record  Repository.</li>
+  </ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Evaluate  your DICOM SR object and Audit Record:
+  <pre>     perl 1511/eval_1511.pl</pre>
+  </li>
+</ol>
+<h3>Supplemental Information </h3>
+<ol>
+  <li>Grab all of the files (tar/zip) in <em>$MESA_TARGET/logs/syslog</em> and send these to the Project Manager.</li>
+</ol></td>
+</tr></table>
+<h1><a name="#indiv_tests_card" id="#indiv_tests_card">Individual Tests for Cardiology</a></h1>
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_20501" id="#test_20501">Report Creator Test 20501: Verify HL7  Encapsulated Report Message Content (CARD-7)</a></h2>
+<p>Test 20501 tests the creation and content of an HL7  message with an encapsulated PDF report.<br />
+  This test will require your system to create a HL7 ORU(encapsulated  report - unsoliticited ) according to the <em>IHE  Cardiology Techinical Framework Year2:2005-2006 Volume II, Section 4.7</em>. </p>
+<h3>References</h3>
+<h3> Instructions</h3>
+<p>To run this test, follow these steps using a DOS window or  terminal emulator:</p>
+<ol>
+  <li>Set  the current directory to <em>$MESA_TARGET/mesa_tests/card/actors/rpt_crt</em>.</li>
+  <li>Make  sure the MESA  servers have been started as described in section 1.5 above.</li>
+  <li>Reset  the MESA report  manager server:
+    <pre>perl  scripts/reset_rpt_mgr.pl</pre>
+  </li>
+  <li>Construct an ORU message with an encapsulated PDF report. Send the message to the MESA Report Manager (port 2750).</li>
+  <li>Run  the evaluation script below.</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Run  the evaluation script
+    <pre>perl  20501/eval_20501.pl &lt;log level&gt;</pre>
+  </li>
+  <li>The evaluation output is found in 20501/grade_20501.txt. The final result should  indicate 0 errors. Submit the result run at log level 4 to the Project Manager.</li>
+</ol>
+<h3>Supplemental Information </h3>
+<p>For this test, the MESA tools evaluate the  following elements:</p>
+<ul>
+  <li>OBR25 = R/P/F/C</li>
+</ul>
+<p>For OBX w/ Study Instance  UID, verify:</p>
+<ul>
+  <li>OBX3= &ldquo;113014/DICOM Study/DCM&rdquo;</li>
+  <li>OBX5 = valid format for SIU</li>
+  <li>OBX11 = &ldquo;O&rdquo;</li>
+</ul>
+<p>For OBX w/ PDF report,  verify:</p>
+<ul>
+  <li>OBX3 = a (any) Report Title, e.g., a Report  Title from Vol 2 Appendix D</li>
+  <li>OBX 5 Source Application ID = a valid ISO OID</li>
+  <li>OBX5 Type of Data = &ldquo;Application&rdquo;</li>
+  <li>OBX5 Data Subtype = &ldquo;PDF&rdquo;</li>
+  <li>OBX11= R/P/F/C and matches OBR25 </li>
+</ul>
+<p>Any missing or incorrect  elements will result in a &ldquo;failure&rdquo;.&nbsp; You  cannot ignore this failure.</p>
+</td>
+</tr></table>
+<h2><a name="#test_20502" id="#test_20502">Test Case 20502: Visual Verify of PDF Content (CARD-7)</a></h2>
+<p>Test 20502 is the simple visual verification of the PDF  content.&nbsp; This test tests the case where the  PDF becomes disassociated with the PDF message content.<br />
+  In this test there is no MESA software or scripts involved.&nbsp; Any patient name and ID can be used.<br />
+  Using a &ldquo;good&rdquo; report within your Report Creator, the  vendor should create a word or pdf file using the document naming convention  of: CompanyName_Product_ 20502_RC_2005.doc.
+Using any vendor report viewing tool cut and paste in information from your own product which demonstrates that the followng data elements are visible in a report:</p>
+<ul>
+  <li>Identity  of signing clinician (legal signature)</li>
+</ul>
+<p>The  following items are recommended, but not required (please note which are  included in an email):</p>
+<ul>
+  <li>Patient  name</li>
+  <li>Patient  ID</li>
+  <li>Date  of Procedure</li>
+  <li>Type  of Procedure</li>
+  <li>Date  of Report</li>
+  <li>Status  of Report</li>
+</ul>
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_20510" id="#test_20510">Test Case 20510: Describe Report Creator Methods</a></h2>
+<p>Do not divulge any proprietary information. Create a Word document with the following  naming convention: CompanyName_Product_20510_RC_2005.doc and submit it to the Project Manager.<br />
+In 500 words or less for each, describe the following for  the Report Creator&rsquo;s:</p>
+<ul>
+<ol type="a">
+  <li>What  report statuses are sent by this Report Creator?</li>
+  <li>Describe  how the physicians identity is conveyed in the PDF for results status P, F, and  C (e.g., &ldquo;signature on file&rdquo; mechanism? Other?).</li>
+  <li>Describe  the Report Signature and Verification process.</li>
+</ol>
+</ul></td></tr></table>
+</body>
+</html>

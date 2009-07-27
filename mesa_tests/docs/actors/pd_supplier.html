@@ -1,0 +1,1207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>IHE MESA Patient Demographics Supplier Tests</title>
+</head>
+
+<body>
+<p align="center"><strong>&nbsp;</strong></p>
+<p align="center"><strong>Integrating the Healthcare Enterprise</strong></p>
+<p align="center"><strong>&nbsp;</strong></p>
+<p align="center"><strong>&nbsp;</strong><strong>IHE/MESA Patient Demographics Supplier Tests</strong></p>
+<p>&nbsp;</p>
+<p align="center">Electronic Radiology  Laboratory<br />
+  Mallinckrodt Institute of  Radiology<br />
+  510 South    Kingshighway Blvd. <br />
+  St. Louis, MO&nbsp; 63110 <br />
+  314.362.6965 (Voice)<br />
+  314.362.6971 (Fax)</p>
+<p align="center">&nbsp;</p>
+<p align="center">Revision 10.11.0<br />
+  29-November-2006</p>
+<strong>Contents:</strong><br clear="all" />
+
+  <p><a href="#patient_dem">Patient Demographics Supplier </a> <br />
+      <a href="#intro">Introduction</a> <br />
+      <a href="#patient_id"> Patient Identification</a> <br />
+      <a href="#config">Configuration</a> <br />
+      <a href="#start_servers">Starting the MESA Servers</a> <br />
+      <a href="#inst_test"> Installation  Test</a> <br />
+      <a href="#test_software">Test Software Environment</a> <br />
+      <a href="#sub_results">Submission of Results</a> <br /></p>
+<a href="#test_cases_pam">Test  Cases PAM</a>
+  <ol>
+    <li><a href="#test_12101"> Test Case 12101: PAM Create New  Patient</a></li>
+    <li><a href="#test_12102"> Test Case 12102: PAM Update Patient  Information</a></li>
+  </ol>
+
+ <a href="#test_cases_pdq">Test  Cases PDQ</a>
+  <ol>
+    <li><a href="#test_11311">11311: Exact Name Search</a></li>
+    <li><a href="#test_11312">11312: Name Search &ndash; No Match</a></li>
+    <li><a href="#test_11315">11315: Partial Name Search</a></li>
+    <li><a href="#test_11320">11320: Complete ID Search &ndash; Unspecified Domain</a></li>
+    <li><a href="#test_11325">11325: Complete ID Search - Single Domain</a></li>
+    <li><a href="#test_11330">11330: Complete ID Search - Multiple Domains</a></li>
+    <li><a href="#test_11335">11335: Partial ID Search - Single Domain</a></li>
+    <li><a href="#test_11340">11340: Date of Birth Search</a></li>
+    <li><a href="#test_11345">11345: Age Range Search Search</a></li>
+    <li><a href="#test_11350">11350: Multi Key Search 1</a></li>
+    <li><a href="#test_11355">11355: Multi Key Search 2</a></li>
+    <li><a href="#test_11360">11360: Attending Doctor</a></li>
+    <li><a href="#test_11365">11365: Continuation Test 1</a></li>
+  </ol>
+ <p><a href="#appendix_a">Appendix A: Patient Demographics for PDQ Tests</a></p>
+
+  <h1><a name="#patient_dem" id="#patient_dem">Patient Demographics Supplier </a> </h1>
+  <h2><a name="#intro" id="#intro">Introduction</a> </h2>
+<p>The MESA tests include a  number of cases each of which rely on a sequence of messages between actors. These  tests range across different integration profiles:</p>
+<ul>
+  <li>Patient  Administration Management</li>
+</ul>
+<p>This  document lists the transactions and messages for a number of cases. It may not  describe the clinical scenario behind each case, but listing the transactions  should clearly define what is expected of each actor.&nbsp; These are all of the transactions involving  all of the actors.&nbsp; When you test with  your particular actor, you may see only a subset of these messages.</p>
+<h2><a name="#patient_id" id="#patient_id"></a>Patient Identification</h2>
+<p>The tests described  in this document cover three profiles. For tests appropriate to the PAM profile, the tests will define the format of identifiers (e.g., Assigning Authority) but will impose no requirements on the value of identifiers. These are assumed to be under the control of the Patient Demographics Supplier.</p>
+<p>The patient demographics, identifiers and assigning authority values for the PDQ tests are listed in <a href="#appendix_a">Appendix </a>A.</p>
+<h2><a name="#config" id="#config">Configuration</a></h2>
+<p>The MESA scripts are run from  the directory <em>$MESA_TARGET/mesa_tests/iti/actors/pd_supplier</em>.<br />
+  The ASCII configuration file 
+  <em>pd_supplier.cfg</em> contains parameters that identify the Patient Demographics Supplier under test 
+and the MESA Patient Demographics Supplier.</p>
+<p>
+  You can skip the configuration step below if testing only the PAM profile (your system
+  initiates outbound connections and does not accept inbound connections). </p>
+<p>
+  Edit the configuration file and modify the two entries that begin with TEST to
+  identify your Patient Demographics Supplier.
+  The value for TEST_PDS_HOST_HL7 can specify an IP address or a
+  host name (assuming the host table or DNS is accurate).
+  The default port number for the MESA Patient Demographics Supplier is 3700.
+  You should only   change this port number if there is a conflict with another
+  service on the MESA test computer.
+  There will be no conflicts with other MESA servers; the only conflict would occur with
+  something from the operating system or other software package.</p>
+<p>For PDQ tests, the MESA software uses fixed values for MSH-5 (Receiving Application) and MSH-6 (Receiving Facility). The map from the MSH-5 value and identifier domain is defined in <a href="#appendix_a">Appendix A</a>. </p>
+<h2><a name="#start_servers" id="#start_servers">Starting the </a>MESA Servers</h2>
+<p>MESA servers are started from a DOS/CMD  window or a terminal emulator. Follow these steps for Unix systems</p>
+<ol>
+  <pre><li>cd $MESA_TARGET/mesa_tests/iti/actors/pd_supplier</li></pre>
+  <pre><li>scripts/start_mesa_servers.csh</li></pre></ol>
+<p>To stop the  servers:
+<pre>     scripts/stop_mesa_servers.csh</pre>
+  The start  instructions for MESA  tools on a Windows system are:</p>
+  <ol>
+    <pre><li>cd %MESA_TARGET%\mesa_tests\iti\actors\pd_supplier</li></pre>
+    <pre><li>scripts\start_mesa_servers.bat</li></pre>
+  </ol>
+  <p>To stop the  servers:
+  <pre>     scripts/stop_mesa_servers.bat</pre>
+<h2><a name="#inst_test" id="#inst_test">Installation Test</a></h2>
+<p>This is described as test #1 in the Installation Manual. </p>
+<h2><a name="#test_software" id="#test_software">Test Software Environment</a></h2>
+<p>This is described as test #1 in the Installation Manual.</p>
+<h2><a name="#sub_results" id="#sub_results"></a>Submission  of Results</h2>
+<p>Test descriptions  below inform the reader to &ldquo;submit results to the Project Manager&rdquo;. This is  does not mean &ldquo;email&rdquo;. The current submission process should be documented by  the Project Manager, but will not include emailing files directly to the  Project Manager.</p>
+
+<h1><a name="#test_cases_pdq" id="#test_cases_pdq">Test Cases PDQ</a></h1>
+<p>This section describes test cases that are generally  associated with the PDQ
+   Integration Profile.
+   There may be some overlap with  other profiles.
+</p>   
+<p>The test cases use a database of patient records that are taken from A01 and
+   A04 messages.
+   These can be loaded in the Patient Demographics Supplier under test by running
+   the script
+<pre>  perl scripts/pds_pdq.pl 11300 4</pre>
+   This will send ADT messages to the PD Supplier under test using IHE ITI
+   transactions defined for other integration profiles.
+   <p>The user can also load the PD Supplier manually by entering the information
+   found in <a href="#appendix_a">Appendix A</a> of this document.
+   If you choose not to load the PD Supplier with the ADT messages supplied above,
+   you will still need to load the MESA PD supplier. To do, use this script:
+<pre>  perl scripts/load_mesa.pl 11300 4</pre>
+   The Technical Framework does not define the semantics of the matching algorithm.
+   For example, one of the queries is by partial last name (MOO*).
+   The user will need to modify the test data to match the query expected by the supplier.
+</p>
+
+
+<table><tr><td bgcolor="#FFFF99">
+ <h2><a name="#test_11311" id="#test_11311">11311: Exact Name Search</a></h2>
+  <p>Test case 11311 covers an exact name search by the Patient Demographics Consumer.
+     The MESA PD Consumer sends a Patient Demographics Query that includes an exact patient
+     name.
+  <table align="center" border="2" cellspacing="2" cellpadding="2">
+	<tr>
+      <th scope="col">Query Field </th>
+      <th scope="col">Query Value </th>
+    </tr>
+    <tr>
+      <td>QPD 1 </td>
+      <td>IHE PDQ Query </td>
+    </tr>
+    <tr>
+      <td>QPD 3 </td>
+      <td>@PID.5.1^MOORE~@PID.5.2^CHIP</td>
+    </tr>
+    <tr>
+      <td>QPD 8 </td>
+      <td>^^^&amp;1.3.6.1.4.1.21367.2005.1.1&amp;ISO</td>
+    </tr>
+  </table>
+  <p>
+    No other query keys are present.
+    Because an exact name is included, the supplier is expected to respond with one record.</p>
+  <p>This test assumes a narrow matching algorithm that will only find one record of the several records loaded as test data. If your matching algorithm uses a more liberal implementation, run the test and submit notes with the results explaining where your test results differ from the expected value. </p>
+  <h3>References</h3>
+  <p>ITI TF-2: 3.21</p>
+  <h3>Instructions</h3>
+  <p>To run this test, follow these steps using a DOS window or terminal emulator:
+  <ol>
+   <li>Set the current directory to <em>$MESA_TARGET/mesa_tests/iti/actors/pd_supplier</em>.</li>
+   <li>The file pd_supplier.cfg describes the Patient Demographics Supplier for this
+       test.</li>
+   <li>Make sure the MESA servers have been started. See <a href="#start_servers">Starting the MESA Server</a><em>s</em> for details</li>
+   <li>Load patient demographics into PD supplier. You can use the MESA scripts for this or       load the demographics by hand. To use the MESA scripts:
+       <pre>  perl scripts/pds_pdq.pl 11300 2</pre></li>
+   <li>Load the MESA server with demographics if you did not use the script in step 4:
+       <pre>perl scripts/load_mesa.pl 11300 2</pre></li>
+   <li>Run the test script as follows:
+       <pre>perl scripts/pds_pdq.pl 11311 &lt;log level&gt;</pre>
+       where &lt;log level&gt; is a value between 1 and 4.</li>
+   <li>The test script will send one Patient Demographics Query to the PD Supplier
+       under test.</li>
+  </ol>
+  </p>
+  <h3>Evaluation</h3>
+  <p>To evaluate your response to this test:
+   <ol>
+    <li>Run the evaluation script:
+	 <pre>   perl 11311/eval_11311.pl &lt;log level&gt;</pre>
+    </li>
+    <li>The output file is 11311/grade_11311.txt.
+	    This test is successfully completed when the last line in the output file
+		indicates 0 errors.</li>
+	<li>Submit the grade_11311.txt at log level 4 to the Project Manager.</li>
+   </ol>
+  </p>
+  
+  <h3>Supplementary Information :
+  </h3>
+  <ol>
+   <li>If you want to see a response generated by a MESA PD Supplier, run test 11311
+       in self test mode. Then run the evaluation as above and examine the grade file.
+	   To run in self test mode:
+	   <pre>  perl scripts/pds_pdq.pl 11311 4 self</pre>
+   </li>
+   </ol>  
+  
+</td></tr></table>
+
+<table><tr><td bgcolor="#FFFFFF">
+ <h2><a name="#test_11312" id="#test_11312">11312: Name Search &ndash; No Match</a></h2>
+ <p>Test case 11312 covers a search by last name that results in 0 patient records found.
+  The MESA PD Consumer sends a Patient Demographics Query that includes an exact
+  patient name.
+
+  <table align="center" border="2" cellspacing="2" cellpadding="2">
+	<tr>
+      <th scope="col">Query Field </th>
+      <th scope="col">Query Value </th>
+    </tr>
+    <tr>
+      <td>QPD 1 </td>
+      <td>IHE PDQ Query </td>
+    </tr>
+    <tr>
+      <td>QPD 3 </td>
+      <td>@PID.5.1^ZEBRA</td>
+    </tr>
+    <tr>
+      <td>QPD 8 </td>
+      <td>^^^&amp;1.3.6.1.4.1.21367.2005.1.1&amp;ISO</td>
+    </tr>
+  </table> 
+ <p> 
+  No other query keys are present.
+  Because an exact name is included, the supplier is expected to respond with zero
+  records and the proper status in QAK-2.
+ </p>
+ 
+ <h3>References</h3>
+ <p>ITI TF-2: 3.21</p>
+ 
+ <h3>Instructions</h3>
+ <p>To run this test, follow these steps using a DOS window or terminal emulator:
+  <ol>
+   <li>Set the current directory to <em>$MESA_TARGET/mesa_tests/iti/actors/pd_supplier</em>.</li>
+   <li>The file pd_supplier.cfg describes the Patient Demographics Supplier for this test.</li>
+   <li>Make sure the MESA servers have been started. See <a href="#start_servers">Starting the MESA Servers</a> for details.</li>
+   <li>Load patient demographics into PD supplier. You can use the MESA scripts for
+       this or load the demographics by hand. To use the MESA scripts:
+	   <pre>   perl scripts/pds_pdq.pl 11300 2</pre></li>
+   <li>Load the MESA server with demographics if you did not use the script in step 4:
+       <pre>perl scripts/load_mesa.pl 11300 2</pre></li>
+   <li>Run the test script as follows:
+       <pre>  perl scripts/pds_pdq.pl 11312 &lt;log level&gt;</pre>
+       where &lt;log level&gt; is a value between 1 and 4.</li>
+   <li>The test script will send one Patient Demographics Query to the PD Supplier
+	    under test.</li>
+  </ol>
+ </p>
+ 
+ <h3>Evaluation</h3>
+
+ <p>To evaluate your response to this test:
+  <ol>
+   <li>Run the evaluation script:
+       <pre>  perl 11312/eval_11312.pl &lt;log level&gt;</pre>
+   </li>
+   <li>The output file is 11312/grade_11312.txt. This test is successfully completed
+       when the last line in the output file indicates 0 errors.</li>
+   <li>Submit the grade file at log level 4 to the Project Manager.</li>
+  </ol>
+ 
+ <h3>Notes</h3>  
+ <ol>
+  <li>If you want to see a response generated by a MESA PD Supplier, run test 11312
+      in self test mode. Then run the evaluation as above and examine the grade file.
+	  To run in self test mode:
+      <pre>  perl scripts/pds_pdq.pl 11312 4 self</pre>
+  </li>
+  </ol>
+</td></tr></table>
+
+<table><tr><td bgcolor="#FFFF99">
+ <h2><a name="#test_11315" id="#test_11315">11315: Partial Name Search</a></h2>
+ <p>Test case 11315 covers a partial name search by the Patient Demographics Consumer.
+    The MESA PD Consumer sends a Patient Demographics Query that includes a partial
+	patient name.</p>
+	
+  <table align="center" border="2" cellspacing="2" cellpadding="2">
+	<tr>
+      <th scope="col">Query Field </th>
+      <th scope="col">Query Value </th>
+    </tr>
+    <tr>
+      <td>QPD 1 </td>
+      <td>IHE PDQ Query </td>
+    </tr>
+    <tr>
+      <td>QPD 3 </td>
+      <td>@PID.5.1^MOO*</td>
+    </tr>
+    <tr>
+      <td>QPD 8 </td>
+      <td>^^^&amp;1.3.6.1.4.1.21367.2005.1.1&amp;ISO</td>
+    </tr>
+  </table> 
+  <p>
+    No other query keys are present.
+    The query semantics for partial name matches are not defined in the Technical
+	Framework. If your supplier expects a different query, you will need to contact
+	the Project Manager to modify this test.
+ </p>
+ <p>In the query, RCP-2 (Quantity Limited Response) is sent with the value 10^RD.
+    Your supplier is expected to send a complete response in a single message and
+	not use continuation.</p>
+ <p>Based on the demographic data loaded for the test, we expect the PD Supplier to respond with 4 patients. The matching algorithm is undefined by the Technical Framework, and your system may return more or fewer records. In that event, submit the results with a note explaining the differences.</p>
+ <h3>Instructions</h3>
+ <p>To run this test, follow these steps using a DOS window or terminal emulator:
+  <ol>
+   <li>Set the current directory to <em>$MESA_TARGET/mesa_tests/iti/actors/pd_supplier</em>.</li>
+   <li>The file pd_supplier.cfg describes the Patient Demographics Supplier for
+       this test.</li>
+   <li>Make sure the MESA servers have been started. See <a href="#start_servers">Starting the MESA Servers</a> for details.</li>
+   <li>Run the test script as follows:
+       <pre>  perl scripts/pds_pdq.pl 11315 &lt;log level&gt;</pre>
+       where &lt;log level&gt; is a value between 1 and 4.</li>
+   <li>The test script will send one Patient Demographics Query to the PD Supplier
+       under test.</li>
+  </ol>
+ </p>
+
+ <h3>Evaluation</h3>
+ <p>To evaluate your response to this test:
+  <ol>
+   <li>Run the evaluation script:
+       <pre>  perl 11315/eval_11315.pl &lt;log level&gt;</pre>
+   </li>
+   <li>The output file is 11315/grade_11315.txt. This test is successfully completed
+       when the last line in the output file indicates 0 errors.</li>
+   <li>Submit the grade file at log level 4 to the Project Manager.</li>
+  </ol>
+ </p>
+ 
+ <h3>Notes</h3>
+ <ol>
+  <li>If you want to see a response generated by a MESA PD Supplier, run test 11315 in
+      self test mode. Then run the evaluation as above and examine the grade file.
+	  To run in self test mode:
+      <pre>perl scripts/pds_pdq.pl 11315 4 self</pre>
+  </li>
+  </ol> 
+</td></tr></table>
+
+
+<table><tr><td bgcolor="#FFFFFF">
+ <h2><a name="#test_11320" id="#test_11320">11320: Complete ID Search &ndash; Unspecified Domain</a></h2>
+ 
+ <p>Test case 11320 covers a complete ID search where the return domains are unspecified
+    by the Patient Demographics Consumer.
+    The MESA PD Consumer sends a Patient Demographics Query that includes a
+	complete Patient ID:</p>
+	
+  <table align="center" border="2" cellspacing="2" cellpadding="2">
+	<tr>
+      <th scope="col">Query Field </th>
+      <th scope="col">Query Value </th>
+    </tr>
+    <tr>
+      <td>QPD 1 </td>
+      <td>IHE PDQ Query </td>
+    </tr>
+    <tr>
+      <td>QPD 3 </td>
+      <td>@PID.3.1^PDQ113XX05</td>
+    </tr>
+    <tr>
+      <td>QPD 8 </td>
+      <td>&nbsp;</td>
+    </tr>
+  </table>
+
+  <p>
+    No other query keys are present. The field QPD-8 is empty.
+ </p>
+ <p>In the query, RCP-2 (Quantity Limited Response) is sent with the value 10^RD.
+    Your supplier is expected to send a complete response in a single message and not
+	use continuation.
+ </p>
+ 
+ <h3>References</h3>
+ <p>ITI TF-2: 3.21</p>
+ 
+ <h3>Instructions</h3>
+ <p>To run this test, follow these steps using a DOS window or terminal emulator:
+  <ol>
+   <li>Set the current directory to <em>$MESA_TARGET/mesa_tests/iti/actors/pd_supplier</em>.</li>
+   <li>The file pd_supplier.cfg describes the Patient Demographics Supplier for this test.</li>
+   <li>Make sure the MESA servers have been started. See <a href="#start_servers">Starting the MESA Servers</a> for details.</li>
+   <li>Run the test script as follows:
+       <pre>  perl scripts/pds_pdq.pl 11320 &lt;log level&gt;</pre>
+       where &lt;log level&gt; is a value between 1 and 4.</li>
+   <li>The test script will send one Patient Demographics Query to the PD Supplier
+       under test.</li>
+  </ol>
+ </p>
+ 
+ <h3>Evaluation</h3>
+ <p>To evaluate your response to this test:
+  <ol>
+   <li>Run the evaluation script
+       <pre>  perl 11320/eval_11320.pl &lt;log level&gt;</pre>
+   </li>
+   <li>The output file is 11320/grade_11320.txt. This test is successfully completed
+       when the last line in the output file indicates 0 errors.</li>
+   <li>Submit the grade file at log level 4 to the Project Manager.</li>
+  </ol>
+ </p>
+ 
+ <h3>Supplementary Information: </h3>
+ <ol>
+  <li>If you want to see a response generated by a MESA PD Supplier, run test 11320 in
+      self test mode. Then run the evaluation as above and examine the grade file.
+	  To run in self test mode:
+      <pre>  perl scripts/pds_pdq.pl 11320 4 self</pre>
+  </li>
+  </ol> 
+   
+</td></tr></table>
+
+
+<table><tr><td bgcolor="#FFFF99">
+ <h2><a name="#test_11325" id="#test_11325">11325: Complete ID Search - Single Domain</a></h2>
+ <p>Test case 11325 covers a complete ID search within a single domain that is specified
+    by the PD Consumer. The MESA PD Consumer sends a Patient Demographics Query that
+	includes a complete Patient ID and a specific, single domain in QPD-8:</p>
+
+  <table align="center" border="2" cellspacing="2" cellpadding="2">
+	<tr>
+      <th scope="col">Query Field </th>
+      <th scope="col">Query Value </th>
+    </tr>
+    <tr>
+      <td>QPD 1 </td>
+      <td>IHE PDQ Query </td>
+    </tr>
+    <tr>
+      <td>QPD 3 </td>
+      <td>@PID.3.1^PDQ113XX02</td>
+    </tr>
+    <tr>
+      <td>QPD 8 </td>
+      <td>^^^&amp;1.3.6.1.4.1.21367.2005.1.1&amp;ISO</td>
+    </tr>
+  </table>
+
+ <p>In the query, RCP-2 (Quantity Limited Response) is sent with the value 10^RD.
+    Your supplier is expected to send a complete response in a single message and not
+	use continuation. </p>
+ <h3>References</h3>
+ <p>ITI TF-2: 3.21</p>
+ 
+ <h3>Instructions</h3>
+ <p>To run this test, follow these steps using a DOS window or terminal emulator:
+  <ol>
+   <li>Set the current directory to <a href="#start_servers">$MESA_TARGET/mesa_tests/iti/actors/pd_supplier</a>.</li>
+   <li>The file pd_supplier.cfg describes the Patient Demographics Supplier for this test.</li>
+   <li>Make sure the MESA servers have been started. See <a href="#start_servers">Starting the MESA Servers</a> for details.</li>
+   <li>Run the test script as follows:
+       <pre>  perl scripts/pds_pdq.pl 11325 &lt;log level&gt;</pre>
+       where &lt;log level&gt; is a value between 1 and 4.</li>
+   <li>The test script will send one Patient Demographics Query to the PD Supplier
+       under test.</li>
+  </ol>
+ </p>
+ 
+ <h3>Evaluation</h3>
+ <p>To evaluate your response to this test:
+  <ol>
+   <li>Run the evaluation script:
+       <pre>  perl 11325/eval_11325.pl &lt;log level&gt;</pre>
+   </li>
+   <li>The output file is 11325/grade_11325.txt. This test is successfully completed
+       when the last line in the output file indicates 0 errors.</li>
+   <li>Submit the grade file at log level 4 to the Project Manager.</li>
+  </ol>
+ </p>
+ 
+ <h3>Supplemental Information: </h3>
+ <ol>
+  <li>If you want to see a response generated by a MESA PD Supplier, run test 11325 in
+      self test mode. Then run the evaluation as above and examine the grade file.
+	  To run in self test mode:
+      <pre>  perl scripts/pds_pdq.pl 11325 4 self</pre>
+  </li>
+  </ol>
+  
+</td></tr></table>
+
+<table><tr><td bgcolor="#FFFFFF">
+ <h2><a name="#test_11330" id="#test_11330">11330: Complete ID Search - Multiple Domains</a></h2>
+ <h3>Not implemented in this release.</h3>
+ <p>Test case 11330 covers a complete ID search where the domain of interest (QPD-8) is
+    different from the Patient ID Domain associated with MSH-5 Receiving Application.
+	The MESA PD Consumer sends a Patient Demographics Query that includes a
+	complete Patient ID
+	<pre>  PID.3.1 = PDQ113XX01</pre>
+    No other query keys are present.
+  </p>
+  <p>The field QPD-8 has the value &ldquo;ADT2&rdquo; to specify that domain in
+     the response. This is a different domain from the domain specified by MSH-5
+	 Receiving Application.
+  </p>
+  <p>In the query, RCP-2 (Quantity Limited Response) is sent with the value 10^RD.
+     Your supplier is expected to send a complete response in a single message and not
+	 use continuation.
+  <p>
+  <h3>References</h3>
+  <p>ITI TF-2: 3.21</p>
+  <h3>Instructions</h3>
+  <p>To run this test, follow these steps using a DOS window or terminal emulator:
+   <ol>
+    <li>Set the current directory to $MESA_TARGET/mesa_tests/iti/actors/pd_supplier.</li>
+    <li>The file pd_supplier.cfg describes the Patient Demographics Supplier for this
+	    test.</li>
+    <li>Make sure the MESA servers have been started. See section 1.4 for details.</li>
+    <li>Run the test script as follows:
+        <pre>perl scripts/pds_pdq.pl 11330 &lt;log level&gt;</pre>
+        where &lt;log level&gt; is a value between 1 and 4.</li>
+    <li>The test script will send one Patient Demographics Query to the PD Supplier
+	    under test.</li>
+  </ol>
+ </p>
+ <h3>Evaluation</h3>
+ <p>To evaluate your response to this test:
+  <ol>
+   <li>Run the evaluation script
+       <pre>  perl 11330/eval_11330.pl 4</pre></li>
+   <li>The output file is 11330/grade_11330.txt. This test is successfully completed
+       when the last line in the output file indicates 0 errors.</li>
+   <li>Submit the grade file to the Project Manager. The Project Manager may examine
+       the file and require you to modify your query and/or to perform additional
+	   queries.</li>
+  </ol>
+ </p>
+ <h3>Notes:</h3>
+  <ol>
+   <li>The evaluation script takes a single argument, &lt;log level&gt;. When debugging
+       output, it is sometimes helpful to use a log level of 1 to see only differences.
+	   When submitting results, we prefer the output with the most verbose level, 4.</li>
+   <li>If you want to see a response generated by a MESA PD Supplier, run test 11330
+       in self test mode. Then run the evaluation as above and examine the grade file.
+	   To run in self test mode:
+       <pre>  perl scripts/pds_pdq.pl 11330 4 self</pre></li>
+  </ol>
+</td></tr></table>
+
+<table><tr><td bgcolor="#FFFF99">
+ <h2><a name="#test_11335" id="#test_11335">11335: Partial ID Search - Single Domain</a></h2>
+ <p>Test case 11335 covers a partial ID search within a single domain that is specified
+    by the PD Consumer. The MESA PD Consumer sends a Patient Demographics Query that
+	includes a partial Patient ID:</p>
+
+  <table align="center" border="2" cellspacing="2" cellpadding="2">
+	<tr>
+      <th scope="col">Query Field </th>
+      <th scope="col">Query Value </th>
+    </tr>
+    <tr>
+      <td>QPD 1 </td>
+      <td>IHE PDQ Query </td>
+    </tr>
+    <tr>
+      <td>QPD 3 </td>
+      <td>@PID.3.1^PDQ113*</td>
+    </tr>
+    <tr>
+      <td>QPD 8 </td>
+      <td>^^^&amp;1.3.6.1.4.1.21367.2005.1.1&amp;ISO</td>
+    </tr>
+  </table>	
+
+  <p>The query semantics for partial name matches are not defined in the Technical
+     Framework. If your supplier expects a different query, you will need to contact
+	 the Project Manager to modify the test.
+ </p>
+
+ <p>In the query, RCP-2 (Quantity Limited Response) is sent with the value 10^RD.
+    Your supplier is expected to send a complete response in a single message and not
+	use continuation.
+ </p>
+ 
+ <h3>References</h3>
+ <p>ITI TF-2: 3.21</p>
+
+ <h3>Instructions</h3>
+ <p>To run this test, follow these steps using a DOS window or terminal emulator:
+  <ol>
+   <li>Set the current directory to <em>$MESA_TARGET/mesa_tests/iti/actors/pd_supplier</em>.</li>
+   <li>The file pd_supplier.cfg describes the Patient Demographics Supplier for this
+       test</li>
+   <li>Make sure the MESA servers have been started. See <a href="#start_servers">Starting the MESA Servers</a> for details.</li>
+   <li>Run the test script as follows:
+       <pre>  perl scripts/pds_pdq.pl 11335 &lt;log level&gt;</pre>
+       where &lt;log level&gt; is a value between 1 and 4.</li>
+   <li>The test script will send one Patient Demographics Query to the PD Supplier
+       under test.</li>
+  </ol>
+ </p>	   
+	   
+ <h3>Evaluation</h3>
+ <p>To evaluate your response to this test:
+  <ol>
+   <li>Run the evaluation script:
+       <pre>  perl 11335/eval_11335.pl &lt;log level&gt;</pre>
+   </li>
+   <li>The output file is 11335/grade_11335.txt. This test is successfully completed
+       when the last line in the output file indicates 0 errors.</li>
+   <li>Submit the grade file at log level 4 to the Project Manager.</li>
+  </ol>
+ </p>
+ 
+ <h3>Supplemental Information </h3>
+ <ol>
+  <li>If you want to see a response generated by a MESA PD Supplier, run test 11335 in
+      self test mode. Then run the evaluation as above and examine the grade file.
+	  To run in self test mode:
+      <pre>  perl scripts/pds_pdq.pl 11335 4 self</pre>
+  </li>
+  </ol> 
+</td></tr></table>
+
+
+<table><tr><td bgcolor="#FFFFFF">
+ <h2><a name="#test_11340" id="#test_11340">11340: Date of Birth Search</a></h2>
+ <h3>Not implemented in the 10.11.0 release. </h3>
+ <p>Test case 11340 covers a Date of Birth search within a single domain.</p>
+
+  <table align="center" border="2" cellspacing="2" cellpadding="2">
+	<tr>
+      <th scope="col">Query Field </th>
+      <th scope="col">Query Value </th>
+    </tr>
+    <tr>
+      <td>QPD 1 </td>
+      <td>IHE PDQ Query </td>
+    </tr>
+    <tr>
+      <td>QPD 3 </td>
+      <td>@PID.7^19780920</td>
+    </tr>
+    <tr>
+      <td>QPD 8 </td>
+      <td>^^^&amp;1.3.6.1.4.1.21367.2005.1.1&amp;ISO</td>
+    </tr>
+  </table>	
+
+ <p>&nbsp;</p>
+ <h3>References</h3>
+  <p>ITI TF-2: 3.21</p>
+  
+  <h3>Instructions</h3>
+  <p>To run this test, follow these steps using a DOS window or terminal emulator:
+   <ol>
+    <li>Set the current directory to <em>$MESA_TARGET/mesa_tests/iti/actors/pd_supplier</em>.</li>
+    <li>The file pd_supplier.cfg describes the Patient Demographics Supplier for
+	    this test.</li>
+    <li>Make sure the MESA servers have been started. See <a href="#start_servers">Starting the MESA Servers</a> for details.</li>
+    <li>Run the test script as follows:
+        <pre>  perl scripts/pds_pdq.pl 11340 &lt;log level&gt;</pre>
+        where &lt;log level&gt; is a value between 1 and 4.</li>
+    <li>The test script will send one Patient Demographics Query to the PD Supplier
+	    under test.</li>
+  </ol>
+ </p>
+ 
+ <h3>Evaluation</h3>
+ <p>To evaluate your response to this test:
+  <ol>
+   <li>Run the evaluation script:
+       <pre>  perl 11340/eval_11340.pl &lt;log level&gt;</pre>
+   </li>
+   <li>The output file is 11340/grade_11340.txt. This test is successfully completed
+       when the last line in the output file indicates 0 errors.</li>
+   <li>Submit the grade file at log level 4 to the Project Manager.</li>
+  </ol>
+ </p>
+
+ <h3>Notes:</h3>
+  <ol>
+   <li>If you want to see a response generated by a MESA PD Supplier, run test 11340
+       in self test mode. Then run the evaluation as above and examine the grade file.
+	   To run in self test mode:
+       <pre>  perl scripts/pds_pdq.pl 11340 4 self</pre>
+   </li>
+   </ol>
+</td></tr></table>
+
+
+<table><tr><td bgcolor="#FFFF99">
+ <h2><a name="#test_11345" id="#test_11345">11345: Age Range Search Search</a></h2>
+ <p>Test case 11345 covers a search with a range of ages (30-40 years of age). This test 
+    is not defined as the mechanism for this is not defined in the Technical Framework.
+ </p>
+ <h3>References</h3>
+ <h3>Evaluation</h3>
+ <h3>Notes</h3>
+</td></tr></table>
+
+<table><tr><td bgcolor="#FFFFFF">
+ <h2><a name="#test_11350" id="#test_11350">11350: Multi Key Search 1</a></h2>
+  <p>In test 11350, a Patient Demographics Consumer is required to send a search using
+     two search keys, patient name and date of birth.
+     The MESA PD Consumer sends a Patient Demographics Query that includes a patient
+	 name and patient DOB</p>
+	 
+  <table align="center" border="2" cellspacing="2" cellpadding="2">
+	<tr>
+      <th scope="col">Query Field </th>
+      <th scope="col">Query Value </th>
+    </tr>
+    <tr>
+      <td>QPD 1 </td>
+      <td>IHE PDQ Query </td>
+    </tr>
+    <tr>
+      <td>QPD 3 </td>
+      <td>@PID.5.1^MOORE~@PID.7^19380224</td>
+    </tr>
+    <tr>
+      <td>QPD 8 </td>
+      <td>^^^&amp;1.3.6.1.4.1.21367.2005.1.1&amp;ISO</td>
+    </tr>
+  </table>
+  
+  <h3>References</h3>
+  <p>ITI TF-2: 3.21</p>
+  <h3>Instructions</h3>
+  <p>To run this test, follow these steps using a DOS window or terminal emulator:
+  <ol>
+   <li>Set the current directory to $MESA_TARGET/mesa_tests/iti/actors/pd_supplier.</li>
+   <li>The file pd_supplier.cfg describes the Patient Demographics Supplier for
+       this test.</li>
+   <li>Make sure the MESA servers have been started. See section 1.4 for details.</li>
+   <li>Run the test script as follows:
+       <pre>  perl scripts/pds_pdq.pl 11350 &lt;log level&gt;</pre>
+       where &lt;log level&gt; is a value between 1 and 4.</li>
+   <li>The test script will send one Patient Demographics Query to the PD Supplier
+       under test.</li>
+  </ol>
+ </p>
+ <h3>Evaluation</h3>
+ <p>To evaluate your response to this test:
+  <ol>
+   <li>Run the evaluation script
+       <pre>  perl 11350/eval_11350.pl &lt;log level&gt;</pre>
+   </li>
+   <li>The output file is 11350/grade_11350.txt. This test is successfully completed
+       when the last line in the output file indicates 0 errors.</li>
+   <li>Submit the grade file to the Project Manager. The Project Manager may examine
+       the file and require you to modify your query and/or to perform additional
+	   queries.</li>
+  </ol>
+ </p>
+ <h3>Supplemental Information </h3>
+  <ol>
+   <li>If you want to see a response generated by a MESA PD Supplier, run test 11350
+       in self test mode. Then run the evaluation as above and examine the grade file.
+	   To run in self test mode:
+       <pre>  perl scripts/pds_pdq.pl 11350 4 self</pre>
+   </li>
+   </ol>
+</td></tr></table>
+
+<table><tr><td bgcolor="#FFFF99">
+ <h2><a name="#test_11355" id="#test_11355">11355: Multi Key Search 2</a></h2>
+ <p>In test 11355, a Patient Demographics Consumer is required to send a search using
+    two search keys, patient name and date of birth.</p>
+ <p>The MESA PD Consumer sends a Patient Demographics Query that includes a patient
+    name and patient address:
+	<pre>PID.5.1 = MOORE
+PID.11.1 = 10 PINETREE</pre>
+    No other query keys are present.
+ </p>
+ <p>The field QPD-8 has the value
+    &ldquo;^^^&amp;1.3.6.1.4.1.21367.2005.1.1&amp;ISO&rdquo;
+	to specify that domain in the response.
+ </p>
+ 
+ <h3>References</h3>
+ <p>ITI TF-2: 3.21</p>
+ <h3>Instructions</h3>
+ <p>To run this test, follow these steps using a DOS window or terminal emulator:</p>
+  <ol>
+   <li>Set the current directory to $MESA_TARGET/mesa_tests/iti/actors/pd_supplier.</li>
+   <li>The file pd_supplier.cfg describes the Patient Demographics Supplier for this
+       test.</li>
+   <li>Make sure the MESA servers have been started. See section 1.4 for details.</li>
+   <li>Run the test script as follows:
+       <pre>  perl scripts/pds_pdq.pl 11355 &lt;log level&gt;</pre>
+       where &lt;log level&gt; is a value between 1 and 4.</li>
+   <li>The test script will send one Patient Demographics Query to the PD Supplier
+       under test.</li>
+  </ol>
+
+  <h3>Evaluation</h3>
+  <p>To evaluate your response to this test:
+   <ol>
+    <li>Run the evaluation script
+	    <pre>  perl 11355/eval_11355.pl 4</pre></li>
+    <li>The output file is 11355/grade_11355.txt. This test is successfully completed
+	    when the last line in the output file indicates 0 errors.</li>
+    <li>Submit the grade file to the Project Manager. The Project Manager may examine
+	    the file and require you to modify your query and/or to perform additional
+		queries.</li>
+  </ol>
+  <h3>Notes:</h3>
+   <ol>
+    <li>The evaluation script takes a single argument, &lt;log level&gt;. When debugging
+	    output, it is sometimes helpful to use a log level of 1 to see only differences.
+		When submitting results, we prefer the output with the most verbose level, 4.</li>
+    <li>If you want to see a response generated by a MESA PD Supplier, run test
+	    11360 in self test mode. Then run the evaluation as above and examine the
+		grade file. To run in self test mode:
+        <pre>  perl scripts/pds_pdq.pl 11355 4 self</pre></li>
+   </ol>
+</td></tr></table>
+
+
+<table><tr><td bgcolor="#FFFFFF">
+ <h2><a name="#test_11360" id="#test_11360">11360: Attending Doctor</a></h2>
+ <p>In test 11360, a Patient Demographics Consumer is required to send a Patient
+    Demographics and Visit Query Search.
+ </p>
+ <h3>References</h3>
+ <p>ITI TF-2: 3.22</p>
+ <h3>Instructions</h3>
+ <p>To run this test, follow these steps using a DOS window or terminal emulator:
+  <ol>
+   <li>Set the current directory to $MESA_TARGET/mesa_tests/iti/actors/pd_supplier.</li>
+   <li>The file pd_supplier.cfg describes the Patient Demographics Supplier for this
+       test.</li>
+   <li>Make sure the MESA servers have been started. See section 1.4 for details.</li>
+   <li>Run the test script as follows:
+       <pre>  perl scripts/pds_pdq.pl 11360 &lt;log level&gt;</pre>
+       where &lt;log level&gt; is a value between 1 and 4.</li>
+   <li>The test script will send one Patient Demographics Query to the PD Supplier
+       under test.</li>
+  </ol>
+ </p>
+   
+ <h3>Evaluation</h3>
+ <p>To evaluate your response to this test:
+  <ol>
+   <li>Run the evaluation script
+       <pre>  perl 11360/eval_11360.pl 4</pre></li>
+   <li>The output file is 11360/grade_11360.txt. This test is successfully completed
+       when the last line in the output file indicates 0 errors.</li>
+   <li>Submit the grade file to the Project Manager. The Project Manager may examine
+       the file and require you to perform additional queries.</li>
+  </ol>
+ </p>
+ 
+ <h3>Notes:</h3>
+  <ol>
+   <li>The evaluation script takes a single argument, &lt;log level&gt;. When debugging
+       output, it is sometimes helpful to use a log level of 1 to see only differences.
+	   When submitting results, we prefer the output with the most verbose level, 4.</li>
+   <li>If you want to see a response generated by a MESA PD Supplier, run test 11360
+       in self test mode. Then run the evaluation as above and examine the grade file.
+	   To run in self test mode:
+       <pre>  perl scripts/pds_pdq.pl 11360 4 self</pre></li>
+  </ol>
+
+</td></tr></table>
+
+<table><tr><td bgcolor="#FFFF99">
+ <h2><a name="#test_11365" id="#test_11365">11365: Continuation Test 1</a></h2>
+ <p>Test 11365 is a test of the HL7 Continuation Protocol. In this test, the MESA
+    Patient Demographics Consumer configures the query with a specific limit of
+	one record. The query is a wildcard query by last name:
+    <pre>PID.5.1 = MOO*</pre>
+    No other query keys are present.
+ </p>
+ <p>Field RCP-2 contains the value 1^RD to indicate one record per response.
+ </p>
+ <p>The field QPD-8 has the value
+    &ldquo;^^^&amp;1.3.6.1.4.1.21367.2005.1.1&amp;ISO&rdquo;
+	to specify that domain in the response.
+ </p>
+ <p>The query semantics for partial name matches are not defined in the Technical
+    Framework. If your supplier expects a different query, you will need to contact
+	the Project Manager to modify this test.
+ </p>
+ <p>There should be 4 records that match this query. The PD Supplier should return 4
+    separate RSP messages, each with a single response. The first 3 RSP messages will
+	contain a continuation pointer. The 4th response might contain a continuation
+	pointer; in that case, one would expect a 5th response that has no patient
+	records.
+ </p>
+ <h3>References</h3>
+ <p>ITI TF-2: 3.21.4.1.2.3.2</p>
+
+ <h3>Instructions</h3>
+ <p>To run this test, follow these steps using a DOS window or terminal emulator:
+  <ol>
+   <li>Set the current directory to $MESA_TARGET/mesa_tests/iti/actors/pd_supplier.</li>
+   <li>The file pd_supplier.cfg describes the Patient Demographics Supplier for this
+       test.</li>
+   <li>Make sure the MESA servers have been started. See section 1.4 for details.</li>
+   <li>Run the test script as follows:
+       <pre>  perl scripts/pds_pdq.pl 11365 &lt;log level&gt;</pre>
+       where &lt;log level&gt; is a value between 1 and 4.</li>
+   <li>The test script will send one Patient Demographics Query to the PD Supplier
+       under test.</li>
+  </ol>
+ </p>
+
+ <h3>Evaluation</h3>
+ <p>To evaluate your response to this test:
+  <ol>
+   <li>Run the evaluation script
+       <pre>  perl 11365/eval_11365.pl 4</pre></li>
+   <li>The output file is 11365/grade_11365.txt. This test is successfully completed
+       when the last line in the output file indicates 0 errors.</li>
+   <li>Submit the grade file to the Project Manager. The Project Manager may examine
+       the file and require you to perform additional queries.</li>
+  </ol>
+ </p>
+ 
+ <h3>Notes:</h3>
+  <ol>
+   <li>The evaluation script takes a single argument, &lt;log level&gt;. When debugging
+       output, it is sometimes helpful to use a log level of 1 to see only differences.
+       When submitting results, we prefer the output with the most verbose level, 4.</li>
+   <li>If you want to see a response generated by a MESA PD Supplier, run test 11365 in
+       self test mode. Then run the evaluation as above and examine the grade file.
+	   To run in self test mode:
+       <pre>perl scripts/pds_pdq.pl 11365 4 self</pre></li>
+  </ol>
+</td></tr></table>
+
+<h1><a name="#test_cases_pam" id="#test_cases_pam">Test Cases PAM</a></h1>
+<p>This section describes test cases that are generally  associated with the PAM Integration Profile. There may be some overlap with  other profiles.</p>
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_12101" id="#test_12101"></a>Test  Case 12101: PAM Create New Patient</h2>
+<h3>References</h3>
+<p>ITI TF </p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps using a DOS window or  terminal emulator:</p>
+<ol>
+  <li>Read  the document &ldquo;IHE IT Infrastructure Test Cases&rdquo; for a description of the  transactions used for this test. Your system is required to produce the  administration messages described in that document.</li>
+  <li>Refer  to the table in section 2.1.4 below. You will create a patient using the values  in the table.</li>
+  <li>Set  the current directory to <em>$MESA_TARGET/mesa_tests/iti/actors/  pd_supplier</em>.</li>
+  <li>Make  sure the MESA servers  have been started as described in <a href="#start_servers">Starting the MESA Servers</a> above.</li>
+  <li>Run  the test script as follows:</li>
+</ol>
+<pre>     perl  scripts/pds_pam.pl 12101 &lt;log level&gt; </pre>
+<blockquote>
+  <p>where &lt;log level&gt; is a  value between 1 (low) and 4 (high).</p>
+</blockquote>
+<ol start="6">
+  <li>Run  the evaluation script below.</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Run  the evaluation script:</li>
+  <pre>perl  12101/eval_12101.pl &lt;log level&gt;</pre>
+  <li>The  evaluation output is found in 12101/grade_12101.txt. The final result should  indicate 0 errors. Submit the result run at log level 4 to the Project Manager.</li>
+</ol>
+
+<h3>Patient Demographics for Test 12101</h3>
+<p>Use the values in the table below. For some fields, the  specification may include a component of a field. For example, we specify the  assigning authority for the Patient ID, but understand the Patient Demographics  Supplier would produce the actual identifier.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="163" valign="top"><p>Segment / Field</p></td>
+    <td width="240" valign="top"><p>Element Name</p></td>
+    <td width="235" valign="top"><p>Value</p></td>
+  </tr>
+  <tr>
+    <td width="163" valign="top"><p>MSH.9</p></td>
+    <td width="240" valign="top"><p>Message Type</p></td>
+    <td width="235" valign="top"><p>ADT^A28^ADT_A05</p></td>
+  </tr>
+  <tr>
+    <td width="163" valign="top"><p>MSH.11</p></td>
+    <td width="240" valign="top"><p>Processing    ID</p></td>
+    <td width="235" valign="top"><p>P</p></td>
+  </tr>
+  <tr>
+    <td width="163" valign="top"><p>MSH.12</p></td>
+    <td width="240" valign="top"><p>Version    ID</p></td>
+    <td width="235" valign="top"><p>2.5</p></td>
+  </tr>
+  <tr>
+    <td width="163" valign="top"><p>PID.3.4</p></td>
+    <td width="240" valign="top"><p>(Patient    ID) Assigning Authority</p></td>
+    <td width="235" valign="top"><p>&amp;1.3.6.1.4.1.21367.2005.1.1&amp;ISO</p></td>
+  </tr>
+  <tr>
+    <td width="163" valign="top"><p>PID.3.5</p></td>
+    <td width="240" valign="top"><p>(Patient ID) Identifier Type Code</p></td>
+    <td width="235" valign="top"><p>PI</p></td>
+  </tr>
+  <tr>
+    <td width="163" valign="top"><p>PID.5</p></td>
+    <td width="240" valign="top"><p>Patient    Name</p></td>
+    <td width="235" valign="top"><p>FROST^BOB</p></td>
+  </tr>
+  <tr>
+    <td width="163" valign="top"><p>PID.7</p></td>
+    <td width="240" valign="top"><p>Date/Time    of Birth</p></td>
+    <td width="235" valign="top"><p>19480924</p></td>
+  </tr>
+  <tr>
+    <td width="163" valign="top"><p>PID.8</p></td>
+    <td width="240" valign="top"><p>Administrative    Sex</p></td>
+    <td width="235" valign="top"><p>M</p></td>
+  </tr>
+  <tr>
+    <td width="163" valign="top"><p>PID.11</p></td>
+    <td width="240" valign="top"><p>Patient    Address</p></td>
+    <td width="235" valign="top"><p>4525 SCOTT^^ST LOUIS^MO^63110</p></td>
+  </tr>
+  <tr>
+    <td width="163" valign="top"><p>PV1</p></td>
+    <td width="240" valign="top"><p>Patient    Class</p></td>
+    <td width="235" valign="top"><p>N</p></td>
+  </tr>
+</table>
+</td>
+</tr></table>
+<h2><a name="#test_12102" id="#test_12102">Test Case 12102: PAM Update Patient Information</a></h2>
+<h3>References</h3>
+<p>ITI TF </p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps using a DOS window or  terminal emulator:</p>
+<ol>
+  <li>Read  the document &ldquo;IHE IT Infrastructure Test Cases&rdquo; for a description of the  transactions used for this test. Your system is required to produce the  administration messages described in that document.</li>
+  <li>Set  the current directory to <em>$MESA_TARGET/mesa_tests/iti/actors/  pd_supplier</em>.</li>
+  <li>Refer  to the table in section 2.2.4 below. You will create a patient using the values  in the table. Then, you will update the patient name as indicated in the text.</li>
+  <li>Make  sure the MESA  servers have been started as described in <a href="#start_servers">Starting the MESA Servers</a> above.</li>
+  <li>Run  the test script as follows to perform:</li>
+</ol>
+<pre>     perl  scripts/pds_pam.pl 12102 &lt;log level&gt; </pre>
+  <blockquote>
+    <p>where &lt;log level&gt; is a  value between 1 (low) and 4 (high).</p>
+  </blockquote>
+<ol start="6">
+  <li>Run  the evaluation script below.</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Run  the evaluation script:</li>
+  <pre>perl  12102/eval_12102.pl &lt;log level&gt;</pre>
+  <li>The  evaluation output is found in 12102/grade_12102.txt. The final result should  indicate 0 errors. Submit the result run at log level 4 to the Project Manager.</li>
+</ol>
+<h3>Patient Demographics for Test 12102</h3>
+<p>Use the values in the table below. For some fields, the  specification may include a component of a field. For example, we specify the  assigning authority for the Patient ID, but understand the Patient Demographics  Supplier would produce the actual identifier.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="163" valign="top"><p>Segment / Field</p></td>
+    <td width="240" valign="top"><p>Element Name</p></td>
+    <td width="235" valign="top"><p>Value</p></td>
+  </tr>
+  <tr>
+    <td width="163" valign="top"><p>MSH.9</p></td>
+    <td width="240" valign="top"><p>Message Type</p></td>
+    <td width="235" valign="top"><p>ADT^A28^ADT_A05</p></td>
+  </tr>
+  <tr>
+    <td width="163" valign="top"><p>MSH.11</p></td>
+    <td width="240" valign="top"><p>Processing    ID</p></td>
+    <td width="235" valign="top"><p>P</p></td>
+  </tr>
+  <tr>
+    <td width="163" valign="top"><p>MSH.12</p></td>
+    <td width="240" valign="top"><p>Version    ID</p></td>
+    <td width="235" valign="top"><p>2.5</p></td>
+  </tr>
+  <tr>
+    <td width="163" valign="top"><p>PID.3.4</p></td>
+    <td width="240" valign="top"><p>(Patient    ID) Assigning Authority</p></td>
+    <td width="235" valign="top"><p>&amp;1.3.6.1.4.1.21367.2005.1.1&amp;ISO</p></td>
+  </tr>
+  <tr>
+    <td width="163" valign="top"><p>PID.3.5</p></td>
+    <td width="240" valign="top"><p>(Patient ID) Identifier Type Code</p></td>
+    <td width="235" valign="top"><p>PI</p></td>
+  </tr>
+  <tr>
+    <td width="163" valign="top"><p>PID.5</p></td>
+    <td width="240" valign="top"><p>Patient Name</p></td>
+    <td width="235" valign="top"><p>BROWN^SARAH</p></td>
+  </tr>
+  <tr>
+    <td width="163" valign="top"><p>PID.7</p></td>
+    <td width="240" valign="top"><p>Date/Time of Birth</p></td>
+    <td width="235" valign="top"><p>19601014</p></td>
+  </tr>
+  <tr>
+    <td width="163" valign="top"><p>PID.8</p></td>
+    <td width="240" valign="top"><p>Administrative Sex</p></td>
+    <td width="235" valign="top"><p>F</p></td>
+  </tr>
+  <tr>
+    <td width="163" valign="top"><p>PID.11</p></td>
+    <td width="240" valign="top"><p>Patient Address</p></td>
+    <td width="235" valign="top"><p>14 WILLOW^^LADUE^MO^63124</p></td>
+  </tr>
+  <tr>
+    <td width="163" valign="top"><p>PV1</p></td>
+    <td width="240" valign="top"><p>Patient Class</p></td>
+    <td width="235" valign="top"><p>N</p></td>
+  </tr>
+</table>
+<p>The only field to be udpated for test 12102 is PID-5,  Patient Name. Change the Patient Name to JACKSON^SARAH. All other demographics remain  the same.</p>
+
+<h3><a name="appendix_a" id="appendix_a"></a>Appendix A: Patient Demographics for PDQ Tests</h3>
+<p>The PDQ tests use fixed demographics that are listed in this appendix. There are two administrative domains for identifiers (Domain 1 and Domain 2), each identified by an OID.</p>
+<p>All patients used for testing have a patient identifier in Domain 1. Several of the patients will also have an identifier in Domain 2.</p>
+<table align="center" border="2" cellspacing="2" cellpadding="2">
+  <tr>
+    <th scope="col">Domain</th>
+    <th scope="col">OID</th>
+	<th scope="col">MSH-5</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>1.3.6.1.4.1.21367.2005.1.1</td>
+	<td>MESA_PD_SUPPLIER</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>1.3.6.1.4.1.21367.2005.1.2</td>
+	<td>NA</td>
+  </tr>
+</table>
+<table width="100%" border="2" cellspacing="2" cellpadding="2">
+  <tr>
+    <th scope="col">Name</th>
+    <th scope="col">ID Domain 1 </th>
+    <th scope="col">ID Domain 2 </th>
+    <th scope="col">DOB</th>
+    <th scope="col">Sex</th>
+    <th scope="col">Addr</th>
+  </tr>
+  <tr>
+    <td>MOHR^ALICE</td>
+    <td>PDQ113XX03</td>
+    <td>NA</td>
+    <td> 19580131</td>
+    <td>F</td>
+    <td>820 JORIE BLVD.^^OAK BROOK^IL^60523</td>
+  </tr>
+  <tr>
+    <td>MOODY^WARREN</td>
+    <td>PDQ113XX04</td>
+    <td>NA</td>
+    <td>19780820</td>
+    <td>M</td>
+    <td>1000 CLAYTON RD^^CLAYTON^MO^63105</td>
+  </tr>
+  <tr>
+    <td>MOONEY^STAN</td>
+    <td>PDQ113XX05</td>
+    <td>NA</td>
+    <td>19780920</td>
+    <td>M</td>
+    <td>100 TAYLOR^^ST LOUIS^MO^63110</td>
+  </tr>
+  <tr>
+    <td>MOORE^CHIP</td>
+    <td>PDQ113XX01</td>
+    <td>NA</td>
+    <td>19380224</td>
+    <td>M</td>
+    <td>10 PINETREE^^WEBSTER^MO^63119</td>
+  </tr>
+  <tr>
+    <td>MOORE^RALPH</td>
+    <td>PDQ113XX02</td>
+    <td>NA</td>
+    <td>19480724</td>
+    <td>M</td>
+    <td>510 S KINGSHIGHWAY^^ST. LOUIS^MO^63110</td>
+  </tr>
+  <tr>
+    <td>FERGUSON^CHIP</td>
+    <td>PDQ113XX13</td>
+    <td>PDQD2113XX13</td>
+    <td>19930914</td>
+    <td>M</td>
+    <td>4970 OAKLAND^^ST LOUIS^MO^63110</td>
+  </tr>
+  <tr>
+    <td>RENDEL^GRACE</td>
+    <td>PDQ113XX12</td>
+    <td>PDQD2113XX12</td>
+    <td>19720814</td>
+    <td>F</td>
+    <td>200 BEMISTON^^CLAYTON^MO^63105</td>
+  </tr>
+  <tr>
+    <td> SANDERS^CHIP</td>
+    <td> PDQ113XX11</td>
+    <td>PDQD2113XX11</td>
+    <td>19420224</td>
+    <td>M</td>
+    <td>100 EUCLID^^WEBSTER^MO^63119</td>
+  </tr>
+</table>
+<p>&nbsp;  </p>
+</body>
+</html>

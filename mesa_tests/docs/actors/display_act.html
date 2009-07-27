@@ -1,0 +1,1242 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Untitled Document</title>
+<style type="text/css">
+<!--
+.style1 {font-family: "Courier New", Courier, monospace}
+-->
+</style>
+</head>
+
+<body>
+<p align="center"><strong>&nbsp;</strong></p>
+<p align="center"><strong>HIMSS and RSNA</strong><br />
+    <strong>Integrating the Healthcare Enterprise</strong></p>
+<p align="center"><strong>&nbsp;</strong></p>
+<p align="center"><strong>&nbsp;</strong><strong>IHE/MESA Display Tests</strong></p>
+<p>&nbsp;</p>
+<p align="center">Electronic Radiology  Laboratory<br />
+  Mallinckrodt Institute of  Radiology<br />
+  510 South    Kingshighway Blvd. <br />
+  St. Louis, MO&nbsp; 63110 <br />
+  314.362.6965 (Voice)<br />
+  314.362.6971 (Fax)</p>
+<p align="center">&nbsp;</p>
+<p align="center">Revision 10.0.0<br />
+  15-August-2006</p>
+<strong>Contents:</strong><br clear="all" />
+
+  <p><a href="#disp_actor_tests">Display Actor Tests</a> <br />
+      <a href="#intro"> Introduction</a> <br />
+      <a href="#patient_id"> Patient Identification</a> <br />
+      <a href="#config">Configuration</a> <br />
+      <a href="#start_servers">Starting the MESA Servers</a> <br />
+      <a href="#inst_test">Installation Test</a> <br />
+      <a href="#test_cases_rid">Test  Cases: RID</a> </p>
+  <ol>
+    <li><a href="#test_10111"> Test Case 10111: RID Retrieve  Specific Info Request Keys 1</a> <br />
+    </li>
+    <li><a href="#test_10112">Test Case 10112: RID Retrieve  Specific Info Request Keys 2</a> <br />
+    </li>
+    <li><a href="#test_10113">Test Case 10113: RID Retrieve  Specific Info Request Keys 3</a> <br />
+    </li>
+    <li><a href="#test_10121">Test Case 10121: RID Summary of  Reports</a> <br />
+    </li>
+    <li><a href="#test_10122">Test Case 10122: RID List of  Information Items</a> <br />
+    </li>
+    <li><a href="#test_10131">Test Case 10131: RID Retrieve  Specific Info Request Response Code 401</a> <br />
+    </li>
+    <li><a href="#test_10132">Test Case 10132: RID Retrieve  Specific Info Request Response Code 404</a> <br />
+    </li>
+    <li><a href="#test_10133">Test Case 10133: RID Response Code  406</a> <br />
+    </li>
+    <li><a href="#test_10141">Test Case 10141: RID Retrieve  Document JPEG</a> <br />
+    </li>
+    <li><a href="#test_10142">Test Case 10142: RID Retrieve Document  PDF</a> <br />
+    </li>
+    <li><a href="#test_10143">Test Case 10143: RID Retrieve Document  CDA</a> <br />
+    </li>
+    <li><a href="#test_10144">Test Case 10144: RID Retrieve Document  JPEG/PDF</a> <br />
+    </li>
+    <li><a href="#test_10145">Test Case 10145: RID Retrieve Document  Bad Request</a> <br />
+    </li>
+    <li><a href="#test_10146">Test Case 10146: RID Retrieve Document  with Unsupported Document Type</a> <br />
+    </li>
+    <li><a href="#test_10147">Test Case 10147: RID Retrieve  Non-Existing Document</a> <br />
+    </li>
+  </ol>
+  <p><a href="#test_cases_retrieve">Test  Cases: Retrieve ECG for Display (ECG) </a> </p>
+  <ol>
+    <li><a href="#test_20301"> Test Case 20301: D1: Simple Display  of ECGs- Basic Query/HTML Response &ndash; Summary and Display</a> <br />
+    </li>
+    <li><a href="#test_20302">Test Case 20302: D1: Simple Display  of ECGs- Query &ndash; Summary &ndash; No Such Patient</a> <br />
+    </li>
+    <li><a href="#test_20303">Test Case 20303: D1: Simple Display  of ECGs- Basic Query &ndash; SUMMARY-CARDIOLOGY/HTML Response</a> <br />
+    </li>
+    <li><a href="#test_20304">Test Case 20304: D1: Simple Display  of ECGs- CARD5 Query &ndash; SUMMARY-CARDIOLOGY-ECG/XML Response</a> <br />
+    </li>
+    <li><a href="#test_20305">Test Case 20305: D1: Simple Display  of ECGs- CARD5 Query &ndash; SUMMARY-CARDIOLOGY-ECG &ndash; No such patient</a> <br />
+    </li>
+    <li><a href="#test_20306">Test Case 20306: D1: Simple Display  of ECGs- CARD5 Query &ndash; Zero Caching</a> <br />
+    </li>
+    <li><a href="#test_20307">Test Case 20307: D1: Simple Display  of ECGs &ndash; Retrieve document without query</a> <br />
+    </li>
+    <li><a href="#test_20308">Test Case 20308: D1: Simple Display  of ECGs &ndash; Retrieve vector pdf document </a> <br />
+    </li>
+    <li><a href="#test_20309">Test Case 20309: D1: Simple Display  of ECGs &ndash; Retrieve svg document</a> <br />
+    </li>
+  </ol>
+  <p><a href="#test_cases_pdi">Test  Cases: PDI</a> </p>
+  <ol>
+    <li><a href="#test_1931">Test Case 1931: Media &ldquo;Reader&rdquo; Read  RSNA 2004 CD</a> <br />
+    </li>
+    <li><a href="#test_1932">Test Case 1932: Media &ldquo;Reader&rdquo; Reads  Vendor CDs</a> </li>
+  </ol>
+
+
+<h1><a name="#disp_actor_tests" id="#disp_actor_tests">Display Actor Tests</a> </h1>
+<h2><a name="#intro" id="#intro">Introduction</a></h2>
+<p>The MESA tests include a number of cases each of  which rely on a sequence of messages between actors. These tests range across  different integration profiles:</p>
+<ul>
+  <li>Retrieve  Information for Display</li>
+  <li>Enterprise User Authentication</li>
+  <li>Patient  Identity Cross Reference for MPI</li>
+  <li>Patient  Synchronized Application</li>
+  <li>Consistent  Time</li>
+</ul>
+<p>This document lists the  transactions and messages for a number of cases. It may not describe the  clinical scenario behind each case, but listing the transactions should clearly  define what is expected of each actor.&nbsp;  These are all of the transactions involving all of the actors.&nbsp; When you test with your particular actor, you  may see only a subset of these messages.</p>
+<h2><a name="#patient_id" id="#patient_id">Patient Identification</a></h2>
+<h2><a name="#config" id="#config">Configuration</a></h2>
+<p>The MESA  software is configured to use a specific database, info_src. That should not be  changed by the user.<br />
+  The software is distributed with a file <em>$MESA_TARGET/html/rid/rid_101xx.html</em>.  That file contains URLs that reference http://info-src&hellip; You can either change  info-src to the name of the machine where you installed th MESA tools or map the host name info-src to  the proper IP address using your local hosts file.</p>
+<h2><a name="#start_servers" id="#start_servers">Starting the </a>MESA Servers</h2>
+<p>The Display actor tests use one server, the Apache Tomcat  server. This server should have been installed and configured according to the  instructions in the Installation Manual. To start the Tomcat server, follow  these steps from a DOS prompt or Unix terminal emulator:</p>
+<ol>
+  <li>Set  the environment variable JAVA_HOME to point to the base of the J2SDK  installation.</li>
+  <li>cd $TOMCAT_HOME&nbsp; or cd  %TOMCAT_HOME%</li>
+  <li>bin/startup.sh or bin\startup.bat</li>
+</ol>
+
+<p>To stop the server:<br />
+  UNIX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="style1">bin/shutdown.sh</span><br />
+  Windows&nbsp;&nbsp;&nbsp; kill the job in the DOS window with ^C</p>
+<h2><a name="#inst_test" id="#inst_test">Installation Test</a></h2>
+<p>To make sure the MESA  server is running properly with the appropriate database connections, follow  these steps:</p>
+<ol>
+  <li>Use  a web browser and connect to this URL: <a href="http://info-src:8080/rid.html">http://info-src:8080/rid.html</a>.  You might substitute a different host name for info-src.</li>
+  <li>A  table of tests should appear. If not, that indicates the Tomcat web server is  not operating properly or the <em>rid.html</em> file was not installed properly.</li>
+  <li>Select  the link for test 10111. A summary report should appear. If that summary report  does not appear, that indicates the database link between the MESA Java  servlets and the database is not working properly.</li>
+</ol>
+<h2>Submission of Results</h2>
+<p>Test descriptions below inform the reader to &ldquo;submit  results to the Project Manager&rdquo;. This is does not mean &ldquo;email&rdquo;. The current  submission process should be documented by the Project Manager, but will not  include emailing files directly to the Project Manager.</p>
+<h1><a name="#test_cases_rid" id="#test_cases_rid">Test Cases: RID</a></h1>
+<p>This section describes test cases that are generally  associated with the RID Integration Profile. There may be some overlap with  other profiles.<br />
+  Each test case involves a series of transactions involving  one test patient.&nbsp; Some patients may  require that a single actor participate in multiple transactions. The tables in  this section give the order of messages for an integrated system with all  actors.&nbsp; This is provided as a  centralized reference.&nbsp; To test an  individual IHE actor, refer to the appropriate test document.</p>
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_10111" id="#test_10111">Test Case 10111: RID Retrieve Specific Info  Request Keys 1</a></h2>
+<p>Test case 10111 covers RID Web Service Request Keys. The  Display actor makes a request to the MESA Information Source, retrieves a  report and displays that report. The Display actor is required to request  reports of type SUMMARY with a specific patient ID.</p>
+<h3>References</h3>
+<p>ITI TF-2: 3.11.4</p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps:</p>
+<ol>
+  <li>Make  sure the MESA Information Source has been started as described in <a href="#start_servers">Starting the MESA Servers</a>.</li>
+  <li>Configure  your Display to initiate IHE ITI Transaction 11 with the MESA Information  Source. Your web service request keys should include the required keys from  ITI-2: Table 3.11.4-1 and any optional keys.</li>
+  <li>The  URL that the MESA  system recognizes starts like this:</li>
+  <pre>http://info-src:8080/IHERetrieveSummaryInfo</pre>
+  <li>These  values are required by this test:</li>
+</ol>
+<blockquote>
+  <p>The value for patientID is RID10111^^^RID.<br />
+    The value for requestType is SUMMARY.<br />
+    The value for mostRecentResults can be 0&hellip;.n as defined in  ITI-2 Table 3.11.4-1.</p>
+</blockquote>
+<ol start="5">
+  <li>The  parameters lowerDateTime and upperDateTime are optional.</li>
+  <li>The  MESA Information Source will respond with results that your system should  display.</li>
+</ol>
+<p>Notes:</p>
+<ul>
+  <ol>
+    <li>The  MESA  distribution includes an HTML file: <em>$MESA_TARGET/html/rid/rid_101xx.html</em>.  This file contains bullet lists with properly formatted requests.</li>
+    <li>If  your system needs HL7 messages or other data to get demographics for this  subject, contact the Project Manager.</li>
+  </ol>
+</ul>
+
+<h3>Evaluation</h3>
+<ul>
+  <ol>
+    <li>Obtain  a screen capture (software, digital camera) of your screen showing the returned  result.</li>
+    <li>Name  the output file rid_10111.xxx where xxx is the appropriate extension.</li>
+    <li>Zip/tar  the screen capture file with other results and submit to the Project Manager.</li>
+    </ol>
+  </ul>
+
+</td>
+</tr></table>
+<h2><a name="#test_10112" id="#test_10112">Test Case 10112: RID Retrieve Specific Info  Request Keys 2</a></h2>
+<p>Test case 10112 covers RID Web Service Request Keys. The  Display actor makes a request to the MESA Information Source, retrieves a  report and displays that report. The Display actor is required to request  reports with a specific patient ID. The Display actor is required to make a  request with a requestType that <strong><em>is not</em></strong> SUMMARY.</p>
+<h3>References</h3>
+<p>ITI TF-2: 3.11.4</p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps:</p>
+<ol>
+  <li>Make  sure the MESA Information Source has been started as described in <a href="#start_servers">Starting the MESA Servers</a>.</li>
+  <li>Configure  your Display to initiate IHE ITI Transaction 11 with the MESA Information  Source. Your web service request keys should include the required keys from  ITI-2: Table 3.11.4-1 and any optional keys.</li>
+  <li>The  URL that the MESA  system recognizes starts like this:</li>
+</ol>
+<pre>     http://info-src:8080/IHERetrieveSummaryInfo</pre>
+<ol start="4">
+  <li>These  values are required by this test:</li>
+</ol>
+<p>The value for patientID is RID10112^^^RID.<br />
+  The value for requestType is one of the values listed in  ITI-2 Table 3.11.4-2 excluding the value SUMMARY. That is, it can be  SUMMARY-RADIOLOGY, SUMMARY-CARDIOLOGY, &hellip; The best choices are SUMMARY-RADIOLOGY  and SUMMARY-CARDIOLOGY.<br />
+  The value for mostRecentResults can be 0&hellip;.n as defined in  ITI-2 Table 3.11.4-1.</p>
+<ol start="5">
+  <li>The  parameters lowerDateTime and upperDateTime are optional.</li>
+  <li>The  MESA Information Source will respond with results that your system should  display.</li>
+</ol>
+<p>Notes:</p>
+<ol>
+  <li>The  MESA  distribution includes an HTML file: <em>$MESA_TARGET/html/rid/rid_101xx.html</em>.  This file contains bullet lists with properly formatted requests.</li>
+  <li>If  your system needs HL7 messages or other data to get demographics for this  subject, contact the Project Manager.</li>
+</ol>
+
+<h3>Evaluation</h3>
+<ol>
+  <li>Obtain  a screen capture (software, digital camera) of your screen showing the returned  result.</li>
+  <li>Name  the output file rid_10111.xxx where xxx is the appropriate extension.</li>
+  <li>Zip/tar  the screen capture file with other results and submit to the Project Manager.</li>
+</ol>
+
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_10113" id="#test_10113">Test Case 10113: RID Retrieve Specific Info  Request Keys 3</a></h2>
+<p>Test case 10113 covers RID Web Service Request Keys</p>
+<h3>References</h3>
+<p>ITI TF-2: 3.11.4</p>
+<h3>Instructions</h3>
+<h3>Evaluation</h3>
+<h3>Supplemental Information </h3></td></tr></table>
+<h2><a name="#test_10121" id="#test_10121">Test Case 10121: RID Summary of Reports</a></h2>
+<p>Test case 10121 covers RID Summary of Reports</p>
+<h3>References</h3>
+<p>ITI TF-2: 3.11.4.2.2.1</p>
+<h3>Instructions</h3>
+<h3>Evaluation</h3>
+<h3>Supplemental Information </h3>
+
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_10122" id="#test_10122">Test Case 10122: RID List of Information Items</a></h2>
+<p>Test case 10122 covers RID Summary of Reports</p>
+<h3>References</h3>
+<p>ITI TF-2: 3.11.4.2.2.2</p>
+<h3>Instructions</h3>
+<h3>Evaluation</h3>
+<h3>Supplemental Information </h3></td></tr></table>
+<h2><a name="#test_10131" id="#test_10131">Test Case 10131: RID Retrieve Specific Info  Request Response Code 401</a></h2>
+<p>Test case 10131 covers the RID queries and the HTTP response  code 401. </p>
+<h3>References</h3>
+<p>ITI TF-2: 3.11.4.1.3</p>
+<h3>Instructions</h3>
+<h3>Evaluation</h3>
+<h3>Supplemental Information </h3>
+
+<h2><a name="#test_10133" id="#test_10133">Test Case 10133: RID Response Code 406</a></h2>
+<table>
+  <tr>
+    <td bgcolor="#33FFFF"><h2><a name="#test_10132" id="#test_10132">Test Case 10132: RID Retrieve Specific Info  Request Response Code 404</a></h2>
+        <p>Test case 10132 covers the RID queries and the HTTP response  code 404. The Display actor makes a request to the MESA Information Source for  a report that does not exist. The MESA Information Source sends the HTTP  response code 404.</p>
+      <h3>References</h3>
+      <p>ITI TF-2: 3.11.4.1.3</p>
+      <h3>Instructions</h3>
+      <p>To run this test, follow these steps:</p>
+      <ol>
+          <li>Make  sure the MESA Information Source has been started as described in <a href="#start_servers">Starting the MESA Servers</a></li>
+        <li>Configure  your Display to initiate IHE ITI Transaction 11 with the MESA Information  Source. Your web service request keys should include the required keys from  ITI-2: Table 3.11.4-1 and any optional keys.</li>
+        <li>The  URL that the MESA  system recognizes starts like this:</li>
+      </ol>
+      <pre>     http://info-src:8080/IHERetrieveSummaryInfo</pre>
+        <ol start="4">
+          <li>The  value for patientID is RID10132^^^RID. The value for requestType is SUMMARY.</li>
+          <li>The  MESA Information Source will respond with results that your system should  display.</li>
+        </ol>
+      <p>Notes:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </p>
+      <ol>
+          <li>The  MESA  distribution includes an HTML file: <em>$MESA_TARGET/htm/rid/rid_101xx.html</em>.  This file contains bullet lists with properly formatted requests.</li>
+        <li>If  your system needs HL7 messages or other data to get demographics for this  subject, contact the Project Manager.</li>
+      </ol>
+      <h3>Evaluation</h3>
+      <ol>
+          <li>Obtain  a screen capture (software, digital camera) of your screen showing the returned  result.</li>
+        <li>Name  the output file rid_10132.xxx where xxx is the appropriate extension.</li>
+        <li>Zip/tar  the screen capture file with other results and submit to the Project Manager.</li>
+      </ol></td>
+  </tr>
+</table>
+<p>This test is not implemented in this version of the  software.<br />
+  Test case 10133 covers the RID queries and the HTTP response  code 406. </p>
+<h3>References</h3>
+<p>ITI TF-2: 3.11.4.1.3</p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps:</p>
+<h3>Evaluation</h3>
+<h3>Supplemental Information </h3>
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_10141" id="#test_10141">Test Case 10141: RID Retrieve Document JPEG</a></h2>
+<p>Test case 10141 covers the RID transaction to retrieve a  JPEG document. </p>
+<h3>References</h3>
+<p>ITI TF-2: 3.12.4</p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps:</p>
+<ol>
+  <li>Make  sure the MESA Information Source has been started as described in <a href="#start_servers">Starting the MESA Servers</a></li>
+  <li>Configure  your Display to initiate IHE ITI Transaction 12 with the MESA Information  Source. The tables below lists the query keys and HTTP request keys that are  required and their values for this test.</li>
+  <li>The  URL that the MESA  system recognizes starts like this:</li>
+</ol>
+<pre>     http://info-src:8080/IHERetrieveDocument</pre>
+<ol start="4">
+  <li>The  MESA Information Source will respond with results that your system should  display.</li>
+</ol>
+<p>Test 10141 Query Keys</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="169" valign="top"><br />
+      Parameter </td>
+    <td width="78" valign="top"><p>REQ</p></td>
+    <td width="391" valign="top"><p>Value</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>requestType</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>DOCUMENT</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>documentUID</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>1.2.840.113654.2.3.2003.100.101</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>preferredContentType</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>Image/jpeg</p></td>
+  </tr>
+</table>
+<p>Test 10141 HTTP Request Fields</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="169" valign="top"><br />
+      HTTP Field </td>
+    <td width="78" valign="top"><p>REQ</p></td>
+    <td width="391" valign="top"><p>Value</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>Accept</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>One of the values listed in ITI TF-2 3.12.4.1.2 (Table    3.12.4-3). The value that makes the most sense for this test is Image/jpeg</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>Accept-Language</p></td>
+    <td width="78" valign="top"><p align="center">O</p></td>
+    <td width="391" valign="top"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>Expires</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>Any valid value not to exceed one week. Example is XXXXYYZZ</p></td>
+  </tr>
+</table>
+<p>Notes:</p>
+<ol>
+  <li>The  MESA  distribution includes an HTML file: <em>$MESA_TARGET/htm/ridl/rid_101xx.html</em>.  This file contains bullet lists with properly formatted requests.</li>
+  <li>You  can use a web browser to obtain a similar file using the following URL:</li>
+</ol>
+<pre>     http://info-src:8080/rid.html</pre>
+<ol start="3">
+  <li>Configuring  you Diplay actor to set the HTTP Accept field is beyond the scope of this  document.</li>
+  <li>If  your system needs HL7 messages or other data to get demographics for this  subject, contact the Project Manager.</li>
+</ol>
+
+<h3>Evaluation</h3>
+<ol>
+  <li>Obtain  a screen capture (software, digital camera) of your screen showing the returned  result.</li>
+  <li>Name  the output file rid_10141.xxx where xxx is the appropriate extension.</li>
+  <li>Zip/tar  the screen capture file with other results and submit to the Project Manager.</li>
+</ol>
+</td></tr></table>
+<h2><a name="#test_10142" id="#test_10142">Test Case 10142: RID Retrieve Document PDF</a></h2>
+<p>Test case 10142 covers the RID transaction to retrieve a PDF  document. </p>
+<h3>References</h3>
+<p>ITI TF-2: 3.12.4</p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps:</p>
+<ol>
+  <li>Make  sure the MESA Information Source has been started as described in <a href="#start_servers">Starting the MESA Servers</a></li>
+  <li>Configure  your Display to initiate IHE ITI Transaction 12 with the MESA Information  Source. The tables below lists the query keys and HTTP request keys that are  required and their values for this test.</li>
+  <li>The  URL that the MESA  system recognizes starts like this:</li>
+</ol>
+<pre>     http://info-src:8080/IHERetrieveDocument</pre>
+<ol start="4">
+  <li>The  MESA Information Source will respond with results that your system should  display.</li>
+</ol>
+<p>Test 10142 Query Keys</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="169" valign="top"><br />
+      Parameter </td>
+    <td width="78" valign="top"><p>REQ</p></td>
+    <td width="391" valign="top"><p>Value</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>requestType</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>DOCUMENT</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>documentUID</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>1.2.840.113654.2.3.2003.100.102</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>preferredContentType</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>application/pdf</p></td>
+  </tr>
+</table>
+<p>Test 10142 HTTP Request Fields</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="169" valign="top"><br />
+      HTTP Field </td>
+    <td width="78" valign="top"><p>REQ</p></td>
+    <td width="391" valign="top"><p>Value</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>Accept</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>One of the values listed in ITI TF-2 3.12.4.1.2 (Table    3.12.4-3). The value that makes the most sense for this test is application/pdf</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>Accept-Language</p></td>
+    <td width="78" valign="top"><p align="center">O</p></td>
+    <td width="391" valign="top"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>Expires</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>Any valid value not to exceed one week. Example is XXXXYYZZ</p></td>
+  </tr>
+</table>
+<p>Notes:</p>
+<ol>
+  <li>The  MESA  distribution includes an HTML file: <em>$MESA_TARGET/html/rid/rid_101xx.html</em>.  This file contains bullet lists with properly formatted requests.</li>
+  <li>You  can use a web browser to obtain a similar file using the following URL:</li>
+</ol>
+<pre>     http://info-src:8080/rid.html</pre>
+<ol start="3">
+  <li>Configuring  you Diplay actor to set the HTTP Accept field is beyond the scope of this  document.</li>
+  <li>If  your system needs HL7 messages or other data to get demographics for this  subject, contact the Project Manager.</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Obtain  a screen capture (software, digital camera) of your screen showing the returned  result.</li>
+  <li>Name  the output file rid_10142.xxx where xxx is the appropriate extension.</li>
+  <li>Zip/tar  the screen capture file with other results and submit to the Project Manager.</li>
+</ol>
+<table>
+  <tr>
+    <td bgcolor="#33FFFF"><h2><a name="#test_10143" id="#test_10143">Test Case 10143: RID Retrieve Document CDA</a></h2>
+        <p>Test case 10143 covers the RID transaction to retrieve a CDA  document. This test is not ready in this release.</p>
+      <h3>References</h3>
+      <p>ITI TF-2: 3.12.4</p>
+      <h3>Instructions</h3>
+      <p>To run this test, follow these steps:</p>
+      <ol>
+          <li>Make  sure the MESA Information Source has been started as described in <a href="#start_servers">Starting the MESA Servers</a></li>
+        <li>Configure  your Display to initiate IHE ITI Transaction 12 with the MESA Information  Source. The tables below lists the query keys and HTTP request keys that are  required and their values for this test.</li>
+        <li>The  URL that the MESA  system recognizes starts like this:</li>
+      </ol>
+      <pre>     http://info-src:8080/IHERetrieveDocument</pre>
+      <ol start="4">
+          <li>Configuring  you Diplay actor to set the HTTP Accept field is beyond the scope of this  document.</li>
+        <li>The  MESA Information Source will respond with results that your system should  display.</li>
+      </ol>
+      <p>Test 10143 Query Keys</p>
+      <table border="1" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="169" valign="top"><br />
+              Parameter </td>
+            <td width="78" valign="top"><p>REQ</p></td>
+            <td width="391" valign="top"><p>Value</p></td>
+          </tr>
+          <tr>
+            <td width="169" valign="top"><p>requestType</p></td>
+            <td width="78" valign="top"><p align="center">R</p></td>
+            <td width="391" valign="top"><p>DOCUMENT</p></td>
+          </tr>
+          <tr>
+            <td width="169" valign="top"><p>documentUID</p></td>
+            <td width="78" valign="top"><p align="center">R</p></td>
+            <td width="391" valign="top"><p>1.2.840.113654.2.3.2003.100.103</p></td>
+          </tr>
+          <tr>
+            <td width="169" valign="top"><p>preferredContentType</p></td>
+            <td width="78" valign="top"><p align="center">R</p></td>
+            <td width="391" valign="top"><p>Application/hl7-cda-level-one+xml</p></td>
+          </tr>
+      </table>
+      <p>Test 10143 HTTP Request Fields</p>
+      <table border="1" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="169" valign="top"><br />
+              HTTP Field </td>
+            <td width="78" valign="top"><p>REQ</p></td>
+            <td width="391" valign="top"><p>Value</p></td>
+          </tr>
+          <tr>
+            <td width="169" valign="top"><p>Accept</p></td>
+            <td width="78" valign="top"><p align="center">R</p></td>
+            <td width="391" valign="top"><p>One of the values listed in ITI TF-2 3.12.4.1.2 (Table    3.12.4-3). The value that makes the most sense for this test is Application/hl7-cda-level-one+xml</p></td>
+          </tr>
+          <tr>
+            <td width="169" valign="top"><p>Accept-Language</p></td>
+            <td width="78" valign="top"><p align="center">O</p></td>
+            <td width="391" valign="top"><p>&nbsp;</p></td>
+          </tr>
+          <tr>
+            <td width="169" valign="top"><p>Expires</p></td>
+            <td width="78" valign="top"><p align="center">R</p></td>
+            <td width="391" valign="top"><p>Any valid value not to exceed one week. Example is XXXXYYZZ</p></td>
+          </tr>
+      </table>
+      <p>Notes:</p>
+      <ol>
+          <li>The  MESA  distribution includes an HTML file: <em>$MESA_TARGET/htm/ridl/rid_101xx.html</em>.  This file contains bullet lists with properly formatted requests.</li>
+        <li>If  your system needs HL7 messages or other data to get demographics for this  subject, contact the Project Manager.</li>
+      </ol>
+      <h3>Evaluation</h3>
+      <ol>
+          <li>Obtain  a screen capture (software, digital camera) of your screen showing the returned  result.</li>
+        <li>Name  the output file rid_10143.xxx where xxx is the appropriate extension.</li>
+        <li>Zip/tar  the screen capture file with other results and submit to the Project Manager.</li>
+      </ol></td>
+  </tr>
+</table>
+<h2><a name="#test_10144" id="#test_10144">Test Case 10144: RID Retrieve Document JPEG/PDF</a></h2>
+<p>Test case 10144 covers the RID transaction to retrieve a  JPEG or PDF document. In this test, the document can be returned by the  Information Source as a JPEG image or PDF document. The Display requests the  document (by UID) and can specify one or both formats in the HTTP Field <em>Accept</em>.  The display should send one value in the query key field <em>preferredContentType</em>.<br />
+  This test allows you to experiment with different settings  for the HTTP Field <em>Accept</em> and the query key <em>preferredContentType</em>.  The minimal requirement is to get this test to work with one combination of  settings.</p>
+<h3>References</h3>
+<p>ITI TF-2: 3.12.4</p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps:</p>
+<ol>
+  <li>Make  sure the MESA Information Source has been started as described in <a href="#start_servers">Starting the MESA Servers</a></li>
+  <li>Configure  your Display to initiate IHE ITI Transaction 12 with the MESA Information  Source. The tables below lists the query keys and HTTP request keys that are  required and their values for this test.</li>
+  <li>The  URL that the MESA  system recognizes starts like this:</li>
+</ol>
+<pre>     http://info-src:8080/IHERetrieveDocument</pre>
+<ol start="4">
+  <li>The  MESA Information Source will respond with results that your system should  display.</li>
+</ol>
+<p>Test 10144 Query Keys</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="169" valign="top"><br />
+      Parameter </td>
+    <td width="78" valign="top"><p>REQ</p></td>
+    <td width="391" valign="top"><p>Value</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>requestType</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>DOCUMENT</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>documentUID</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>1.2.840.113654.2.3.2003.100.104</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>preferredContentType</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>image/jpeg or application/pdf</p></td>
+  </tr>
+</table>
+<p>Test 10144 HTTP Request Fields</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="169" valign="top"><br />
+      HTTP Field </td>
+    <td width="78" valign="top"><p>REQ</p></td>
+    <td width="391" valign="top"><p>Value</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>Accept</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>One or more of the values listed in ITI TF-2 3.12.4.1.2    (Table 3.12.4-3). The values that make the most sense for this test are image/jpeg or application/pdf</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>Accept-Language</p></td>
+    <td width="78" valign="top"><p align="center">O</p></td>
+    <td width="391" valign="top"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>Expires</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>Any valid value not to exceed one week. Example is XXXXYYZZ</p></td>
+  </tr>
+</table>
+<p>Notes:</p>
+<ol>
+  <li>The  MESA  distribution includes an HTML file: <em>$MESA_TARGET/htm/ridl/rid_10xx.html</em>.  This file contains bullet lists with properly formatted requests.</li>
+  <li>You  can use a web browser to obtain a similar file using the following URL:</li>
+</ol>
+<pre>     http://info-src:8080/rid.html</pre>
+<ol start="3">
+  <li>Configuring  you Diplay actor to set the HTTP Accept field is beyond the scope of this  document.</li>
+  <li>If  your system needs HL7 messages or other data to get demographics for this  subject, contact the Project Manager.</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Obtain  a screen capture (software, digital camera) of your screen showing the returned  result.</li>
+  <li>Name  the output file rid_10144.xxx where xxx is the appropriate extension.</li>
+  <li>Zip/tar  the screen capture file with other results and submit to the Project Manager.</li>
+</ol>
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_10145" id="#test_10145">Test Case 10145: RID Retrieve Document Bad  Request</a></h2>
+<p>Test case 10145 covers the RID transaction to retrieve a  JPEG. In this test, the value specified for preferredContentType is not one of  the values in the HTTP Accept request field. The Information Source is expected  to return a status value of 400 (Bad Request) in this case.<br />
+  The purpose of this test is to demonstrate what happens when  your query is not properly synchronized with your HTTP Accept parameters. For  example, you might set the preferredContentType to application/pdf while your  HTTP Accept only supports image/jpeg.</p>
+<h3>References</h3>
+<p>ITI TF-2: 3.12.4.1.3</p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps:</p>
+<ol>
+  <li>Make  sure the MESA Information Source has been started as described in <a href="#start_servers">Starting the MESA Servers</a></li>
+  <li>Configure  your Display to initiate IHE ITI Transaction 12 with the MESA Information  Source. The tables below lists the query keys and HTTP request keys that are  required and their values for this test.</li>
+  <li>The  URL that the MESA  system recognizes starts like this:</li>
+</ol>
+<pre>     http://info-src:8080/IHERetrieveDocument</pre>
+<ol start="4">
+  <li>The  MESA Information Source will respond with results that your system should  display.</li>
+</ol>
+<p>Test 10145 Query Keys</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="169" valign="top"><br />
+      Parameter </td>
+    <td width="78" valign="top"><p>REQ</p></td>
+    <td width="391" valign="top"><p>Value</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>requestType</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>DOCUMENT</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>documentUID</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>1.2.840.113654.2.3.2003.100.101</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>preferredContentType</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>application/pdf</p></td>
+  </tr>
+</table>
+<p>Test 10145 HTTP Request Fields</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="169" valign="top"><br />
+      HTTP Field </td>
+    <td width="78" valign="top"><p>REQ</p></td>
+    <td width="391" valign="top"><p>Value</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>Accept</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>image/jpeg</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>Accept-Language</p></td>
+    <td width="78" valign="top"><p align="center">O</p></td>
+    <td width="391" valign="top"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>Expires</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>Any valid value not to exceed one week. Example is XXXXYYZZ</p></td>
+  </tr>
+</table>
+<p>Notes:</p>
+<ol>
+  <li>The  MESA  distribution includes an HTML file: <em>$MESA_TARGET/htm/ridl/rid_10xx.html</em>.  This file contains bullet lists with properly formatted requests.</li>
+  <li>You  can use a web browser to obtain a similar file using the following URL:</li>
+</ol>
+<pre>     http://info-src:8080/rid.html</pre>
+<ol start="3">
+  <li>Configuring  you Diplay actor to set the HTTP Accept field is beyond the scope of this  document.</li>
+  <li>If  your system needs HL7 messages or other data to get demographics for this  subject, contact the Project Manager.</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Obtain  a screen capture (software, digital camera) of your screen showing the returned  result.</li>
+  <li>Name  the output file rid_10145.xxx where xxx is the appropriate extension.</li>
+  <li>Zip/tar the screen capture file with other results and submit  to the Project Manager.</li>
+</ol>
+</td></tr></table>
+<h2><a name="#test_10146" id="#test_10146">Test Case 10146: RID Retrieve Document with  Unsupported Document Type</a></h2>
+<p>Test case 10146 covers the RID transaction to retrieve a  document that is stored in a format that is not supported by the Image Display.  The example is a CDA document that is stored; the Image Display is configured  to only support JPEG and PDF documents. This case tests one of the exception  modes; the Information Source will not return a document to the Image Display  but will return an error code.<br />
+  This test is not ready with this release of software.</p>
+<h3>References</h3>
+<p>ITI TF-2: 3.12.4</p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps:</p>
+<ol>
+  <li>Make  sure the MESA Information Source has been started as described in <a href="#start_servers">Starting the MESA Servers</a></li>
+  <li>Configure  your Display to initiate IHE ITI Transaction 12 with the MESA Information  Source. The tables below lists the query keys and HTTP request keys that are  required and their values for this test.</li>
+  <li>The  URL that the MESA  system recognizes starts like this:</li>
+</ol>
+<pre>     http://info-src:8080/IHERetrieveDocument</pre>
+<ol start="4">
+  <li>The  MESA Information Source will respond with results that your system should  display.</li>
+</ol>
+<p>Test 10146 Query Keys</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="169" valign="top"><br />
+      Parameter </td>
+    <td width="78" valign="top"><p>REQ</p></td>
+    <td width="391" valign="top"><p>Value</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>requestType</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>DOCUMENT</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>documentUID</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>1.2.840.113654.2.3.2003.100.103</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>preferredContentType</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>image/jpeg or application/pdf</p></td>
+  </tr>
+</table>
+<p>Test 10145 HTTP Request Fields</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="169" valign="top"><br />
+      HTTP Field </td>
+    <td width="78" valign="top"><p>REQ</p></td>
+    <td width="391" valign="top"><p>Value</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>Accept</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>One or more of the values listed in ITI TF-2 3.12.4.1.2    (Table 3.12.4-3) with the exception of application/hl7-cda-level-one+xml.    The values that make the most sense for this test are image/jpeg or    application/pdf</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>Accept-Language</p></td>
+    <td width="78" valign="top"><p align="center">O</p></td>
+    <td width="391" valign="top"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>Expires</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>Any valid value not to exceed one week. Example is XXXXYYZZ</p></td>
+  </tr>
+</table>
+<p>Notes:</p>
+<ol>
+  <li>The  MESA  distribution includes an HTML file: <em>$MESA_TARGET/htm/ridl/rid_101xx.html</em>.  This file contains bullet lists with properly formatted requests.</li>
+  <li>You  can use a web browser to obtain a similar file using the following URL:</li>
+</ol>
+<pre>     http://info-src:8080/rid.html</pre>
+<ol start="3">
+  <li>Configuring  you Diplay actor to set the HTTP Accept field is beyond the scope of this  document.</li>
+  <li>If  your system needs HL7 messages or other data to get demographics for this  subject, contact the Project Manager.</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Obtain  a screen capture (software, digital camera) of your screen showing the returned  result.</li>
+  <li>Name  the output file rid_10146.xxx where xxx is the appropriate extension.</li>
+  <li>Zip/tar  the screen capture file with other results and submit to the Project Manager.</li>
+</ol>
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_10147" id="#test_10147">Test Case 10147: RID Retrieve Non-Existing  Document</a></h2>
+<p>Test case 10147 covers the RID transaction to retrieve a  document that does not exist in the Information Source. This case tests one of  the exception modes; the Information Source will not return a document to the  Image Display but will return an error code.<br />
+  The Information Source is expected to return the Error Code  404 &ndash; Not Found.</p>
+<h3>References</h3>
+<p>ITI TF-2: 3.12.4</p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps:</p>
+<ol>
+  <li>Make  sure the MESA Information Source has been started as described in <a href="#start_servers">Starting the MESA Servers</a></li>
+  <li>Configure  your Display to initiate IHE ITI Transaction 12 with the MESA Information Source.  The tables below lists the query keys and HTTP request keys that are required  and their values for this test.</li>
+  <li>The  URL that the MESA  system recognizes starts like this:</li>
+</ol>
+<pre>     http://info-src:8080/IHERetrieveDocument</pre>
+<ol start="4">
+  <li>The  MESA Information Source will respond with results that your system should  display.</li>
+</ol>
+<p>Test 10146 Query Keys</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="169" valign="top"><br />
+      Parameter </td>
+    <td width="78" valign="top"><p>REQ</p></td>
+    <td width="391" valign="top"><p>Value</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>requestType</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>DOCUMENT</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>documentUID</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>1.2.840.113654.2.3.2003.100.100</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>preferredContentType</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>Any of the values in ITI TF-2 3.12.4.1.2 Table 3.12.4-3.</p></td>
+  </tr>
+</table>
+<p>Test 10146 HTTP Request Fields</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="169" valign="top"><br />
+      HTTP Field </td>
+    <td width="78" valign="top"><p>REQ</p></td>
+    <td width="391" valign="top"><p>Value</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>Accept</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>One or more of the values listed in ITI TF-2 3.12.4.1.2    (Table 3.12.4-3). </p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>Accept-Language</p></td>
+    <td width="78" valign="top"><p align="center">O</p></td>
+    <td width="391" valign="top"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>Expires</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>Any valid value not to exceed one week. Example is XXXXYYZZ</p></td>
+  </tr>
+</table>
+<p>Notes:</p>
+<ol>
+  <li>The  MESA  distribution includes an HTML file: <em>$MESA_TARGET/html/rid/rid_101xx.html</em>.  This file contains bullet lists with properly formatted requests.</li>
+  <li>If  your system needs HL7 messages or other data to get demographics for this  subject, contact the Project Manager.</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Obtain  a screen capture (software, digital camera) of your screen showing the returned  result.</li>
+  <li>Name  the output file rid_10147.xxx where xxx is the appropriate extension.</li>
+  <li>Zip/tar  the screen capture file with other results and submit to the Project Manager.</li>
+</ol>
+</td></tr></table>
+<h1>&nbsp;<a name="#test_cases_retrieve" id="#test_cases_retrieve">Test Cases: Retrieve ECG for Display (ECG)</a></h1>
+<p>This section describes test cases that are generally  associated with the ECG Integration Profile. There may be some overlap with  other profiles.</p>
+  <table><tr><td bgcolor="#FFFF99">
+<h2><a name="#test_20301" id="#test_20301">Test Case 20301: D1: Simple Display of ECGs-  Basic Query/HTML Response &ndash; Summary and Display</a></h2>
+<p>Test case 20301 covers D1: Simple Display. The Display actor  makes a request to the MESA Information Source, retrieves a report and displays  that report. The Display actor is required to request reports of type SUMMARY  with a specific patient ID.</p>
+<h3>References</h3>
+<p>Rad TF-1: 5.3.1</p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps:</p>
+<ol>
+  <li>Make  sure the MESA Information Source has been started as described in <a href="#start_servers">Starting the MESA Servers</a></li>
+  <li>Configure  your Display to initiate IHE ITI Transaction 11 with the MESA Information Source.  Your web service request keys should include the required keys from ITI-2:  Table 3.11.4-1 and any optional keys.</li>
+  <li>The  URL that the MESA  system recognizes starts like this:</li>
+</ol>
+<pre>     http://info-src:8080/IHERetrieveSummaryInfo</pre>
+<ol start="4">
+  <li>These  values are required by this test:</li>
+  <ol type="a">
+    <li>The  value for patientID is ECG203011^^^RID.</li>
+    <li>The  value for requestType is SUMMARY.</li>
+    <li>The  value for mostRecentResults can be 0&hellip;.n as defined in ITI-2 Table 3.11.4-1.</li>
+  </ol>
+  <li>The  parameters lowerDateTime and upperDateTime are optional.</li>
+  <li>The  MESA Information Source will respond with results that your system should  display.</li>
+  <li>Obtain  a screen capture (software, digital camera) of your screen showing the returned  result.</li>
+</ol>
+<p>Notes:</p>
+<ol>
+  <li>The  MESA  distribution includes an HTML file: <em>$MESA_TARGET/html/ecg/ecg_203xx.html</em>.  This file contains bullet lists with properly formatted requests.</li>
+  <li>You  can use a web browser to obtain a similar file using the following URL:</li>
+</ol>
+<pre>     http://info-src:8080/ecg.html</pre>
+<ol start="3">
+  <li>If  your system needs HL7 messages or other data to get demographics for this  subject, contact the Project Manager.</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Obtain  a screen capture (software, digital camera) of the summary screen. </li>
+  <li>Name the  output files ecg_20301.xxx where xxx is the appropriate extension (JPG, etc).</li>
+  <li>Zip/tar  the screen capture file with other results and submit to the Project Manager.</li>
+</ol></td></tr></table>
+<h2><a name="#test_20302" id="#test_20302">Test Case 20302: D1: Simple Display of ECGs-  Query &ndash; Summary &ndash; No Such Patient</a></h2>
+<p>Test case 20302 covers D1: Simple Display. The Display actor  makes a request to the MESA Information Source for a patient that does not  exist. The MESA Information Source returns status code 404. The Display should  process that code and provide an &ldquo;appropriate&rdquo; display/rendering for the user.</p>
+<h3>References</h3>
+<p>CARD TF-1: 5.3.1</p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps:</p>
+<ol>
+  <li>Make  sure the MESA Information Source has been started as described in <a href="#start_servers">Starting the MESA Servers</a></li>
+  <li>Configure  your Display to initiate IHE ITI Transaction 11 with the MESA Information  Source. Your web service request keys should include the required keys from  ITI-2: Table 3.11.4-1 and any optional keys.</li>
+  <li>The  URL that the MESA  system recognizes starts like this:</li>
+</ol>
+<pre>     http://info-src:8080/IHERetrieveSummaryInfo</pre>
+<ol start="4">
+  <li>The  value for patientID is ECG203019^^^RID. The value for requestType is SUMMARY.</li>
+  <li>The  MESA Information Source will respond with results that your system should  display.</li>
+</ol>
+<p>Notes:</p>
+<ol>
+  <li>The  MESA  distribution includes an HTML file: <em>$MESA_TARGET/html/ecg/ecg_203xx.html</em>.  This file contains bullet lists with properly formatted requests.</li>
+  <li>You  can use a web browser to obtain a similar file using the following URL:</li>
+</ol>
+<pre>     http://info-src:8080/ecg.html</pre>
+<ol start="3">
+  <li>If  your system needs HL7 messages or other data to get demographics for this  subject, contact the Project Manager.</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Obtain  a screen capture (software, digital camera) of your screen showing the returned  result.</li>
+  <li>Name  the output file ecg_20302.xxx where xxx is the appropriate extension (JPG,  etc.).</li>
+  <li>Zip/tar  the screen capture file with other results and and submit to the Project  Manager.</li>
+</ol>
+  <table><tr><td bgcolor="#FFFF99">
+<h2><a name="#test_20303" id="#test_20303">Test Case 20303: D1: Simple Display of ECGs-  Basic Query &ndash; SUMMARY-CARDIOLOGY/HTML Response</a></h2>
+<p>Test case 20303 covers D1: Simple Display. The Display actor  makes a request to the MESA Information Source, retrieves a report and displays  that report. The Display actor is required to request reports of type  SUMMARY-CARDIOLOGY with a specific patient ID.<br />
+  This differs from test 20301 in the request type. Test 20301  specifies a request type of SUMMARY. This test uses SUMMARY-CARDIOLOGY.</p>
+<h3>References</h3>
+<p>Card TF-1: 5.3.1</p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps:</p>
+<ol>
+  <li>Make  sure the MESA Information Source has been started as described in <a href="#start_servers">Starting the MESA Servers</a></li>
+  <li>Configure  your Display to initiate IHE ITI Transaction 11 with the MESA Information  Source. Your web service request keys should include the required keys from  ITI-2: Table 3.11.4-1 and any optional keys.</li>
+  <li>The  URL that the MESA  system recognizes starts like this:</li>
+</ol>
+<pre>     http://info-src:8080/IHERetrieveSummaryInfo</pre>
+<ol start="4">
+  <li>These  values are required by this test:</li>
+  <ol type="a">
+    <li>The  value for patientID is ECG203011^^^RID.</li>
+    <li>The  value for requestType is SUMMARY-CARDIOLOGY.</li>
+    <li>The value for mostRecentResults can be 0&hellip;.n as defined  in ITI-2 Table 3.11.4-1.</li>
+  </ol>
+  <li>The  parameters lowerDateTime and upperDateTime are optional.</li>
+  <li>The  MESA Information Source will respond with results that your system should  display.</li>
+  <li>Obtain  a screen capture (software, digital camera) of your screen showing the returned  result.</li>
+</ol>
+<p>Notes:</p>
+<ol>
+  <li>The  MESA  distribution includes an HTML file: <em>$MESA_TARGET/html/ecg/ecg_203xx.html</em>.  This file contains bullet lists with properly formatted requests.</li>
+  <li>You  can use a web browser to obtain a similar file using the following URL:</li>
+</ol>
+<pre>     http://info-src:8080/ecg.html</pre>
+<ol start="3">
+  <li>If  your system needs HL7 messages or other data to get demographics for this  subject, contact the Project Manager.</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Obtain  a screen capture (software, digital camera) of the report. </li>
+  <li>Name the output file  ecg_20303.xxx where xxx is the appropriate extension (JPG, etc).</li>
+  <li>Zip/tar  the screen capture file with other results and submit to the Project Manager.</li>
+</ol>
+</td></tr></table>
+<h2><a name="#test_20304" id="#test_20304">Test Case 20304: D1: Simple Display of ECGs-  CARD5 Query &ndash; SUMMARY-CARDIOLOGY-ECG/XML Response</a></h2>
+<p>Test case 20304 covers D1: Simple Display. The Display actor  makes a request to the MESA Information Source, retrieves a report and displays  that report. The Display actor is required to request reports of type  SUMMARY-CARDIOLOGY-ECG with a specific patient ID.</p>
+<h3>References</h3>
+<p>Card TF-1: 5.3.1</p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps:</p>
+<ol>
+  <li>Make  sure the MESA Information Source has been started as described in <a href="#start_servers">Starting the MESA Servers</a></li>
+  <li>Configure  your Display to initiate IHE ITI Transaction 11 with the MESA Information  Source. Your web service request keys should include the required keys from  ITI-2: Table 3.11.4-1 and any optional keys.</li>
+  <li>The  URL that the MESA  system recognizes starts like this:</li>
+</ol>
+<pre>     http://info-src:8080/IHERetrieveSummaryInfo</pre>
+<ol start="4">
+  <li>These  values are required by this test:</li>
+  <ol type="a">
+    <li>The  value for patientID is ECG203011^^^RID.</li>
+    <li>The  value for requestType is SUMMARY-CARDIOLOGY-ECG.</li>
+    <li>The  value for mostRecentResults can be 0&hellip;.n as defined in ITI-2 Table 3.11.4-1.</li>
+  </ol>
+  <li>The  parameters lowerDateTime and upperDateTime are optional.</li>
+  <li>The  MESA Information Source will respond with XML results that your system should  display.</li>
+  <li>Obtain  a screen capture (software, digital camera) of your screen showing the returned  result.</li>
+  <li>Select  the link for any of the ECGs in the list. &nbsp;Obtain a screen capture of the ECG showing the  returned result.</li>
+</ol>
+<p>Notes:</p>
+<ol>
+  <li>The  MESA  distribution includes an HTML file: <em>$MESA_TARGET/html/ecg/ecg_203xx.html</em>.  This file contains bullet lists with properly formatted requests.</li>
+  <li>You  can use a web browser to obtain a similar file using the following URL:</li>
+</ol>
+<pre>     http://info-src:8080/ecg.html</pre>
+<ol start="3">
+  <li>If  your system needs HL7 messages or other data to get demographics for this  subject, contact the Project Manager.</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Obtain  a screen capture (software, digital camera) of two screens (the original list  of ECGs and the ECG fore xxxxx).</li>
+  <li> Name the output files ecg_20304a.xxx and  ecg_20304b.xxx where xxx is the appropriate extension (JPG, etc).</li>
+  <li>Zip/tar  the screen capture file with other results and submit to the Project Manager.</li>
+</ol>
+  <table><tr><td bgcolor="#FFFF99">
+<h2><a name="#test_20305" id="#test_20305">Test Case 20305: D1: Simple Display of ECGs-  CARD5 Query &ndash; SUMMARY-CARDIOLOGY-ECG &ndash; No such patient</a></h2>
+<p>Test case 20305 covers D1: Simple Display. The Display actor  makes a request to the MESA Information Source, retrieves a report and displays  that report. The Display actor is required to request reports of type  SUMMARY-CARDIOLOGY-ECG with a specific patient ID. The patient does not exist,  and the Display should present the user with an appropriate error message.</p>
+<h3>References</h3>
+<p>Card TF-1: 5.3.1</p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps:</p>
+<ol>
+  <li>Make  sure the MESA Information Source has been started as described in <a href="#start_servers">Starting the MESA Servers</a></li>
+  <li>Configure  your Display to initiate IHE ITI Transaction 11 with the MESA Information  Source. Your web service request keys should include the required keys from  ITI-2: Table 3.11.4-1 and any optional keys.</li>
+  <li>The  URL that the MESA  system recognizes starts like this:</li>
+</ol>
+<pre>     http://info-src:8080/IHERetrieveSummaryInfo</pre>
+<ol start="4">
+  <li>These  values are required by this test:</li>
+  <ol type="a">
+    <li>The  value for patientID is ECG203019^^^RID.</li>
+    <li>The  value for requestType is SUMMARY-CARDIOLOGY-ECG.</li>
+    <li>The  value for mostRecentResults can be 0&hellip;.n as defined in ITI-2 Table 3.11.4-1.</li>
+  </ol>
+  <li>The  parameters lowerDateTime and upperDateTime are optional.</li>
+  <li>The  MESA Information Source will respond with results that your system should  display.</li>
+</ol>
+<p>Notes:</p>
+<ol>
+  <li>The  MESA distribution  includes an HTML file: <em>$MESA_TARGET/html/ecg/ecg_203xx.html</em>. This file  contains bullet lists with properly formatted requests.</li>
+  <li>If  your system needs HL7 messages or other data to get demographics for this  subject, contact the Project Manager.</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Obtain  a screen capture (software, digital camera) of two screens (the original list  of ECGs and the ECG for xxxxx).</li>
+  <li> Name the output files ecg_20305.xxx and  ecg_20305.xxx where xxx is the appropriate extension (JPG, etc).</li>
+  <li>Zip/tar  the screen capture file with other results and submit to the Project Manager.</li>
+</ol>
+</td></tr></table>
+<h2><a name="#test_20306" id="#test_20306">Test Case 20306: D1: Simple Display of ECGs-  CARD5 Query &ndash; Zero Caching</a></h2>
+<p>Not implemented in this release; will not be implemented  before February, 2005.</p>
+  <table><tr><td bgcolor="#FFFF99">
+<h2><a name="#test_20307" id="#test_20307">Test Case 20307: D1: Simple Display of ECGs &ndash;  Retrieve document without query</a></h2>
+<p>Test case 20307 is for Information Source actors only.</p>
+</td></tr></table>
+<h2><a name="#test_20308" id="#test_20308">Test Case 20308: D1: Simple Display of ECGs &ndash;  Retrieve vector pdf document</a></h2>
+<p>Test case 20308 covers D1: Simple Display (see CARD TF-1:  5.3.1). </p>
+<h3>References</h3>
+<p>CARD TF-1: 5.3.1</p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps:</p>
+<ol>
+  <li>Make  sure the MESA Information Source has been started as described in <a href="#start_servers">Starting the MESA Servers</a></li>
+  <li>Configure  your Display to initiate IHE ITI Transaction 12 with the MESA Information  Source. The tables below lists the query keys and HTTP request keys that are  required and their values for this test.</li>
+  <li>The  URL that the MESA  system recognizes starts like this:</li>
+</ol>
+<pre>     http://info-src:8080/IHERetrieveDocument</pre>
+<ol start="4">
+  <li>The  MESA Information Source will respond with results that your system should  display.</li>
+</ol>
+<p>Test 20308 Query Keys</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="169" valign="top"><br />
+      Parameter </td>
+    <td width="78" valign="top"><p>REQ</p></td>
+    <td width="391" valign="top"><p>Value</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>requestType</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>DOCUMENT</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>documentUID</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>1.2.840.113654.2.3.2005.20301.101</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>preferredContentType</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>Application/pdf</p></td>
+  </tr>
+</table>
+<p>Test 20308 HTTP Request Fields</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="169" valign="top"><br />
+      HTTP Field </td>
+    <td width="78" valign="top"><p>REQ</p></td>
+    <td width="391" valign="top"><p>Value</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>Accept</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>This is defined in Card TF-2 and should be:<br />
+      Application/pdf&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    -or-<br />
+      */* </p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>Accept-Language</p></td>
+    <td width="78" valign="top"><p align="center">O</p></td>
+    <td width="391" valign="top"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>Expires</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>Any valid value not to exceed one week. Example is XXXXYYZZ</p></td>
+  </tr>
+</table>
+<p>Notes:</p>
+<ol>
+  <li>The  MESA  distribution includes an HTML file: <em>$MESA_TARGET/htm/ecg/ ecg_203xx.html</em>.  This file contains bullet lists with properly formatted requests.</li>
+  <li>You  can use a web browser to obtain a similar file using the following URL:</li>
+</ol>
+<pre>     http://info-src:8080/ecg.html</pre>
+<ol start="3">
+  <li>Configuring  you Diplay actor to set the HTTP Accept field is beyond the scope of this  document.</li>
+  <li>If  your system needs HL7 messages or other data to get demographics for this  subject, contact the Project Manager.</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Obtain  a screen capture (software, digital camera) of your screen showing the returned  result.</li>
+  <li>Name  the output file ecg_20308.xxx where xxx is the appropriate extension.</li>
+  <li>Zip/tar  the screen capture file with other results and submit to the Project Manager.</li>
+</ol>
+  <table><tr><td bgcolor="#FFFF99">
+<h2><a name="#test_20309" id="#test_20309">Test Case 20309: D1: Simple Display of ECGs &ndash;  Retrieve svg document</a></h2>
+<p>Test case 20309 covers D1: Simple Display (see CARD TF-1:  5.3.1). </p>
+<h3>References</h3>
+<p>CARD TF-1: 5.3.1</p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps:</p>
+<ol>
+  <li>Make  sure the MESA Information Source has been started as described in <a href="#start_servers">Starting the MESA Servers</a></li>
+  <li>Configure  your Display to initiate IHE ITI Transaction 12 with the MESA Information  Source. The tables below lists the query keys and HTTP request keys that are  required and their values for this test.</li>
+  <li>The  URL that the MESA  system recognizes starts like this:</li>
+</ol>
+<pre>     http://info-src:8080/IHERetrieveDocument</pre>
+<ol start="4">
+  <li>The  MESA Information Source will respond with results that your system should  display.</li>
+</ol>
+<p>Test 20309 Query Keys</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="169" valign="top"><br />
+      Parameter </td>
+    <td width="78" valign="top"><p>REQ</p></td>
+    <td width="391" valign="top"><p>Value</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>requestType</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>DOCUMENT</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>documentUID</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>1.2.840.113654.2.3.2005.20301.102</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>preferredContentType</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>Image/svg+xml</p></td>
+  </tr>
+</table>
+<p>Test 20309 HTTP Request Fields</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="169" valign="top"><br />
+      HTTP Field </td>
+    <td width="78" valign="top"><p>REQ</p></td>
+    <td width="391" valign="top"><p>Value</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>Accept</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>Image/xvg+xml </p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>Accept-Language</p></td>
+    <td width="78" valign="top"><p align="center">O</p></td>
+    <td width="391" valign="top"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="169" valign="top"><p>Expires</p></td>
+    <td width="78" valign="top"><p align="center">R</p></td>
+    <td width="391" valign="top"><p>Any valid value not to exceed one week. Example is XXXXYYZZ</p></td>
+  </tr>
+</table>
+<p>Notes:</p>
+<ol>
+  <li>The  MESA  distribution includes an HTML file: <em>$MESA_TARGET/htm/ecgl/ ecg_203xx.html</em>.  This file contains bullet lists with properly formatted requests.</li>
+  <li>You  can use a web browser to obtain a similar file using the following URL:</li>
+</ol>
+<pre>     http://info-src:8080/ecg.html</pre>
+<ol start="3">
+  <li>Configuring  you Diplay actor to set the HTTP Accept field is beyond the scope of this  document.</li>
+  <li>If  your system needs HL7 messages or other data to get demographics for this  subject, contact the Project Manager.</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Obtain  a screen capture (software, digital camera) of your screen showing the returned  result.</li>
+  <li>Name  the output file ecg_20309.xxx where xxx is the appropriate extension.</li>
+  <li>Zip/tar  the screen capture file with other results and submit to the Project Manager.</li>
+</ol>
+</td></tr></table>
+<h1><a name="#test_cases_pdi" id="#test_cases_pdi">Test Cases: PDI</a></h1>
+<p>These test cases are generally associated with the  Radiology PDI profile</p>
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_1931" id="#test_1931">Test Case 1931: Media &ldquo;Reader&rdquo; Read RSNA 2004 CD</a></h2>
+<p>The purpose of this test is for the Display actor to open  the INDEX.HTM file on the RSNA 2004 CD and to render the HTML pages and other  files on the CD.</p>
+<h3>References</h3>
+<p>RAD TF</p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps:</p>
+<ol>
+  <li>Obtain  the RSNA 2004 PDI Demonstration CD. If you do not have a physical copy of the  CD, download the ISO image of the CD from the MESA distribution page and create a CD from  the ISO image.</li>
+  <li>Use  your web browser or tool to open INDEX.HTM on the CD.</li>
+  <li>Obtain  the text file RSNA2004CD.doc from the MESA  documentation page. This file will list all of the vendor studies on the RSNA  CD.</li>
+  <li>Manually  walk through all links on the CD. For those studies with multiple images, you  can select a small subset of the images.</li>
+  <li>For  each set of vendor data, modify the file RSNA2004CD.doc to indicate if you can  successfully render the data. Questions are Yes/No. You can add comments at the  bottom of the file.</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Submit  the modified text file to the Project Manager.</li>
+  <li>If  there are problems with rendering, submit a screen capture demonstrating the  problem and/or submit additional documentation in the RSNA2004CD.doc file.</li>
+</ol>
+</td></tr></table>
+<h2><a name="#test_1932" id="#test_1932">Test Case 1932: Media &ldquo;Reader&rdquo; Reads Vendor CDs</a></h2>
+<p>The purpose of this test is for the Display actor to open  the INDEX.HTM file on CDs provided by vendors for the RSNA 2004 PDI demonstration.</p>
+<h3>References</h3>
+<p>RAD TF</p>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps:</p>
+<ol>
+  <li>Obtain  the vendor CDs from the RSNA 2004 PDI Demonstration. If you do not have a  physical copy of the CDs, download the ISO images from the MESA distribution page and create a CD from  the ISO image.</li>
+  <li>Obtain  the text file VENDOR2004CD.doc from the MESA  documentation page. This file will list all of the vendor CDs.</li>
+  <li>Use  your web browser or other tool to open INDEX.HTM on the CD.</li>
+  <li>Manually  walk through all links on the CD. For those studies with multiple images, you  can select a small subset of the images.</li>
+  <li>For  each set of vendor data, modify the file VENDOR2004CD.doc to indicate if you  can successfully render the data. Questions are Yes/No. You can add comments at  the bottom of the file.</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Submit  the modified text file to the Project Manager.</li>
+  <li>If  there are problems with rendering, submit a screen capture demonstrating the  problem and/or submit additional documentation in the VENDOR2004CD.doc file.</li>
+</ol>
+
+</body>
+</html>

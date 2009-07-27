@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Untitled Document</title></head>
+
+<body>
+<p align="center"><strong>&nbsp;</strong></p>
+<p align="center"><strong>HIMSS and RSNA</strong><br />
+    <strong>Integrating the Healthcare Enterprise</strong></p>
+<p align="center"><strong>&nbsp;</strong></p>
+<p align="center"><strong>&nbsp;</strong><strong>IHE/MESA </strong><br />
+    <strong>Export Selector Tests</strong></p>
+<p>&nbsp;</p>
+<p align="center">Electronic Radiology  Laboratory<br />
+  Mallinckrodt Institute of  Radiology<br />
+  510 South    Kingshighway Blvd. <br />
+  St. Louis, MO&nbsp; 63110 <br />
+  314.362.6965 (Voice)<br />
+  314.362.6971 (Fax)</p>
+<p align="center">&nbsp;</p>
+<p align="center">Revision 9.9.0<br />
+  12-December-2005 </p>
+<strong>Contents:</strong><br clear="all" />
+<p><a href="#exp_sel_tests">Export Selector Tests</a> <br />
+    <a href="#intro"> Introduction</a> <br />
+    <a href="#msg_att">Message Attributes</a> <br />
+    <a href="#msg_values"> Message Values</a> <br />
+    <a href="#config">Configuration</a> <br />
+    <a href="#start_servers">Starting the MESA Servers</a> <br />
+    <a href="#sub_results">Submission of Results</a> <br />
+    <a href="#unique_id">Unique Identifiers</a> <br />
+    <a href="#test_instrt">Test Instructions</a> <br />
+    <a href="#exp_sel_tests2"> Export  Selector Tests</a> </p>
+<ol>
+  <li><a href="#test_3001">Export Selector Test 3001: Simple  Single Study Teaching File Export</a> <br />
+  </li>
+  <li><a href="#test_3003">Export Selector Test 3003: Teaching  File Export with Wait for More Data Sent via DICOM</a> <br />
+      <br clear="all" />
+  &nbsp;</li>
+</ol>
+<h1><a name="#exp_sel_tests" id="#exp_sel_tests">Export Selector Tests</a></h1>
+<h2><a name="#intro" id="#intro">Introduction</a></h2>
+<p>Read the document <em>IHE  Tests: Transaction Sequences</em>.&nbsp; This  document lists all the transactions in a series of use cases which drive tests  for individual actors.&nbsp; Export Selector  will participate in a subset of the transactions.&nbsp; Reading that document will allow you to  understand the full set of transactions for each test.&nbsp; These are the 1xx series tests.<br />
+  There are other tests that do not depend on message flow  as defined in <em>IHE Tests: Transaction  Sequences</em>.&nbsp; These other tests (the  4xx series tests) are used to evaluate more static features of the Export  Selector, such as responses for specific keys as defined in the IHE Technical  Framework.<br />
+  Each test is run using the same procedure.&nbsp; We assume you are using an interactive  terminal or terminal emulator and are logged on to the MESA test system.&nbsp; Change directory to <em>$MESA_TARGET/mesa_tests/rad/actors/expsel</em>.&nbsp; Make sure the $MESA_TARGET and $MESA_STORAGE  environment variables are set properly.</p>
+<h3>Integration Profiles and Test Procedures</h3>
+<p>This document lists a number of tests for Export Selector  Systems. You may not be responsible for all of these tests.<br />
+  Please refer to the Connectathon web tool to list the  required tests for your system. The web address of this tool depends on the  year and project manager. Please contact the appropriate project manager to  obtain this information.</p>
+<h2><a name="#msg_att" id="#msg_att">Message  Attributes</a></h2>
+<h2><a name="#msg_values" id="#msg_values">Message  Values</a></h2>
+<h2><a name="#config" id="#config">Configuration</a></h2>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="337" valign="top"><p align="center"><strong>Application</strong></p></td>
+    <td width="180" valign="top"><p align="center"><strong>AE Title</strong></p></td>
+    <td width="121" valign="top"><p align="center"><strong>Port Number</strong></p></td>
+  </tr>
+  <tr>
+    <td width="337" valign="top"><p>MESA_EXPMGR_HOST</p></td>
+    <td width="180" valign="top"><p>MESA_EXPMGR</p></td>
+    <td width="121" valign="top"><p>2350</p></td>
+  </tr>
+  <tr>
+    <td width="337" valign="top"><p>&nbsp;</p></td>
+    <td width="180" valign="top"><p>&nbsp;</p></td>
+    <td width="121" valign="top"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="337" valign="top"><p>&nbsp;</p></td>
+    <td width="180" valign="top"><p>&nbsp;</p></td>
+    <td width="121" valign="top"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="337" valign="top"><p>&nbsp;</p></td>
+    <td width="180" valign="top"><p>&nbsp;</p></td>
+    <td width="121" valign="top"><p>&nbsp;</p></td>
+  </tr>
+</table>
+<p>Read the <em>Runtime Notes</em> section of the<em> Installation Guide</em> to  determine the proper settings for the MESA  runtime environment.</p>
+<h2><a name="#start_servers" id="#start_servers">Starting  the </a>MESA Servers</h2>
+<p>These instructions assume you are using a terminal  emulator on Unix systems or an MS DOS command window under Windows NT.&nbsp; Each test uses a command line interface;  there is no graphical user interface. Before you start the test procedure, you  need to start several MESA  servers.&nbsp; Make sure the appropriate  database is running (PostgreSQL, SQL Server).&nbsp;  To start the MESA  servers:</p>
+<ol start="1" type="1">
+  <li>Enter       the Export Selector exam directory: mesa_tests/rad/actors/expsel</li>
+  <li>Execute       the perl script to start the servers:</li>
+</ol>
+<pre>     perl  scripts/start_mesa_servers.pl [loglevel]</pre>
+    <em>loglevel</em> is an  optional argument (0 is default).&nbsp; Log  levels are:</p>
+<ol start="0">
+  <li>no logging</li>
+  <li>errors</li>
+  <li>warnings</li>
+  <li>verbose</li>
+  <li>conversational (really verbose)</li>
+</ol>
+<p>When you are finished running one or more tests, you can  stop the servers:
+<pre>     perl scripts/stop_mesa_servers.pl</pre>
+  Log files are stored in $MESA_TARGET/logs.<br />
+  For the security tests, the MESA servers are started with different  scripts. These are <em>scripts/start_mesa_secure.csh</em> and <em>scripts\start_mesa_secure.bat</em>.  The log levels are the same as for the standard tests. The syntax for starting  the servers in secure mode is:<br />
+  <pre>     scripts/start_mesa_secure.csh &lt;log level&gt; Unix</pre>
+  <pre>     set  LOGLEVEL=X (1, 2, 3, 4)&nbsp; (Windows)
+     scripts\start_mesa_secure.bat</pre>
+  <p>The MESA  servers are stopped using these scripts: <em>scripts/stop_mesa_secure.csh</em> and <em>scripts\stop_mesa_secure.bat.</em></p>
+<h2><a name="#sub_results" id="#sub_results">Submission of Results</a></h2>
+<p>Test descriptions below inform the reader to &ldquo;submit  results to the Project Manager&rdquo;. This is does not mean &ldquo;email&rdquo;. The current  submission process should be documented by the Project Manager, but will not  include emailing files directly to the Project Manager.</p>
+<h2><a name="#unique_id" id="#unique_id">Unique  Identifiers</a></h2>
+<h2><a name="#test_instrt" id="#test_instrt">Test  Instructions</a></h2>
+<p><strong><em>Please note the test instructions change  starting with the 6.7.0 release</em></strong>.<br />
+  Each test is independent of the others.&nbsp; You must collect the results of one test  before starting a new test.</p>
+<ol>
+  <li>Enter  the Export Selector exam directory: <em>mesa_tests/rad/actors/expsel</em>.</li>
+  <li>Remember  the MESA  servers were started according to the directions in <a href="#start_servers">Starting the MESA Servers</a>.</li>
+</ol>
+<p>A test engine manages the test process. This test engine is  driven by a text file that describes the events for the specific test. Each  test below will indicate which script is appropriate. The arguments to the  script are the test number and the log level for output:</p>
+<ol>
+  <li>errors only</li>
+  <li>warnings</li>
+  <li>verbose</li>
+  <li>reference  information (pointers into IHE Technical Framework)</li>
+</ol>
+<p>An example of the syntax used to invoke the script for the 3000  test is:
+<pre>     perl  scripts/expsel_tce.pl 3000 1</pre>
+  The test script will announce what events are about to  happen and will request that you send specific events according to the sequence  defined in <em>IHE Tests: Transaction  Sequences</em>.&nbsp; When you have completed  the sequence of events, results can be evaluated by running the evaluation script:
+  <pre>     perl  &lt;test&gt;/eval_&lt;test&gt;.pl &lt;log level&gt; &lt;MPPS Mgr AE Title&gt;</pre>
+  For example: <pre>     perl 131/eval_131.pl 3 AE_TITLE_FILLER</pre>
+  The log level for evaluation is defined as:</p>
+<ol>
+  <li>errors only</li>
+  <li>warnings</li>
+  <li>context information (verbose)</li>
+  <li>reference information (pointer into IHE Technical  Framework)</li>
+</ol>
+<p>Starting with version 6.7.0 of the MESA software, the user can change the  patient name and patient ID of the test subject prior to running the test. This  allows one to rerun a test without clearning the database of the prior subject.  This is done from the directory <em>$MESA_TARGET/mesa_tests/rads/msgs</em>.<br />
+  A perl script is used to query the user for a new patient  name and other demographics; the script automatically generates the new patient  identifier. The perl script can also use an existing text file to specify the  new demographics. The software is shipped with text files that are designed for  IHE United States. It would be a simple task to make different text files for  other countries. As listed in each sectio below, invoke the perl script with no  arguments for interactive questions. If you specify an argument, it is the name  of a text file with the demographic values.</p>
+<strong><br clear="all" />
+</strong>
+<h1><a name="#exp_sel_tests2" id="#exp_sel_tests2">Export Selector Tests</a></h1>
+<p>Each section below lists one Export Selector test.&nbsp; As mentioned above, the individual  transactions involving the Export Selector under test are described in other  documents.</p>
+ <table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_3001" id="#test_3001">Export  Selector Test 3001: Simple Single Study Teaching File Export</a></h2>
+<p>Test case 3001 exercises the basic set of transactions  needed to support the teaching file export workflow.&nbsp; The images sent by the Export Selection actor  are deidentified by the Export Manager, who then transmits them to the  Receiver.</p>
+<h3>References</h3>
+<h3>Instructions</h3>
+<p>To run this test:
+  <pre>     perl scripts/expsel_tfcte.pl 3001 &lt;log&gt;</pre>
+  <h3>Evaluation</h3>
+  <p>To evaluate this test:
+  </p>
+  <pre>     perl 3001/eval_3001.pl &lt;log&gt;</pre>
+  <h3>Supplemental Information</h3>
+  </td></tr></table>
+<h2><a name="#test_3003" id="#test_3003">Export  Selector Test 3003: Teaching File Export with Wait for More Data Sent via DICOM</a> </h2>
+<p>Test case 3003 exercises the option of waiting for  additional data.&nbsp; In this use case the  data being waited for is transferred via DICOM, followed by a final manifest  that includes the additional data.&nbsp; </p>
+<h3>References</h3>
+<h3>Instructions</h3>
+<p>To run this test:
+<pre>     perl scripts/expsel_tfcte.pl 3003 &lt;log&gt;</pre>
+  <h3>Evaluation</h3>
+  <p>To evaluate this test:
+  </p>
+  <pre>     perl 3003/eval_3003.pl &lt;log&gt;</pre>
+  <h3>Supplemental Information</h3>
+</body>
+</html>

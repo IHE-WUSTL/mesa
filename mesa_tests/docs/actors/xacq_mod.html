@@ -1,0 +1,1242 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Untitled Document</title>
+<style type="text/css">
+<!--
+.style1 {font-size: 36px}
+.style2 {font-size: 24px}
+-->
+</style>
+</head>
+
+<body>
+<p align="center"><span class="style2"><strong>HIMSS and RSNA</strong><br />
+<strong>Integrating the Healthcare Enterprise</strong></span></p>
+<p align="center"><strong>&nbsp;</strong></p>
+<p align="center"><span class="style1"><strong>&nbsp;</strong><strong>IHE/MESA Acquisition Modality Tests</strong></span></p>
+<p>&nbsp;</p>
+<p align="center">Electronic Radiology  Laboratory<br />
+  Mallinckrodt Institute of  Radiology<br />
+  510 South    Kingshighway Blvd. <br />
+  St. Louis, MO&nbsp; 63110 <br />
+  314.362.6965 (Voice)<br />
+  314.362.6971 (Fax)</p>
+<p align="center">&nbsp;</p>
+<p align="center">Revision 9.6.0<br />
+  18-November-2005</p>
+<br clear="all" />
+<div>
+  <p><a href="#_Toc119916657">1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Modality Tests</a> <br />
+      <a href="#_Toc119916658">1.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Introduction</a> <br />
+      <a href="#_Toc119916659">1.1.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Integration Profiles and Test  Procedures</a> <br />
+      <a href="#_Toc119916660">1.2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Message Attributes</a> <br />
+      <a href="#_Toc119916661">1.3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Message Values</a> <br />
+      <a href="#_Toc119916662">1.4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Configuration</a> <br />
+      <a href="#_Toc119916663">1.5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Starting the MESA Servers</a> <br />
+      <a href="#_Toc119916664">1.6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Submission of Results</a> <br />
+      <a href="#_Toc119916665">2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Individual Tests</a> <br />
+      <a href="#_Toc119916666">2.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Modality Test 201: Unscheduled  Case</a> <br />
+      <a href="#_Toc119916667">2.2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Modality Test 211: Simple Case,  One SPS</a> <br />
+      <a href="#_Toc119916668">2.3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Modality Test 213: Simple Case,  Two SPS</a> <br />
+      <a href="#_Toc119916669">2.4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Modality Test 214: Simple Case,  Two SPS</a> <br />
+      <a href="#_Toc119916670">2.5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Modality Test 215: Perform  Different Procedure</a> <br />
+      <a href="#_Toc119916671">2.6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Modality Test 216: Assisted  Protocol, One SPS</a> <br />
+      <a href="#_Toc119916672">2.7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Modality Test 218: Billing and  Material Option</a> <br />
+      <a href="#_Toc119916673">2.8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Modality Test 221: Group Case, One  Scheduled Procedure</a> <br />
+      <a href="#_Toc119916674">2.9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Modality Test 222: Group Case, Two  Scheduled Procedure</a> <br />
+      <a href="#_Toc119916675">2.10&nbsp;&nbsp;&nbsp;&nbsp; Modality Test 231: Append Case</a> <br />
+      <a href="#_Toc119916676">2.11&nbsp;&nbsp;&nbsp;&nbsp; Modality Test 241: Abandoned Case</a> <br />
+      <a href="#_Toc119916677">2.12&nbsp;&nbsp;&nbsp;&nbsp; Modality Test 242: Exception  Management</a> <br />
+      <a href="#_Toc119916678">2.13&nbsp;&nbsp;&nbsp;&nbsp; Modality Test 251: Storage  Commitment Association Negotiation</a> <br />
+      <a href="#_Toc119916679">2.14&nbsp;&nbsp;&nbsp;&nbsp; Modality Test 271: Patient Update  Tests</a> <br />
+      <a href="#_Toc119916680">2.15&nbsp;&nbsp;&nbsp;&nbsp; Modality Test 281: Example Images</a> <br />
+      <a href="#_Toc119916681">2.16&nbsp;&nbsp;&nbsp;&nbsp; Modality Test 282: Example GSPS  Objects</a> <br />
+      <a href="#_Toc119916682">2.17&nbsp;&nbsp;&nbsp;&nbsp; Test 283: DICOM Composite Object  Evaluation &ndash; DVT</a> <br />
+      <a href="#_Toc119916683">2.18&nbsp;&nbsp;&nbsp;&nbsp; Test 284: DICOM Composite Object  Evaluation &ndash; DICOM3TOOLS</a> <br />
+      <a href="#_Toc119916684">2.19&nbsp;&nbsp;&nbsp;&nbsp; Modality Test 511: Key Image Note  511</a> <br />
+      <a href="#_Toc119916685">3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1xx Series Modality Tests</a> <br />
+      <a href="#_Toc119916686">3.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Modality Test 106: Presentation of  Grouped Procedures</a> <br />
+      <a href="#_Toc119916687">3.2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Modality Test 108: PGP Test Data</a> <br />
+      <a href="#_Toc119916688">4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Charge Processing Tests</a> <br />
+      <a href="#_Toc119916689">4.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Modality Test 1301: Charge  Processing Test 1</a> <br />
+      <a href="#_Toc119916690">4.2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Modality Test 1302: Charge  Processing Test 2</a> <br />
+      <a href="#_Toc119916691">4.3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Modality Test 1303: Charge  Processing Test 3</a> <br />
+      <a href="#_Toc119916692">5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Basic Security Tests</a> <br />
+      <a href="#_Toc119916693">5.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Modality Test 1591: Simple Case,  One SPS</a> <br />
+      <a href="#_Toc119916694">6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Consistent Presentation of Images  Tests</a> <br />
+      <a href="#_Toc119916695">6.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Modality Test 521: Consistent  Presentation of Images</a> <br />
+      <a href="#_Toc119916696">7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Evidence Documents Tests</a> <br />
+      <a href="#_Toc119916697">7.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Evidence Creator Test 1700:  Evidence Document Description</a> <br />
+      <a href="#_Toc119916698">7.2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Modality Test Case 20640:&nbsp; Evidence Creation &ndash; Cath &ndash;Vendor  Interoperability</a> <br />
+      <a href="#_Toc119916699">7.3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Modality Test Case 20641:&nbsp; Evidence Creation &ndash; Echo &ndash;Vendor  Interoperability</a> <br />
+      <a href="#_Toc119916700">8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Nuclear Medicine Tests</a> <br />
+      <a href="#_Toc119916701">8.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Modality Test 2201: NM Image Type  (test 0008, 0008 Value 3)</a> <br />
+      <a href="#_Toc119916702">8.2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Modality Test 2202: NM Image IOD:  Multi-Frames and Vectors</a> <br />
+      <a href="#_Toc119916703">8.3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Modality Test 2203: NM Image  Required Attributes</a> <br />
+      <a href="#_Toc119916704">8.4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Modality Test 2210: NM Modality  STATIC</a> <br />
+      <a href="#_Toc119916705">8.5&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Modality Test 2211: NM Modality  WHOLEBODY</a> <br />
+      <a href="#_Toc119916706">8.6&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -Modality Test 2212: NM Modality  DYNAMIC</a> <br />
+      <a href="#_Toc119916707">8.7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Modality Test 2213: NM Modality  GATED</a> <br />
+      <a href="#_Toc119916708">8.8&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Modality Test 2214: NM Modality  TOMO</a> <br />
+      <a href="#_Toc119916709">8.9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Modality Test 2215: NM Modality  GATED TOMO</a> <br />
+      <a href="#_Toc119916710">8.10&nbsp;&nbsp;&nbsp;&nbsp; Modality Test 2216: NM Modality  RECON TOMO</a> <br />
+      <a href="#_Toc119916711">8.11&nbsp;&nbsp;&nbsp;&nbsp; Modality Test 2217: NM Modality  RECON GATED TOMO</a> <br />
+      <a href="#_Toc119916712">9&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Cardiology Echo Modality Tests</a> <br />
+      <a href="#_Toc119916713">9.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Modality Test 20403: Stress Echo  Option</a> <br />
+      <a href="#_Toc119916714">9.2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Modality Test 20404: Echo Image  Sets</a> <br />
+      <a href="#_Toc119916715">10&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Cardiology Cath Modality Tests</a> <br />
+      <a href="#_Toc119916716">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Modality Test 20405: Cath Image  Sets</a> <br />
+    <a href="#_Toc119916721">10.1</a> </p>
+  <p>&nbsp;</p>
+</div>
+<strong><br clear="all" />
+</strong>
+<h1><a name="_Toc119916657" id="_Toc119916657">1 Modality Tests</a></h1>
+<h2><a name="_Toc119916658" id="_Toc119916658">Introduction</a></h2>
+<p>This document describes several tests for Acquisition  Modality systems.&nbsp; The tests depend on  the Integration Profiles supported by the Modality.&nbsp; The Display Consistency tests are defined in  a separate document: <em>Display Consistency  Test Plan for Image Creators</em>.</p>
+<h3><a name="_Toc119916659" id="_Toc119916659">Integration Profiles and Test Procedures</a></h3>
+<p>This document lists a number of tests for Acquisition  Modality Systems. You may not be responsible for all of these tests.<br />
+  Please refer to the Connectathon web tool to list the  required tests for your system. The web address of this tool depends on the  year and project manager. Please contact the appropriate project manager to  obtain this information.</p>
+<h2><a name="_Toc119916660" id="_Toc119916660">Message  Attributes</a> </h2>
+<h2><a name="_Toc119916661" id="_Toc119916661">Message  Values</a> </h2>
+<h2><a name="_Toc119916662" id="_Toc119916662">Configuration</a></h2>
+<p>The Modality scripts use an ASCII configuration file to  identify parameters such as host names and port numbers.&nbsp; The configuration file is named <em>mod_test.cfg</em> and is included in the  directory <em>$MESA_TARGET/mesa_tests/rad/actors/mod</em>.&nbsp; Edit the file and change entries (host name,  port number) which pertain to your system.&nbsp;  Your system is identified by entries that begin with TEST.<br />
+  For IHE Basic Security tests, all messages are exchanged  using TLS. MESA  servers are run on the same ports but with the TLS option. The configuration  file that identifies your information is <em>mod_secure.cfg</em>. This separate  file allows you to use different port numbers for secure and standard  configurations. You may decide to use the same port numbers for both types of  communication. The MESA  software will only use all secure or all standard communication for a test; we  do not mix communication protocols.<br />
+  This version of the software assumes the AE title of your  modality is MODALITY1.&nbsp; That will be the  Scheduled AE title and the AE title we assume you use when you send images,  mpps events and storage commitment requests.&nbsp;  Please use this AE title for your modality.<br />
+  Modalities will communicate with two MESA servers during these tests.&nbsp; Parameters for the tests are listed  below.&nbsp; Worklist queries should be sent  to the MESA MWL Server.&nbsp; All other  messages (storage, storage commitment, MPPS) should be sent to the MESA Image  Manager.<br />
+  The file <em>$MESA_TARGET/runtime/imgmgr/ds_dcm.cfg</em> is used to configure the MESA Image Manager .&nbsp;  The only parameter users should change is the LOG_LEVEL value.&nbsp; Log levels are defined in section 1.5.&nbsp; DICOM configuration parameters are listed in  the table below.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="213" valign="top"><br />
+      System </td>
+    <td width="213" valign="top"><p>Application Entity Title</p></td>
+    <td width="213" valign="top"><p>Port</p></td>
+  </tr>
+  <tr>
+    <td width="213" valign="top"><p>MESA Image    Manager</p></td>
+    <td width="213" valign="top"><p>MESA_IMG_MGR</p></td>
+    <td width="213" valign="top"><p>2350</p></td>
+  </tr>
+  <tr>
+    <td width="213" valign="top"><p>MESA    MWL Server</p></td>
+    <td width="213" valign="top"><p>MESA_MWL</p></td>
+    <td width="213" valign="top"><p>2250</p></td>
+  </tr>
+  <tr>
+    <td width="213" valign="top"><p>MESA    Audit Record Repository</p></td>
+    <td width="213" valign="top"><p>&nbsp;</p></td>
+    <td width="213" valign="top"><p>4000</p></td>
+  </tr>
+</table>
+<p>There is a one-time setup step to run before any tests are  started.&nbsp; DICOM UIDs and other  identifiers have seed values which are stored in the MESA databases.&nbsp; You should reset the UIDs one time before you  start the tests.&nbsp; If you decide to rerun  tests, you should not have to reset the UIDs.&nbsp;  If you decide to reload the Modality Worklist, you will get different  Study Instance UIDs (which is probably the behavior that you want).<br />
+  To set the UIDs for the first time or reset them at a  later time:<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; perl  scripts/reset_uids.pl</p>
+<h2><a name="_Toc119916663" id="_Toc119916663">Starting the </a>MESA Servers</h2>
+<p>These instructions assume you are using a terminal  emulator on Unix systems or an MS DOS command window under Windows NT.&nbsp; Each test uses a command line interface;  there is no graphical user interface. Before you start the test procedure, you  need to start the MESA Order Placer and MESA Order Filler servers.&nbsp; Make sure the appropriate database is running  (PostgreSQL, SQL Server).&nbsp; To start the MESA servers:</p>
+<ol start="1" type="1">
+  <li>Enter       the Modality exam folder: <em>mesa_tests/rad/actors/mod</em></li>
+  <li>Execute       the appropriate script to start the servers:</li>
+</ol>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scripts/start_mesa_servers.csh &nbsp;(Unix)<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;scripts\start_mesa_servers.bat  (Windows)<br />
+  Log levels are set for the MESA Image Manager in the file: </p>
+<p><em>$MESA_TARGET/runtime/rpt_manager/ds_dcm.cfg</em>.&nbsp; / Log levels are:</p>
+<ol start="0">
+  <li>no logging</li>
+  <li>errors</li>
+  <li>warnings</li>
+  <li>verbose</li>
+  <li>conversational  (really verbose)</li>
+</ol>
+<p>When you are finished running one or more tests, you can  stop the servers:<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; scripts/stop_mesa_servers.csh  (Unix)<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; scripts\stop_mesa_servers.bat  (Windows)<br />
+  Log files are stored in $MESA_TARGET/logs.<br />
+  For the security tests, the MESA servers are started with different  scripts. These are <em>scripts/start_mesa_secure.csh</em> and <em>scripts\start_mesa_secure.bat</em>.  The log levels are the same as for the standard tests. The MESA servers are stopped using these scripts:<em>scripts/stop_mesa_secure.csh</em> and <em>scripts\stop_mesa_secure.bat</em>.</p>
+<h2><a name="_Toc119916664" id="_Toc119916664"></a><a name="_Toc114627166" id="_Toc114627166"></a><a name="_Toc114625773" id="_Toc114625773"></a><a name="_Toc114557030" id="_Toc114557030">Submission of Results</a></h2>
+<p>Test descriptions below inform the reader to &ldquo;submit  results to the Project Manager&rdquo;. This is does not mean &ldquo;email&rdquo;. The current  submission process should be documented by the Project Manager, but will not  include emailing files directly to the Project Manager.</p>
+<p>&nbsp;</p>
+<strong><br clear="all" />
+</strong>
+<h1><a name="_Toc119916665" id="_Toc119916665">2 Individual Tests</a></h1>
+<p>The table below gives a terse summary of the modality  tests for scheduled workflow.&nbsp; The table  uses a notation for procedure steps and action items such as X1/X1_A1.&nbsp; That means the procedure step is X1 and the  corresponding action item is X1_A1.&nbsp; You  will not see X1 in the modality worklist, but you will see the action item  X1_A1.&nbsp; Some procedure steps have two  action items.&nbsp; For example, the procedure  step X4B has associated action items X4B_A1 and X4B_A2.<br />
+  The individual test sections below should provide a more  complete description of each test and what the modality is expected to produce.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="55" valign="top"><p>Test</p></td>
+    <td width="126" valign="top"><p>Description</p></td>
+    <td width="96" valign="top"><p>Requested Procedure</p></td>
+    <td width="150" valign="top"><p>SPS / Action Items</p></td>
+    <td width="150" valign="top"><p>PPS / Action Items</p></td>
+    <td width="54" valign="top"><p>PPS</p></td>
+  </tr>
+  <tr>
+    <td width="55" valign="top"><p>201</p></td>
+    <td width="126" valign="top"><p>Unscheduled</p></td>
+    <td width="96" valign="top"><p>none</p></td>
+    <td width="150" valign="top"><p>none</p></td>
+    <td width="150" valign="top"><p>X1/X1_A1</p></td>
+    <td width="54" valign="top"><p align="center">1</p></td>
+  </tr>
+  <tr>
+    <td width="55" valign="top"><p>211</p></td>
+    <td width="126" valign="top"><p>Simple Case</p></td>
+    <td width="96" valign="top"><p>P1</p></td>
+    <td width="150" valign="top"><p>X1 / X1_A1</p></td>
+    <td width="150" valign="top"><p>X1 / X1_A1</p></td>
+    <td width="54" valign="top"><p align="center">1</p></td>
+  </tr>
+  <tr>
+    <td width="55" valign="top"><p>213</p></td>
+    <td width="126" valign="top"><p>Simple Case</p></td>
+    <td width="96" valign="top"><p>P8</p></td>
+    <td width="150" valign="top"><p>X8A / X8A_A1<br />
+      X8B / X8B_A1</p></td>
+    <td width="150" valign="top"><p>X8A / X8A_A1<br />
+      X8B / X8B_A1</p></td>
+    <td width="54" valign="top"><p align="center">2</p></td>
+  </tr>
+  <tr>
+    <td width="55" valign="top"><p>214</p></td>
+    <td width="126" valign="top"><p>Simple</p></td>
+    <td width="96" valign="top"><p>P4</p></td>
+    <td width="150" valign="top"><p>X4 A / X4A_A1<br />
+      X4B / X4B_A1, X4B_A2</p></td>
+    <td width="150" valign="top"><p>X4A / X4A_A1<br />
+      X4B / X4B_A1, X4B_A2</p></td>
+    <td width="54" valign="top"><p align="center">2</p></td>
+  </tr>
+  <tr>
+    <td width="55" valign="top"><p>215</p></td>
+    <td width="126" valign="top"><p>Simple, but perform different procedure</p></td>
+    <td width="96" valign="top"><p>P10</p></td>
+    <td width="150" valign="top"><p>X10/X10_A1</p></td>
+    <td width="150" valign="top"><p>X2/X2_A1</p></td>
+    <td width="54" valign="top"><p align="center">1</p></td>
+  </tr>
+  <tr>
+    <td width="55" valign="top"><p>221</p></td>
+    <td width="126" valign="top"><p>Group Case</p></td>
+    <td width="96" valign="top"><p>P3</p></td>
+    <td width="150" valign="top"><p>X3A / X3A_A1<br />
+      X3B / X3B_A1</p></td>
+    <td width="150" valign="top"><p>X3A/X3_A1, X3B_X3B_A1</p></td>
+    <td width="54" valign="top"><p align="center">1</p></td>
+  </tr>
+  <tr>
+    <td width="55" valign="top"><p>222</p></td>
+    <td width="126" valign="top"><p>Group Case</p></td>
+    <td width="96" valign="top"><p>P6<br />
+      P7</p></td>
+    <td width="150" valign="top"><p>X6 / X6_A1<br />
+      X7/ X7_A1</p></td>
+    <td width="150" valign="top"><p>X6 / X6_A1<br />
+      X7/ X7_A1</p></td>
+    <td width="54" valign="top"><p align="center">1</p></td>
+  </tr>
+  <tr>
+    <td width="55" valign="top"><p>231</p></td>
+    <td width="126" valign="top"><p>Append Case</p></td>
+    <td width="96" valign="top"><p>P5</p></td>
+    <td width="150" valign="top"><p>X5 / X5_A1</p></td>
+    <td width="150" valign="top"><p>X5 / X5_A1<br />
+      X1 / X1_A1</p></td>
+    <td width="54" valign="top"><p align="center">2</p></td>
+  </tr>
+  <tr>
+    <td width="55" valign="top"><p>241</p></td>
+    <td width="126" valign="top"><p>Abandoned Case</p></td>
+    <td width="96" valign="top"><p>P2</p></td>
+    <td width="150" valign="top"><p>X2 / X2_A1</p></td>
+    <td width="150" valign="top"><p>Abandoned</p></td>
+    <td width="54" valign="top"><p align="center">1</p></td>
+  </tr>
+</table>
+<p>We assume you are using an interactive terminal or  terminal emulator and are logged on to the MESA test system.&nbsp; Change directory to <em>$MESA_TARGET/mesa_tests/rad/actors/mod</em>.<br />
+  Before you run any tests, you need to produce the MESA test data (modality  worklist and comparison data).&nbsp; Once the MESA servers have been  started, create the test data as follows:<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; perl  2xx/2xx.pl<br />
+  This is a one-time step that should not have to be  repeated.<br />
+  The test scripts assume that you produce images and series  that correspond exactly to the test instructions.&nbsp; For example, if the test requires two  Performed Procedure Steps, the scripts expect the modality to produce two sets  of MPPS messages and two corresponding series of images.&nbsp; If you run a test once and produce incorrect  data, you will need to clear the MESA  system of those messages before you run the test a second time.&nbsp; If you do not clear the system, the test  scripts will likely evaluate the incorrect data again.&nbsp; To clear the Image Manager, use this command:<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; perl  scripts/clear_img_mgr.pl<br />
+  You should not have to clear the Image Manager if you  complete one test (say 201) and are starting a different test (211).&nbsp; When you clear the Image Manager, you lose  your ability to run the evaluation for a test you have already completed.&nbsp; However, this does not clear the text files  with the results from the previous tests.&nbsp;  Therefore, the general procedure to follow is:</p>
+<ol>
+<ol>
+  <li>Run  a test to completion.</li>
+  <li>Obtain  the results by running the proper script.&nbsp;  These results will stay in place.</li>
+  <li>Start  a new test; if you need to clear the Image Manager to complete the new test,  your old results are not affected.&nbsp;  However, you cannot run the evaluation scripts for old tests after  clearing the Image Manager.</li>
+</ol>
+<h2><a name="_Toc119916666" id="_Toc119916666">Modality Test 201: Unscheduled Case</a></h2>
+<p>Unscheduled cases imply that there is no Modality Worklist  available to the Modality.&nbsp; In this test,  you should produce a study according to the table below.&nbsp; The following table lists the patient  demographics.&nbsp; Because this is an  unscheduled case, your Modality will provide the Study Instance UID.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="59" valign="top"><p>Test</p></td>
+    <td width="109" valign="top"><p>Description</p></td>
+    <td width="95" valign="top"><p>Requested Procedure</p></td>
+    <td width="188" valign="top"><p>SPS / Protocol Code Items</p></td>
+    <td width="188" valign="top"><p>PPS / Protocol Code Items</p></td>
+  </tr>
+  <tr>
+    <td width="59" valign="top"><p>201</p></td>
+    <td width="109" valign="top"><p>Simple Case</p></td>
+    <td width="95" valign="top"><p>None</p></td>
+    <td width="188" valign="top"><p>None</p></td>
+    <td width="188" valign="top"><p>X1 / X1_A1</p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="193" valign="top"><p>Attribute</p></td>
+    <td width="252" valign="top"><p>Value</p></td>
+  </tr>
+  <tr>
+    <td width="193" valign="top"><p>Patient Name</p></td>
+    <td width="252" valign="top"><p>WHITE^CHARLES</p></td>
+  </tr>
+  <tr>
+    <td width="193" valign="top"><p>Patient ID</p></td>
+    <td width="252" valign="top"><p>583020</p></td>
+  </tr>
+  <tr>
+    <td width="193" valign="top"><p>Patient DOB</p></td>
+    <td width="252" valign="top"><p>19980704</p></td>
+  </tr>
+  <tr>
+    <td width="193" valign="top"><p>Patient Sex</p></td>
+    <td width="252" valign="top"><p>M</p></td>
+  </tr>
+</table>
+<ol>
+  <li>Start  the MESA  servers as described in section 1.5.</li>
+  <li>Clear  the MESA Image Manager (if necessary)</li>
+</ol>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;perl scripts/clear_img_mgr.pl</p>
+<ol start="3">
+  <li>Send  your MPPS events, images and Storage Commitment requests to the MESA Image  Manager.&nbsp; The MESA Image Manager does not  automatically send Storage Commitment N-Event reports.&nbsp; To trigger these reports:</li>
+</ol>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;perl  scripts/send_storage_commit_nevents.pl</p>
+<ol start="4">
+  <li>Compare  your results to expected results:</li>
+</ol>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;perl 201/eval_201.pl [output level]  &lt;AE Title MPPS SCU&gt; [Japanese]<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;where &lt;AE Title MPPS SCU&gt;  is the Application Entity title of your modality, and &lt;output level&gt; is a  value from 1 to 4 indicating the amount of output to log &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(1 = errors only, 4 =  full output). Follow with the optional keyword Japanese if using that version  of the software.</p>
+<p>If you need to rerun these tests, you can start again at  step 2.</p>
+<h2><a name="_Toc119916667" id="_Toc119916667">Modality Test 211: Simple Case, One SPS</a></h2>
+<p>This test is for one Requested Procedure (P1) leading to  one Scheduled Procedure Step with one Protocol Item (X1_A1). The modality is  expected to perform one Performed Procedure Step as scheduled.<br />
+  Producing the Performed Protocol Code Sequence in the MPPS  data is required if the modality supports the &ldquo;Assisted Acquisition Protocol  Setting&rdquo; option. If the modality supports that option, set the &ldquo;Protocol Flag&rdquo;  to &ldquo;1&rdquo; in step 6 below. Otherwise, set the value to 0.</p>
+<ol>
+  <li>Start  the MESA  servers as described in section 1.5.</li>
+  <li>Clear  the MESA Image Manager (if necessary)</li>
+</ol>
+<p>perl scripts/clear_img_mgr.pl</p>
+<ol start="3">
+  <li>Obtain  the MWL entry for the patient: MODALITY^211.&nbsp;  This entry should have one Scheduled Procedure Step with one Protocol  Code: X1_A1.</li>
+  <li>Perform  the one procedure as defined in the MWL.</li>
+  <li>Send  your MPPS events, images and Storage Commitment requests to the MESA Image  Manager.&nbsp; The MESA Image Manager does not  automatically send Storage Commitment N-Event reports.&nbsp; To trigger these reports:</li>
+</ol>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;perl  scripts/send_storage_commit_nevents.pl</p>
+<ol start="6">
+  <li>Compare  your results to expected results:</li>
+</ol>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;perl  211/eval_211.pl &lt;output level&gt; &lt;Protocol Flag&gt; &lt;AE Title MPPS  SCU&gt; [Japanese]<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;where &lt;AE Title MPPS SCU&gt;  is the Application Entity title of your modality, &lt;output level&gt; is a  value from 1 to 4 indicating the amount of output to log (1 = &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;errors only, 4 =  full output), and &lt;Protocol Flag&gt; is 0 or 1. Follow with the optional  keyword Japanese if using that version of the software.</p>
+<p>If you need to rerun these tests, you can start again at  step 2.<br />
+</p>
+<p> Note: You might want to read the instructions for Modality  Test 281 and extract the images required for that test.&nbsp; After this test has been completed, you could  skip most of the steps in Test 281 and just harvest the images produced in this  test.</p>
+<strong><br clear="all" />
+</strong>
+<h2><a name="_Toc119916668" id="_Toc119916668">Modality Test 213: Simple Case, Two SPS</a></h2>
+<p>Starting with this test, you no longer need to send  Storage Commitment events.&nbsp; If you choose  to do so (because your system does that automatically), the MESA system will accept your messages, but  will not evaluate them.&nbsp; If you want the MESA system to respond  with the proper N-Event reports, you can do so using the same script described  in the tests above:<br />
+  perl scripts/send_storage_commit_nevents.pl<br />
+  This test is for one Requested Procedure (P8) leading to  two Scheduled Procedure Steps each with a single Protocol Item (X8A_A1 and  X8B_A1).<br />
+  <a name="OLE_LINK1" id="OLE_LINK1">Producing the Performed Protocol Code  Sequence in the MPPS data is required if the modality supports the &ldquo;Assisted  Acquisition Protocol Setting&rdquo; option. If the modality supports that option, set  the &ldquo;Protocol Flag&rdquo; to &ldquo;1&rdquo; in step 6 below. Otherwise, set the value to 0.</a></p>
+<ol>
+  <li>Start  the MESA  servers as described in section 1.5.</li>
+  <li>Clear  the MESA Image Manager (if necessary)</li>
+</ol>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;perl scripts/clear_img_mgr.pl</p>
+<ol start="3">
+  <li>Obtain  the MWL entry for the patient: MODALITY^213.&nbsp;  This entry should have two Scheduled Procedure Steps each with a single  Protocol Item (X8A_A1, X8B_A1).</li>
+  <li>Perform  the two SPS as described in the MWL.</li>
+  <li>Send  your MPPS events, images and Storage Commitment requests to the MESA Image  Manager.&nbsp; The MESA Image Manager does not  automatically send Storage Commitment N-Event reports.&nbsp; To trigger these reports:</li>
+</ol>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;perl  scripts/send_storage_commit_nevents.pl</p>
+<ol start="6">
+  <li>Compare  your results to expected results:</li>
+</ol>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;perl  213/eval_213.pl &lt;output level&gt; &lt;Protocol Flag&gt; &lt;AE Title MPPS  SCU&gt; [Japanese]<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;where &lt;AE Title MPPS SCU&gt;  is the Application Entity title of your modality, and &lt;output level&gt; is a  value from 1 to 4 indicating the amount of output to log (1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;= errors only, 4 =  full output). Follow with the optional keyword Japanese if using that version  of the software.</p>
+<p>If you need to rerun these tests, you can start again at  step 2.</p>
+<strong><br clear="all" />
+</strong>
+<h2><a name="_Toc119916669" id="_Toc119916669">Modality Test 214: Simple Case, Two SPS</a></h2>
+<p>This test is for one Requested Procedure (P4) leading to  two Scheduled Procedure Steps. The first SPS uses a single Protocol Code Item;  the second SPS uses two Protocol Code Items. The modality is expected to  perform both Scheduled Procedure Steps and include all Protocol Code Items.<br />
+  Producing the Performed Protocol Code Sequence in the MPPS  data is required if the modality supports the &ldquo;Assisted Acquisition Protocol  Setting&rdquo; option. If the modality supports that option, set the &ldquo;Protocol Flag&rdquo;  to &ldquo;1&rdquo; in step 6 below. Otherwise, set the value to 0.</p>
+<ol>
+  <li>Start  the MESA  servers as described in section 1.5.</li>
+  <li>Clear  the MESA Image Manager (if necessary)
+    <blockquote>
+      <p> perl scripts/clear_img_mgr.pl</p>
+    </blockquote>
+  </li>
+
+  <li>Obtain  the MWL entry for the patient: MODALITY^214.&nbsp;  This entry should have two Scheduled Procedure Steps; as described  above, one step will have one Protocol Item and the second step will have two  Protocol Items.</li>
+  <li>Perform  the two SPS as described in the MWL.</li>
+  <li>Send  your MPPS events, images and Storage Commitment requests to the MESA Image  Manager.&nbsp; The MESA Image Manager does not  automatically send Storage Commitment N-Event reports.&nbsp; To trigger these reports:
+    <blockquote>
+      <p>perl  scripts/send_storage_commit_nevents.pl</p>
+    </blockquote>
+  </li>
+
+  <li>Compare  your results to expected results:
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;perl  214/eval_214.pl &lt;output level&gt; &lt;AE Title MPPS SCU&gt; &lt;Protocol  Flag&gt; [Japanese]<br />
+      where &lt;AE Title MPPS SCU&gt;  is the Application Entity title of your modality, and &lt;output level&gt; is a  value from 1 to 4 indicating the amount of output to log (1 = errors only, 4 =  full output). Follow with the optional keyword Japanese if using that version  of the software.</p>
+  </li>
+</ol>
+<p>If you need to rerun these tests, you can start again at  step 2.</p>
+<strong><br clear="all" />
+</strong>
+<h2><a name="_Toc119916670" id="_Toc119916670">Modality Test 215: Perform Different Procedure</a></h2>
+<p>In this test, the MWL entry is for Requested Procedure P10  with Protocol Item X10_A1.&nbsp; At the  modality, we decide to perform procedure P2 with Protocol Item X2_A1.&nbsp; Procedure P10 is not performed.</p>
+<ol>
+  <li>Start  the MESA  servers as described in section 1.5.</li>
+  <li>Clear  the MESA Image Manager (if necessary)
+    <blockquote>
+      <p>perl scripts/clear_img_mgr.pl</p>
+    </blockquote>
+  </li>
+
+  <li>Obtain  the MWL entry for the patient: MODALITY^215.&nbsp;  This entry should have one Scheduled Procedure Step with a single  Protocol Item.</li>
+  <li>Perform  procedure P2 with Protocol Item X2_A1 rather than the scheduled X10_A1.</li>
+  <li>Send  your MPPS events, images and Storage Commitment requests to the MESA Image  Manager.&nbsp; The MESA Image Manager does not  automatically send Storage Commitment N-Event reports.&nbsp; To trigger these reports:
+    <blockquote>
+      <p>perl  scripts/send_storage_commit_nevents.pl</p>
+    </blockquote>
+  </li>
+
+  <li>Compare  your results to expected results:</li>
+</ol>
+<blockquote>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;perl 215/eval_215.pl &lt;output  level&gt; &lt;AE Title MPPS SCU&gt; [Japanese]<br />
+    where &lt;AE Title MPPS SCU&gt;  is the Application Entity title of your modality, and &lt;output level&gt; is a  value from 1 to 4 indicating the amount of output to log (1 = errors only, 4 =  full output). Follow with the optional keyword Japanese if using that version  of the software.</p>
+</blockquote>
+<p>If you need to rerun these tests, you can start again at  step 2.</p>
+<strong><br clear="all" />
+</strong>
+<h2><a name="_Toc119916671" id="_Toc119916671">Modality Test 216: Assisted Protocol, One SPS</a></h2>
+<h2><a name="_Toc119916672" id="_Toc119916672">Modality Test 218: Billing and Material Option</a></h2>
+<p>Test 218 exercises the Billing and Material Management  Option for Acquisition Modalties (see IHE TF Vol II: section 4.7.4.1.2.3). With  this option, a modality must provide one or more of the values listed in Vol  II: Table 4.7-2.<br />
+  Instructions:</p>
+<ol>
+  <li>Obtain  the MWL entry for patient MODALITY^218.</li>
+  <li>Perform  the one Scheduled Procedure Step as entered in the worklist. Generate  appropriate MPPS messages and fill in one or more of these sequences:
+    <blockquote>
+      <p>0040  0320 Billing Procedure Step Sequence<br />
+        0040  0321 Film Consumption Sequence<br />
+        0040  0324 Billing Supplies and Devices Sequence</p>
+    </blockquote>
+  </li>
+
+  <li>The  table below lists the values to supply for the coded items in the sequences</li>
+</ol>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="211" valign="top"><p>Attribute Name</p></td>
+    <td width="156" valign="top"><p>Tag</p></td>
+    <td width="186" valign="top"><p>Value</p></td>
+  </tr>
+  <tr>
+    <td width="211" valign="top"><p>Billing Procedure Step Sequence</p></td>
+    <td width="156" valign="top"><p align="center">(0040,0320)</p></td>
+    <td width="186" valign="top"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="211" valign="top"><p>&gt; Code Value</p></td>
+    <td width="156" valign="top"><p align="center">(0008,0100)</p></td>
+    <td width="186" valign="top"><p>BP1001</p></td>
+  </tr>
+  <tr>
+    <td width="211" valign="top"><p>&gt; Coding Scheme Designator</p></td>
+    <td width="156" valign="top"><p align="center">(0008,0102)</p></td>
+    <td width="186" valign="top"><p>IHEDEMO</p></td>
+  </tr>
+  <tr>
+    <td width="211" valign="top"><p>&gt;Code Meaning </p></td>
+    <td width="156" valign="top"><p align="center">(0008,0104)</p></td>
+    <td width="186" valign="top"><p>Billing Procedure    1001</p></td>
+  </tr>
+  <tr>
+    <td width="211" valign="top"><p>Film Consumption Sequence</p></td>
+    <td width="156" valign="top"><p align="center">(0040,0321)</p></td>
+    <td width="186" valign="top"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="211" valign="top"><p>&gt;Number of Films</p></td>
+    <td width="156" valign="top"><p align="center">(2100,0170)</p></td>
+    <td width="186" valign="top"><p>1</p></td>
+  </tr>
+  <tr>
+    <td width="211" valign="top"><p>&gt;Medium Type</p></td>
+    <td width="156" valign="top"><p align="center">(2000,0030)</p></td>
+    <td width="186" valign="top"><p>CLEAR FILM</p></td>
+  </tr>
+  <tr>
+    <td width="211" valign="top"><p>&gt;Film Size ID</p></td>
+    <td width="156" valign="top"><p align="center">(2000,0050)</p></td>
+    <td width="186" valign="top"><p>8INX10IN</p></td>
+  </tr>
+  <tr>
+    <td width="211" valign="top"><p>Billing Supplies and Devices Sequence</p></td>
+    <td width="156" valign="top"><p align="center">(0040,0324)</p></td>
+    <td width="186" valign="top"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="211" valign="top"><p>&gt; Billing Item Sequence</p></td>
+    <td width="156" valign="top"><p align="center">(0040,0296)</p></td>
+    <td width="186" valign="top"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="211" valign="top"><p>&gt;&gt; Code Value</p></td>
+    <td width="156" valign="top"><p align="center">(0008,0100)</p></td>
+    <td width="186" valign="top"><p>SUP_X109</p></td>
+  </tr>
+  <tr>
+    <td width="211" valign="top"><p>&gt;&gt; Coding Scheme Designator</p></td>
+    <td width="156" valign="top"><p align="center">(0008,0102)</p></td>
+    <td width="186" valign="top"><p>IHEDEMO</p></td>
+  </tr>
+  <tr>
+    <td width="211" valign="top"><p>&gt;&gt; Code Meaning</p></td>
+    <td width="156" valign="top"><p align="center">(0008,0104)</p></td>
+    <td width="186" valign="top"><p>Catheter</p></td>
+  </tr>
+  <tr>
+    <td width="211" valign="top"><p>&gt;Quantity    Sequence</p></td>
+    <td width="156" valign="top"><p align="center">(0040,0293)</p></td>
+    <td width="186" valign="top"><p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="211" valign="top"><p>&gt;&gt;Quantity</p></td>
+    <td width="156" valign="top"><p align="center">(0040,0294)</p></td>
+    <td width="186" valign="top"><p>2</p></td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+<p>To evaluate your MPPS messages:<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;perl  218/eval_218.pl &lt;log level&gt; &lt;AE Title MPPS SCU&gt; </p>
+<p>&nbsp;</p>
+<h2><a name="_Toc119916673" id="_Toc119916673">Modality Test 221: Group Case, One Scheduled  Procedure</a></h2>
+<p>In this test, a single Requested Procedure (P3) is  expanded by the Order Filler into two Scheduled Procedure Steps, each with a  single Protocol Item (X3A_A1, X3B_A1).&nbsp;  The modality performs the group case by combining these two SPS.<br />
+  Because this is taken from a single Requested Procedure,  the modality should use the Study Instance UID found in the MWL.</p>
+<ol>
+  <li>Start  the MESA  servers as described in section 1.5.</li>
+  <li>Clear  the MESA Image Manager (if necessary)
+    <blockquote>
+      <p>perl scripts/clear_img_mgr.pl</p>
+    </blockquote>
+  </li>
+
+  <li>Obtain  the MWL entry for the patient: MODALITY^221.&nbsp;  This entry should have two Scheduled Procedure Steps each with a single  Protocol Item.</li>
+  <li>Group  the two SPS together and perform a single acquisition.&nbsp; That means you produce one series of images  and one set of MPPS messages.&nbsp; <em>The order of the Scheduled Procedure steps  in the MPPS messages and composite objects (images) should not matter.&nbsp; This is a group case and there is no implied  order of SPS items.</em></li>
+  <li>Send  your MPPS events, images and Storage Commitment requests to the MESA Image  Manager.&nbsp; The MESA Image Manager does not  automatically send Storage Commitment N-Event reports.&nbsp; To trigger these reports:
+    <blockquote>
+      <p>perl  scripts/send_storage_commit_nevents.pl</p>
+    </blockquote>
+  </li>
+
+  <li>Compare  your results to expected results:</li>
+</ol>
+<blockquote>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;perl 221/eval_221.pl &lt;output  level&gt; &lt;AE Title MPPS SCU&gt; [Japanese]<br />
+    where &lt;AE Title MPPS SCU&gt;  is the Application Entity title of your modality, and &lt;output level&gt; is a  value from 1 to 4 indicating the amount of output to log (1 = errors only, 4 = full  output). Follow with the optional keyword Japanese if using that version of the  software.</p>
+</blockquote>
+<p>If you need to rerun these tests, you can start again at  step 2.</p>
+<strong><br clear="all" />
+</strong>
+<h2><a name="_Toc119916674" id="_Toc119916674">Modality Test 222: Group Case, Two Scheduled  Procedure</a></h2>
+<p>This test is optional for modalities in IHE Year 3.<br />
+  In this test, two Requested Procedures (P6, P7)&nbsp; are scheduled by the MESA Order Filler as two  separate Scheduled Procedure Steps.&nbsp; Each  SPS has one Protocol Item.&nbsp; The modality  performs the group case by combining these two SPS.<br />
+  Because this is taken from two Requested Procedures, the  modality should produce a new Study Instance UID.&nbsp; The Referenced Study UIDs are still copied  from the MWL entries.</p>
+<ol>
+  <li>Start  the MESA  servers as described in section 1.5.</li>
+  <li>Clear  the MESA Image Manager (if necessary)
+    <blockquote>
+      <p>perl scripts/clear_img_mgr.pl</p>
+    </blockquote>
+  </li>
+
+  <li>Obtain  the MWL entry for the patient: MODALITY^222.&nbsp;  This entry should have two Scheduled Procedure Steps each with a single  Protocol Item.</li>
+  <li>Group  the two SPS together and perform a single acquisition.&nbsp; That means you produce one series of images  and one set of MPPS messages. <em>The order  of the Scheduled Procedure steps in the MPPS messages and composite objects  (images) should not matter.&nbsp; This is a  group case and there is no implied order of SPS items.</em></li>
+  <li>Send  your MPPS events, images and Storage Commitment requests to the MESA Image  Manager.&nbsp; The MESA Image Manager does not  automatically send Storage Commitment N-Event reports.&nbsp; To trigger these reports:
+    <blockquote>
+      <p>perl  scripts/send_storage_commit_nevents.pl</p>
+    </blockquote>
+  </li>
+
+  <li>Compare  your results to expected results:</li>
+</ol>
+<blockquote>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;perl 222/eval_222.pl &lt;output  level&gt; &lt;AE Title MPPS SCU&gt; [Japanese]<br />
+    where &lt;AE Title MPPS SCU&gt;  is the Application Entity title of your modality, and &lt;output level&gt; is a  value from 1 to 4 indicating the amount of output to log (1 = errors only, 4 =  full output). Follow with the optional keyword Japanese if using that version  of the software.</p>
+</blockquote>
+<p>If you need to rerun these tests, you can start again at  step 2.</p>
+<h2><a name="_Toc119916675" id="_Toc119916675">Modality Test 231: Append Case</a></h2>
+<p>In the Append Case, the modality first performs the  procedures as listed in the MWL and then adds another procedure at a later  time.&nbsp; In this test, the scheduled  Requested Procedure is P5 with a Protocol Code Item X5_A1. The appended step  will use the same Protocol Code Item: X5_A1. This test is when the Append Case  is used to take a second set of images. For example, the first set is to be  discarded because of some artifact.<br />
+  In previous versions of this test, the modality was  expected to perform a step that was different than the value on the Modality  Worklist. That has been changed in this document to use the same step.<br />
+  Producing the Performed Protocol Code Sequence in the MPPS  data is required if the modality supports the &ldquo;Assisted Acquisition Protocol  Setting&rdquo; option. If the modality supports that option, set the &ldquo;Protocol Flag&rdquo;  to &ldquo;1&rdquo; in step 7 below. Otherwise, set the value to 0.</p>
+<ol>
+  <li>Start  the MESA  servers as described in section 1.5.</li>
+  <li>Clear  the MESA Image Manager (if necessary)
+    <blockquote>
+      <p>perl scripts/clear_img_mgr.pl</p>
+    </blockquote>
+  </li>
+
+  <li>Obtain  the MWL entry for the patient: MODALITY^231.&nbsp;  This entry should have one Scheduled Procedure Step for Procedure P5.</li>
+  <li>Peform  the Procedure P5 as listed in the MWL.</li>
+  <li>Send  your MPPS events, images and Storage Commitment requests to the MESA Image  Manager.&nbsp; The MESA Image Manager does not  automatically send Storage Commitment N-Event reports.&nbsp; To trigger these reports:
+    <blockquote>
+      <p>perl  scripts/send_storage_commit_nevents.pl</p>
+    </blockquote>
+  </li>
+
+  <li>Now  perform the append step.&nbsp; Perform the  same step that is found in the Modality Worklist.&nbsp; Send the MPPS events and images to the MESA  Image Manager as abaove.</li>
+  <li>Compare  your results to expected results:</li>
+</ol>
+<blockquote>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;perl  231/eval_231.pl &lt;AE Title MPPS SCU&gt; &lt;Protocol Code&gt;[output level]<br />
+    where &lt;AE Title MPPS SCU&gt;  is the Application Entity title of your modality, and &lt;output level&gt; is a  value from 1 to 4 indicating the amount of output to log (1 = errors only, 4 =  full output).</p>
+</blockquote>
+<p>If you need to rerun these tests, you can start again at  step 2.</p>
+<strong><br clear="all" />
+</strong>
+<h2><a name="_Toc119916676" id="_Toc119916676">Modality Test 241: Abandoned Case</a></h2>
+<p>In the Abandoned Case, the modality retrieves the MWL  entry and abandons the case by setting the status in the MPPS messages to  discontinued.&nbsp; We assume that the  modality does not produce any images in this test (but we do not test for  that).</p>
+<ol>
+  <li>Start  the MESA  servers as described in section 1.5.</li>
+  <li>Clear  the MESA Image Manager (if necessary)
+    <blockquote>
+      <p>perl scripts/clear_img_mgr.pl</p>
+    </blockquote>
+  </li>
+
+  <li>Obtain  the MWL entry for the patient: MODALITY^241.&nbsp;  This entry should have one Scheduled Procedure Step for Procedure P2.</li>
+  <li>Abandon  this procedure by sending MPPS events with status of DISCONTINUED to the MESA  Image Manager.</li>
+  <li>Compare  your results to expected results:</li>
+</ol>
+<blockquote>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;perl 241/eval_241.pl &lt;output  level&gt; &lt;AE Title MPPS SCU&gt; [Japanese]<br />
+    where &lt;AE Title MPPS SCU&gt;  is the Application Entity title of your modality, and &lt;output level&gt; is a  value from 1 to 4 indicating the amount of output to log (1 = errors only, 4 =  full output). Follow with the optional keyword Japanese if using that version  of the software.</p>
+</blockquote>
+<p>If you need to rerun these tests, you can start again at  step 2.</p>
+<strong><br clear="all" />
+</strong>
+<h2><a name="_Toc119916677" id="_Toc119916677">Modality Test 242: Exception Management</a></h2>
+<p>The Exception Management test is similar to test 241,  Abandoned Case. With the Exception Management option, the modality should  include the Modality Procedure Step Discontinuation Reason Code Sequence (0040,  0281). In this test, we require that you discontinue one procedure step with a  specific code value/reason.</p>
+<ol>
+  <li>Start  the MESA  servers as described in section 1.5.</li>
+  <li>Clear  the MESA Image Manager:
+    <blockquote>
+      <p>perl scripts/clear_img_mgr.pl</p>
+    </blockquote>
+  </li>
+
+  <li>Obtain  the MWL entry for the patient: MODALITY^242. This entry should have one  Scheduled Procedure Step for requested procedure P1.</li>
+  <li>Abandon  this procedure by sending MPPS events with status of DISCONTINUED to the MESA  Image Manager. You need to include the sequence (0040 0281) with the specific  code value: 110505,  Patient refused to continue procedure.</li>
+  <li>Compare  your results to expected results:
+    <blockquote>
+      <p>perl 242/eval_242.pl &lt;output  level&gt; &lt;AE Title MPPS SCU&gt; [Japanese]</p>
+    </blockquote>
+  </li>
+</ol>
+<p>If you need to rerun these steps, you can start again at  step 2.</p>
+<strong><br clear="all" />
+</strong>
+<h2><a name="_Toc119916678" id="_Toc119916678">Modality Test 251: Storage Commitment  Association Negotiation</a></h2>
+<p>This is a test of association negotiation with your  modality.&nbsp; An Image Manager that wants to  send Storage Commitment N-Event reports will initiate a DICOM association with  your modality and should propose to be an SCP of the Storage Commitment SOP  Class (Push Model).&nbsp; <br />
+  In this test, one association will be proposed.&nbsp; The MESA Image Manager proposes the SCP  role.&nbsp; Your modality should accept this  association and proposed presentation context.</p>
+<ol>
+  <ol>
+    <ol>
+      <li>Start  your server process that accepts Image Manager Storage Commitment association  requests.</li>
+      <li>Run  the evaluation script for this test.&nbsp;  This script sends the appropriate association requests and records  results in 251/grade_251.txt:
+        <blockquote>
+          <p>perl 251/eval_251.pl [-v]</p>
+        </blockquote>
+      </li>
+    </ol>
+  </ol>
+</ol>
+<p>&nbsp;</p>
+<h2><a name="_Toc119916679" id="_Toc119916679">Modality Test 271: Patient Update Tests</a></h2>
+<p>In these tests, you will retrieve a DICOM Modality  Worklist with patient demographic information.&nbsp;  The worklist entries on the server will be modified, and you will be  asked to obtain the updated demographics for use in procedures.&nbsp; You will not need to update demographics  after an exam has started.</p>
+<ol>
+  <li>Start  the MESA servers  as described in section 1.5.</li>
+  <li>Obtain  the MWL entry for the patient: MODALITY^271. This entry should have one  Scheduled Procedure Step for requested procedure P1.</li>
+  <li>Run  the perl script for test 271. This script will tell you to query for the  existing worklist, prompt you for a new patient name, update the worklist and  tell you to query the worklist again.
+    <blockquote>
+      <p>perl 271/271_mod.pl</p>
+    </blockquote>
+  </li>
+
+  <li>There  is no evaluation script for this test. You will be able to tell if your  worklist has been updated with the proper name.</li>
+</ol>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<strong><br clear="all" />
+</strong>
+<h2><a name="_Toc119916680" id="_Toc119916680">Modality Test 281: Example Images</a></h2>
+<p>In this &ldquo;test&rdquo;, you use the MESA tools to collect images and then send  those images to the Project Manager for distribution to other vendors.&nbsp; These are the images that you would expect to  use in the demonstration.&nbsp; The MWL entries  should have the codes used for the demonstration, but these are not available  with this release.&nbsp; We will use the MWL  entry for the simple 211 case.<br />
+  If your modality produces both images and GSPS objects,  skip these instructions and proceed to the instructions for Test 282.</p>
+<ol>
+  <li>Start  the MESA  servers as described in section 1.5.</li>
+  <li>Clear  the MESA Image Manager.
+    <blockquote>
+      <p>perl scripts/clear_img_mgr.pl</p>
+    </blockquote>
+  </li>
+
+  <li>Obtain  the MWL entry for the patient: MODALITY^211.&nbsp;  This entry should have one Scheduled Procedure Step with one Protocol  Code: X1_A1.</li>
+  <li>Perform  the one procedure as defined in the MWL.</li>
+  <li>Send  the appropriate images to the MESA Image Manager.</li>
+  <li>Locate  the images stored by the MESA Image Manager.&nbsp;  These are in $MESA_STORAGE/instances.&nbsp;  Tar or zip these files and send them to the Project Manager.</li>
+</ol>
+<h2><a name="_Toc119916681" id="_Toc119916681">Modality Test 282: Example GSPS Objects</a></h2>
+<p>In this &ldquo;test&rdquo;, you use the MESA tools to collect GSPS object and then  send those objects to the Project Manager for distribution to other  vendors.&nbsp; These are the objects that you  would expect to use in the demonstration.&nbsp;  The MWL entries should have the codes used for the demonstration, but  these are not available with this release.&nbsp;  We will use the MWL entry for the simple 211 case.<br />
+  For modalities that produce GSPS objects, you should  combine these instructions with those of Test 281 and send a set of images and  corresponding GSPS objects.<br />
+  Some modalities qualify for the CPI Integration Profile  and do not produce GSPS objects.&nbsp; These  are the modalities that produce images already in P-values.&nbsp; In that case, this test (282) is not  necessary (unless you produce GSPS objects for other reasons).</p>
+<ol>
+  <li>Start  the MESA  servers as described in section 1.5.</li>
+  <li>Clear  the MESA Image Manager.
+    <blockquote>
+      <p>perl scripts/clear_img_mgr.pl</p>
+    </blockquote>
+  </li>
+
+  <li>Obtain  the MWL entry for the patient: MODALITY^211.&nbsp;  This entry should have one Scheduled Procedure Step with one Protocol  Code: X1_A1.</li>
+  <li>Perform  the one procedure as defined in the MWL.</li>
+  <li>Send  the appropriate images and GSPS objects to the MESA Image Manager.</li>
+</ol>
+<p>Locate the images and GSPS objects stored by the MESA  Image Manager.&nbsp; These are in  $MESA_STORAGE/instances.&nbsp; Tar or zip  these files and send them to the Project Manager.</p>
+<h2><a name="_Toc119916682" id="_Toc119916682">Test 283: DICOM Composite Object Evaluation &ndash;  DVT</a></h2>
+<p>In this test, you evaluate samples of Composite Objects  that you create using the Agfa/Philips DVT. The number of evaluations you run  depends on the types of images that you produce. We will not list specific  requirements, but ask you to apply good judgment. For example, a CT scanner  that produces Localizer and Axial images would evaluate samples from both of  those image types. A CR device may evaluate an AP chest, a lateral chest and an  image of a limb.<br />
+  You need to evaluate and provide the output for at least  one DICOM Composite Object. Evaluating other objects can only help your implementation.</p>
+<ol>
+  <li>Produce  a DICOM Part 10 file containing your composite object for evaluation.</li>
+  <li>Run  the evaluation script for test 283 as follows:
+    <blockquote>
+      <p>perl  283/eval_283.pl &lt;output level&gt; &lt;path to file&gt;</p>
+    </blockquote>
+  </li>
+
+  <li>The  output is stored in 283/grade_283.txt. Submit the file to the Project Manager  for evaluation.</li>
+</ol>
+<p>Test 283 assumes you have installed the DVT on a Windows  system. You may elect not to run this test, but you will be required to run  test 284. If you choose not to run this test, create a file with a message that  indicates you have chosen to run test 284 and submit that file as the results  for test 283.</p>
+<h2><a name="_Toc119916683" id="_Toc119916683">Test 284: DICOM Composite Object Evaluation &ndash; DICOM3TOOLS</a></h2>
+<p>In this test, you evaluate samples of Composite Objects  that you create using the Dave Clunie DICOM3TOOLS. The number of evaluations  you run depends on the types of images that you produce. We will not list  specific requirements, but ask you to apply good judgment. For example, a CT  scanner that produces Localizer and Axial images would evaluate samples from  both of those image types. A CR device may evaluate an AP chest, a lateral  chest and an image of a limb.<br />
+  You need to evaluate and provide the output for at least  one DICOM Composite Object. Evaluating other objects can only help your  implementation.</p>
+<ol>
+  <li>Produce  a DICOM Part 10 file containing your composite object for evaluation.</li>
+  <li>Run  the evaluation script for test 283 as follows:
+    <blockquote>
+      <p>perl  284/eval_284.pl &lt;output level&gt; &lt;path to file&gt;</p>
+    </blockquote>
+  </li>
+
+  <li>The  output is stored in 284/grade_284.txt. Submit the file to the Project Manager  for evaluation.</li>
+</ol>
+<p>Test 284 assumes you have installed the MESA tools on a Unix system. You may elect  not to run this test, but you will be required to run test 283. If you choose  not to run this test, create a file with a message that indicates you have  chosen to run test 283 and submit that file as the results for test 284.</p>
+<h2><a name="_Toc119916684" id="_Toc119916684">Modality Test 511: Key Image Note 511</a></h2>
+<p>In this test, the Image Creator will create a Key Image  Note that refers to a single image.</p>
+<ol>
+  <li>Start  the MESA  servers as described above.</li>
+  <li>Clear  the MESA Image Manager.
+    <blockquote>
+      <p>perl scripts/clear_img_mgr.pl</p>
+    </blockquote>
+  </li>
+
+  <li>Create  one series of images with patient name: CRTHREE^PAUL and patient ID: CR3.&nbsp; Assume this is the unscheduled case (no  MWL).&nbsp; Send the image or images to the  MESA Image Manager.</li>
+  <li>Create  a Key Image Note with the parameters described below.&nbsp; Send the DICOM composite object to the MESA  Image Manager.</li>
+  <li>Evaluate  the contents of your Key Image Note as follows:
+    <blockquote>
+      <p>perl 511/eval_511.pl [-v]</p>
+    </blockquote>
+  </li>
+
+  <li>Locate  the composite objects stored by the MESA Image Manager.&nbsp; These should be in $MESA_STORAGE/instances.&nbsp; Tar or zip the files for the images and Key  Image Note and send them to the Project Manager for distribution to other  vendors.</li>
+</ol>
+<p>If you need to send the note a second time, you should  clear the MESA Image Manager first.&nbsp; This  will allow the evaluation software to examine your latest object.<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; perl  scripts/clear_img_mgr.pl</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="199" valign="top"><p>Template    Identifier</p></td>
+    <td width="439" valign="top"><p>2010:DCMR</p></td>
+  </tr>
+  <tr>
+    <td width="199" valign="top"><p>Document Title</p></td>
+    <td width="439" valign="top"><p>113000:DCM:Of Interest</p></td>
+  </tr>
+  <tr>
+    <td width="199" valign="top"><p>HAS OBS CONTEXT</p></td>
+    <td width="439" valign="top"><p>CODE    121005:DCM:Observer Type = 121006:DCM:Person</p></td>
+  </tr>
+  <tr>
+    <td width="199" valign="top"><p>HAS OBS CONTEXT</p></td>
+    <td width="439" valign="top"><p>PNAME 121008:DCM:Person Observer Name = MOORE^STEVE</p></td>
+  </tr>
+  <tr>
+    <td width="199" valign="top"><p>CONTAINS TEXT</p></td>
+    <td width="439" valign="top"><p>113012:DCM:Key Object Description = Key Object Test 511</p></td>
+  </tr>
+  <tr>
+    <td width="199" valign="top"><p>Image Reference</p></td>
+    <td width="439" valign="top"><p>Should refer to one image</p></td>
+  </tr>
+</table>
+<strong><br clear="all" />
+</strong>
+<h1><a name="_Toc119916685" id="_Toc119916685">1xx Series Modality Tests</a></h1>
+<p>These tests are similar to the 2xx series modality  tests.&nbsp; The setup steps are the same as  for the 2xx setup steps (section 2 of this document) with one exception.&nbsp; To create the test data, start the MESA servers and use the  following script:<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; perl  1xx/1xx.pl</p>
+<h2><a name="_Toc119916686" id="_Toc119916686">Modality Test 106: Presentation of Grouped  Procedures</a></h2>
+<ol>
+  <li>Start  the MESA  servers as described in section 1.5.</li>
+  <li>Clear  the MESA Image Manager.
+    <blockquote>
+      <p>perl scripts/clear_img_mgr.pl</p>
+    </blockquote>
+  </li>
+
+  <li>Obtain  the MWL enties for the patient: ROSE^CARL.&nbsp;  There should be two separate Requested Procedures (P6, P7), each with a  single Scheduled Procedure Step.</li>
+  <li>Group  the two procedures (P6, P7) and produce one series of images and one  corresponding set of MPPS messages.&nbsp; Send  the images and MPPS events to the MESA Image Manager.</li>
+  <li>Produce  one GSPS object that &ldquo;splits&rdquo; the image series for Requested Procedure P6.&nbsp; Produce MPPS events for this Requested  Procedure.&nbsp; This GSPS object will be in a  different series than the original images.&nbsp;  Send the GSPS object and MPPS events to the MESA Image Manager.</li>
+  <li>Produce  one GSPS object that &ldquo;splits&rdquo; the image series for Requested Procedure P7.&nbsp; Produce MPPS events for this Requested  Procedure.&nbsp; This GSPS object will be in a  different series than the original images.&nbsp;  Send the GSPS object and MPPS events to the MESA Image Manager.</li>
+  <li>Run  the evaluation script for this test.&nbsp;  This script sends the appropriate association requests and records  results in 106/grade_106.txt:
+    <blockquote>
+      <p>perl  106/eval_106.pl [-v]</p>
+    </blockquote>
+  </li>
+</ol>
+<h2><a name="_Toc119916687" id="_Toc119916687">Modality Test 108: PGP Test Data</a></h2>
+<p>This test uses the data generated in Modality Test  106.&nbsp; It assumes that you have cleared  the Image Manager before running test 106 and that the only data in the Image  Manager is from this test.</p>
+<ol>
+  <li>Find  the data stored in the Image Manager for the 106 test.&nbsp; This is located in $MESA_STORAGE/imgmgr.&nbsp; You need all subdirectories.</li>
+  <li>Tar  / zip the contents of this directory and send to the Project Manager.&nbsp; This data will be distributed to Image  Manager actors for testing with their systems.</li>
+</ol>
+<h1><a name="_Toc119916688" id="_Toc119916688">Charge Processing Tests</a></h1>
+<h2><a name="_Toc119916689" id="_Toc119916689">Modality Test 1301: Charge Processing Test 1</a></h2>
+<h2><a name="_Toc119916690" id="_Toc119916690">Modality Test 1302: Charge Processing Test 2</a></h2>
+<h2><a name="_Toc119916691" id="_Toc119916691">Modality Test 1303: Charge Processing Test 3</a></h2>
+<strong><br clear="all" />
+</strong>
+<h1><a name="_Toc119916692" id="_Toc119916692">Basic Security Tests</a></h1>
+<p>This section describes tests that are specific to the IHE  Basic Security integration profile. If you have the MESA servers running for the &ldquo;standard&rdquo;  tests, you should stop those servers now. You will need to start the MESA secure servers with a  different script.<br />
+  Before you run any tests, you need to produce the MESA test data (modality  worklist and comparison data).&nbsp; Once the MESA servers have been  started, create the test data as follows:<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; perl  15xx/15xx.pl</p>
+<h2><a name="_Toc119916693" id="_Toc119916693">Modality Test 1591: Simple Case, One SPS</a></h2>
+<p>Order Filler Test 1591 uses the same sequence of events as  test 211. The Acquisition Modality is expected to communicate with other  systems using TLS negotiation and to send appropriate audit messages to the MESA syslog server.<br />
+  The table below lists the Audit Messages that should be  generated by your system. Please refer to the document <em>IHE Tests:  Transaction Sequences</em> for the full context of these messages. You might  trigger other messages to the Audit Record Repository based on your interaction  with your Acquisition Modality.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="115" valign="top"><p><strong>Identifier</strong></p></td>
+    <td width="246" valign="top"><p><strong>Description</strong></p></td>
+    <td width="144" valign="top"><p><strong>Source</strong></p></td>
+    <td width="133" valign="top"><p><strong>Destination</strong></p></td>
+  </tr>
+  <tr>
+    <td width="115" valign="top"><p>1591.010</p></td>
+    <td width="246" valign="top"><p>Begin-storing-instances</p></td>
+    <td width="144" valign="top"><p>Modality</p></td>
+    <td width="133" valign="top"><p>Audit Record Rep</p></td>
+  </tr>
+</table>
+<ol>
+  <li>Start  the <strong><em><u>secure</u></em></strong> MESA  servers as described in section 1.5.</li>
+  <li>Create  the MESA test  data as described above using the 15xx script.</li>
+  <li>Clear  the MESA Image Manager.
+    <blockquote>
+      <p>perl scripts/clear_img_mgr.pl</p>
+    </blockquote>
+  </li>
+
+  <li>Obtain  the MWL entry for the patient: MODALITY^211.&nbsp;  This entry should have one Scheduled Procedure Step with one Protocol  Code: X1_A1.</li>
+  <li>Perform  the one procedure as defined in the MWL.</li>
+  <li>Send  your MPPS events, images and Storage Commitment requests to the MESA Image  Manager.&nbsp; The MESA Image Manager does not  automatically send Storage Commitment N-Event reports. To trigger these  reports:
+    <blockquote>
+      <p>perl scripts/send_storage_commit_nevents_secure.pl</p>
+    </blockquote>
+  </li>
+
+  <li>As  part of the process of storing the images for this procedure step, your system  should send a Begin-storing-instances audit message to the MESA Audit Record  Repository.</li>
+  <li>Run  the evaluation script for this test.&nbsp;  This script sends the appropriate association requests and records  results in 1591/grade_1591.txt:</li>
+</ol>
+<blockquote>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;perl  1591/eval_1591.pl &lt;AE Title&gt;<br />
+    where &lt;AE Title&gt; is the  Application Entity title of your modality.</p>
+</blockquote>
+<ol start="9">
+  <li>Grab  all of the files (tar/zip) in <em>$MESA_TARGET/logs/syslog</em> and send these to  the Project Manager.</li>
+</ol>
+<h1><a name="_Toc119916694" id="_Toc119916694">Consistent Presentation of Images Tests</a></h1>
+<h2><a name="_Toc119916695" id="_Toc119916695">Modality Test 521: Consistent Presentation of  Images</a> </h2>
+<p>This test is for Modalities that support the Consistent  Display of Images integration profile. These modalities should use the MESA  Image Display reference system (DICOMscope) to validate the images and  presentation states they create. Instructions for this test are found in the  document <em>Display Consistency Test Plan  for Evidence Creator</em>.</p>
+<p>&nbsp;</p>
+<strong><br clear="all" />
+</strong>
+<h1><a name="_Toc119916696" id="_Toc119916696">Evidence Documents Tests</a></h1>
+<h2><a name="_Toc119916697" id="_Toc119916697">Evidence Creator Test 1700: Evidence Document  Description</a></h2>
+<p>In the Evidence Documents profile, Evidence Documents are  defined as DICOM SR objects that are to be used to assist in diagnosis. An  example would be measurements on an Ultrasound device.<br />
+  The purpose of this test is to make sure that Evidence  Creators in the Evidence Documents profile understand the content they are to  produce is contained in DICOM SR objects according to the Evidence Document  Profile. As mentioned above, the most obvious example are Ultrasound  measurements. Another example could be a Mammography CAD file. Evidence  Documents (in the Evidence Document Profile) are not images, nor are they DICOM  SR Diagnostic Reports.<br />
+  The instructions below are not a joke. We have had  experience with this profile indicating users do not understand the intent of  the Evidence Documents profile.</p>
+<ol>
+  <li>Create  a text file and answer the questions below:</li>
+  <ol type="a">
+    <li>What  DICOM SOP class is used by your system to generate Evidence Documents? This  should be a Structured Report Class.</li>
+    <li>Describe  in 500 words why your documents are to be considered evidence and are not  merely diagnostic reports or other SR objects.</li>
+    <li>Describe  in 500 words what problems other vendors will have in rendering your document  or incorporating your results in a diagnostic report.</li>
+  </ol>
+  <li>Name  the text file using the convention: Vendor_1700.txt</li>
+  <li>Submit  the text file to the Project Manager for evaluation.</li>
+</ol>
+<h2><a name="_Toc119916698" id="_Toc119916698">Modality Test Case 20640:&nbsp; Evidence Creation &ndash; Cath &ndash;Vendor  Interoperability</a></h2>
+<p>Test 20640 tests the creation and content of an SR with a  Cath template.&nbsp;&nbsp; The ED Profile assumes  that the Acquisiton Modality is part of Cath Scheduled Workflow.&nbsp;&nbsp; Although the acquisition of a DMWL reponse  set is not part of the Evidence Documents Profile, the transactions are  included here as test set up, but not explicity tested.&nbsp; See the Radiology Technical Framework Volume  1:14 for a more complete explanation. <br />
+  The purpose of this test is to collect SR object/cath  templates from all Acquisition Modalities actors prior to the  Connectathon.&nbsp; These vendors/actors are  required to submit SR objects for every Cath template and SR SOP Class  supported.&nbsp; These files should be  submitted to the IHE web tool as part of the results of these tests.&nbsp; These files will be used by the Image Display  vendors/actors as Test Case 20650.&nbsp; It is  requested that this test, in particular, be completed at least one month in  advance of the MESA test completion date to allow the Image Display actors to  test the display of each of these objects and to allow time for communication  if there is a problem.<br />
+  MESA:&nbsp; There is no MESA software required for this test.&nbsp;&nbsp; See the Cardiology Transaction Sequences  Test Plan for more test details.<br />
+  The vendor should create a file using the naming  convention of: CompanyName_Product_ 20640_ACQ_n_2005.doc , where n is any  number to that you make up to differentiate the files if the SR Vendor has  submitted multiple objects.&nbsp; Submit this  file to the Project Manager for evaluation.</p>
+<p>&nbsp;</p>
+<h2><a name="_Toc119916699" id="_Toc119916699">Modality Test Case 20641:&nbsp; Evidence Creation &ndash; Echo &ndash;Vendor  Interoperability</a></h2>
+<p>Test 20641 tests the creation and content of an SR with an  Echo template.&nbsp;&nbsp; The ED Profile assumes  that the Acquisiton Modality is part of Echo Scheduled Workflow.&nbsp;&nbsp; Although the acquisition of a DMWL response  is not part of the Evidence Documents Profile, the transaction is included here  as test set up, but not explicity tested.&nbsp;  See the Radiology Technical Framework Volume 1:14 for a more complete  explanation. <br />
+  The purpose of this test is to collect SR object/cath  templates from all Acquisition Modalities actors prior to the  Connectathon.&nbsp; These vendors/actors are  required to submit SR objects for every Echo template and SR SOP Class  supported.&nbsp; These files should be  submitted to the IHE web tool as part of the results of these tests.&nbsp; These files will be used by the Image Display  vendors/actors as Test Case 20651.&nbsp; It is  requested that this test, in particular, be completed at least one month in  advance of the MESA test completion date to allow the Image Display actors to  test the display of each of these objects and to allow time for communication  if there is a problem.<br />
+  MESA:&nbsp; There is no MESA software required for this test.&nbsp;&nbsp; See the Cardiology Transaction Sequences  Test Plan for more test details.<br />
+  The vendor should create a file using the naming  convention of: CompanyName_Product_ 20641_ACQ_n_2005.doc , where n is any  number to that you make up to differentiate the files if the SR Vendor has  submitted multiple objects.&nbsp; Submit this  file to the Project Manager for evaluation.</p>
+<h1><a name="_Toc119916700" id="_Toc119916700">Nuclear Medicine Tests</a></h1>
+<h2><a name="_Toc119916701" id="_Toc119916701">Modality Test 2201: NM Image Type (test 0008,  0008 Value 3)</a></h2>
+<p>Reference: Rad TF-1: E.4.<br />
+  Test 2201 examines the Value 3 in the Image Type attribute  (0008, 0008) produced by NM modalities. Allowed image types are:</p>
+<ul>
+  <li>STATIC</li>
+  <li>WHOLEBODY</li>
+  <li>DYNAMIC</li>
+  <li>GATED</li>
+  <li>TOMO</li>
+  <li>RECON TOMO</li>
+  <li>GATED TOMO</li>
+  <li>RECON GATED TOMO</li>
+</ul>
+<ol>
+  <li>Start  the MESA  servers as described in section 1.5.</li>
+  <li>Clear  the MESA Image Manager.</li>
+  <blockquote>
+    <p>perl scripts/clear_img_mgr.pl</p>
+  </blockquote>
+  <li>Perform  an MPPS unscheduled case and produce one or more series of images. The Patient  ID should be MESA2201. The patient name should be MESA^NM. These values are not critical to the  test.</li>
+  <li>Send  the appropriate images to the MESA Image Manager.</li>
+  <li>Run  the evaluation script for test 2201:  </li>
+  <blockquote>
+    <p>perl  2201/eval_2201.pl &lt;log level&gt;</p>
+  </blockquote>
+  <li>Send  the evaluation log (2201/grade_2201.txt) to the Project Manager.</li>
+</ol>
+<p>Log level is a value from 1 to 4 (1 is low, 4 is more  messages). When sending the evaluation output to the Project Manager, use a  value of 3 or 4.<br />
+  You can repeat this test as many times as you like. You  can send multiple images; the test will evaluate all images stored by the Image  Manager.</p>
+<h2><a name="_Toc119916702" id="_Toc119916702">Modality Test 2202: NM Image IOD: Multi-Frames  and Vectors</a></h2>
+<p>Reference: Rad TF-1: E.4.2.<br />
+  Test 2202 tests the relationship between Image Type (0008,  0008 value 3) and Frame Increment Pointers. For a specific Image Type, DICOM  defines the frame increment pointers and the order of those pointers. In this  test, a modality creates NM multi-frame images, and the test software examines  the Frame Increment Pointers.<br />
+  You can follow the steps for test 2201. You do not need to  send new images. To run the evaluation script:<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;perl  2202/2202_eval.pl -l &lt;log level&gt;<br />
+  Send the evaluation log (2202/grade_2202.txt) to the  Project Manager. Use a log level of 3 or 4 when you run the evaluation script.</p>
+<h2><a name="_Toc119916703" id="_Toc119916703">Modality Test 2203: NM Image Required Attributes</a></h2>
+<p>Reference Rad TF-2: 4.8.4.1.2.2<br />
+  Nuclear Medicine images<br />
+  Test 2202 tests the relationship between Image Type (0008,  0008 value 3) and required values as defined in Rad TF-2: Table 4.8-2.<br />
+  You can follow the steps for test 2201. You do not need to  send new images. To run the evaluation script:<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;perl  2203/2203_eval.pl -l &lt;log level&gt;<br />
+  Send the evaluation log (2203/grade_2203.txt) to the  Project Manager. Use a log level of 3 or 4 when you run the evaluation script.</p>
+<h2><a name="_Toc119916704" id="_Toc119916704">Modality Test 2210: NM Modality STATIC</a></h2>
+<p>Reference Rad TF-2: 4.16.4.2.2.3<br />
+  Test 2210 examines the frames produced by an Acquisition  Modality to determine if they are displayable by Image Display actors. All  output images are produced in the imgdisp/2210 directory.</p>
+<ol>
+  <li>Start  the MESA  servers as described in section 1.5.</li>
+  <li>Clear  the MESA Image Manager.</li>
+  <blockquote>
+    <p>perl scripts/clear_img_mgr.pl</p>
+  </blockquote>
+  <li>Perform  an MPPS unscheduled case and produce one or more series of images. The Patient  ID should be MESA2210. The patient name should be MESA^NM. These values are not critical to the  test.</li>
+  <li>Send  one STATIC image to the MESA Image Manager.</li>
+</ol>
+<p>For the next steps, the MESA tools will produce a cine image using  all of the frames in your multi-frame image. The output image will use the  frames in the order stored in your image with no sorting. The purpose is to  determine if all frames are present.</p>
+<ol start="5">
+  <li>Instruct  the MESA system  to produce a Cine image:
+    <blockquote>
+      <p>perl  scripts/cine.pl loglevel STATIC 2210/2210cine</p>
+    </blockquote>
+  </li>
+
+  <li>Display  the gif file that results (use IE or another browser). Verify that the Static image  matches with the frames produced by your system.</li>
+  <li>Create  an archive of the 2210 directory (tar/zip) and send to the Project Manager for  evaluation. There will be separate instructions for uploading the images (ftp,  web upload). Do not email the images.</li>
+</ol>
+<h2><a name="_Toc119916705" id="_Toc119916705">Modality Test 2211: NM Modality WHOLEBODY</a></h2>
+<p>Reference Rad TF-2: 4.16.4.2.2.3<br />
+  Test 2211 examines the frames produced by an Acquisition  Modality to determine if they are displayable by Image Display actors. All  output images are produced in the imgdisp/2211 directory.</p>
+<ol start="1">
+  <li>Start  the MESA  servers as described in section 1.5.</li>
+  <li>Clear  the MESA Image Manager.
+    <blockquote>
+      <p>perl scripts/clear_img_mgr.pl</p>
+    </blockquote>
+  </li>
+
+  <li>Perform  an MPPS unscheduled case and produce one or more series of images. The Patient  ID should be MESA2211. The patient name should be MESA^NM. These values are not critical to the  test.</li>
+  <li>Send  one WHOLEBODY image to the MESA Image Manager.</li>
+</ol>
+<p>For the next steps, the MESA tools will produce a cine image using  all of the frames in your multi-frame image. The output image will use the  frames in the order stored in your image with no sorting. The purpose is to  determine if all frames are present.</p>
+<ol start="5">
+  <li>Instruct  the MESA system  to produce a CINE&nbsp; image:
+    <blockquote>
+      <p>perl  scripts/cine.pl loglevel &ldquo;WHOLE BODY&rdquo; 2211/2211cine</p>
+    </blockquote>
+  </li>
+
+  <li>Display  the gif file that results (use IE or another browser). Verify that the  Wholebody image matches the frames produced by your system.</li>
+  <li>Create  an archive of the 2211 directory (tar/zip) and send to the Project Manager for  evaluation. There will be separate instructions for uploading the images (ftp,  web upload). Do not email the images.</li>
+</ol>
+<h2><a name="_Toc119916706" id="_Toc119916706">-Modality Test 2212: NM Modality DYNAMIC</a></h2>
+<p>Reference Rad TF-2: 4.16.4.2.2.3<br />
+  Test 2212 examines the frames produced by an Acquisition  Modality to determine if they are displayable by Image Display actors. All  output images are produced in the mod/2212 directory.</p>
+<ol start="1">
+  <li>Start  the MESA  servers as described in section 1.5.</li>
+  <li>Clear  the MESA Image Manager.
+    <blockquote>
+      <p>perl scripts/clear_img_mgr.pl</p>
+    </blockquote>
+  </li>
+
+  <li>Perform  an MPPS unscheduled case and produce one or more series of images. The Patient  ID should be MESA2212. The patient name should be MESA^NM. These values are not critical to the  test.</li>
+  <li>Send  one DYNAMIC image to the MESA Image Manager.</li>
+</ol>
+<p>For the next steps, the MESA tools will produce a cine image using  all of the frames in your multi-frame image. The output image will use the  frames in the order stored in your image with no sorting. The purpose is to  determine if all frames are present.</p>
+<ol start="5">
+  <li>Instruct  the MESA system  to produce a Cine&nbsp; image:</li>
+</ol>
+<blockquote>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; perl  scripts/cine.pl loglevel DYNAMIC 2212/2212cine<br />
+    This will produce the file  2212/2212cine101.gif. If you have stored more than one DYNAMIC image, multiple  GIF files will be produced (102, 103, &hellip;).</p>
+</blockquote>
+<ol start="6">
+  <li>Display  the gif file that results (use IE or another browser). Verify that the Cine  image matches the frames produced by your system.</li>
+</ol>
+<p>For the remaining steps, you are using the MESA tools to select a  subset of the frames in your image to produce an animated display that would be  reasonable to show to the end user. For example, one might fix values for  Energy Window, Detector and Phase and let the time access vary.</p>
+<ol start="7">
+  <li>For  the next steps, you will need to pick single values for Energy Window, Detector  and Phase for your dynamic image. The test software does not dictate what  values are used for acquisition.</li>
+  <li>For  the combinations of Energy Window, Detector and Phase, generate a Cine image  using the tools as described below. You do not need to use all combinations of  these values, but do generate a reasonable set of representative images. The  output file name should indicate the imaging parameters, or should be mappable  to the image parameters. Instruct the MESA  system to produce a Cine image:</li>
+</ol>
+<blockquote>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;perl scripts/cine_dynamic.pl loglevel 2212/2212cine_001  EnergyWindow Detector Phase 0<br />
+    For example, EnergyWindow = 1, Detector = 2, Phase = 1<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;perl scripts/cine_dynamic.pl  3 2212/2212cine_A 1 2 1 0<br />
+    This will produce the output file  2212/2212cine_A101.gif. If you  have stored more than one DYNAMIC image, multiple GIF files will be produced  (102, 103, &hellip;). You can repeat the process and produce output files with  different names (B, C, &hellip;). It is also helpful to include an abbreviation for  your company name in the file name.</p>
+</blockquote>
+<ol start="9">
+  <li>Display  the gif file that results (use IE or another browser). Verify that the image or  images produced by selecting Energy Window match those produced by your system.</li>
+  <li>Create an  archive of the 2212 directory (tar/zip) and send to the Project Manager for  evaluation. There will be separate instructions for uploading the images (ftp,  web upload). Do not email the images.</li>
+</ol>
+<h2><a name="_Toc119916707" id="_Toc119916707">Modality Test 2213: NM Modality GATED</a></h2>
+<p>Reference Rad TF-2: 4.16.4.2.2.3<br />
+  Test 2213 examines the frames produced by an Acquisition  Modality to determine if they are displayable by Image Display actors. All  output images are produced in the mod/2213 directory.</p>
+<ol>
+  <li>Start  the MESA  servers as described in section 1.5.</li>
+  <li>Clear  the MESA Image Manager.</li>
+  <blockquote>
+    <p>perl scripts/clear_img_mgr.pl</p>
+  </blockquote>
+  <li>Perform  an MPPS unscheduled case and produce one or more series of images. The Patient  ID should be MESA2213. The patient name should be MESA^NM. These values are not critical to the  test.</li>
+  <li>Send  one GATED image to the MESA Image Manager.</li>
+</ol>
+<blockquote>
+  <p>For the next steps, the MESA tools will produce a  cine image using all of the frames in your multi-frame image. The output image  will use the frames in the order stored in your image with no sorting. The  purpose is to determine if all frames are present.</p>
+</blockquote>
+<ol start="5">
+  <li>Instruct  the MESA system  to produce a Cine&nbsp; image:</li>
+</ol>
+<blockquote>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;perl  scripts/cine.pl loglevel GATED 2213/2213cine<br />
+    This will produce the file 2213/2213cine101.gif.  If you have stored more than one GATED image, multiple GIF files will be  produced (102, 103, &hellip;).</p>
+</blockquote>
+<ol start="6">
+  <li>Display  the gif file that results (use IE or another browser). Verify that the Cine  image matches the frames produced by your system.</li>
+  <li>Create  an archive of the 2213 directory (tar/zip) and send to the Project Manager for  evaluation. There will be separate instructions for uploading the images (ftp,  web upload). Do not email the images.</li>
+</ol>
+<h2><a name="_Toc119916708" id="_Toc119916708">Modality Test 2214: NM Modality TOMO</a></h2>
+<p>Reference Rad TF-2: 4.16.4.2.2.3<br />
+  Test 2214 examines the frames produced by an Acquisition  Modality to determine if they are displayable by Image Display actors. All  output images are produced in the imgdisp/2214 directory.</p>
+<ol>
+  <li>Start  the MESA  servers as described in section 1.5.</li>
+  <li>Clear  the MESA Image Manager.</li>
+  <blockquote>
+    <p>perl scripts/clear_img_mgr.pl</p>
+  </blockquote>
+  <li>Perform  an MPPS unscheduled case and produce one or more series of images. The Patient  ID should be MESA2214. The patient name should be MESA^NM. These values are not critical to the  test.</li>
+  <li>Send  one TOMO image to the MESA Image Manager.</li>
+</ol>
+<blockquote>
+  <p>For the next steps, the MESA tools will produce a  cine image using all of the frames in your multi-frame image. The output image  will use the frames in the order stored in your image with no sorting. The  purpose is to determine if all frames are present.</p>
+</blockquote>
+<ol start="5">
+  <li>Instruct  the MESA system  to produce a Cine&nbsp; image:</li>
+</ol>
+<blockquote>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;perl  scripts/cine.pl loglevel TOMO 2214/2214cine<br />
+    This will produce the file 2214/2214cine101.gif.  If you have stored more than one GATED image, multiple GIF files will be  produced (102, 103, &hellip;).</p>
+</blockquote>
+<ol start="6">
+  <li>Display  the gif file that results (use IE or another browser). Verify that the Cine  image matches the frames produced by your system.</li>
+  <li>Create  an archive of the 2214 directory (tar/zip) and send to the Project Manager for  evaluation. There will be separate instructions for uploading the images (ftp,  web upload). Do not email the images.</li>
+</ol>
+<h2><a name="_Toc119916709" id="_Toc119916709">Modality Test 2215: NM Modality GATED TOMO</a></h2>
+<p>Reference Rad TF-2: 4.16.4.2.2.3<br />
+  Test 2215 examines the frames produced by an Acquisition  Modality to determine if they are displayable by Image Display actors. All  output images are produced in the imgdisp/2215 directory.</p>
+<ol>
+  <li>Start  the MESA  servers as described in section 1.5.</li>
+  <li>Clear  the MESA Image Manager.</li>
+  <blockquote>
+    <p>perl scripts/clear_img_mgr.pl</p>
+  </blockquote>
+  <li>Perform  an MPPS unscheduled case and produce one or more series of images. The Patient  ID should be MESA2215. The patient name should be MESA^NM. These values are not critical to the  test.</li>
+  <li>Send  one GATED TOMO image to the MESA Image Manager.</li>
+</ol>
+<blockquote>
+  <p>For the next steps, the MESA tools will produce a  cine image using all of the frames in your multi-frame image. The output image  will use the frames in the order stored in your image with no sorting. The  purpose is to determine if all frames are present.</p>
+</blockquote>
+<ol start="5">
+  <li>Instruct  the MESA system  to produce a Cine&nbsp; image:</li>
+</ol>
+<blockquote>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;perl  scripts/cine.pl loglevel &ldquo;GATED TOMO&rdquo; 2215/2215cine<br />
+    This will produce the file  2215/2215cine101.gif. If you have stored more than one GATED image, multiple  GIF files will be produced (102, 103, &hellip;).</p>
+</blockquote>
+<ol start="6">
+  <li>Display  the gif file that results (use IE or another browser). Verify that the Cine  image matches the frames produced by your system.</li>
+  <li>Create  an archive of the 2215 directory (tar/zip) and send to the Project Manager for  evaluation. There will be separate instructions for uploading the images (ftp,  web upload). Do not email the images.</li>
+</ol>
+<h2><a name="_Toc119916710" id="_Toc119916710">Modality Test 2216: NM Modality RECON TOMO</a></h2>
+<p>Reference Rad TF-2: 4.16.4.2.2.3<br />
+  Test 2216 examines the frames produced by an Acquisition  Modality to determine if they are displayable by Image Display actors. All  output images are produced in the imgdisp/2216 directory.</p>
+<ol>
+  <li>Start  the MESA  servers as described in section 1.5.</li>
+  <li>Clear  the MESA Image Manager.</li>
+  <blockquote>
+    <p>perl scripts/clear_img_mgr.pl</p>
+  </blockquote>
+  <li>Perform  an MPPS unscheduled case and produce one or more series of images. The Patient  ID should be MESA2216. The patient name should be MESA^NM. These values are not critical to the  test.</li>
+  <li>Send  one RECON TOMO image to the MESA Image Manager.</li>
+</ol>
+<blockquote>
+  <p>For the next steps, the MESA tools will produce a  cine image using all of the frames in your multi-frame image. The output image  will use the frames in the order stored in your image with no sorting. The  purpose is to determine if all frames are present.</p>
+</blockquote>
+<ol start="5">
+  <li>Instruct  the MESA system  to produce a Cine&nbsp; image:</li>
+</ol>
+<blockquote>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;perl  scripts/cine.pl loglevel &ldquo;RECON TOMO&rdquo; 2216/2216cine<br />
+    This will produce the file  2216/2216cine101.gif. If you have stored more than one GATED image, multiple  GIF files will be produced (102, 103, &hellip;).</p>
+</blockquote>
+<ol start="6">
+  <li>Display  the gif file that results (use IE or another browser). Verify that the Cine  image matches the frames produced by your system.</li>
+  <li>Create  an archive of the 2216 directory (tar/zip) and send to the Project Manager for  evaluation. There will be separate instructions for uploading the images (ftp,  web upload). Do not email the images.</li>
+</ol>
+<h2><a name="_Toc119916711" id="_Toc119916711">Modality Test 2217: NM Modality RECON GATED TOMO</a></h2>
+<p>Reference Rad TF-2: 4.16.4.2.2.3<br />
+  Test 2217 examines the frames produced by an Acquisition  Modality to determine if they are displayable by Image Display actors. All  output images are produced in the imgdisp/2217 directory.</p>
+<ol>
+  <li>Start  the MESA  servers as described in section 1.5.</li>
+  <li>Clear  the MESA Image Manager.</li>
+  <blockquote>
+    <p>perl scripts/clear_img_mgr.pl</p>
+  </blockquote>
+  <li>Perform  an MPPS unscheduled case and produce one or more series of images. The Patient  ID should be MESA2217. The patient name should be MESA^NM. These values are not critical to the  test.</li>
+  <li>Send  one GATED RECON TOMO image to the MESA Image Manager.</li>
+</ol>
+<blockquote>
+  <p>For the next steps, the MESA tools will produce a  cine image using all of the frames in your multi-frame image. The output image  will use the frames in the order stored in your image with no sorting. The  purpose is to determine if all frames are present.</p>
+</blockquote>
+<ol start="5">
+  <li>Instruct  the MESA system  to produce a Cine&nbsp; image:</li>
+</ol>
+<blockquote>
+  <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;perl  scripts/cine.pl loglevel &ldquo;RECON GATED TOMO&rdquo; 2217/2217cine<br />
+    This will produce the file  2217/2217cine101.gif. If you have stored more than one GATED image, multiple  GIF files will be produced (102, 103, &hellip;).</p>
+</blockquote>
+<ol start="6">
+  <li>Display  the gif file that results (use IE or another browser). Verify that the Cine  image matches the frames produced by your system.</li>
+  <li>Create  an archive of the 2217 directory (tar/zip) and send to the Project Manager for  evaluation. There will be separate instructions for uploading the images (ftp,  web upload). Do not email the images.</li>
+</ol>
+<p>&nbsp;</p>
+<strong><br clear="all" />
+</strong>
+<h1><a name="_Toc87964380" id="_Toc87964380"></a><a name="_Toc119916712" id="_Toc119916712">Cardiology Echo Modality Tests</a></h1>
+<h2><a name="_Toc119916713" id="_Toc119916713"></a><a name="_Toc87964381" id="_Toc87964381">Modality Test 20403: Stress Echo Option</a></h2>
+<p>This test is for Acquisition Modalities which have  implemented the Stress Echo Option of the Echocardiography Workflow.&nbsp; In this test, you use the MESA tools to collect images and then send  those images to the Project Manager to manually verify the DICOM headers and  verify the Stress Echo data attributes.&nbsp;  Please see the IHE Year 1 CARD 2:4.2.3 of the Cardiology Technical  Framework for the attribute definitions.&nbsp;  This test verifies that the data attributes are present and that defined  codes and values are used, but cannot check that the defined attributes are  accurate (ie., that a &ldquo;Parasternal short axis at the aortic valve level&rdquo; is in  fact what was imaged).&nbsp; That exercise is  left to the vendors to test internally.</p>
+<ol>
+  <li>Start  the MESA  servers as described in section 1.5.</li>
+  <li>Clear  the MESA Image Manager. (if necessary)</li>
+  <blockquote>
+    <p>perl scripts/clear_img_mgr.pl</p>
+  </blockquote>
+  <li>Use  any patient demographics desired.</li>
+  <li>Send  the appropriate images to the MESA Image Manager.</li>
+</ol>
+<p>Locate the images stored by the MESA Image Manager.&nbsp; These are in $MESA_STORAGE/instances.&nbsp; Tar or zip these files and send them to the  Project Manager.</p>
+<h2><a name="_Toc119916714" id="_Toc119916714">Modality Test 20404: Echo Image Sets</a></h2>
+<p>In this &ldquo;test&rdquo;, you use the MESA tools to collect images and then send  those images to the Project Manager for distribution to other vendors.&nbsp; Please note the following:</p>
+<ul>
+  <li>These are the images that may be used in the  demonstration.&nbsp; That is, they should be  of reasonable clinical quality.</li>
+  <li>Note that these images MUST NOT contain real  patient demographics.&nbsp; </li>
+  <li>Note that these image sets will be distributed  to other vendors.</li>
+</ul>
+<p>The MWL entries should have the codes used for the  demonstration, but these are not available with this release.&nbsp;&nbsp; Use any MWL entry and codes.</p>
+<ul>
+  <ol>
+    <li>Start  the MESA  servers as described in section 1.5.</li>
+    <li>Clear  the MESA Image Manager.</li>
+    <blockquote>
+      <p>perl  scripts/clear_img_mgr.pl</p>
+    </blockquote>
+    <li>Send  the appropriate images to the MESA Image Manager.</li>
+    <li>Locate  the images stored by the MESA Image Manager.&nbsp;  These are in $MESA_STORAGE/instances.&nbsp;  Tar or zip these files and send them to the Project Manager.</li>
+    <li>Repeat  this test for EVERY SOP class which your product supports from the SOP class  table in CARD-TF 2:4.2.2&nbsp; (Table  4.2-5.&nbsp; Echocardiography SOP Classes).</li>
+  </ol>
+</ul>
+<p>Note that if the Stress Echo Option of CARD-2 is supported  that the attribtues identified in CARD-2 must be included.</p>
+<h1><a name="_Toc119916715" id="_Toc119916715"></a><a name="_Toc87964382" id="_Toc87964382">Cardiology Cath Modality Tests</a></h1>
+<h2><a name="_Toc119916716" id="_Toc119916716">Modality Test 20405: Cath Image  Sets</a> <a name="_Toc486996580"><a name="_Toc486996654"><a name="_Toc486997075"><a name="_Toc487010487"><a name="_Toc518965191"><a name="_Toc519153446"><a name="_Toc519154038"><a name="_Toc519154689"><a name="_Toc520794010"><a name="_Toc523541380"><a name="_Toc7332837"><a name="_Toc10860197"></h2>
+<h2><a name="_Toc90102522" id="_Toc90102522"></a><a name="_Toc90645919" id="_Toc90645919"></a><a name="_Toc101838745" id="_Toc101838745"></a><a name="_Toc114633507" id="_Toc114633507"></a><a name="_Toc114644778" id="_Toc114644778"></a><a name="_Toc114888822" id="_Toc114888822"></a><a name="_Toc115065821" id="_Toc115065821"></a><a name="_Toc117388643" id="_Toc117388643"></a><a name="_Toc119916717" id="_Toc119916717"></a> </h2>
+<h2><a name="_Toc90102523"><a name="_Toc90645920"><a name="_Toc101838746"><a name="_Toc114633508"><a name="_Toc114644779"><a name="_Toc114888823"><a name="_Toc115065822"><a name="_Toc117388644"><a name="_Toc119916718"></h2>
+<h2><a name="_Toc90102524"><a name="_Toc90645921"><a name="_Toc101838747"><a name="_Toc114633509"><a name="_Toc114644780"><a name="_Toc114888824"><a name="_Toc115065823"><a name="_Toc117388645"><a name="_Toc119916719"></h2>
+<h2><a name="_Toc90102525"><a name="_Toc90645922"><a name="_Toc101838748"><a name="_Toc114633510"><a name="_Toc114644781"><a name="_Toc114888825"><a name="_Toc115065824"><a name="_Toc117388646"><a name="_Toc119916720"></h2>
+<strong><br clear="all" />
+</strong>
+<h2><a name="_Toc119916721" id="_Toc119916721"></a>&nbsp;</h2>
+<p>In this &ldquo;test&rdquo;, you use the MESA tools to collect images and then send  those images to the Project Manager for distribution to other vendors.&nbsp; Please note the following:</p>
+<ul>
+  <li>These are the images that may be used in the  demonstration.&nbsp; That is, they should be  of reasonable clinical quality.</li>
+  <li>Note that these images MUST NOT contain real  patient demographics.</li>
+  <li>Note that these image sets will be distributed  to other vendors.</li>
+</ul>
+<p>The MWL entries should have the codes used for the  demonstration, but these are not available with this release.&nbsp;&nbsp; Use any MWL entry and codes.</p>
+<ul>
+  <ol>
+    <li>Start  the MESA  servers as described in section 1.5.</li>
+    <li>Clear  the MESA Image Manager.</li>
+    <blockquote>
+      <p>perl  scripts/clear_img_mgr.pl</p>
+    </blockquote>
+    <li>Send  the appropriate images to the MESA Image Manager.</li>
+    <li>Locate  the images stored by the MESA Image Manager.&nbsp;  These are in $MESA_STORAGE/instances.&nbsp;  Tar or zip these files and send them to the Project Manager.</li>
+    <li>Repeat  this test for EVERY SOP class which your product supports from the SOP class  table in CARD-TF 2:4.2.1 (Table 4.2-1.&nbsp;  Cardiac Cath SOP Classes).</li>
+  </ol>
+</ul>
+<p>&nbsp;</p>
+</body>
+</html>

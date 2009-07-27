@@ -1,0 +1,3358 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Untitled Document</title>
+<style type="text/css">
+<!--
+.style2 {font-size: 18px}
+.style3 {
+	font-size: 36px;
+	font-weight: bold;
+}
+.style4 {font-size: 36px}
+-->
+</style>
+</head>
+
+<body>
+<p align="center"><span class="style2">HIMMS  and RSNA</span><br />
+    <span class="style3">IHE</span><br />
+    <span class="style2">Integrating  the Healthcare Enterprise</span></p>
+<p align="center"><br />
+  <span class="style4">Display  Consistency Test Plan for Image Displays<br />
+  2003-07-01</span></p>
+<p align="center"><br />
+  Marco Eichelberg,&nbsp; Klaus Kleber, J&ouml;rg Riesmeier &nbsp;&nbsp;2002-07-11<br />
+  Adapted for Year 5 by David Maffitt</p>
+<p align="center">&nbsp;</p>
+<p align="center">Kuratorium OFFIS e.V., Escherweg 2, 26121 Oldenburg, Germany<br />
+   Institute for Microtherapy,  Universit&auml;tsstra&szlig;e 142, 44799 Bochum, Germany<br />
+   Mallinckrodt Institute of Radiology, Washington University,  St. Louis, MO, USA</p>
+<strong><br clear="all" />
+</strong>
+<p align="left"><strong>Contents</strong>:</p>
+<p><a href="#intro">Introduction</a> <br />
+    <a href="#ackn"> Acknowledgements</a> <br />
+    <a href="#test_proc_img_disp">Test Procedure for Image Displays</a> </p>
+<ol>
+  <li><a href="#prereq">Prerequisites</a> <br />
+  </li>
+  <li><a href="#GSDF">Testing  the GSDF Calibration of an Image Display Actor</a> <br />
+  </li>
+  <li><a href="#open_excel">Open Excel File and Fill  Administrative Data</a> <br />
+  </li>
+  <li><a href="#load_img">Load Images, Measure Boxes and Enter  Results</a> <br />
+  </li>
+  <li><a href="#print">Print &ldquo;Output&rdquo; Page and Assess  Deviation from GSDF</a> <br />
+  </li>
+  <li><a href="#testing_pres_states">Testing  Image Display without Presentation States</a> <br />
+  </li>
+  <li><a href="#lut">Modality LUT</a> <br />
+  </li>
+  <li><a href="#voilut">VOI LUT</a> <br />
+  </li>
+  <li><a href="#mod_voilut">Modality&nbsp;/&nbsp;VOI&nbsp;LUTs</a> <br />
+  </li>
+  <li><a href="#test_with_pres_states">Testing  Image Display with Presentation States</a> <br />
+  </li>
+  <li><a href="#mod_lut">Modality LUT</a> <br />
+  </li>
+  <li><a href="#voilut2">VOI LUT</a> <br />
+  </li>
+  <li><a href="#pres_lut">Presentation LUT</a> <br />
+  </li>
+  <li><a href="#mod_voi_pres_lut">Modality&nbsp;/&nbsp;VOI&nbsp;/&nbsp;Presentation  LUTs</a> <br />
+  </li>
+  <li><a href="#spatial_trans">Spatial Transformation</a> <br />
+  </li>
+  <li><a href="#disp_area">Displayed Area</a> <br />
+  </li>
+  <li><a href="#graphic_ann">Graphic Annotation</a> <br />
+  </li>
+  <li><a href="#text_ann">Text Annotation</a> <br />
+  </li>
+  <li><a href="#disp_shutter">Display Shutter</a> <br />
+  </li>
+  <li><a href="#overlays">Overlays. </a> <br />
+  </li>
+  <li><a href="#complex_comb">Complex Combination</a> <br />
+  </li>
+</ol>
+<p><a href="#img_disp_test_results">Image Display Test Results</a> </p>
+<ol>
+  <li><a href="#img_disp_without_pres_states">Image  Display without Presentation States</a> <br />
+  </li>
+  <li><a href="#mod_lut2">Modality LUT</a> <br />
+  </li>
+  <li><a href="#voilut3">VOI LUT</a> <br />
+  </li>
+  <li><a href="#mod_voi_lut2">Modality&nbsp;/&nbsp;VOI&nbsp;LUTs</a> <br />
+  </li>
+  <li><a href="#img_disp_pres_states2">Image  Display with Presentation States</a> <br />
+  </li>
+  <li><a href="#mod_lut3">Modality LUT</a> <br />
+  </li>
+  <li><a href="#voilut4">VOI LUT</a> <br />
+  </li>
+  <li><a href="#pres_lut3">Presentation LUT</a> <br />
+  </li>
+  <li><a href="#mod_voi_pres_lut2">Modality&nbsp;/&nbsp;VOI&nbsp;/&nbsp;Presentation  LUTs</a> <br />
+  </li>
+  <li><a href="#spatial_trans2">Spatial Transformations</a> <br />
+  </li>
+  <li><a href="#disp_area2">Displayed Area</a> <br />
+  </li>
+  <li><a href="#graphic_ann2">Graphic Annotation</a> <br />
+  </li>
+  <li><a href="#text_ann2">Text Annotation</a> <br />
+  </li>
+  <li><a href="#disp_shutter2">Display Shutter</a> <br />
+  </li>
+  <li><a href="#overlay2">Overlay</a> <br />
+  </li>
+  <li><a href="#complex_comb2">Complex Combination</a> <br />
+  </li>
+  <li><a href="#gen_comments">General  Comments</a> <br />
+  </li>
+</ol>
+<p><a href="#references">References</a> </p>
+<strong><br clear="all" />
+</strong>
+<h1><a name="#intro" id="#intro">Introduction</a> </h1>
+<p>This document is  intended for those vendors participating in the IHE demonstration which will supply  one or more Image Display Actors as defined in the IHE Technical Framework.  This document specifies a number of test cases which allow to assess:</p>
+<ul>
+  <li>whether  the Image Display is correctly calibrated to the DICOM Grayscale Standard  Display Function (GSDF) [1] as required by the Technical Framework,</li>
+  <li>whether  the display of a set of test images (without presentation states) leads to the  expected results, and</li>
+  <li>whether  the display of a set of test images with presentation states leads to the  expected results.</li>
+</ul>
+<p>Section 2 describes  prerequisites of this test plan, how to set up and perform the test cases, and  how to use the Excel spreadsheet that is used to assess the measured results  from many of the test cases.<br />
+  Section 3 is a form  to be filled in with the Image Display&rsquo;s test results.&nbsp; If an Image Display application can be  operated in different modes that exhibit different behavior, the tests should  be run for each mode of operation, and multiple copies of the form in section 3  should be filled in.&nbsp; <br />
+  You are required to  submit the completed form in Section 3 to the project management team.</p>
+<p>Please submit via  email (preferably) or FAX to:<br />
+  David Maffitt<br />
+  Email: <a href="mailto:maffittd@mir.wustl.edu">maffittd@mir.wustl.edu</a><br />
+  Fax: 314-362-6971<br />
+  Phone: 314-362-6965</p>
+<h2><a name="#ackn" id="#ackn">Acknowledgements</a> </h2>
+<p>We would like to thank  David Clunie (dclunie@dclunie.com) for preparing and providing a set of test  images and presentation states.&nbsp;&nbsp; These  DICOM images and presentation states were used to create most test cases in  section 3.4.&nbsp; The original package can be  downloaded from <a href="ftp://medical.nema.org/medical/dicom/rsnademos/display/">ftp://medical.nema.org/medical/dicom/rsnademos/display/</a>.<br />
+  Since its initial  release in 2000, many people have contributed to this test suite by reporting  bugs or even providing bug fixes and new test cases (in alphabetical order):</p>
+<ul>
+  <li>Jan-Pieter  Diender, GEMS IT Applicare (reported bug in &ldquo;spat&rdquo; cases)</li>
+  <li>Dave  Harvey, Medical Connections (reported bug in &ldquo;disa&rdquo; cases and small  inconsistencies in various test cases)</li>
+  <li>Sebastian  Hauer, TIANI MedGraph (provided new &ldquo;spat&rdquo; cases)</li>
+  <li>Gunter  Zeilinger, TIANI MedGraph (reported bug in &ldquo;mlut&rdquo; cases)</li>
+</ul>
+<strong><br clear="all" />
+</strong>
+<h1><a name="#test_proc_img_disp" id="#test_proc_img_disp">Test  Procedure for Image Displays</a> </h1>
+<h2><a name="#prereq" id="#prereq">Prerequisites</a> </h2>
+<p>The following items  are required for performance of the Test Plan:</p>
+<ul>
+  <li><em>Photometer</em> for measuring the luminance of a softcopy  display device and the luminance contribution from reflected ambient  light.&nbsp; Suitable devices for this purpose  are identified in a separate document entitled &ldquo;Calibration Tools&rdquo;.&nbsp; It should be noted that this Test Plan is  based on the international system of units (SI).&nbsp; Therefore, luminance measurements in candela  per square meter (cd/m&sup2;) are required.</li>
+  <li><em>Image  Display Test Cases </em>consisting  of a number of images and presentation states that will be displayed during the  execution of the test plan.&nbsp; These are  provided as part of the IHE Y2 MESA tools distribution.&nbsp; Note that a small gray ramp has been added to  the lower border of most images. This prevents applications from masquerading  the test results by computing an automatic VOI window.</li>
+  <li><em>Microsoft  Excel 97 Spreadsheet &ldquo;gsdf_lum.xls&rdquo;. </em>This spreadsheet is explained in section 3.4.&nbsp; Also provided as part of the IHE Y2 MESA  tools distribution.</li>
+</ul>
+<h2><a name="#GSDF" id="#GSDF">Testing  the GSDF Calibration of an Image Display Actor</a> </h2>
+<p>The <em>Image Display Test Cases</em> contain a set  of 17 DICOM secondary capture images (512*512 pixel resolution, 8 bits/pixel  depth) intended for an assessment of the correct GSDF calibration of a display  system.&nbsp; These images are part of the  Image Display Test Cases and can be identified by the filenames &ldquo;ddl_01.dcm&rdquo; to  &ldquo;ddl_17.dcm&rdquo;.&nbsp; Each image shows a single  box of gray as described in DICOM Part 14 [1]: the measurement field is  centered and has a size of 10% of the total number of image pixels (162*162),  the background is uniform with a luminance of 20% of the maximum luminance  (corresponds to 50% gray).&nbsp; Figure 1  shows one of the test images &ndash; the image number referenced by the Excel form  (&ldquo;measured DDL #&rdquo;) is also displayed in the top left-hand corner.<br />
+    <img src="images/clip_image002_0000.jpg" alt="16" width="298" height="298" border="0" /><br />
+  Figure 1: Test image with measurement field<br />
+  The Excel file &ldquo;gsdf_lum.xls&rdquo;  contains two tables: the first table is used to enter the measured luminance  values and some administrative data, the second one is automatically filled and  used for printing the results.&nbsp; Figure 2  shows the &ldquo;Input&rdquo; table &ndash; the sheet is protected and only the blue fields can  be modified.<br />
+  <img src="images/clip_image004_0000.jpg" alt="17" width="353" height="512" border="0" /><br />
+  Figure 2: &ldquo;Input&rdquo; table of the Excel file for softcopy calibration<br />
+  <em>Note</em>: The Excel file contains macros which are required for perfect  operation, i.&nbsp;e. they should be activated if the user is asked by the  application.</p>
+<h3><a name="#open_excel" id="#open_excel">Open Excel File and Fill Administrative Data</a></h3>
+<p>First you should  open the Excel file &ldquo;gsdf_lum.xls&rdquo; (activate macros if a requesting dialog  appears) and enter the administrative data: Vendor&nbsp;/&nbsp;Device,  Date&nbsp;/&nbsp;Time, Performed by.</p>
+<h3><a name="#load_img" id="#load_img">Load Images, Measure Boxes and Enter Results</a></h3>
+<p>Start the DICOM  viewer application you want to check for correct GSDF implementation and load  the first test image &ldquo;ddl_01.dcm&rdquo;.&nbsp; It is  very important that the full range of 256 shades of gray is used to display the  image.&nbsp; Therefore, the VOI window 128/256  (center/width) is stored in the file (assuming that the VOI LUT transformation  has been implemented according to the DICOM standard, PS3.3 [2] section  C.11).&nbsp; Additionally, all 256 shades of gray  are used in the gray ramp at the lower end of the image to support viewers  which are ignoring the stored settings and initially using an automatically  computed window.&nbsp; However, if the viewer  does not use the full range of grayscale values, please, make sure that you  change the VOI window manually before measuring.<br />
+  In order to  correspond with the instructions contained in DICOM Part 14 the image should be  scaled to fit the full screen and the measurement field (gray box) should be on  the center of the screen.&nbsp; Then the  luminance meter should be used according to the description shipped with the  device.&nbsp; The measured value (in cd/m&sup2;)  should be entered into the corresponding field in the Excel &ldquo;Input&rdquo; table  (e.&nbsp;g. &ldquo;measured DDL #1&rdquo; for the first image &ldquo;ddl_001.dcm&rdquo;).&nbsp; Please also compare the number displayed in  the top left-hand corner to avoid mistakes.<br />
+  The same procedure  has to be performed for the other 16 test images.&nbsp; After all 17 measured values have been  entered the &ldquo;overall Status&rdquo; should be &ldquo;OK&rdquo;.&nbsp;  Otherwise you have most likely made a mistake.<br />
+  Depending on the  calibration tool the ambient light is measured separately.&nbsp; In this case you need to enter the measured  ambient light in the field below the administrative data.&nbsp; Please note that the measurement unit is also  candela per square meter.</p>
+<h3><a name="#print" id="#print">Print &ldquo;Output&rdquo; Page and Assess Deviation from  GSDF</a></h3>
+<p>After successfully  measuring and entering the data the &bdquo;Output&ldquo; page shows the result (see Figure  3).<br />
+  This page can be  printed on standard paper.&nbsp; Since all  necessary information is contained on this page there is no need to print the  &ldquo;Input&rdquo; table.<br />
+  The table below the  administrative data shows the measured luminance values versus the GSDF and the  deviation from the standard curve (absolute and percentage values as well as  the mean difference and the standard deviation).&nbsp; Unfortunately, no precise formula for an  assessment of the deviation can be given.&nbsp;  Obviously, deviation from the GSDF should be as small as possible and in  any case below 20%.&nbsp; In addition, the  curve should be &ldquo;smooth&rdquo; and should not show any steps.&nbsp; This is the reason why both curves are shown  in a diagram (where the luminance is logarithmically scaled).&nbsp; The 17 measured values are interpolated by a  built-in algorithm &ndash; though, this has no influence on the original data  presented in the table.</p>
+<p align="center"><img src="images/clip_image006_0001.jpg" alt="18" width="471" height="680" border="0" /><br />
+Figure 3: Printed &ldquo;Output&rdquo; table of the Excel file for softcopy  calibration</p>
+<h2><a name="#testing_pres_states" id="#testing_pres_states">Testing  Image Display without Presentation States</a> </h2>
+<p>This section describes a set of tests for Image Display without  Presentation States.&nbsp; Each test consists  of an image (&ldquo;*.dcm&rdquo;) which should be displayed by the Image Display Actor, a  description of the relevant attributes in the Image IOD and a description of  the correct resulting display for evaluation purposes. </p>
+<h3><a name="#lut" id="#lut">Modality  LUT</a></h3>
+<p>This subsection contains tests for the Modality LUT transformation. </p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><br />
+      Test MLUT_01<strong></strong> </td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern,    Bits Allocated 8, Bits Stored 8, Pixel Range 0 to +255, Pixel Representation    is unsigned, Photometric Interpretation MONOCHROME2, Rescale Slope 1,    Rescale Intercept 0<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal    SMPTE pattern </p></td>
+  </tr>
+</table>
+<p>Test MLUT_02 has been  removed.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test MLUT_03<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern, Bits Allocated 16,    Bits Stored 12, Pixel     Range 0 to +4095, Pixel    Representation is unsigned, Photometric Interpretation is MONOCHROME2, Rescale Slope 1,    Rescale Intercept -128<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test MLUT_04<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern, Bits Allocated 16,    Bits Stored 12, Pixel     Range 0 to +4095, Pixel    Representation is unsigned, Photometric Interpretation is MONOCHROME2, Rescale Slope 1,    Rescale Intercept -1024<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test MLUT_05<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern, Bits Allocated 16,    Bits Stored 12, high bits 1, Pixel     Range 0 to +4095, Pixel    Representation is unsigned, Photometric Interpretation is MONOCHROME2, Rescale Slope 1,    Rescale Intercept 0<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test MLUT_06<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern,    Bits Allocated 16, Bits Stored 12, high bits 1, Pixel Range    0 to +4095, Pixel Representation is unsigned, Photometric    Interpretation is    MONOCHROME2, Rescale Slope 1, Rescale Intercept -1024<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal    SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test MLUT_07<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern,    Bits Allocated 16, Bits Stored 15, Pixel     Range 0 to +32767,    Pixel Representation is unsigned, Photometric Interpretation    is MONOCHROME2, Rescale    Slope 1, Rescale Intercept 0<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal    SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test MLUT_08<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern,    Bits Allocated 16, Bits Stored 15, Pixel     Range 0 to +32767,    Pixel Representation is unsigned, Photometric Interpretation    is MONOCHROME2, Rescale    Slope 1, Rescale Intercept -1024<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal    SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test MLUT_09<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern, Bits Allocated 16,    Bits Stored 16, Pixel     Range 0 to +65535,    Pixel Representation is unsigned, Photometric Interpretation    is MONOCHROME2, Rescale    Slope 1, Rescale Intercept 0<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal SMPTE pattern </p></td>
+  </tr>
+</table>
+<p>Test MLUT_10 has been removed.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test MLUT_11<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern, Bits Allocated 16,    Bits Stored 12, Pixel     Range -2048 to +2047,    Pixel Representation is signed, Photometric Interpretation    is MONOCHROME2, Rescale    Slope 1, Rescale Intercept 0<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test MLUT_12<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern, Bits Allocated 16,    Bits Stored 12, Pixel     Range -2048 to +2047,    Pixel Representation is signed, Photometric Interpretation    is MONOCHROME2, Rescale    Slope 1, Rescale Intercept -1024<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test MLUT_13<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern,    Bits Allocated 16, Bits Stored 16, Pixel     Range -32768 to +32767,    Pixel Representation is signed, Photometric Interpretation    is MONOCHROME2, no LUTS<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal    SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test MLUT_14<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern,    Bits Allocated 16, Bits Stored 16, Pixel     Range -32768 to +32767,    Pixel Representation is signed, Photometric Interpretation    is MONOCHROME2, Rescale    Slope 1, Rescale Intercept 0<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal    SMPTE pattern </p></td>
+  </tr>
+</table>
+<p>Test MLUT_15 has been  removed.</p>
+<p>&nbsp;</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test MLUT_16<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern, Bits Allocated 16,    Bits Stored 16, Pixel     Range -32768 to +32767,    Pixel Representation is signed, Photometric Interpretation    is MONOCHROME2, Rescale    Slope 0.5, Rescale Intercept 0<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal SMPTE pattern </p></td>
+  </tr>
+</table>
+<p>Test MLUT_17 has been  removed.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test MLUT_18<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC    image with SMPTE pattern, Bits Allocated 16, Bits Stored 12, Pixel Range -2048 to +2047, Pixel    Representation is signed, Photometric Interpretation is MONOCHROME2, Modality LUT    Sequence with LUT Descriptor 4096\63488\16, linear LUT value o up to 65535    with increment +16<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display    should be a normal SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test MLUT_19<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern,    Bits Allocated 16, Bits Stored 12, Pixel Range -2048 to +2047, Pixel    Representation is signed, Photometric Interpretation is MONOCHROME1 (inverted),    Modality LUT Sequence with LUT Descriptor 4096\63488\16, linear LUT value    65535 down to 0 with increment -16<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal    SMPTE pattern </p></td>
+  </tr>
+</table>
+<h3><a name="#voilut" id="#voilut">VOI  LUT</a> </h3>
+<p>This subsection contains tests for the VOI LUT transformation.&nbsp; Though presentation states are not part of  the tests in this section it is expected that the VOI LUT transformation is  implemented according to the DICOM standard, PS3.3 [2] section C.11.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><br />
+      Test VLUT_01<strong></strong> </td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern, Bits Allocated 8, Bits    Stored 8, Pixel     Range 0 to +255, Pixel    Representation is unsigned, Photometric Interpretation is MONOCHROME2 , no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test VLUT_02<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern, Bits Allocated 8, Bits    Stored 8, Pixel Range 0 to +255, Pixel Representation is unsigned, Photometric    Interpretation is    MONOCHROME2, Window Center = 2^(Bits Stored-1), Window Width = 2^Bits Stored,    i.&nbsp;e. 128/256, i.&nbsp;e. identity<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test VLUT_03<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern,    Bits Allocated 8, Bits Stored 8, Pixel Range +25 to +75, Pixel Representation    is unsigned, Photometric Interpretation is MONOCHROME2, Window Center =    50.5, Window Width = 51<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal    SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test VLUT_04<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern, Bits Allocated 8, Bits    Stored 8, Pixel     Range 0 to +255, Pixel    Representation is unsigned, Photometric Interpretation is MONOCHROME2, VOI LUT Sequence    with LUT Descriptor 256\0\16,linear LUT value 0 up to 65535 with increment    +257<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test VLUT_05<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern,    Bits Allocated 8, Bits Stored 8, Pixel Range 0 to +255, Pixel Representation    is unsigned, Photometric Interpretation is MONOCHROME1 (inverted), VOI    LUT Sequence with LUT Descriptor 256\0\16, linear LUT value 65535 down to 0    with increment -257<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal    SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test VLUT_06<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern, Bits Allocated 16,    Bits Stored 12, Pixel     Range -2048 to +2047,    Pixel Representation is signed, Photometric Interpretation    is MONOCHROME2<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test VLUT_07<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern,    Bits Allocated 16, Bits Stored 12, Pixel Range -2048 to +2047, Pixel    Representation is signed, Photometric Interpretation is MONOCHROME2, no LUTs; Window    Center = 0, Window Width = 4096, i.&nbsp;e. identity<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal    SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test VLUT_08<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern, Bits Allocated 16,    Bits Stored 12, Pixel Range 25 to +74, Pixel Representation is signed, Photometric    Interpretation is    MONOCHROME2, Window Center = 50, Window Width = 50<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test VLUT_09<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern,    Bits Allocated 16, Bits Stored 12, Pixel     Range -2048 to +2047,    Pixel Representation is signed, Photometric Interpretation    is MONOCHROME2, VOI LUT    Sequence&nbsp; with LUT Descriptor 4096\63488\16, linear LUT value 0 up to    65535 with increment +16<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal    SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test VLUT_10<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern,    Bits Allocated 16, Bits Stored 12, Pixel     Range -2048 to +2047,    Pixel Representation is signed, Photometric Interpretation    is MONOCHROME2, VOI LUT    Sequence with LUT Descriptor 4096\06344\16, linear LUT value 65535 down to 0    with increment -16<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal    SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test VLUT_11<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with two gray ramps    (with 256/16 shades of gray), Bits Allocated 8, Bits Stored 8, Pixel Range 0    to +256, Pixel Representation is unsigned, Photometric    Interpretation is    MONOCHROME2, 9 different Window Center and Width settings (128/256, 128/1,    128/16, 64/16, 128/32, 32/64, 218/96, 48/96, 128/128)<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Lower part of the image should    display as many different gray boxes as indicated in the corresponding Window Center and Width Explanation (full    range, black and white, 2 gray boxes, 3 gray boxes, 4 gray boxes, 5 gray    boxes, 6 gray boxes, 7 gray boxes, 10 gray boxes).<br />
+      NB:&nbsp;&nbsp;&nbsp; If the grayscale correction according to    the GSDF is done &ldquo;in software&rdquo; it might happen that the number of visible    gray boxes differs from that specified above.&nbsp;    When using DICOMscope the corection should be switched off in this    case. </p></td>
+  </tr>
+</table>
+<h3><a name="#mod_voilut" id="#mod_voilut">Modality&nbsp;/&nbsp;VOI&nbsp;LUTs</a></h3>
+<p>This subsection contains combined tests for Modality and VOI LUT.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><br />
+      Test XLUT_01<strong></strong> </td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern, Bits Allocated 8, Bits    Stored 8, Pixel Range 128 to +255, Pixel Representation is unsigned, Photometric    Interpretation is    MONOCHROME2, Rescale Slope 2, Rescale Intercept -128, Window Center = 255.5,    Window Width = 255<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test XLUT_02<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern, Bits Allocated 16,    Bits Stored 16, Pixel Range 1024 to +65535, Pixel Representation is unsigned,    Photometric Interpretation is MONOCHROME2, Rescale Slope 0.125, Rescale Intercept    -1024, Window Center = 3136, Window Width = 8064<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal SMPTE pattern </p></td>
+  </tr>
+</table>
+<h2><a name="#test_with_pres_states" id="#test_with_pres_states">Testing  Image Display with Presentation States</a> </h2>
+<p>This section describes a set of tests for Image Display with Presentation  States.&nbsp; Each test consists of an Image  (&ldquo;*.dcm&rdquo;) and a Presentation   State (&ldquo;*.pre&rdquo;) which  should be displayed by the Image Display Actor (i.&nbsp;e. the presentation  state should be applied to the image).&nbsp;  For both a description of the relevant attributes is listed as well as a  description of the correct resulting display for evaluation purposes.<br />
+  For some of the test cases a result image (&ldquo;*.res&rdquo;) is provided in order  to facilitate the decision whether an implementation is correct or not.&nbsp; However, this does not imply that the  rendered output has to match <em>exactly</em> to be standard compliant (deviations might result from different fonts,  divergent visualization of graphic annotations, etc.) </p>
+<h3><a name="#mod_lut" id="#mod_lut">Modality  LUT</a></h3>
+<p>This subsection contains tests for the Modality  LUT transformation.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><br />
+      Test MLUT_P01<strong></strong> </td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern,    Bits Allocated 8, Bits Stored 8, Pixel Range 0 to +255, Pixel Representation    is unsigned, Photometric Interpretation &nbsp;MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Rescale Slope 1, Rescale    Intercept 0 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal    SMPTE pattern </p></td>
+  </tr>
+</table>
+<p>Test MLUT_P02 has been  removed.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test MLUT_P03<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern,    Bits Allocated 16, Bits Stored 12, Pixel     Range 0 to +4095, Pixel    Representation is unsigned, Photometric Interpretation is MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Rescale Slope 1, Rescale    Intercept 0 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal    SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test MLUT_P04<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern,    Bits Allocated 16, Bits Stored 12, Pixel     Range 0 to +4095, Pixel    Representation is unsigned, Photometric Interpretation is MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Rescale Slope 1, Rescale    Intercept -1024 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal    SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test MLUT_P05<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern, Bits Allocated 16,    Bits Stored 12, high bits 1, Pixel     Range 0 to +4095, Pixel    Representation is unsigned, Photometric Interpretation is MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Rescale Slope 1, Rescale Intercept 0 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test MLUT_P06<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern,    Bits Allocated 16, Bits Stored 12, high bits 1, Pixel Range    0 to +4095, Pixel Representation is unsigned, Photometric    Interpretation is    MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Rescale Slope 1, Rescale    Intercept -1024 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal    SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test MLUT_P07<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern, Bits Allocated 16,    Bits Stored 15, Pixel     Range 0 to +32767,    Pixel Representation is unsigned, Photometric Interpretation    is MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Rescale Slope 1, Rescale Intercept 0 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test MLUT_P08<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern,    Bits Allocated 16, Bits Stored 15, Pixel     Range 0 to +32767,    Pixel Representation is unsigned, Photometric Interpretation    is MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Rescale Slope 1, Rescale    Intercept -1024 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal    SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test MLUT_P09<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern,    Bits Allocated 16, Bits Stored 16, Pixel     Range 0 to +65535,    Pixel Representation is unsigned, Photometric Interpretation    is MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Rescale Slope 1, Rescale    Intercept 0 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal    SMPTE pattern </p></td>
+  </tr>
+</table>
+<p>Test MLUT_P10 has been  removed.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test MLUT_P11<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern, Bits Allocated 16,    Bits Stored 12, Pixel     Range -2048 to +2047,    Pixel Representation is signed, Photometric Interpretation    is MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Rescale Slope 1, Rescale Intercept 0 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test MLUT_P12<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern, Bits Allocated 16,    Bits Stored 12, Pixel     Range -2048 to +2047,    Pixel Representation is signed, Photometric Interpretation    is MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Rescale Slope 1, Rescale Intercept -1024 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test MLUT_P13<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern,    Bits Allocated 16, Bits Stored 16, Pixel     Range -32768 to +32767,    Pixel Representation is signed, Photometric Interpretation    is MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">No LUTS </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal    SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test MLUT_P14<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern,    Bits Allocated 16, Bits Stored 16, Pixel     Range -32768 to +32767,    Pixel Representation is signed, Photometric Interpretation    is MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Rescale Slope 1, Rescale    Intercept 0 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal    SMPTE pattern </p></td>
+  </tr>
+</table>
+<p>Test MLUT_P15 has been  removed.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test MLUT_P16<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern,    Bits Allocated 16, Bits Stored 16, Pixel     Range -32768 to +32767,    Pixel Representation is signed, Photometric Interpretation    is MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Rescale Slope 0.5, Rescale    Intercept 0 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal    SMPTE pattern </p></td>
+  </tr>
+</table>
+<p>Test MLUT_P17 has been  removed.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test MLUT_P18<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern, Bits Allocated 16,    Bits Stored 12, Pixel     Range -2048 to +2047,    Pixel Representation is signed, Photometric Interpretation    is MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Modality LUT Sequence with LUT Descriptor    4096\63488\16, linear LUT value o up to 65535 with increment +16 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test MLUT_P19<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern,    Bits Allocated 16, Bits Stored 12, Pixel Range -2048 to +2047, Pixel Representation    is signed, Photometric Interpretation is MONOCHROME1 (inverted), no    LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p>Modality LUT Sequence with LUT Descriptor    4096\63488\16, linear LUT value 65535 down to 0 with increment -16 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal    SMPTE pattern </p></td>
+  </tr>
+</table>
+<p>Test MLUT_P20 has been  removed.</p>
+<p><a name="#mlut_p21" id="#mlut_p21">Test  MLUT_P21 has been removed.</a></p>
+<h3><a name="#voilut2" id="#voilut2">VOI LUT</a> </h3>
+<p>This subsection contains tests for the VOI LUT transformation.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><br />
+      Test VLUT_P01<strong></strong> </td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern, Bits Allocated 8, Bits    Stored 8, Pixel     Range 0 to +255, Pixel    Representation is unsigned, Photometric Interpretation is MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p>No LUT </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test VLUT_P02<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern, Bits Allocated 8, Bits    Stored 8, Pixel     Range 0 to +255, Pixel    Representation is unsigned, Photometric Interpretation is MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Window Center = 2^(Bits Stored-1), Window    Width = 2^Bits Stored, i.&nbsp;e. 128/256, i.&nbsp;e. identity </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test VLUT_P03<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern,    Bits Allocated 8, Bits Stored 8, Pixel     Range +25 to +75, Pixel    Representation is unsigned, Photometric Interpretation is MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Window Center = 50.5, Window Width = 51 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal    SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test VLUT_P04<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern,    Bits Allocated 8, Bits Stored 8, Pixel     Range 0 to +255, Pixel    Representation is unsigned, Photometric Interpretation is MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">VOI LUT Sequence with LUT Descriptor    256\0\16,linear LUT value 0 up to 65535 with increment +257<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test VLUT_P05<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern, Bits Allocated 8, Bits    Stored 8, Pixel Range 0 to +255, Pixel Representation is unsigned, Photometric    Interpretation is    MONOCHROME1 (inverted), no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">VOI LUT Sequence with LUT Descriptor 256\0\16,    linear LUT value 65535 down to 0 with increment -257<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test VLUT_P06<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern,    Bits Allocated 16, Bits Stored 12, Pixel     Range -2048 to +2047,    Pixel Representation is signed, Photometric Interpretation    is MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">absent ... default VOI LUT to    identity </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal    SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test VLUT_P07<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern,    Bits Allocated 16, Bits Stored 12, Pixel     Range -2048 to +2047,    Pixel Representation is signed, Photometric Interpretation    is MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Window Center = 0, Window Width = 4096,    i.&nbsp;e. identity </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal    SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test VLUT_P08<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern,    Bits Allocated 16, Bits Stored 12, Pixel Range 25 to +74, Pixel    Representation is signed, Photometric Interpretation is MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Window Center = 50, Window Width = 50 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal    SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test VLUT_P09<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern,    Bits Allocated 16, Bits Stored 12, Pixel     Range -2048 to +2047,    Pixel Representation is signed, Photometric Interpretation    is MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">VOI LUT Sequence&nbsp; with LUT Descriptor 4096\63488\16, linear    LUT value 0 up to 65535 with increment +16 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal    SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test VLUT_P10<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern,    Bits Allocated 16, Bits Stored 12, Pixel     Range -2048 to +2047,    Pixel Representation is signed, Photometric Interpretation    is MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">VOI LUT Sequence with LUT    Descriptor 4096\63488\16, linear LUT value 65535 down to 0 with increment -16 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal SMPTE    pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test VLUT_P11<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern,    Bits Allocated 8, Bits Stored 8, Pixel     Range +25 to +75, Pixel    Representation is unsigned, Photometric Interpretation is MONOCHROME2, inappropriate    VOI LUT transform (Window Center 128, Window Width 256)<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p>Appropriate VOI LUT transform (Window Center    = 50.5, Window Width = 51) </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal    SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test VLUT_P12<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern,    Bits Allocated 8, Bits Stored 8, Pixel Range 0 to 255, Pixel Representation    is unsigned, Photometric Interpretation is MONOCHROME2, inappropriate    VOI LUT transform (Window Center 0, Window Width 128), requiring identity VOI    LUT transform<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p>VOI LUT transform not specified so assumed identity </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal    SMPTE pattern </p></td>
+  </tr>
+</table>
+<h3><a name="#pres_lut" id="#pres_lut">Presentation  LUT</a> </h3>
+<p>This subsection contains tests for the Presentation LUT transformation.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><br />
+      Test PLUT_P01<strong></strong> </td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern, Bits Allocated 8, Bits    Stored 8, Pixel     Range 0 to +255, Pixel    Representation is unsigned, Photometric Interpretation is MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p>Presentation LUT Shape = IDENTITY</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test PLUT_P02<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern, Bits Allocated 8, Bits    Stored 8, Pixel     Range 0 to +255, Pixel    Representation is unsigned, Photometric Interpretation is MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p>Presentation LUT Shape = INVERSE</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test PLUT_P03<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern, Bits Allocated 16,    Bits Stored 12, Pixel     Range -2048 to +2047,    Pixel Representation is signed, Photometric Interpretation    is MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p>Presentation LUT Shape = IDENTITY</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test PLUT_P04<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern, Bits Allocated 16,    Bits Stored 12, Pixel Range -2048 to +2047, Pixel Representation is signed, Photometric    Interpretation is    MONOCHROME1 (inverted), no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p>Presentation LUT Shape = INVERSE</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test PLUT_P05<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern,    Bits Allocated 8, Bits Stored 8, Pixel     Range 0 to +255, Pixel    Representation is unsigned, Photometric Interpretation is MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Presentation LUT Sequence    with LUT Descriptor    256\0\10, linear LUT value 0 up to 1023 with increment +4 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal    SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test PLUT_P06<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern,    Bits Allocated 8, Bits Stored 8, Pixel Range 0 to +255, Pixel Representation    is unsigned, Photometric Interpretation is MONOCHROME1 (inverted), no    LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Presentation LUT Sequence    with LUT Descriptor    256\0\10, linear LUT value 1023 down to 0 with increment -4 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal    SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test PLUT_P07<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern,    Bits Allocated 16, Bits Stored 12, Pixel     Range -2048 to +2047,    Pixel Representation is signed, Photometric Interpretation    is MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Presentation LUT Sequence    with LUT Descriptor    4096\63488\16, linear LUT value 0 up to 65535 with increment +16 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal    SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test PLUT_P08<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern,    Bits Allocated 16, Bits Stored 12, Pixel     Range -2048 to +2047,    Pixel Representation is signed, Photometric Interpretation    is MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Presentation LUT Sequence    with LUT Descriptor    4096\63488\8, linear LUT value 0 up to 255 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal    SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test PLUT_P09<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern, Bits Allocated 8, Bits    Stored 8, Pixel Range 0 to +255, Pixel Representation is unsigned, Photometric    Interpretation is    MONOCHROME2, inappropriate Presentation LUT transform (Presentation LUT Shape    = INVERSE)<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p>Appropriate Presentation LUT transform (Presentation LUT Shape =    IDENTITY)</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal SMPTE pattern </p></td>
+  </tr>
+</table>
+<h3><a name="#mod_voi_pres_lut" id="#mod_voi_pres_lut">Modality&nbsp;/&nbsp;VOI&nbsp;/&nbsp;Presentation  LUTs</a></h3>
+<p>This subsection contains combined tests for the different LUTs (Modality  LUT, VOI LUT, Presentation LUT) in the DICOM transformation pipeline.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><br />
+      Test XLUT_P01<strong></strong> </td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern,    Bits Allocated 16, Bits Stored 12, Pixel Range -2048 to +2047, Pixel    Representation is signed, Photometric Interpretation is MONOCHROME1 (inverted) , no    LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Modality LUT Sequence    with LUT Descriptor    4096\63488\12, linear LUT value 4095 down to 0 with increment -1; VOI LUT Sequence    with LUT Descriptor    4096\0\12, linear LUT value 4095 down to 0 with increment -1; Presentation LUT Sequence    with LUT Descriptor    256\0\10, linear LUT value 1023 down to 0 with increment -4 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal SMPTE    pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test XLUT_P02<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern,    Bits Allocated 16, Bits Stored 12, Pixel     Range -2048 to +2047,    Pixel Representation is signed, Photometric Interpretation    is monochrom2 , no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p>Rescale Slope -2, Rescale Intercept -1; Window Center 0, Window Width 8192;    Presentation LUT Shape INVERSE </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal    SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test XLUT_P03<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with two gray ramps    (with 256/16 shades of gray), pixel data scrambled by the inverse of the    three LUTs stored in the presentation state<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Modality LUT Sequence    with LUT Descriptor    256\0\8, scrambled LUT data; VOI LUT Sequence with LUT Descriptor 256\0\8, scrambled LUT data; Presentation LUT Sequence    with LUT Descriptor    256\0\8, scrambled LUT data </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Result on display should look    like &ldquo;xlut_p03.res&rdquo; </p></td>
+  </tr>
+</table>
+<h3><a name="#spatial_trans" id="#spatial_trans">Spatial Transformation</a></h3>
+<p>This subsection contains tests for the following  spatial transformations: rotation and horizontal flip. <br />
+    <em>Note: most of these test cases are not displayed  correctly with the current release of DICOMscope (version 3.5.1).&nbsp; This &ldquo;bug&rdquo; will probably be fixed in a future  release of the application (see DICOM CP 287 for details).</em></p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><br />
+      Test SPAT_P01<strong></strong> </td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern, Bits Allocated 8, Bits    Stored 8, Pixel     Range 0 to +255, Pixel    Representation is unsigned, Photometric Interpretation is MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p>Image Rotation 0, Image Horizontal Flip N</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normally oriented SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test SPAT_P02<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern    (rotation 270 degree CW), Bits Allocated 8, Bits Stored 8, Pixel Range    0 to +255, Pixel Representation is unsigned, Photometric    Interpretation is    MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p>Image Rotation 90, Image Horizontal Flip N</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normally    oriented SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test SPAT_P03<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern (rotation 180 degree    CW), Bits Allocated 8, Bits Stored 8, Pixel Range    0 to +255, Pixel Representation is unsigned, Photometric    Interpretation is    MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p>Image Rotation 180, Image Horizontal Flip N</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normally oriented SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test SPAT_P04<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern (rotation 90 degree    CW), Bits Allocated 8, Bits Stored 8, Pixel Range    0 to +255, Pixel Representation is unsigned, Photometric    Interpretation is    MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p>Image Rotation 270, Image Horizontal Flip N</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normally oriented SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test SPAT_P05<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern (horizontal fliped),    Bits Allocated 8, Bits Stored 8, Pixel     Range 0 to +255, Pixel    Representation is unsigned, Photometric Interpretation is MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p>Image Rotation 0, Image Horizontal Flip Y</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normally oriented SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test SPAT_P06<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern (horizontal fliped and    rotation 270 degrees CW), Bits Allocated 8, Bits Stored 8, Pixel Range    0 to +255, Pixel Representation is unsigned, Photometric    Interpretation is    MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p>Image Rotation 90, Image Horizontal Flip Y</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normally oriented SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test SPAT_P07<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern    (horizontal fliped and rotation 180 degrees CW), Bits Allocated 8, Bits    Stored 8, Pixel     Range 0 to +255, Pixel    Representation is unsigned, Photometric Interpretation is MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p>Image Rotation 180, Image Horizontal Flip Y</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normally    oriented SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test SPAT_P08<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern    (horizontal fliped and rotation 90 degrees CW), Bits Allocated 8, Bits Stored    8, Pixel Range 0 to +255, Pixel Representation    is unsigned, Photometric Interpretation is MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p>Image Rotation 270, Image Horizontal Flip Y</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normally    oriented SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test SPAT_P09<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image (Columns 1024, Rows    1024) with 512*512 SMPTE pattern (rotation 270 degree CW), Bits Allocated 8,    Bits Stored 8, Pixel Range 0 to +255, Pixel Representation is unsigned, Photometric    Interpretation is    MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p>Presentation    Size Mode: SCALE    TO FIT, Displayed Area Top Left Hand    Corner    1\1024, Displayed Area Bottom Right    Hand Corner    512\513, Presentation Pixel Aspect    Ratio 1\1, Image    Rotation 90, Image Horizontal Flip N</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normally    oriented SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test SPAT_P10<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image (Columns 1024, Rows    1024) with 512*512 SMPTE pattern (rotation 180 degree CW), Bits Allocated 8,    Bits Stored 8, Pixel Range 0 to +255, Pixel Representation is unsigned, Photometric    Interpretation is    MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p>Presentation    Size Mode: SCALE    TO FIT, Displayed Area Top Left Hand    Corner    512\1024, Displayed Area Bottom Right    Hand Corner    1\513, Presentation Pixel Aspect    Ratio 1\1, Image    Rotation 180, Image Horizontal Flip N</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normally    oriented SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test SPAT_P11<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image (Columns 1024, Rows 1024) with 512*512    SMPTE pattern (rotation 90 degree CW), Bits Allocated 8, Bits Stored 8, Pixel    Range 0 to +255, Pixel Representation is unsigned, Photometric    Interpretation is    MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p>Presentation Size Mode: SCALE TO FIT, Displayed Area Top Left Hand Corner 512\513, Displayed Area Bottom Right Hand Corner 1\1024, Presentation Pixel Aspect Ratio 1\1,    Image Rotation 270, Image Horizontal Flip    N</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normally oriented SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test SPAT_P12<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image (Columns 1024, Rows 1024) with 512*512    SMPTE pattern (horizontal fliped), Bits Allocated 8, Bits Stored 8, Pixel Range 0 to +255, Pixel Representation    is unsigned, Photometric Interpretation is MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p>Presentation Size Mode: SCALE TO FIT, Displayed Area Top Left Hand Corner 512\513, Displayed Area Bottom Right Hand Corner 1\1024, Presentation Pixel Aspect Ratio 1\1, Image    Rotation 0, Image Horizontal Flip Y</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normally oriented SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test SPAT_P13<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image (Columns 1024, Rows 1024) with 512*512    SMPTE pattern (horizontal fliped and rotation 270 degrees CW), Bits Allocated    8, Bits Stored 8, Pixel Range 0 to +255, Pixel Representation is unsigned, Photometric    Interpretation is    MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p>Presentation    Size Mode: SCALE    TO FIT, Displayed Area Top Left Hand    Corner    1\513, Displayed Area Bottom Right    Hand Corner    512\1024, Presentation Pixel Aspect Ratio    1\1, Image    Rotation 90, Image Horizontal Flip Y</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normally oriented SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test SPAT_P14<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image (Columns 1024, Rows    1024) with 512*512 SMPTE pattern (horizontal fliped and rotation 180 degrees    CW), Bits Allocated 8, Bits Stored 8, Pixel Range 0 to +255, Pixel    Representation is unsigned, Photometric Interpretation is MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p>Presentation    Size Mode: SCALE    TO FIT, Displayed Area Top Left Hand    Corner    1\1024, Displayed Area Bottom Right    Hand Corner    512\513, Presentation Pixel Aspect    Ratio 1\1, Image    Rotation 180, Image Horizontal Flip Y</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normally    oriented SMPTE pattern </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test SPAT_P15<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image (Columns 1024, Rows    1024) with 512*512 SMPTE pattern (horizontal fliped and rotation 90 degrees    CW), Bits Allocated 8, Bits Stored 8, Pixel Range 0 to +255, Pixel    Representation is unsigned, Photometric Interpretation is MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p>Presentation    Size Mode: SCALE    TO FIT, Displayed Area Top Left Hand    Corner 512\1024,    Displayed Area Bottom Right Hand Corner 1\513, Presentation Pixel Aspect Ratio 1\1, Image    Rotation 270, Image Horizontal Flip Y</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normally    oriented SMPTE pattern </p></td>
+  </tr>
+</table>
+<h3><a name="#disp_area" id="#disp_area">Displayed Area</a></h3>
+<p>This subsection contains  tests for the displayed area.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><br />
+      Test DISA_P01<strong></strong> </td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image containing SMTPE pattern (centered),    Columns 1280, Rows 900, Bits Allocated 8, Bits Stored 8, Pixel Range    0 to +255, Pixel Representation is unsigned, Photometric    Interpretation is    MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Presentation Size Mode:    SCALE TO FIT, Displayed Area Top Left Hand    Corner    385\195, Displayed Area Bottom Right    Hand Corner    896\706, Presentation Pixel Aspect    Ratio 1\1 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal SMPTE pattern (full    screen) </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test DISA_P02<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image containing SMTPE pattern (placed in bottom    right-hand corner), Columns 1280, Rows 900, Bits Allocated 8, Bits Stored 8,    Pixel Range 0 to +255, Pixel Representation is unsigned, Photometric    Interpretation is    MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Presentation Size Mode: SCALE TO FIT, Displayed    Area Top Left Hand Corner    769\389, Displayed Area Bottom Right    Hand Corner    1280\900, Presentation Pixel Aspect    Ratio 1\1 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal SMPTE pattern (full    screen) </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test DISA_P03<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image containing SMTPE    pattern (magnified by factor 2.0), Columns 1024, Rows 1024, Bits Allocated 8,    Bits Stored 8, Pixel Range 0 to +255, Pixel Representation is unsigned, Photometric    Interpretation is    MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Presentation Size Mode: MAGNIFY, Displayed    Area Top Left Hand Corner    1\1, Displayed Area Bottom Right    Hand Corner    1024\1024, Presentation Pixel Aspect    Ratio 1\1,    Presentation Pixel Magnification Ratio 0.5 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal    SMPTE pattern (fixed size: 512*512 pixel) </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test DISA_P04<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image containing SMTPE    pattern (magnified by factor 2.0 and 3.0 respectively), Columns 1024, Rows    1536, Bits Allocated 8, Bits Stored 8, Pixel Range 0 to +255, Pixel    Representation is unsigned, Photometric Interpretation is MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p>Presentation    Size Mode: TRUE    SIZE, Displayed Area Top Left Hand    Corner 1\1, Displayed Area Bottom Right Hand Corner 1024\1536, Presentation Pixel Spacing 0.1302083\0.1953125 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal    SMPTE pattern (size: 200*200 mm) </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test DISA_P05<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image containing SMTPE pattern (height magnified    by factor 2.0), Columns 512, Rows 1024, Bits Allocated 8, Bits Stored 8,    Pixel Range 0 to +255, Pixel Representation is unsigned, Photometric    Interpretation is    MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p>Presentation    Size Mode: SCALE    TO FIT, Displayed Area Top Left Hand    Corner 1\1, Displayed Area Bottom Right Hand Corner 512\1024, Presentation Pixel Aspect Ratio 1\2 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Display should be a normal SMPTE pattern (full    screen) </p></td>
+  </tr>
+</table>
+<h3><a name="#graphic_ann" id="#graphic_ann">Graphic Annotation</a> </h3>
+<p>This subsection contains tests for all defined graphic types (ELLIPSE,  INTERPOLATED, CIRCLE, POINT and POLYLINE).<br />
+  Please note that  the rendered output does not necessarily has to match <em>exactly</em> the associated result image in order to be standard  compliant (e.&nbsp;g. it is not specified in the DICOM standard how to  visualize a POINT or INTERPOLATED line).</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test GRAN_P01<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC black image<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Graphic    Type: POLYLINE, Graphic Filled N, Graphic    Data (128\256\192\128\320\128\    384\256\320\384\192\384\128\256), Graphic Annotation Units PIXEL<br />
+      Presentation Size Mode: SCALE TO FIT, Displayed    Area Top Left Hand Corner    1\1, Displayed Area Bottom Right    Hand Corner    512\512, Presentation Pixel Aspect    Ratio 1\1 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p>Result on display should look like &ldquo;gran_p02.res&rdquo; </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test GRAN_P02<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC black image<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Graphic    Type: POLYLINE, Graphic Filled Y, Graphic    Data (128\256\192\128\320\128\    384\256\320\384\192\384\128\256), Graphic Annotation Units PIXEL<br />
+      Presentation Size Mode: SCALE TO FIT, Displayed    Area Top Left Hand Corner    1\1, Displayed Area Bottom Right    Hand Corner    512\512, Presentation Pixel Aspect    Ratio 1\1 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p>Result on display should look like &ldquo;gran_p02.res&rdquo; </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test GRAN_P03<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC black image<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Graphic    Type: POLYLINE, Graphic Filled N, Graphic    Data (0.25\0.5\0.375\0.25\0.625\    0.25\0.75\0.5\0.625\0.75\0.375\0.75\0.25\0.5), Graphic Annotation Units    DISPLAY<br />
+      Presentation Size Mode: SCALE TO FIT, Displayed    Area Top Left Hand Corner    1\1, Displayed Area Bottom Right    Hand Corner    512\512, Presentation Pixel Aspect    Ratio 1\1 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p>Result on display should look like &ldquo;gran_p03.res&rdquo; </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test GRAN_P04<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC black image<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Graphic    Type: POLYLINE, Graphic Filled Y, Graphic    Data (0.25\0.5\0.375\0.25\0.625\    0.25\0.75\0.5\0.625\0.75\0.375\0.75\0.25\0.5), Graphic Annotation Units    DISPLAY<br />
+      Presentation Size Mode: SCALE TO FIT, Displayed    Area Top Left Hand Corner    1\1, Displayed Area Bottom Right    Hand Corner    512\512, Presentation Pixel Aspect    Ratio 1\1 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p>Result on display should look like &ldquo;gran_p04.res&rdquo; </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test GRAN_P05<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC black image<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Graphic    Type: INTERPOLATED, Graphic Filled N, Graphic    Data (128\256\192\128\    320\128\384\256\320\384\192\384\128\256), Graphic Annotation Units PIXEL<br />
+      Presentation Size Mode: SCALE TO FIT, Displayed    Area Top Left Hand Corner    1\1, Displayed Area Bottom Right    Hand Corner    512\512, Presentation Pixel Aspect    Ratio 1\1 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p>Result on display should look like &ldquo;gran_p05.res&rdquo; (also see note above) </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test GRAN_P06<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC black image<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Graphic    Type: INTERPOLATED, Graphic Filled Y, Graphic    Data (128\256\192\128\    320\128\384\256\320\384\192\384\128\256), Graphic Annotation Units PIXEL<br />
+      Presentation Size Mode: SCALE TO FIT, Displayed    Area Top Left Hand Corner    1\1, Displayed Area Bottom Right    Hand Corner    512\512, Presentation Pixel Aspect    Ratio 1\1 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p>Result on display should look like &ldquo;gran_p06.res&rdquo; (also see note above) </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test GRAN_P07<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC black image<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Graphic    Type: INTERPOLATED, Graphic Filled N, Graphic    Data (0.25\0.5\0.375\0.25\    0.625\0.25\0.75\0.5\0.625\0.75\0.375\0.75\0.25\0.5), Graphic Annotation Units    DISPLAY<br />
+      Presentation Size Mode: SCALE TO FIT, Displayed    Area Top Left Hand Corner    1\1, Displayed Area Bottom Right    Hand Corner    512\512, Presentation Pixel Aspect    Ratio 1\1 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p>Result on display should look like &ldquo;gran_p07.res&rdquo; (also see note above) </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test GRAN_P08<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC black image<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Graphic    Type: INTERPOLATED, Graphic Filled Y, Graphic    Data (0.25\0.5\0.375\0.25\    0.625\0.25\0.75\0.5\0.625\0.75\0.375\0.75\0.25\0.5), Graphic Annotation Units    DISPLAY<br />
+      Presentation Size Mode: SCALE TO FIT, Displayed    Area Top Left Hand Corner    1\1, Displayed Area Bottom Right    Hand Corner    512\512, Presentation Pixel Aspect    Ratio 1\1 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p>Result on display should look like &ldquo;gran_p08.res&rdquo; (also see note above) </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test GRAN_P09<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC black image<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Graphic    Type: CIRCLE, Graphic Filled N, Graphic    Data (256\256\384\256),    Graphic Annotation Units PIXEL<br />
+      Presentation Size Mode: SCALE TO FIT, Displayed    Area Top Left Hand Corner    1\1, Displayed Area Bottom Right    Hand Corner    512\512, Presentation Pixel Aspect    Ratio 1\1 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p>Result on display should look like &ldquo;gran_p09.res&rdquo; </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test GRAN_P10<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC black image<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Graphic    Type: CIRCLE, Graphic Filled Y, Graphic    Data (256\256\384\256),    Graphic Annotation Units PIXEL<br />
+      Presentation Size Mode: SCALE TO FIT, Displayed    Area Top Left Hand Corner    1\1, Displayed Area Bottom Right    Hand Corner    512\512, Presentation Pixel Aspect    Ratio 1\1 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p>Result on display should look like &ldquo;gran_p10.res&rdquo; </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test GRAN_P11<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC black image<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Graphic    Type: CIRCLE, Graphic Filled N, Graphic    Data (0.5\0.5\0.75\0.5),    Graphic Annotation Units DISPLAY<br />
+      Presentation Size Mode: SCALE TO FIT, Displayed    Area Top Left Hand Corner    1\1, Displayed Area Bottom Right    Hand Corner    512\512, Presentation Pixel Aspect    Ratio 1\1 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p>Result on display should look like &ldquo;gran_p11.res&rdquo; </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test GRAN_P12<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC black image<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Graphic    Type: CIRCLE, Graphic Filled N, Graphic    Data (0.5\0.5\0.75\0.5),    Graphic Annotation Units DISPLAY<br />
+      Presentation Size Mode: SCALE TO FIT, Displayed    Area Top Left Hand Corner    1\1, Displayed Area Bottom Right    Hand Corner    512\512, Presentation Pixel Aspect    Ratio 1\1 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p>Result on display should look like &ldquo;gran_p12.res&rdquo; </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test GRAN_P13<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC black image<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Graphic    Type: ELLIPSE, Graphic Filled N, Graphic    Data (128\256\384\256\256\192\    256\320), Graphic Annotation Units PIXEL<br />
+      Presentation Size Mode: SCALE TO FIT, Displayed    Area Top Left Hand Corner    1\1, Displayed Area Bottom Right    Hand Corner    512\512, Presentation Pixel Aspect    Ratio 1\1 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p>Result on display should look like &ldquo;gran_p13.res&rdquo; </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test GRAN_P14<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC black image<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Graphic    Type: ELLIPSE, Graphic Filled Y, Graphic    Data (128\256\384\256\256\192\    256\320), Graphic Annotation Units PIXEL<br />
+      Presentation Size Mode: SCALE TO FIT, Displayed    Area Top Left Hand Corner    1\1, Displayed Area Bottom Right    Hand Corner    512\512, Presentation Pixel Aspect    Ratio 1\1 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p>Result on display should look like &ldquo;gran_p14.res&rdquo; </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test GRAN_P15<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC black image<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Graphic    Type: ELLIPSE, Graphic Filled N, Graphic    Data (0.25\0.5\0.75\0.5\0.5\0.375\    0.5\0.625), Graphic Annotation Units DISPLAY<br />
+      Presentation Size Mode: SCALE TO FIT, Displayed    Area Top Left Hand Corner    1\1, Displayed Area Bottom Right    Hand Corner    512\512, Presentation Pixel Aspect    Ratio 1\1 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p>Result on display should look like &ldquo;gran_p15.res&rdquo; </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test GRAN_P16<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC black image<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Graphic    Type: ELLIPSE, Graphic Filled Y, Graphic    Data (0.25\0.5\0.75\0.5\0.5\0.375\    0.5\0.625), Graphic Annotation Units DISPLAY<br />
+      Presentation Size Mode: SCALE TO FIT, Displayed    Area Top Left Hand Corner    1\1, Displayed Area Bottom Right    Hand Corner    512\512, Presentation Pixel Aspect    Ratio 1\1 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p>Result on display should look like &ldquo;gran_p16.res&rdquo; </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test GRAN_P17<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with five circles (burnt into the pixel    data)<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Graphic    Type: POINT, Graphic Data (128\256, 256\128, 256\256,    256\384, 384\256), Graphic Annotation Units PIXEL<br />
+      Presentation Size Mode: SCALE TO FIT, Displayed    Area Top Left Hand Corner    1\1, Displayed Area Bottom Right    Hand Corner    512\512, Presentation Pixel Aspect    Ratio 1\1 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p>Result    on display should look like &ldquo;gran_p17.res&rdquo; </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test GRAN_P18<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with five circles    (burnt into the pixel data)<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Graphic    Type: POINT, Graphic Data (0.25\0.5, 0.5\0.25, 0.5\0.5,    0.5\0.75, 0.75\0.5), Graphic Annotation Units DISPLAY<br />
+      Presentation Size Mode: SCALE TO FIT, Displayed    Area Top Left Hand Corner    1\1, Displayed Area Bottom Right    Hand Corner    512\512, Presentation Pixel Aspect    Ratio 1\1 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p>Result on display should look like &ldquo;gran_p18.res&rdquo; </p></td>
+  </tr>
+</table>
+<h3><a name="#text_ann" id="#text_ann">Text Annotation</a> </h3>
+<p>This subsection contains tests for textual annotations.<br />
+  Please note that  the rendered output does not necessarily has to match <em>exactly</em> the associated result image in order to be standard  compliant (e.&nbsp;g. it is not specified in the DICOM standard whether or not  and how to show the Bounding Box of a textual annotation; some of the following  test cases do show the Bounding Box and some do not).</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><br />
+      Test TEAN_P01<strong></strong> </td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC black image<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Bounding Box Annotation Units PIXEL, Unformatted Text    Value &ldquo;Text in bounding box of correct size&rdquo;, Bounding Box Top Left Hand    Corner 128\128, Bounding Box Bottom Right Hand Corner 320\144, Bounding Box    Text Horizontal Justification LEFT <br />
+      Presentation Size Mode: SCALE TO FIT, Displayed    Area Top Left Hand Corner    1\1, Displayed Area Bottom Right    Hand Corner    512\512, Presentation Pixel Aspect    Ratio 1\1 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p>Result on display should look like &ldquo;tean_p01.res&rdquo; </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test TEAN_P02<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC black image<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Bounding Box Annotation Units DISPLAY, Unformatted Text Value &ldquo;Text in    bounding box of correct size&rdquo;, Bounding Box Top Left Hand Corner 0.25\0.25, Bounding Box Bottom Right Hand Corner 0.625\0.28125, Bounding Box Text Horizontal Justification LEFT <br />
+      Presentation Size Mode:    SCALE TO FIT, Displayed Area Top Left Hand    Corner 1\1, Displayed Area Bottom Right Hand Corner 512\512, Presentation Pixel Aspect Ratio 1\1 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p>Result    on display should look like &ldquo;tean_p02.res&rdquo; </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test TEAN_P03<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC black image<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Bounding Box Annotation Units PIXEL, Unformatted Text    Value &ldquo;Too much text too fit in bounding box which isn't very large ...&rdquo;,    Bounding Box Top Left Hand Corner 128\128, Bounding Box Bottom Right Hand    Corner 320\144, Bounding Box Text Horizontal Justification LEFT <br />
+      Presentation Size Mode: SCALE TO FIT, Displayed    Area Top Left Hand Corner    1\1, Displayed Area Bottom Right    Hand Corner    512\512, Presentation Pixel Aspect    Ratio 1\1 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p>Result on display should look like &ldquo;tean_p03.res&rdquo; </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test TEAN_P04<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC black image<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Bounding Box Annotation Units DISPLAY, Unformatted Text Value &ldquo;Too much    text too fit in bounding box which isn't very large ...&rdquo;, Bounding Box Top    Left Hand Corner 0.25\0.25, Bounding Box Bottom Right Hand Corner 0.625\0.28125 , Bounding Box Text Horizontal Justification LEFT <br />
+      Presentation Size Mode:    SCALE TO FIT, Displayed Area Top Left Hand    Corner 1\1, Displayed Area Bottom Right Hand Corner 512\512, Presentation Pixel Aspect Ratio 1\1 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p>Result    on display should look like &ldquo;tean_p04.res&rdquo; </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test TEAN_P05<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC black image<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Bounding Box Annotation Units PIXEL, Unformatted Text    Value &ldquo;Text in bounding box of correct size&rdquo;, Bounding Box Top Left Hand    Corner 128\128, Bounding Box Bottom Right Hand Corner 320\144, Bounding Box    Text Horizontal Justification LEFT, Anchor Point Annotation Units PIXEL,    Anchor Point 384\256, Anchor Point Visibility N <br />
+      Presentation Size Mode: SCALE TO FIT, Displayed    Area Top Left Hand Corner    1\1, Displayed Area Bottom Right    Hand Corner    512\512, Presentation Pixel Aspect    Ratio 1\1 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p>Result on display should look like &ldquo;tean_p05.res&rdquo; </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test TEAN_P06<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC black image<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Bounding Box Annotation Units DISPLAY, Unformatted    Text Value &ldquo;Text in bounding box of correct size&rdquo;, Bounding Box Top Left Hand    Corner 0.25\0.25, Bounding Box Bottom Right Hand Corner 0.625\0.28125, Bounding Box Text Horizontal Justification LEFT,    Anchor Point Annotation Units DISPLAY, Anchor Point 0.75\0.5, Anchor Point Visibility N <br />
+      Presentation Size Mode: SCALE TO FIT, Displayed    Area Top Left Hand Corner    1\1, Displayed Area Bottom Right    Hand Corner    512\512, Presentation Pixel Aspect    Ratio 1\1 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p>Result on display should look like &ldquo;tean_p06.res&rdquo; </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test TEAN_P07<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC black image<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Bounding Box Annotation Units PIXEL, Unformatted Text Value &ldquo;Text in    bounding box of correct size&rdquo;, Bounding Box Top Left Hand Corner 128\128,    Bounding Box Bottom Right Hand Corner 320\144, Bounding Box Text Horizontal    Justification LEFT, Anchor Point Annotation Units PIXEL, Anchor Point 384\256, Anchor Point Visibility Y <br />
+      Presentation Size Mode:    SCALE TO FIT, Displayed Area Top Left Hand    Corner 1\1, Displayed Area Bottom Right Hand Corner 512\512, Presentation Pixel Aspect Ratio 1\1 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p>Result    on display should look like &ldquo;tean_07.res&rdquo; </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test TEAN_P08<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC black image<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Bounding Box Annotation Units DISPLAY, Unformatted    Text Value &ldquo;Text in bounding box of correct size&rdquo;, Bounding Box Top Left Hand    Corner 0.25\0.25, Bounding Box Bottom Right Hand Corner 0.625\0.28125, Bounding Box Text Horizontal Justification LEFT,    Anchor Point Annotation Units DISPLAY, Anchor Point 0.75\0.5, Anchor Point Visibility Y <br />
+      Presentation Size Mode: SCALE TO FIT, Displayed    Area Top Left Hand Corner    1\1, Displayed Area Bottom Right    Hand Corner 512\512,    Presentation Pixel Aspect Ratio 1\1 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p>Result on display should look like &ldquo;tean_p08.res&rdquo; </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test TEAN_P09<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC black image<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Unformatted Text Value &ldquo;Text with anchor point only&rdquo;,    Anchor Point Annotation Units PIXEL, Anchor Point 384\256, Anchor Point Visibility N <br />
+      Presentation Size Mode: SCALE TO FIT, Displayed    Area Top Left Hand Corner    1\1, Displayed Area Bottom Right    Hand Corner    512\512, Presentation Pixel Aspect    Ratio 1\1 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p>Result on display should look like &ldquo;tean_p09.res&rdquo; </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test TEAN_P10<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC black image<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Unformatted Text Value &ldquo;Text with anchor point only&rdquo;, Anchor Point    Annotation Units DISPLAY, Anchor Point 0.75,0.5,    Anchor Point Visibility N <br />
+      Presentation Size Mode:    SCALE TO FIT, Displayed Area Top Left Hand    Corner 1\1, Displayed Area Bottom Right Hand Corner 512\512, Presentation Pixel Aspect Ratio 1\1 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p>Result    on display should look like &ldquo;tean_p10.res&rdquo; </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test TEAN_P11<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC black image<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Unformatted Text Value &ldquo;Text with anchor point only&rdquo;, Anchor Point    Annotation Units PIXEL, Anchor Point 384\256,    Anchor Point Visibility Y <br />
+      Presentation Size Mode:    SCALE TO FIT, Displayed Area Top Left Hand    Corner 1\1, Displayed Area Bottom Right Hand Corner 512\512, Presentation Pixel Aspect Ratio 1\1 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p>Result    on display should look like &ldquo;tean_p11.res&rdquo; </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test TEAN_P12<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC black image<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Unformatted Text Value &ldquo;Text with anchor point only&rdquo;,    Anchor Point Annotation Units DISPLAY, Anchor Point 0.75\0.5, Anchor Point Visibility Y <br />
+      Presentation Size Mode: SCALE TO FIT, Displayed    Area Top Left Hand Corner    1\1, Displayed Area Bottom Right    Hand Corner    512\512, Presentation Pixel Aspect    Ratio 1\1 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p>Result on display should look like &ldquo;tean_p12.res&rdquo; </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test TEAN_P13<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC black image<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Unformatted Text Value &ldquo;Left justified, display    relative ...&rdquo; (five lines), Bounding Box Annotation Units DISPLAY, Bounding    Box 0.0\0.0 0.5\0.5, Bounding Box Text Horizontal Justification LEFT, Anchor    Point Annotation Units PIXEL, Anchor Point 256\256,    Anchor Point Visibility Y<br />
+      Unformatted Text Value &ldquo;Right justified, display    relative ...&rdquo; (five lines), Bounding Box Annotation Units DISPLAY, Bounding    Box 0.5\0.0 1.0\0.5, Bounding Box Text Horizontal Justification RIGHT, Anchor    Point Annotation Units PIXEL, Anchor Point 256\256,    Anchor Point Visibility Y<br />
+      Unformatted Text Value &ldquo;Centered, image relative    text.&rdquo;, Bounding Box Annotation Units PIXEL, Bounding Box 128\256 384\512,    Bounding Box Text Horizontal Justification CENTER<br />
+      Presentation Size Mode: SCALE TO FIT, Displayed    Area Top Left Hand Corner    1\1, Displayed Area Bottom Right    Hand Corner    512\512, Presentation Pixel Aspect    Ratio 1\1 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p>Result on display should look like &ldquo;tean_p13.res&rdquo; </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test TEAN_P14<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC black image<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Unformatted Text Value &ldquo;Normal    text at the upper border.&rdquo; (Bounding Box 1\1, 512\256), &ldquo;Up-side down text at    the lower border.&rdquo; (512\512, 1\256), &ldquo;Left rotated text at the left border.&rdquo;    (1\512, 256\1), &ldquo;Right rotated text at the right border.&rdquo; (512\1, 256\512);    Anchor Point Annotation Units PIXEL, Bounding Box Text Horizontal    Justification LEFT <br />
+      Presentation Size Mode: SCALE TO FIT, Displayed    Area Top Left Hand Corner    1\1, Displayed Area Bottom Right    Hand Corner    512\512, Presentation Pixel Aspect    Ratio 1\1 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p>Result on display should look like &ldquo;tean_p14.res&rdquo; </p></td>
+  </tr>
+</table>
+<h3><a name="#disp_shutter" id="#disp_shutter">Display </a>Shutter</h3>
+<p>This subsection contains  tests for display shutters.&nbsp; Please note  that the shutters do not always exactly match the graphical forms in the  images.&nbsp; This is because of different algorithms  for drawing circles, lines, etc. and deviations cannot be avoided.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><br />
+      Test DISH_P01<strong></strong> </td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Shutter Shape CIRCULAR, Shutter Presentation Value 0    (black), Center     of Circular Shutter    256\256, Radius of Circular Shutter 128 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p>Result on display should look like &ldquo;dish_p01.res&rdquo; </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test DISH_P02<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Shutter Shape CIRCULAR, Shutter Presentation Value    65535 (white), Center     of Circular Shutter    256\256, Radius of Circular Shutter 128 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p>Result on display should look like &ldquo;dish_p02.res&rdquo; </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test DISH_P03<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Shutter Shape RECTANGULAR, Shutter Presentation Value 0 (black),    Shutter Left Vertical Edge 128, Shutter Right Vertical Edge 384, Shutter    Upper Horizontal Edge 128, Shutter Lower Horizontal Edge 384 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p>Result    on display should look like &ldquo;dish_p03.res&rdquo; </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test DISH_P04<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Shutter Shape RECTANGULAR, Shutter Presentation Value    65535 (white), Shutter Left Vertical Edge 128, Shutter Right Vertical Edge    384, Shutter Upper Horizontal Edge 128, Shutter Lower Horizontal Edge 384 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p>Result on display should look like &ldquo;dish_p04.res&rdquo; </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test DISH_P05<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Shutter Shape POLYGONAL, Shutter Presentation Value 0 (black), Vertices    of the Polygonal Shutter (256\128\128\192\128\320\256\384\384\320\384\192) </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p>Result    on display should look like &ldquo;dish_p05.res&rdquo; </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test DISH_P06<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Shutter Shape POLYGONAL, Shutter Presentation Value    65535 (white), Vertices of the Polygonal Shutter    (256\128\128\192\128\320\256\384\384\320\384\192) </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p>Result on display should look like &ldquo;dish_p06.res&rdquo; </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test DISH_P07<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Shutter Shape BITMAP, Shutter Presentation Value 0 (black), Overlay    Columns 512, Overlay Rows 512, Overlay Type G, Overlay Origin 1\1, Overlay    Bits Allocated 1, Overlay Position 0 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p>Result    on display should look like &ldquo;dish_p07.res&rdquo; </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test DISH_P08<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Shutter Shape BITMAP, Shutter Presentation Value 65535 (white), Overlay    Columns 512, Overlay Rows 512, Overlay Type G, Overlay Origin 1\1, Overlay    Bits Allocated 1, Overlay Position 0 </p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p>Result    on display should look like &ldquo;dish_p08.res&rdquo; </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test DISH_P09<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Shutter Shape POLYGONAL, Shutter Presentation Value 0    (black), Vertices of the Polygonal Shutter (257\133\233\199\169\169\199\233\133\257\199\281\169\345\233\    315\257\381\281\315\345\345\315\281\381\257\315\233\345\169\281\199)</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p>Result on display should look like &ldquo;dish_p09.res&rdquo; </p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><p>Test DISH_P10<strong></strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Shutter Shape POLYGONAL, Shutter Presentation Value 65535 (white),    Vertices of the Polygonal Shutter (257\133\233\199\169\169\199\233\133\257\199\281\169\345\233\    315\257\381\281\315\345\345\315\281\381\257\315\233\345\169\281\199)</p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p>Result    on display should look like &ldquo;dish_p10.res&rdquo; </p></td>
+  </tr>
+</table>
+<h3><a name="#overlays" id="#overlays">Overlays</a> </h3>
+<p>This subsection contains tests for overlays.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><br />
+      Test OVLY_P01<strong></strong> </td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image, Bits Allocated 16,    Bits Stored 12, Pixel Representation is unsigned, Photometric    Interpretation is    MONOCHROME2, no LUTs</p>
+        <ul>
+          <li>Overlay    (6000, XXXX):<br />
+            Overlay Columns 512, Overlay Rows 512, Overlay    Type G, Overlay Origin 1\1, Overlay Bits Allocated 16, Overlay Position 15<strong> </strong></li>
+          <li>Overlay    (6002, XXXX):<br />
+            Overlay Columns 512, Overlay Rows 512, Overlay    Type G, Overlay Origin 1\1, Overlay Bits Allocated 16, Overlay Position 14<strong> </strong></li>
+          <li>Overlay    (6004, XXXX):<br />
+            Overlay Columns 512, Overlay Rows 512, Overlay    Type G, Overlay Origin 1\1, Overlay Bits Allocated 1, Overlay Position 0<strong> </strong></li>
+          <li>Overlay    (6006, XXXX):<br />
+            Overlay Columns 512, Overlay Rows 512, Overlay    Type G, Overlay Origin 1\1, Overlay Bits Allocated 1, Overlay Position 0<strong> </strong></li>
+        </ul></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><ul>
+      <li>Overlay    (6000, XXXX):<br />
+        Overlay Activation Layer: LAYER1<strong> </strong></li>
+      <li>Overlay    (6002, XXXX):<br />
+        Overlay Activation Layer: LAYER2<strong> </strong></li>
+      <li>Overlay    (6004, XXXX):<br />
+        Overlay Activation Layer: LAYER3<strong> </strong></li>
+      <li>Overlay    (6006, XXXX):<br />
+        Overlay Activation Layer: LAYER4 </li>
+      <li>Overlay    (6008, XXXX):<br />
+        Overlay Columns 512, Overlay Rows 512, Overlay    Type G, Overlay Origin 1\1, Overlay Bits Allocated 1, Overlay Position 0,    Overlay Activation Layer: LAYER5 </li>
+      <li>Overlay    (600a, XXXX):<br />
+        Overlay Columns 512, Overlay Rows 512, Overlay    Type G, Overlay Origin 1\1, Overlay Bits Allocated 1, Overlay Position 0, Overlay Activation Layer: LAYER6</li>
+    </ul></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p>Result    on display should look like &ldquo;ovly_p01.res&rdquo; </p></td>
+  </tr>
+</table>
+<h3><a name="#complex_comb" id="#complex_comb">Complex  Combination</a></h3>
+<p>This subsection contains more complex tests.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><br />
+      Test CPLX_P01<strong></strong> </td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image, Columns 1280, Rows 900, Bits Allocated 8,    Bits Stored 8, Pixel     Range 0 to +255, Pixel    Representation is unsigned, Photometric Interpretation is MONOCHROME2, no LUTs<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><ul>
+      <li>Displayed Area:    Presentation Size Mode    SCALE TO FIT, Displayed Area Top Left Hand    Corner    768\388, Displayed Area Bottom Right    Hand Corner    1280\900, Presentation Pixel Aspect    Ratio 1\1 </li>
+      <li>Shutter:    Shutter Shape CIRCULAR, Center     Of Circular Shutter    644\1024, Radius of Cirular Shutter 128, Shutter Presentation Value 0 (black)</li>
+      <li>Spatial Transformations: Image Rotation 90, Image Horizontal Flip Y</li>
+      <li>Bounding Box:    Annotation Units PIXEL, Unformatted Text Value &ldquo;Image relative text    overlapping shutter&rdquo;, Bounding Box Top Left Hand Corner 896\516, Bounding Box    Bottom Right Hand Corner 912\772, Bounding     Box Text     Horizontal Justification     CENTER </li>
+      <li>Bounding Box:    Annotation Units DISPLAY, Unformatted Text Value &ldquo;Displayed Area relative    text overlapping shutter&rdquo;, Bounding Box Top Left Hand Corner 869\516,    Bounding Box Bottom Right Hand Corner 0.75\0.78125, Bounding Box Text    Horizontal Justification LEFT </li>
+      <li>Graphic Type: POLYLINE, Graphic Filled N, Graphic Data (960\452\960\836\976\836\976\452\960\452),    Graphic Annotation Units PIXEL</li>
+      <li>Graphic Type: POLYLINE, Graphic Filled N, Graphic Data 0.125\0.59375\0.875\0.59375\0.875\0.625\0.125\0.625\0.125\0.59375),    Graphic Annotation Units DISPLAY </li>
+    </ul></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p>Result    on display should look like &ldquo;cplx_p01.res&rdquo; </p></td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><br />
+      Test CPLX_P02<strong></strong> </td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC multi-frame image    containing two &ldquo;different&rdquo; SMPTE patterns<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><ul>
+      <li>Shutter:    Shutter Shape RECTANGULAR, Shutter    Presentation Value 0 (black), Shutter Left Vertical Edge 1, Shutter Right    Vertical Edge 1024, Shutter Upper Horizontal Edge 32, Shutter Lower    Horizontal Edge 512</li>
+    </ul>
+        <p align="left">Frame #1:</p>
+      <ul>
+        <li>Displayed Area:    Presentation Size Mode    SCALE TO FIT, Displayed Area Top Left Hand    Corner    513\1, Displayed Area Bottom Right    Hand Corner    1024\512, Presentation Pixel Aspect    Ratio 1\1 </li>
+        <li>Softcopy    VOI LUT Sequence: Window     Center = 50.5, Window    Width = 51 </li>
+        <li>Bounding Box:    Annotation Units PIXEL, Unformatted Text Value &ldquo;Frame #1&rdquo;, Bounding Box Top    Left Hand Corner 513\1, Bounding Box Bottom Right Hand Corner 1024\128,    Bounding Box Text Horizontal Justification LEFT </li>
+      </ul>
+      <p align="left">Frame #2:</p>
+      <ul>
+        <li>Displayed Area:    Presentation Size Mode    SCALE TO FIT, Displayed Area Top Left Hand    Corner 1\1, Displayed Area Bottom Right Hand Corner 1024\512, Presentation Pixel Aspect Ratio 2\1 </li>
+        <li>Bounding Box:    Annotation Units PIXEL, Unformatted Text Value &ldquo;Frame #2&rdquo;, Bounding Box Top    Left Hand Corner 1\1, Bounding Box Bottom Right Hand Corner 1024\128,    Bounding Box Text Horizontal Justification LEFT </li>
+      </ul></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p>Result on display should look like &ldquo;cplx_p02.res&rdquo; (2 frames) </p></td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="605" colspan="2" valign="top"><br />
+      Test CPLX_P03<strong></strong> </td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Image</strong></p></td>
+    <td width="539" valign="top"><p align="left">SC image with SMPTE pattern,    Bits Allocated 8, Bits Stored 8, Pixel Range 0 to 255, Pixel Representation    is unsigned, Photometric Interpretation is MONOCHROME2, inappropriate    VOI LUT transform (Window Center 0, Window Width 128), requiring identity VOI    LUT transform<strong> </strong></p></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>PState</strong></p></td>
+    <td width="539" valign="top"><p align="left">Please    note that the presentation state references <em>two</em> image objects.</p>
+        <ul>
+          <li>Shutter:    Shutter Shape RECTANGULAR, Shutter    Presentation Value 0 (black), Shutter Left Vertical Edge 1, Shutter Right    Vertical Edge 1024, Shutter Upper Horizontal Edge 32, Shutter Lower    Horizontal Edge 512</li>
+        </ul>
+      <p align="left">Image    #1 (&ldquo;cplx_p03.dcm&rdquo;):</p>
+      <ul>
+        <li>Displayed Area:    Presentation Size Mode    SCALE TO FIT, Displayed Area Top Left Hand    Corner 1\1, Displayed Area Bottom Right Hand Corner 512\512, Presentation Pixel Aspect Ratio 1\1 </li>
+        <li>VOI    LUT transform not specified so assumed identity </li>
+        <li>Bounding Box:    Annotation Units DISPLAY, Unformatted Text Value &ldquo;Image #1&rdquo;, Bounding Box Top    Left Hand Corner 0.25\0.0, Bounding Box Bottom Right Hand Corner 0.75\0.25,    Bounding Box Text Horizontal     Justification CENTER </li>
+      </ul>
+      <p align="left">Image    #2 (&ldquo;cplx_p02.dcm&rdquo;):</p>
+      <ul>
+        <li>Everything specified in &ldquo;cplx_p02.pre&rdquo;</li>
+        <li>Bounding Box:    Annotation Units DISPLAY, Unformatted Text Value &ldquo;Image #2&rdquo;, Bounding Box Top    Left Hand Corner 0.25\0.0, Bounding Box Bottom Right Hand Corner 0.75\0.25,    Bounding Box Text Horizontal     Justification CENTER </li>
+      </ul></td>
+  </tr>
+  <tr>
+    <td width="66" valign="top"><p><strong>Result</strong></p></td>
+    <td width="539" valign="top"><p align="left">Result    on display should look like &ldquo;cplx_p03.res&rdquo; for image #1 and &ldquo;cplx_p02.res&rdquo; for    image&nbsp;#2 (2 frames + centered text &ldquo;Image #2&rdquo; at the top of both frames) </p></td>
+  </tr>
+</table>
+<strong><br clear="all" />
+</strong>
+<p align="center"><strong>IHE Year 2 Image Display Actors</strong><br />
+    <strong>Test Results</strong></p>
+<h1><a name="#img_disp_test_results" id="#img_disp_test_results">Image  Display Test Results</a> </h1>
+<p>&nbsp;</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="609" valign="top"><p align="center"><strong>Application vendor</strong></p></td>
+  </tr>
+  <tr>
+    <td width="609" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="609" valign="top"><p align="center"><strong>Name and software Version of    the application</strong></p></td>
+  </tr>
+  <tr>
+    <td width="609" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="609" valign="top"><p align="center"><strong>Person filling in this form,    place, date</strong></p></td>
+  </tr>
+  <tr>
+    <td width="609" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+</table>
+<h2><a name="#img_disp_without_pres_states" id="#img_disp_without_pres_states">Image  Display without Presentation States</a> </h2>
+<p>Please specify for  each test whether the image has been rendered and displayed as described in  chapter 3 (for some tests there is also a result file available).&nbsp; If there are any comments please fill in the  comment field.&nbsp; It should be noted that <em>all</em> tests should be successful.</p>
+<h3><a name="#mod_lut2" id="#mod_lut2">Modality  LUT</a></h3>
+<p>Please specify the test results for the Modality LUT transformation</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="71" valign="top"><br />
+        <strong>Success</strong> </td>
+    <td width="123" valign="top"><p><strong>Test Name</strong></p></td>
+    <td width="416" valign="top"><p><strong>Comments</strong></p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">MLUT_01 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">MLUT_03 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">MLUT_04 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">MLUT_05 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">MLUT_06 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">MLUT_07 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">MLUT_08 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+</table>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">MLUT_09 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">MLUT_11 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">MLUT_12 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">MLUT_13 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">MLUT_14 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">MLUT_16 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">MLUT_18 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">MLUT_19 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+</table>
+<h3><a name="#voilut3" id="#voilut3">VOI  LUT</a></h3>
+<p>Please specify the test results for the VOI LUT transformation</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="71" valign="top"><br />
+        <strong>Success</strong> </td>
+    <td width="123" valign="top"><p><strong>Test Name</strong></p></td>
+    <td width="416" valign="top"><p><strong>Comments</strong></p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">VLUT_01 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">VLUT_02 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">VLUT_03 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">VLUT_04 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">VLUT_05 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">VLUT_06 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">VLUT_07 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">VLUT_08 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">VLUT_09 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">VLUT_09 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">VLUT_10 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">VLUT_11 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+</table>
+<h3><a name="#mod_voi_lut2" id="#mod_voi_lut2">Modality&nbsp;/&nbsp;VOI&nbsp;LUTs</a></h3>
+<p>Please specify the test results for the combination of Modality and VOI  LUT.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="71" valign="top"><br />
+        <strong>Success</strong> </td>
+    <td width="123" valign="top"><p><strong>Test Name</strong></p></td>
+    <td width="416" valign="top"><p><strong>Comments</strong></p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">XLUT_01 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">XLUT_02 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+</table>
+<h2><a name="#img_disp_pres_states2" id="#img_disp_pres_states2">Image  Display with Presentation States</a> </h2>
+<p>Please specify for  each test whether the Image and the applied Presentation State  has been rendered and displayed as described in chapter 3.&nbsp; If there are any comments please fill in the  comment field.&nbsp; It should be noted that  there is no requirement that all tests are successful.</p>
+<h3><a name="#mod_lut3" id="#mod_lut3">Modality  LUT</a></h3>
+<p>Please specify the test results for the Modality LUT transformation.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="71" valign="top"><br />
+        <strong>Success</strong> </td>
+    <td width="123" valign="top"><p><strong>Test Name</strong></p></td>
+    <td width="416" valign="top"><p><strong>Comments</strong></p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">MLUT_P01 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">MLUT_P03 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">MLUT_P04 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">MLUT_P05 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">MLUT_P06 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">MLUT_P07 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">MLUT_P08 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">MLUT_P09 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">MLUT_P11 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">MLUT_P12 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">MLUT_P13 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">MLUT_P14 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">MLUT_P16 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">MLUT_P18 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">MLUT_P19 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+</table>
+<h3><a name="#voilut4" id="#voilut4">VOI  LUT</a></h3>
+<p>Please specify the test results for the VOI LUT transformation.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="71" valign="top"><br />
+        <strong>Success</strong> </td>
+    <td width="123" valign="top"><p><strong>Test Name</strong></p></td>
+    <td width="416" valign="top"><p><strong>Comments</strong></p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">VLUT_P01 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">VLUT_P02 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">VLUT_P03 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">VLUT_P04 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">VLUT_P05 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">VLUT_P06 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">VLUT_P07 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">VLUT_P08 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">VLUT_P09 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">VLUT_P10 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">VLUT_P11 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">VLUT_P12 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+</table>
+<h3><a name="#pres_lut3" id="#pres_lut3">Presentation  LUT</a></h3>
+<p>Please specify the test results for the Presentation LUT transformation.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="71" valign="top"><br />
+        <strong>Success</strong> </td>
+    <td width="123" valign="top"><p><strong>Test Name</strong></p></td>
+    <td width="416" valign="top"><p><strong>Comments</strong></p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">PLUT_P01 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">PLUT_P02 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">PLUT_P03 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">PLUT_P04 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">PLUT_P05 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">PLUT_P06 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">PLUT_P07 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">PLUT_P08 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">PLUT_P09 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+</table>
+<h3><a name="#mod_voi_pres_lut2" id="#mod_voi_pres_lut2">Modality&nbsp;/&nbsp;VOI&nbsp;/&nbsp;Presentation  LUTs</a></h3>
+<p>Please specify the test results for the combination of different LUTs  (Modality LUT, VOI LUT, Presentation LUT).</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="71" valign="top"><br />
+        <strong>Success</strong> </td>
+    <td width="123" valign="top"><p><strong>Test Name</strong></p></td>
+    <td width="416" valign="top"><p><strong>Comments</strong></p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">XLUT_P01 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">XLUT_P02 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">XLUT_P03 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+</table>
+<h3><a name="#spatial_trans2" id="#spatial_trans2">Spatial  Transformations</a></h3>
+<p>Please specify the test results for the spatial transformations.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="71" valign="top"><br />
+        <strong>Success</strong> </td>
+    <td width="123" valign="top"><p><strong>Test Name</strong></p></td>
+    <td width="416" valign="top"><p><strong>Comments</strong></p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">SPAT_P01 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">SPAT_P02 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">SPAT_P03 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">SPAT_P04 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">SPAT_P05 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">SPAT_P06 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">SPAT_P07 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">SPAT_P08 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">SPAT_P09 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">SPAT_P10 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">SPAT_P11 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">SPAT_P12 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">SPAT_P13 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">SPAT_P14 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">SPAT_P15 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+</table>
+<h3><a name="#disp_area2" id="#disp_area2">Displayed  Area</a></h3>
+<p>Please specify the test results for the Displayed Area.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="71" valign="top"><br />
+        <strong>Success</strong> </td>
+    <td width="123" valign="top"><p><strong>Test Name</strong></p></td>
+    <td width="416" valign="top"><p><strong>Comments</strong></p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">DISA_P01 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">DISA_P02 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">DISA_P03 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">DISA_P04 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">DISA_P05 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+</table>
+<h3><a name="#graphic_ann2" id="#graphic_ann2">Graphic  Annotation</a></h3>
+<p>Please specify the test results for the graphic annotations.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="71" valign="top"><br />
+        <strong>Success</strong> </td>
+    <td width="123" valign="top"><p><strong>Test Name</strong></p></td>
+    <td width="416" valign="top"><p><strong>Comments</strong></p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">GRAN_P01 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">GRAN_P02 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">GRAN_P03 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">GRAN_P04 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">GRAN_P05 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">GRAN_P06 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">GRAN_P07 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">GRAN_P08 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">GRAN_P09 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">GRAN_P10 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">GRAN_P11 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">GRAN_P12 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">GRAN_P13 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">GRAN_P14 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">GRAN_P15 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">GRAN_P16 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">GRAN_P17 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">GRAN_P18 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+</table>
+<h3><a name="#text_ann2" id="#text_ann2">Text  Annotation</a></h3>
+<p>Please specify the test results for the text annotations.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="71" valign="top"><br />
+        <strong>Success</strong> </td>
+    <td width="123" valign="top"><p><strong>Test Name</strong></p></td>
+    <td width="416" valign="top"><p><strong>Comments</strong></p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">TEAN_P01 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">TEAN_P02 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">TEAN_P03 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">TEAN_P04 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">TEAN_P05 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">TEAN_P06 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">TEAN_P07 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">TEAN_P08 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">TEAN_P09 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">TEAN_P10 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">TEAN_P11 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">TEAN_P12 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">TEAN_P13 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">TEAN_P14 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+</table>
+<h3><a name="#disp_shutter2" id="#disp_shutter2">Display  Shutter</a></h3>
+<p>Please specify the test results for the display shutters.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="71" valign="top"><br />
+        <strong>Success</strong> </td>
+    <td width="123" valign="top"><p><strong>Test Name</strong></p></td>
+    <td width="416" valign="top"><p><strong>Comments</strong></p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">DISH_P01 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">DISH_P02 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">DISH_P03 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">DISH_P04 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">DISH_P05 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">DISH_P06 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">DISH_P07 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">DISH_P08 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">DISH_P09 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">DISH_P10 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+</table>
+<h3><a name="#overlay2" id="#overlay2">Overlay</a></h3>
+<p>Please specify the test results for the overlays.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="71" valign="top"><br />
+        <strong>Success</strong> </td>
+    <td width="123" valign="top"><p><strong>Test Name</strong></p></td>
+    <td width="416" valign="top"><p><strong>Comments</strong></p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">OVLY_P01 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+</table>
+<h3><a name="#complex_comb2" id="#complex_comb2">Complex  Combination</a></h3>
+<p>Please specify the test results for the complex presentation states.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="71" valign="top"><br />
+        <strong>Success</strong> </td>
+    <td width="123" valign="top"><p><strong>Test Name</strong></p></td>
+    <td width="416" valign="top"><p><strong>Comments</strong></p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">CPLX_P01 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">CPLX_P02 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td width="71" valign="top"><p align="center"> </p></td>
+    <td width="123" valign="top"><p align="left">CPLX_P03 </p></td>
+    <td width="416" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+</table>
+<h2><a name="#gen_comments" id="#gen_comments">General  Comments</a> </h2>
+<p>Please fill in general comments to the &ldquo;Image Display Test&rdquo;.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="609" valign="top"><br />
+        <strong>General Comments</strong> </td>
+  </tr>
+  <tr>
+    <td width="609" valign="top"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p></td>
+  </tr>
+</table>
+<h1><a name="#references" id="#references">References</a> </h1>
+<p>[1]&nbsp;&nbsp; NEMA Standards Publications PS 3.14-2001, Digital Imaging and  Communications in Medicine (DICOM), <em>Part  14: Grayscale Standard Display Function</em>, National Electrical Manufacturers  Association, Rosslyn, VA, 2001.<br />
+  [2]&nbsp;&nbsp; NEMA Standards Publications PS 3.3-2001, Digital Imaging and  Communications in Medicine (DICOM), <em>Part  3: Information Object Definitions</em>, National Electrical Manufacturers  Association, Rosslyn, VA, 2001.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+</body>
+</html>

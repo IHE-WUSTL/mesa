@@ -1,0 +1,1053 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Evidence Creator Test Instructions</title>
+<style type="text/css">
+<!--
+.style3 {	color: #FF0000;
+	font-style: italic;
+}
+-->
+</style>
+</head>
+
+<body>
+<p align="center"><strong>&nbsp;</strong></p>
+<p align="center"><strong>&nbsp;</strong></p>
+<p align="center"><strong>HIMSS and RSNA</strong><br />
+    <strong>Integrating the Healthcare </strong><strong>Enterprise</strong><strong> </strong></p>
+<p align="center"><strong>&nbsp;</strong></p>
+<p align="center"><strong>&nbsp;</strong><strong>IHE/MESA Evidence Creator Tests</strong></p>
+<p>&nbsp;</p>
+<p align="center">Electronic Radiology  Laboratory<br />
+  Mallinckrodt Institute of  Radiology<br />
+  510 South Kingshighway    Blvd. <br />
+  St. Louis, MO&nbsp; 63110 <br />
+  314.362.6965 (Voice)<br />
+  314.362.6971 (Fax)</p>
+<p align="center">&nbsp;</p>
+<p align="center">Revision 10.15.0<br />
+  5-Apr-2007 </p>
+<br clear="all" />
+<p><strong>Contents</strong></p>
+<p><a href="#evdcrt_tests">Evidence  Creator Tests</a> <br />
+<a href="#introduction">Introduction</a><br />
+<a href="#msg_attributes">Message Attributes</a> <br />
+<a href="#msg_values">Message Values</a> <br />
+<a href="#configuration">Configuration</a><br />
+<a href="#starting_servers">Starting  the MESA Servers</a><br />
+<a href="#submit_results">Submission  of Results</a><br />
+<a href="#individual_tests">Individual Tests</a>
+<ol>
+<li><a href="#evdcrt_251">251: Storage Commitment Assoc Negotiation</a></li>
+<li><a href="#evdcrt_281">281: Example Images</a></li>
+<li><a href="#evdcrt_283">283: DICOM Composite Object Evaluation - DVT</a></li>
+<li><a href="#evdcrt_284">284: DICOM Composite Object Evaluation - DICOM3TOOLS</a></li>
+<li><a href="#evdcrt_301">301: Evidence Creator Storage and Commitment</a></li>
+<li><a href="#evdcrt_311">311: Create/Render Encapsulated PDF</a></li>
+<li><a href="#evdcrt_500">Evidence Creator Test 500: Display Calibration</a></li>
+<li><a href="#evdcrt_511">Evidence Creator Test 511: Key Image Note 511</a></li>
+<li><a href="#evdcrt_512">Evidence Creator Test 512: Key Image Note 512</a></li>
+<li><a href="#evdcrt_513">Evidence Creator Test 513: Key Image Note 513</a></li>
+<li><a href="#evdcrt_521">Evidence Creator Test 521: Consistent Presentation of Images</a></li>
+<li><a href="#evdcrt_551">Evidence Creator Test 551: Example Image/GSPS/BSPS and Spatial Registration Objects.</a></li>
+<li><a href="#evdcrt_552">Evidence Creator Test 552: Example Key Image Note</a></li>
+<li><a href="#evdcrt_1412">Evidence Creator Test 1412: PWF CT</a></li>
+<li><a href="#evdcrt_1700">Evidence Creator Test 1700: Evidence Document Description</a></li>
+<li><a href="#evdcrt_1701">Evidence Creator Test 1701: Evidence Document Management in Scheduled Workflow</a></li>
+<li><a href="#test283">Test 283: DICOM Composite Object Evaluation - DVT </a></li>
+</ol>
+  
+<a href="#nmi_tests">Nuclear Medicine Specific Tests</a>
+<ol>
+<li><a href="#evdcrt_2800">2800: Result Screen Export Documentation </a></li>
+<li><a href="#evdcrt_2801">2801: NM Reconstructed Images Special Requirements</a></li>
+<li><a href="#evdcrt_2802"> 2802: NM Reconstructed Images Cardiac Views</a></li>
+<li><a href="#evdcrt_2803"> 2803: NM Result Export</a></li>
+<li><a href="#evdcrt_2804">2804: NM Result Export  Screen 1</a></li>
+</ol>
+
+<a href="#cardio_tests">Cardiology Specific Tests</a><br />
+<ol><li><a href="#evdcrt_20640">Evidence Creator Test 20640: Evidence Creation &ndash;  Cath &ndash;Vendor Interoperability</a></li>
+<li><a href="#evdcrt_20641">Evidence Creator Test 20641: Evidence Creation &ndash;  Echo &ndash;Vendor Interoperability</a></li>
+<li><a href="#evd_crt 20700">Evidence Creator Test 20700: Stress Profile - SOP Class Support </a></li>
+<li><a href="#evdcrt_20740">Evidence Creator Test 20740: Stress Profile - Sample Datasets &ndash;Vendor Interoperability</a></li>
+</ol>
+
+<a href="#fusion_tests">Image Fusion (FUS) Profile Tests</a><br />
+<ol>
+<li><a href="#evdcrt_3510">Evidence Creator Test 3510: Create and Store Spatial Registration &ndash; same FoR</a></li>
+<li><a href="#evdcrt_3512">Evidence Creator Test 3512: Create and Store Spatial Registration &ndash; different FoR</a></li>
+<li><a href="#evdcrt_3514">Evidence Creator Test 3514: Create BSPS with Spatial Registration</a></li>
+<li><a href="#evdcrt_3516">Evidence Creator Test 3516: Modify Existing Spatial Registration</a></li>
+<li><a href="#evdcrt_3540">Evidence Creator Test 3540: Create and Store BSPS IOD &ndash; same FoR</a></li>
+<li><a href="#evdcrt_3541">Evidence Creator Test 3541: Modify Existing BSPS </a></li>
+</ol>
+
+<p><a href="#mammo_tests">Mammography Image Integration (MAMMO) Profile Tests</a></p>
+<ol>
+  <li><a href="#evdcrt_3916">Evidence Creator Test 3916: Sample Mammo CAD SR Objects</a> - Vendor Interoperability </li>
+  <br />
+</ol>
+<h1><a name="evdcrt_tests">Evidence Creator Tests</a> </h1>
+
+<h2><a name="introduction">Introduction</a></h2>
+<p>This document describes several tests for Evidence  Creator systems.&nbsp; The Display Consistency  tests are defined in a separate document: <em>Display  Consistency Test Plan for Image Creator</em>.</p>
+<h3>Integration Profiles and Test Procedures</h3>
+<p>This document lists a number of tests for Evidence Creator  systems. You may not be responsible for all of these tests.<br />
+  Please refer to the Connectathon web tool to list the  required tests for your system. The web address of this tool depends on the  year and project manager. Please contact the appropriate project manager to  obtain this information.</p>
+<h2><a name="msg_attributes">Message  Attributes</a> </h2>
+<h2><a name="msg_values">Message  Values</a> </h2>
+<h2><a name="configuration">Configuration</a> </h2>
+<p>The MESA Image Manager maintains a database of DICOM  applications used for C-Move operations.&nbsp;  Add an entry for the storage SCP(s) associated with your  workstation.&nbsp; Edit the text file <em>$MESA_TARGET/db/loaddicomapp.pgsql</em> (Unix) or <em>$MESA_TARGET/db/loaddicomapp.sql</em> (Windows NT)&nbsp; Use the existing entries as  a template and add entries for your workstations as appropriate.&nbsp; The column names found in the SQL insert  statements are described in the following table.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="247" valign="top"><p align="center"><strong>Column Name</strong></p></td>
+    <td width="391" valign="top"><p align="center"><strong>Description</strong></p></td>
+  </tr>
+  <tr>
+    <td width="247" valign="top"><p>aet</p></td>
+    <td width="391" valign="top"><p>DICOM Application Entity Title.&nbsp; Must be unique.</p></td>
+  </tr>
+  <tr>
+    <td width="247" valign="top"><p>host</p></td>
+    <td width="391" valign="top"><p>Host name (or IP address) of the application.</p></td>
+  </tr>
+  <tr>
+    <td width="247" valign="top"><p>port</p></td>
+    <td width="391" valign="top"><p>TCP/IP port number for receiving associations.</p></td>
+  </tr>
+  <tr>
+    <td width="247" valign="top"><p>org</p></td>
+    <td width="391" valign="top"><p>The organization that operates the device.&nbsp; Useful if multiple organizations use the    Image Manager.</p></td>
+  </tr>
+  <tr>
+    <td width="247" valign="top"><p>com</p></td>
+    <td width="391" valign="top"><p>A comment field.</p></td>
+  </tr>
+</table>
+<p>You can test your work as follows:<br />
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; perl  load_apps.pl imgmgr<br />
+  The file <em>$MESA_TARGET/runtime/imgmgr/ds_dcm.cfg</em> is used to configure the MESA Image Manager.&nbsp;  The only parameter users should change is the LOG_LEVEL value.&nbsp; Log levels are defined in section 1.5.&nbsp; DICOM configuration parameters are listed in  the table below.</p>
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="192" valign="top"><p align="center">Application</p></td>
+    <td width="190" valign="top"><p align="center">AE Title</p></td>
+    <td width="122" valign="top"><p align="center">Port</p></td>
+  </tr>
+  <tr>
+    <td width="192" valign="top"><p>MESA Image Manager</p></td>
+    <td width="190" valign="top"><p align="center">MESA_IMG_MGR</p></td>
+    <td width="122" valign="top"><p align="center">2350</p></td>
+  </tr>
+</table>
+<p>Read the <em>Runtime  Notes</em> section of the<em> Installation  Guide</em> to determine the proper settings for the MESA  runtime environment.</p>
+<h2><a name="starting_servers">Starting the </a>MESA Servers </h2>
+<p>These instructions assume you are using a terminal  emulator on Unix systems or an MS-DOS command window under Windows 2000 or XP. Each test uses a command line interface;  there is no graphical user interface. Before you start the test procedure, you  need to start the MESA Image Manager servers. Make sure the appropriate database is running (PostgreSQL, SQL  Server). To start the MESA  servers:</p>
+<ol start="1" type="1">
+  <li>Enter       the Image Display exam folder:<em> $MESA_TARGET/mesa_tests/rad/actors/imgcrt </em>or<em> $MESA_TARGET/mesa_tests/rad/actors/evdcrt</em></li>
+  <li>Execute       the appropriate script to start the servers:</li>
+</ol>
+<pre>      scripts/start_mesa_servers.csh &nbsp;(Unix)</pre>
+<pre>      scripts\start_mesa_servers.bat  (Windows)</pre>
+<p>Log levels are set for the MESA Image Manager in the file: <em>$MESA_TARGET/runtime/imgmgr/ds_dcm.cfg</em>.&nbsp; Log levels are:</p>
+<ol>
+  <li>no logging</li>
+  <li>errors</li>
+  <li>warnings</li>
+  <li>verbose</li>
+  <li>conversational  (really verbose)</li>
+</ol>
+<p>When you are finished running one or more tests, you can stop the servers:
+<pre>      scripts/stop_mesa_servers.csh  (Unix)</pre>
+  <pre>      scripts\stop_mesa_servers.bat  (Windows)</pre>
+  <p>
+  Log files are stored in <em>$MESA_TARGET/logs</em>. </p>
+<h3>Starting  Servers for Test 1701</h3>
+<p>The Test 1701 scripts are found in a different directory  from the other Evidence Creator scripts.&nbsp;  The Test 1701 scripts are in the evdcrt (evidence creator) directory,  and use a slightly different server control procedures.&nbsp; <br />
+  Before you start the test procedure, you need to start the  MESA Image Manager servers.&nbsp; Make sure  the appropriate database is running (PostgreSQL, SQL Server).&nbsp; To start the MESA  servers:</p>
+<ol start="1" type="1">
+  <li>Enter       the Evidence Creator folder:<em> $MESA_TARGET/mesa_tests/rad/actors/evdcrt</em></li>
+  <li>Execute       the appropriate script to start the servers:</li>
+</ol>
+<pre>     perl scripts/mesa_servers.pl start </pre>
+  Log levels are as described in the section above.<br />
+  When you are finished running one or more tests, you can  stop the servers:
+ <pre>     perl  scripts/mesa_servers.pl stop</pre>
+  Log files are stored in <em>$MESA_TARGET/logs</em>.</p>
+<h2><a name="submit_results">Submission of Results</a></h2>
+<p>Test descriptions below inform the reader to &ldquo;submit  results to the Project Manager&rdquo;. This is does not mean &ldquo;email&rdquo;. The current  submission process should be documented by the Project Manager, but will not  include emailing files directly to the Project Manager.</p>
+
+<h1><a name="individual_tests">Individual Tests</a></h1>
+<p>&nbsp;</p>
+
+
+<table><tr><td bgcolor="#33FFFF">
+ <h2><a name="#evdcrt_test251" id="#evdcrt_test251">251: Storage Commitment  Association Negotiation</a></h2>
+ <p>This is a test of association negotiation with your Evidence Creator.
+    An Image Manager that wants to  send Storage Commitment N-Event reports will
+	initiate a DICOM association with your modality and should propose to be an
+	SCP of the Storage Commitment SOP Class (Push Model).</p>
+  <p>In this test, one association will be proposed.
+     The MESA Image Manager proposes the SCP role.
+	 Your Evidence Creator should accept this association
+	 and proposed presentation context.</p>
+ <h3>References</h3>
+ <h3>Instructions</h3>
+ <ol>
+  <li>Start  your server process that accepts Image Manager Storage Commitment
+      association requests.</li>
+  <li>Run the evaluation script for this test.
+      This script sends the appropriate association requests and records results in
+	  251/grade_251.txt:
+      <pre>     perl 251/eval_251.pl [-v]</pre>
+  </li>
+ </ol>
+<h3>Evaluation</h3>
+ <ol>
+  <li>Submit the file 251/grade_251.txt generated above to the Project Manager.
+      This file should indicate 0 errors for success.</li>
+ </ol>
+ <h3>Supplemental Information</h3>
+</td></tr></table>
+
+
+
+<table><tr><td bgcolor="#FFFFFF">
+ <h2><a name="#evdcrt_test281" id="#evdcrt_test281">281: Example Images</a></h2>
+ <p>Test 281 is used to collect sample images, Key Object Notes, Evidence Documents and/or
+    other DICOM composite objects produced by an Evidence Creator. The intent of the test
+	is to send DICOM composite objects (DICOM Part 10 format) to the Project Manager for
+	redistribution to other participants. This will allow them time to test/examine your
+	data before an in-person meeting.
+ </p>
+ <p>This test differs from normal tests in that you submit samples to the Project Manager
+    so other participants can review those samples. Because of this, please submit
+	your samples 2 WEEKS before the normal deadlines. This will give the other systems
+	a chance to review your data.
+ </p>
+ <h3>References</h3>
+ <h3>Instructions</h3>
+ <ol>
+  <li>Produce DICOM Part 10 files for the types of Evidence Documents your system
+      system produces. If you produce more than one type of Evidence Document, produce
+	  at least one DICOM Part 10 file for each document type.</li>
+  <li>Please the Part 10 files in a folder with a README.TXT file that describe each file.
+      Use subfolders if that helps to organize your data.</li>
+  <li>Place the entire folder in a zip file which is named 281_Your_Sytem_Name.zip</li>
+  <li>If the file is small enough, you may upload it into the Connectathon webtool as results for this test. If the file is too large, send an email to the Project Manager stating that you are ready to submit results. <strong>Do not</strong> email the zipped objects. You will receive a response containing instructions for submitting your objects to an ftp site or sending in a CD. 281 </li>
+  </ol>
+
+ <h3>Evaluation</h3>
+ <p>Evaluation of this test occurs when other participants review your data. In the event
+    that other participants find errors/issues, you may be asked to modify your data.
+ </p>
+ <h3>Supplemental Information</h3>
+</td></tr></table>
+
+
+<table><tr><td bgcolor="#33FFFF">
+ <h2><a name="#evdcrt_test282" id="#evdcrt_test282">282: Example GSPS Objects</a></h2>
+ <p>In this &ldquo;test&rdquo;, you use the MESA tools to collect GSPS object and then  send those objects to the Project Manager for distribution to other  vendors.&nbsp; These are the objects that you  would expect to use in the demonstration.&nbsp;  The MWL entries should have the codes used for the demonstration, but  these are not available with this release.&nbsp;  We will use the MWL entry for the simple 211 case.<br />
+  For modalities that produce GSPS objects, you should  combine these instructions with those of Test 281 and send a set of images and  corresponding GSPS objects.<br />
+  Some modalities qualify for the CPI Integration Profile  and do not produce GSPS objects.&nbsp; These  are the modalities that produce images already in P-values.&nbsp; In that case, this test (282) is not  necessary (unless you produce GSPS objects for other reasons).</p>
+ <h3>References</h3>
+ <h3>Instructions</h3>
+ <h3>Evaluation</h3>
+ <h3>Supplemental Information</h3>
+</td></tr></table>
+
+
+
+<table><tr><td bgcolor="#FFFFFF">
+ <h2><a name="#evdcrt_test283" id="#evdcrt_test283">283: DICOM Composite Object
+      Evaluation &ndash; DVT</a></h2>
+ <p>In this test, you evaluate samples of Composite Objects  that you create using the
+    Agfa/Philips DVT. The number of evaluations you run depends on the types of images
+	that you produce. We will not list specific  requirements, but ask you to apply good
+	judgment. For example, an Evidence Creator that produces GSPS objects and
+	Encapsulated PDF objecs would evaluate samples from both of  those image types.
+ </p>
+ <p>You need to evaluate and provide the output for at least one DICOM Composite Object.
+    Evaluating other objects can only help your implementation.</p>
+ <h3>References</h3>
+ <h3>Instructions</h3>
+  <ol>
+   <li>Produce a DICOM Part 10 file containing your composite object for evaluation.</li>
+   <li>Run the evaluation script for test 283 as follows:
+      <pre>perl 283/eval_283.pl &lt;output level&gt; &lt;path to file&gt;</pre>
+   </li>
+   <li>The output is stored in 283/grade_283.txt.
+       Submit the file to the Project Manager  for evaluation.</li>
+  </ol>
+ <h3>Evaluation</h3>
+ <h3>Supplemental Information</h3>
+ <p>Test 283 assumes you have installed the DVT on a Windows system. You may elect not
+    to run this test, but you will be required to run test 284. If you choose not to
+	run this test, submit the results for test 284 for this test. Yes, submit 284 for
+	both 283 and 284.</p>
+</td></tr></table>
+
+<table><tr><td bgcolor="#33FFFF">
+ <h2><a name="#evdcrt_test284" id="#evdcrt_test284">284: DICOM Composite Object
+     Evaluation &ndash; DICOM3TOOLS</a></h2>
+ <p>In this test, you evaluate samples of Composite Objects that you create using the
+    Dave Clunie DICOM3TOOLS. The number of evaluations you run depends on the types of
+	images 	that you produce. We will not list specific requirements, but ask you to
+	apply good judgment. For example, an Evidence Creator that produces GSPS objects and
+	Encapsulated PDF objecs would evaluate samples from both of  those image types.
+ </p>
+ <p>You need to evaluate and provide the output for at least one DICOM Composite Object.
+    Evaluating other objects can only help your  implementation.</p>
+ <h3>References</h3>
+ <h3>Instructions</h3>
+ <ol>
+  <li>Produce a DICOM Part 10 file containing your composite object for evaluation.</li>
+  <li>Run the evaluation script for test 284 as follows:
+      <pre>perl 284/eval_284.pl &lt;output level&gt; &lt;path to file&gt;</pre>
+  </li>
+  <li>The  output is stored in 284/grade_284.txt. Submit the file to the
+      Project Manager  for evaluation.</li>
+ </ol>
+ <h3>Evaluation</h3>
+ <h3>Supplemental Information</h3>
+ <p>Test 284 assumes you have installed the MESA tools on a Unix system. You may elect
+    not to run this test, but you will be required to run test 283.
+	If you choose  not to run this test, submit the results of test 283 for this test.
+	Yes, you submit 283 for both 283 and 284.</p>
+</td></tr></table>
+
+<table><tr><td bgcolor="#ffffff">
+ <h2><a name="evdcrt_301">301: Evidence Creator Storage and Commitment</a></h2>
+ <p>In test 301, the Evidence Creator C-Stores one or more Evidence Documents to the
+    MESA Image Manager. The Evidence Creator also request storage commitment for
+	those documents. The purpose of the test is to check the C-Store command/data set
+	(presumed to be easy) and to check the request for Storage Commitment.</p>
+ <h3>References</h3>
+ <h3>Instructions</h3>
+ <p>Run these commands/steps from a terminal emulator (Unix) or DOS/Command Window (Windows). </p>
+ <ol>
+  <li>Set the current directory to <em>$MESA_TARGET/mesa_tests/rad/actors/evdcrt</em>.</li>
+  <li>Start the MESA servers as described in <a href="#start_servers">Starting the MESA Servers</a> above.</li>
+  <li>Clear the MESA Image Manager of existing data in the database:
+   <pre>perl scripts/reset_servers.pl</pre>
+  </li>
+  <li>Transmit (C-Store) one or more Evidence Documents to the MESA Image Manager.</li>
+  <li>Request Storage Commitment of the Image Manager for your Evidence Documents.</li>
+  </ol>
+ <p>If you need to rerun the test, make sure you clear the MESA Image Manager using step 3. </p>
+ <h3>Evaluation</h3>
+  <ol>
+   <li>Run this evaluation script:
+    <pre>  perl 301/eval_301.pl &lt;output  level&gt; &lt;AE Title Storage Commit SCU&gt; </pre>
+	You have successfully completed when the logfile (301/grade_301.txt) indicates
+	0 errors.
+   </li>
+   <li>Submit the logfile 301/grade_301.txt to the Project Manager.</li>
+  </ol>
+
+ <h3>Supplemental Information</h3>
+ <p>The MESA Image Manager does not automatically send Storage Commitment N-Event reports.
+    If your application would like to receive the appropriate Storage Commitment
+	N-Event report, run this script.
+	<pre>Enter script information.</pre>
+  </p>
+</td></tr></table>
+
+<table><tr><td bgcolor="#33ffff">
+ <h2><a name="evdcrt_311">311: Create/Render Encapsulated PDF</a></h2>
+ <p>In test 311, the Evidence Creator C-Stores one Encapsulated PDFEvidence Documents to the
+    MESA Image Manager.  The purpose of the test is to check the C-Store command of the Encapsulated PDF document and to extract the PDF from the DICOM oject. </p>
+ <h3>References</h3>
+ <h3>Instructions</h3>
+ <p>Run these commands/steps from a terminal emulator (Unix) or DOS/Command Window (Windows). </p>
+ <ol>
+  <li>Set the current directory to <em>$MESA_TARGET/mesa_tests/rad/actors/imgcrt</em>. </li>
+  <li>Start the MESA servers as described in <a href="#start_servers">Starting the MESA Servers</a> above.</li>
+  <li>Clear the MESA Image Manager of existing data in the database:
+   <pre>perl scripts/reset_servers.pl</pre>
+  </li>
+  <li>Transmit (C-Store) one Encapsulated PDF Evidence Documents to the MESA Image Manager.</li>
+  </ol>
+ <p>If you need to rerun the test, make sure you clear the MESA Image Manager using step 3. </p>
+ <h3>Evaluation</h3>
+  <ol>
+   <li>Run this evaluation script:
+    <pre>  perl 311/eval_311.pl &lt;output  level&gt; </pre>
+	You have successfully completed when the logfile (311/grade_311.txt) indicates
+	0 errors and the file 311/311.pdf contains the PDF you encapsulated in your document
+   </li>
+   <li>Submit the logfile 311/grade_311.txt and the file 311/311.pdf to the Project Manager.</li>
+  </ol>
+
+ <h3>Supplemental Information</h3>
+ <p> 
+  </p>
+</td></tr></table>
+
+
+<table><tr><td bgcolor="#33FFFF">
+ <h2><a name="evdcrt_500">Evidence Creator Test 500: Display Calibration</a></h2>
+ <p>Evidence Creators supporting the Consistent Presentation  of Images Integration Profile    must calibrate their displays in accordance with  DICOM PS 3.14. Instructions for this
+    test are included in the document:
+    <em>Display  Consistency Test Plan for Image Creator</em>.</p>
+</td></tr></table>
+
+<h2><a name="evdcrt_511">Evidence Creator Test 511: Key Image Note 511</a></h2>
+ <p>In this test, the Evidence Creator will create a Key Image  Note that refers to
+    a single image from a series.</p>
+ <h3>References</h3>
+ <h3>Instructions</h3>
+ <ol>
+  <li>Create/modify  the SQL script to identify the Evidence Creator under test.</li>
+  <li>Start  the MESA servers as described in <a href="#start_servers">Starting the MESA Servers</a> above.</li>
+  <li>The  steps below are run from the directory <em>$MESA_TARGET/mesa_tests/rad/actors/imgcrt</em>.</li>
+  <li>Load  the data sets into the MESA Image Manager.</li>
+  <pre>perl 5xx/load_img_mgr.pl</pre>
+ <li>Retrieve  the study for the patient CRTHREE^PAUL.</li>
+  <li>Create  a Key Image Note with the parameters described below.&nbsp; Send the DICOM composite object to the MESA  Image Manager.  </li>
+ </ol>
+ <h3>Evaluation</h3>
+  <ol>
+  <li>Evaluate  the contents of your Key Image Note as follows:
+    <pre>perl 511/eval_511.pl [-v]</pre>
+  </li>
+  </ol>
+ 
+ <H3>Supplemental Information</H3>
+ If you need to send the note a second time, you should  clear the MESA Image
+ Manager first.
+ This  will allow the evaluation software to examine your latest object.<br />
+ <pre> perl  scripts/reset_servers.pl</pre>
+ <br />
+
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="139" valign="top"><p>Template Identifier</p></td>
+    <td width="384" valign="top"><p>2010:DCMR</p></td>
+    <td width="115" valign="top"><p>Required</p></td>
+  </tr>
+  <tr>
+    <td width="139" valign="top"><p>Document Title</p></td>
+    <td width="384" valign="top"><p>113000:DCM:Of Interest</p></td>
+    <td width="115" valign="top"><p>Required</p></td>
+  </tr>
+  <tr>
+    <td width="139" valign="top"><p>HAS CONC MOD</p></td>
+    <td width="384" valign="top"><p>CODE 121049:DCM:Language of Content Item and Descendants    = <br />
+      ISO369_2:eng:English</p></td>
+    <td width="115" valign="top"><p>Optional</p></td>
+  </tr>
+  <tr>
+    <td width="139" valign="top"><p>HAS OBS CONTEXT</p></td>
+    <td width="384" valign="top"><p>CODE    121005:DCM:Observer Type = 121006:DCM:Person</p></td>
+    <td width="115" valign="top"><p>Required</p></td>
+  </tr>
+  <tr>
+    <td width="139" valign="top"><p>HAS OBS CONTEXT</p></td>
+    <td width="384" valign="top"><p>PNAME 121008:DCM:Person Observer Name = MOORE^STEVE</p></td>
+    <td width="115" valign="top"><p>Required</p></td>
+  </tr>
+  <tr>
+    <td width="139" valign="top"><p>CONTAINS TEXT</p></td>
+    <td width="384" valign="top"><p>113012:DCM:Key Object Description = Key Object Test 511</p></td>
+    <td width="115" valign="top"><p>Required</p></td>
+  </tr>
+  <tr>
+    <td width="139" valign="top"><p>Image Reference</p></td>
+    <td width="384" valign="top"><p>Select the image with Image Number 16</p></td>
+    <td width="115" valign="top"><p>Required</p></td>
+  </tr>
+</table>
+
+<br />
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="evdcrt_512">Evidence Creator Test 512: Key Image Note 512</a></h2>
+<p>In this test, Image Displays will create a Key Image Note  that refers to two images from one series.</p>
+<h3>References</h3>
+<h3>Instructions</h3>
+<ol>
+  <li>Create/modify  the SQL script to identify the Evidence Creator under test.</li>
+  <li>Start  the MESA servers as described  in <a href="#start_servers">Starting the MESA Servers</a> above.</li>
+  <li>The  steps below are run from the directory <em>$MESA_TARGET/mesa_tests/rad/actors/imgcrt</em>.</li>
+  <li>Load  the data sets into the MESA Image Manager. </li>
+      <pre>perl 5xx/load_img_mgr.pl</pre>
+<li>Retrieve  the study for the patient CTFIVE^JIM.</li>
+  <li>Create  a Key Image Note with the parameters described below.&nbsp; Send the DICOM composite object to the MESA  Image Manager.</li>
+  </ol>
+<h3>Evaluation</h3>
+<ol>
+ <li>Evaluate  the contents of your Key Image Note as follows:
+ <pre>perl 512/eval_512.pl [-v]</pre>
+ </li>
+</ol>
+
+<h3>Supplemental Information</h3>
+  If you need to send the note a second time, you should  clear the MESA Image Manager first. This  will allow the evaluation software to examine your latest object.<br />
+ <pre>  perl  scripts/reset_servers.pl</pre>
+
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="139" valign="top"><p>Template Identifier</p></td>
+    <td width="384" valign="top"><p>2010:DCMR</p></td>
+    <td width="115" valign="top"><p>Required</p></td>
+  </tr>
+  <tr>
+    <td width="139" valign="top"><p>Document Title</p></td>
+    <td width="384" valign="top"><p>113007:DCM:For Patient</p></td>
+    <td width="115" valign="top"><p>Required</p></td>
+  </tr>
+  <tr>
+    <td width="139" valign="top"><p>HAS CONC MOD</p></td>
+    <td width="384" valign="top"><p>CODE 121049:DCM:Language of Content Item and Descendants    = <br />
+      ISO369_2:eng:English</p></td>
+    <td width="115" valign="top"><p>Optional</p></td>
+  </tr>
+  <tr>
+    <td width="139" valign="top"><p>HAS OBS CONTEXT</p></td>
+    <td width="384" valign="top"><p>CODE    121005:DCM:Observer Type = 121006:DCM:Person</p></td>
+    <td width="115" valign="top"><p>Required</p></td>
+  </tr>
+  <tr>
+    <td width="139" valign="top"><p>HAS OBS CONTEXT</p></td>
+    <td width="384" valign="top"><p>PNAME 121008:DCM:Person Observer Name = MOORE^STEVE</p></td>
+    <td width="115" valign="top"><p>Required</p></td>
+  </tr>
+  <tr>
+    <td width="139" valign="top"><p>CONTAINS TEXT</p></td>
+    <td width="384" valign="top"><p>113012:DCM:Key Object Description = Key Object Test 512</p></td>
+    <td width="115" valign="top"><p>Required</p></td>
+  </tr>
+  <tr>
+    <td width="139" valign="top"><p>Image Reference</p></td>
+    <td width="384" valign="top"><p>Select images with Image Number 67 and 68</p></td>
+    <td width="115" valign="top"><p>Required</p></td>
+  </tr>
+</table>
+</td>
+</tr></table>
+
+<h2><a name="evdcrt_513">Evidence Creator Test 513: Key Image Note 513</a></h2>
+<p>In this test, Evidence Creators will create a Key Image  Note that refers to two images; each from a different series.</p>
+<H3>References</H3>
+<H3>Instructions</H3>
+<ol>
+  <li>Create/modify  the SQL script to identify the Evidence Creator under test.</li>
+  <li>Start  the MESA servers as described  in <a href="#start_servers">Starting the MESA Servers</a> above.</li>
+  <li>The  steps below are run from the directory <em>$MESA_TARGET/mesa_tests/rad/actors/imgcrt</em>.</li>
+  <li>Load  the data sets into the MESA Image Manager.</li>
+  <pre>perl 5xx/load_img_mgr.pl</pre>
+  <li>Retrieve  the study for the patient MRTHREE^STEVE.</li>
+  <li>Create  a Key Image Note with the parameters described below.&nbsp; Send the DICOM composite object to the MESA  Image Manager.</li>
+</ol>
+  <H3>Evaluation</H3>
+<ol>
+<li>Evaluate  the contents of your Key Image Note as follows:
+<pre>perl 513/eval_513.pl [-v]</pre>
+</li>
+<li>Submit the output of the results to the Technical Project Manager.</li>
+</ol>
+  If you need to send the note a second time, you should  clear the MESA Image Manager first. This  will allow the evaluation software to examine your latest object.<br />
+<pre> perl  scripts/reset_servers.pl</pre>
+<H3>Supplemental Information</H3>
+<p>Table of information to use when creating Key Object Note</p>
+
+<table border="1" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="139" valign="top"><p>Template Identifier</p></td>
+    <td width="384" valign="top"><p>2010:DCMR</p></td>
+    <td width="115" valign="top"><p>Required</p></td>
+  </tr>
+  <tr>
+    <td width="139" valign="top"><p>Document Title</p></td>
+    <td width="384" valign="top"><p>113004:DCM:For Teaching</p></td>
+    <td width="115" valign="top"><p>Required</p></td>
+  </tr>
+  <tr>
+    <td width="139" valign="top"><p>HAS CONC MOD</p></td>
+    <td width="384" valign="top"><p>CODE 121049:DCM:Language of Content Item and Descendants = ISO369_2:eng:English</p></td>
+    <td width="115" valign="top"><p>Optional</p></td>
+  </tr>
+  <tr>
+    <td width="139" valign="top"><p>HAS OBS CONTEXT</p></td>
+    <td width="384" valign="top"><p>CODE    121005:DCM:Observer Type = 121006:DCM:Person</p></td>
+    <td width="115" valign="top"><p>Required</p></td>
+  </tr>
+  <tr>
+    <td width="139" valign="top"><p>HAS OBS CONTEXT</p></td>
+    <td width="384" valign="top"><p>PNAME 121008:DCM:Person Observer Name = MOORE^STEVE</p></td>
+    <td width="115" valign="top"><p>Required</p></td>
+  </tr>
+  <tr>
+    <td width="139" valign="top"><p>CONTAINS TEXT</p></td>
+    <td width="384" valign="top"><p>113012:DCM:Key Object Description = Key Object Test 513</p></td>
+    <td width="115" valign="top"><p>Required</p></td>
+  </tr>
+  <tr>
+    <td width="139" valign="top"><p>Image Reference</p></td>
+    <td width="384" valign="top"><p>Select Image 9 from Series 103<br />
+      Select Image 19 from Series 104</p></td>
+    <td width="115" valign="top"><p>Required</p></td>
+  </tr>
+</table>
+
+<br />
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="evdcrt_521">Evidence Creator Test 521: Consistent  Presentation of Images</a></h2>
+<p>This test is for Evidence Creators that support the  Consistent Display of Images integration profile. Instructions for this test are found in the  document <em>Display Consistency Test Plan  for Image Creator</em>.</p>
+</td></tr></table>
+
+<h2><a name="evdcrt_551">Evidence Creator Test 551: Example Image/GSPS/BSPS  and Spatial Registration Objects</a></h2>
+<p>The goal of this &ldquo;test&rdquo; is to provide samples for other  vendors to display.&nbsp; You should send a  &ldquo;representative sample&rdquo; of the data produced by your system.<br />
+  <br />
+  The Scheduled Workflow integration profile only uses  images and not presentation state objects. Therefore, Evidence Creator actors  supporting the Scheduled Workflow integration profile should submit sample  images.<br />
+  <br />
+GSPS objects are discussed/supported in the Consistent  Presentation of Images integration profile. Evidence Creator actors create GSPS  objects (requirement) and may optionally produce images. Evidence Creator  actors that support the CPI integration profile should submit the GSPS objects  they produce and any images produced. If you use images that are not part of  the MESA test set as the basis for  your GSPS objects, you should submit those, even if you did not produce them.  That will allow other actors to display the original images and the appropriate  GSPS objects.</p>
+<p>Blended  Softcopy Presentation State (BSPS) and Spatial Registration objects are used in  the Image Fusion Profile.&nbsp; Both Evidence  Creator and Acquisition Modality actors may create and store BSPS and Spatial  Registration objects.&nbsp; In addition to  BSPS objects, you should also submit the datasets (images, Spatial  Registrations) you reference within your BSPS object, even if you did not  produce them. That will allow other actors to display the original images  with the appropriate BSPS and Spatial Registration objects.</p>
+<p>Each system should send samples of the Image and/or GSPS,  BSPS and Spatial Registration objects that they create to the Image  Manager.&nbsp; If you create BSPS and/or Spatial Registration objects in the Image Fusion profile, you should also send along the image series the BSPS and Spatial Registration objects reference. </p>
+<p>These are to be submitted two weeks in  advance of the general date for test results to allow other vendors the  opportunity to test with them.&nbsp;</p>
+<h3>References</h3>
+<h3>Instructions</h3>
+<p>Either create DICOM Part 10 files and submit to the Project Manager or follow the instructions below. </p>
+<ol>
+  <li>Start  the MESA  servers as described in <a href="#start_servers">Starting MESA Servers</a>.</li>
+  <li>Clear  the MESA Image Manager (if necessary). From <em>$MESA_TARGET/mesa_tests/rad/actors/evdcrt</em>:</li>
+  <pre>perl scripts/clear_img_mgr.pl</pre>
+  <li>Send  sample images/GSPS/BSPS/Spatial Registration objects to the MESA Image Manager.</li>
+  <li>Tar  or zip the files in <em>$MESA_STORAGE/imgmgr/instances</em></li>
+  <li>If the file is small enough, you may upload it into the Connectathon webtool as results for this test. If the file is too large, send an email to the Project Manager stating that you are ready to submit results. <strong>Do not</strong> email the zipped objects. You will receive a response containing instructions for submitting your objects to an ftp site or sending in a CD.</li>
+</ol>
+<h3>Evaluation</h3>
+<p>The evaluation of this test comes in the form of feedback from other users of your data. If other users identify issues with your data, you will be asked to work with those users (and Project Manager) to resolve those issues. </p>
+<h3>Supplemental Information </h3>
+
+<br />
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="evdcrt_552">Evidence Creator Test 552: Example Key Image  Note</a></h2>
+<p>As with test 551, the goal of this test is to send  representative samples to the Project Manager for distribution to other  vendors. These samples will be based on  tests 511, 512, and 513.</p>
+<h3>References</h3>
+<h3>Instructions</h3>
+<p>Either create DICOM Part 10 files with your original DICOM files and submit to the Project Manager or follow the instructions below. </p>
+<ol>
+  <li>After  you complete tests 511, 512, and 513, locate the Key Image notes stored on the  MESA Image Manager.&nbsp; These will be in  <em>$MESA_STORAGE/imgmgr/instance</em>s.&nbsp; The  first directory level is the Study Instance UID.&nbsp; You should recognize your Key Image Notes by  the Series Instance UID used to identify the next directory.</li>
+  <li>Tar  or zip the files holding your Key Image Notes.</li>
+  <li>If the file is small enough, you may upload it into the Connectathon webtool as results for this test. If the file is too large, send an email to the Project Manager stating that you are ready to submit results. <strong>Do not</strong> email the zipped objects. You will receive a response containing instructions for submitting your objects to an ftp site or sending in a CD.</li>
+</ol>
+<h3>Evaluation</h3>
+<p>The evaluation of this test comes in the form of feedback from other users of your data. If other users identify issues with your data, you will be asked to work with those users (and Project Manager) to resolve those issues. </p>
+<h3>Supplemental Information </h3></td>
+</tr></table>
+
+<h2><a name="evdcrt_1412">Evidence Creator Test 1412: </a>PWF CT</h2>
+<p>Test 1412 is a test of the steps for Post Processing Workflow in a CT 3D reconstruction scenario. CT images will be created and a 3D  reconstruction workitem will be scheduled. As an Evidence Creator, you will be  asked to query for the post processing worklist and to claim the scheduled  workitem. Subsequent post processing workflow steps are not yet implemented.</p>
+<h3>References</h3>
+<h3>Instructions</h3>
+<ol>
+  <li>Run  the active manager test script:</li>
+      <pre>perl 1412/1412_imgcrt.pl</pre>
+<li>Follow  the test instructions</li>
+</ol>
+  <h3>Evaluation</h3>
+  <ol>
+    <li>Run  the evaluation script:
+    <pre>perl 1412/eval_1412.pl</pre>
+	The evaluation script should yield 0 errors for a successful test.
+	<li>Submit the output of the grade file found in 1412/grade_1412.txt to the Project Manager.</li>
+  </ol>
+  <h3>Supplemental Information </h3>
+  <table><tr><td bgcolor="#33FFFF">
+<h2><a name="evdcrt_1700">Evidence Creator Test 1700: Evidence Document  Description</a></h2>
+<p>In the Evidence Documents profile, Evidence Documents are  defined as DICOM SR objects that are to be used to assist in diagnosis. An  example would be measurements on an Ultrasound device.<br />
+  <br />
+  The purpose of this test is to make sure that Evidence  Creators in the Evidence Documents profile understand the content they are to  produce is contained in DICOM SR objects according to the Evidence Document  Profile. As mentioned above, the most obvious example are Ultrasound  measurements. Another example could be a Mammography CAD file. Evidence  Documents (in the Evidence Document Profile) are not images, nor are they DICOM  SR Diagnostic Reports.<br />
+  <br />
+  The instructions below are not a joke. We have had  experience with this profile indicating users do not understand the intent of  the Evidence Documents profile.</p>
+<h3>References</h3>
+<h3>Instructions</h3>
+<ol>
+  <li>Create  a text file and answer the questions below:</li>
+  <ol>
+    <li>What  DICOM SOP class is used by your system to generate Evidence Documents? This  should be a Structured Report Class.</li>
+    <li>Describe  in 100-500 words why your documents are to be considered evidence and are not  merely diagnostic reports or other SR objects.</li>
+    <li>Describe  in 100-500 words what problems other vendors will have in rendering your  document or incorporating your results in a diagnostic report.</li>
+  </ol>
+  <li>Name  the text file using the convention: <em>CompanyName_1700.txt</em></li>
+  <li>Submit  the text file to the Project Manager for evaluation.</li>
+  </ol>
+<h3>Evaluation</h3>
+<p>Project Manager will read the answers provided to make sure your system is operating in the proper context. </p>
+<h3>Supplemental Information </h3></td>
+  </tr></table>
+
+<h2><a name="evdcrt_1701">Evidence Creator Test 1701: Evidence Document  Management in Scheduled Workflow</a></h2>
+<p>Test 1701 covers evidence document management in scheduled  workflow, part of the Evidence Document profile. The test itself is an implementation of the  scheme shown in Figure 14.2-1 (see IHE TF Vol I, section 14). </p>
+<h3>References</h3>
+<h3>Instructions</h3>
+<ol>
+  <li>To run this test, be sure you are in the <em>$MESA_TARGET/mesa_tests/rad/actors/evdcrt</em> directory.&nbsp; Then, execute:</li>
+   <pre> perl  scripts/imgmgr_swf.pl 1701 </pre>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>To evaluate this test:
+    <pre> perl  1701/eval_1701.pl</pre>
+    The evaluation script should yield 0 errors for a scuccessful test.
+  </li>
+  <li>Submit the grade file found in 1701/grade_1701.txt to the Project Manager.</li>
+</ol>
+<h3>Supplemental Information</h3>
+<h2><a name="#test283" id="#test283">Test 283: DICOM Composite Object Evaluation &ndash;  DVT</a></h2>
+<p>In this test, you evaluate samples of DICOM Composite Objects  that you create using the Agfa/Philips DVT. The number of evaluations you run  depends on the types of DICOM objects that you produce. We will not list specific  requirements, but ask you to apply good judgment. <br />
+You need to evaluate and provide the output for all the DICOM Composite Object types your system produces. Evaluating other objects can only help your implementation.</p>
+<h3>References</h3>
+<h3>Instructions</h3>
+<ol>
+  <li>Produce  a DICOM Part 10 file containing your composite object for evaluation.</li>
+  <li>Run  the evaluation script for test 283 as follows:
+    <pre>perl  283/eval_283.pl &lt;output level&gt; &lt;path to file&gt;</pre>
+  </li>
+  <li>The  output is stored in 283/grade_283.txt. Submit the file to the Project Manager  for evaluation.</li>
+</ol>
+<h3>Evaluation</h3>
+<h3>Supplemental Information</h3>
+<p>Test 283 assumes you have installed the DVT on a Windows  system. </p>
+<p>&nbsp;</p>
+<h1><a name="nmi_tests">Nuclear Medicine Specific Tests</a></h1>
+
+<table><tr><td bgcolor="#FFFFFF">
+ <h2><a name="evdcrt_2800">2800: Result Screen Export</a> Documentation </h2>
+  <p>Evidence Creator test 2800 is a documentation test where the developer
+     documents how the Evidence Creator satisfies the requirements listed
+	 in Rad TF-2: 4.18.4.1.2.4</p>
+ <h3>Reference: </h3>
+  <p>Rad TF-2: 4.18.4.1.2.4</p>
+ <h3>Instructions</h3>
+  <ol>
+   <li>Read Rad TF-2: 4.18.4.1.2.4</li>
+   <li>Create a text file labeled: SYSTEM_2800.txt</li>
+   <li>Copy and answer these questions in the text file and submit to the Project Manager:
+     <ol>
+	 <li>Does your system produce Dyamic Result screens? Are these stored as Multi-Frame Secondary Capture (MFSC) IODs? If not, then you are not following the specifications properly. </li>
+	 <li>Does your system produce Static Result screens?</li>
+	 <li>Does your system produce Greyscale Result screens?</li>
+	 <li>Does your system produce Color Result screens?</li>
+	 <li>Does your system produce Multi-Frame Secondary Capture (MFSC) IODs for storing Static Result Screens?</li>
+	 <li>Does your system produce DICOM Secondary Capture (SC) IODs for storing Static Result Screens?</li>
+	 <li>Does your system present color results? If so, does your system export those results in 24-bit RGB?
+	    (If not, then you are not following the specifications properly).</li>
+	 <li>List the value stored in Conversion Type (0008 0064)</li>
+	 <li>List the value stored in Series Description (0008 103E)</li>
+	 <li>List the value stored in Derivation Descripton (0008 2111)</li>
+	 </ol>
+  </ol>
+ <h3>Evaluation</h3>
+ <h3>Supplemental Information</h3> 
+</td></tr></table>
+
+<table><tr><td bgcolor="#FFFF99">
+<h2><a name="evdcrt_2801">Evidence Creator Test 2801: NM Reconstructed Images  Special Requirements</a></h2>
+<h3>Reference: </h3>
+<p>Rad TF-2: 4.18.4.1.2.3</p>
+<h3>Instructions</h3>
+<p>In test 2801, reconstructed tomographic datasets are  tested for these attributes:</p>
+  <p>
+    0054  0022 Detector Information Sequence<br />
+  &gt;&gt;  0020 0037 Image Orientation<br />
+    0018  0088 Spacing Between Slices</p>
+  <h3>Evaluation</h3>
+  <h3>Supplemental Information </h3>
+  </p></td></tr></table>
+  
+<h2><a name="evdcrt_2802">Evidence Creator Test 2802: NM Reconstructed  Images Cardiac Views</a></h2>
+<h3>Reference: </h3>
+<p>Rad TF-2: 4.18.4.1.2.3</p>
+<h3>Instructions</h3>
+<p>
+  In test 2802, reconstructed tomographic datasets are  tested for these attributes:</p>
+<p>
+  0054  0220 View Code Sequence<br />
+  0054  0500 Slice Progression Direction<br />
+  0040  0555 Acquisition Context Sequence</p>
+<h3>Evaluation</h3>
+<h3>Supplemental Information </h3>
+
+<table><tr><td bgcolor="#FFFF99">
+<h2><a name="evdcrt_2803">Evidence Creator Test 2803: NM Result Export</a></h2>
+<h3>Reference: </h3>
+<p>Rad TF-2: 4.18.4.1.2.4</p>
+<h3>Instructions</h3>
+<h3>Evaluation</h3>
+<h3>Supplemental Information </h3>
+<strong><br clear="all" />
+</strong>
+</td></tr></table>
+
+
+<table><tr><td bgcolor="#FFFFFF">
+ <h2><a name="#evdcrt_2804" id="#evdcrt_2804">2804:  NM Result Export  Screen 1</a></h2>
+  <p>Test 2804 examines Export Result Screen data for values as defind in Rad TF-2: 4.18.4.1.2.4</p>
+
+ <h3>Reference </h3>
+  <p>Rad TF-2: 4.18.4.1.2.4</p>
+ <h3>Instructions</h3>
+  <ol>
+   <li>Produce one or more NM Result Export Screens per Rad TF-2: 4.18.4.1.2.4.</li>
+   <li>Create a DICOM Part 10 file or store in the MIR CTN format (IVRLE, no preamble, no group 0002).</li>
+   <li>Copy/ftp/carrier pigeon the file (or files) to the MESA box/computer.</li>
+  </ol>
+ <h3>Evaluation</h3>
+  <ol>
+   <li>Run the evaluation script for test 2804:  </li>
+   <pre>perl 2804/eval_28-4.pl &lt;log level&gt; FILE1 </pre>
+   <li>Submit the evaluation log (2804/grade_2804.txt) to the Project Manager.</li>
+  </ol>
+ <h3>Supplemental Information </h3>
+  <p>Log level is a value from 1 to 4 (1 is low, 4 is more  messages). When sending the evaluation output to
+     the Project Manager, use a  value of 3 or 4.</p>
+</td></tr></table>
+
+<h1><a name="cardio_tests">Cardiology Specific Tests</a></h1>
+
+<h2>&nbsp;</h2>
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="evdcrt_20640">Evidence Creator Test 20640: Evidence Creation &ndash; Cath &ndash;Vendor  Interoperability</a></h2>
+<p>Test 20640 tests the creation and content of an SR with a  Cath template. The ED Profile assumes  that the Evidence Creator is part of Cath Scheduled Workflow. Although the acquisition of a Cath Image is  not part of the Evidence Documents Profile, the transactions are included here as  test set up, but not explicity tested. See the Radiology Technical Framework Volume 1:14 for a more complete  explanation. </p>
+<p><br />
+  The purpose of this test is to collect SR object/cath  templates from all Evidence Creator actors prior to the Connectathon. These vendors/actors are required to submit  SR objects for every Cath template and SR SOP Class supported. These files should be submitted to the IHE  web tool as part of the results of these tests.  These files will be used by the Image Display vendors/actors as Test  Case 20650. It is requested that this test, in particular, be completed at least<em> two weeks in advance</em> of the MESA  test completion date to allow the Image Display actors to test the display of  each of these objects and to allow time for communication if there is a  problem.</p>
+<h3>Instructions</h3>
+<p>There is no MESA software required for this test.&nbsp;&nbsp; 
+  The vendor should create a file using the naming  convention of:<em> CompanyName_Product_ 20640_EC_n_2007.</em>doc , where n is any  number to that you make up to differentiate the files if the SR Vendor has  submitted multiple objects.&nbsp;</p>
+<p>If the file is small enough, you may upload it into the Connectathon webtool as results for this test. If the file is too large, send an email to the Project Manager stating that you are ready to submit results. <strong>Do not</strong> email the zipped objects. You will receive a response containing instructions for submitting your objects to an ftp site or sending in a CD. </p>
+<h3>Evaluation</h3>
+<p>The evaluation of this test comes in the form of feedback from vendors who try to display the contents of your objects. If they find issues in displaying the studies, you will be asked to work with those vendors (and the Project Manager) to resolve those issues</p>
+<h3>Supplemental Information </h3><p><br />
+</p></td></tr></table>
+
+<h2><a name="evdcrt_20641">Evidence Creator Test 20641: Evidence Creation &ndash; Echo &ndash;Vendor  Interoperability</a></h2>
+<p>Test 20641 tests the creation and content of an SR with an  Echo template. The ED Profile assumes that the Evidence Creator is part of Echo Scheduled Workflow. Although the acquisition of an echo image is not part of the Evidence Documents Profile, the transaction is included here as  test set up, but not explicity tested. See the Radiology Technical Framework Volume 1:14 for a more complete  explanation.</p>
+<p><br />
+  The purpose of this test is to collect SR object/cath  templates from all Evidence Creator actors prior to the Connectathon. These vendors/actors are required to submit  SR objects for every Echo template and SR SOP Class supported. These files should be submitted to the IHE  web tool as part of the results of these tests. These files will be used by the Image Display vendors/actors as Test Case 20651. It is requested that this  test, in particular, be completed at least <em>two weeks in advance</em> of the MESA  test completion date to allow the Image Display actors to test the display of  each of these objects and to allow time for communication if there is a  problem.</p>
+<h3>Instructions</h3>
+<p>There is no MESA software required for this test.&nbsp;&nbsp; 
+The vendor should create a file using the naming  convention of:<em> CompanyName_Product_ 20641_EC_n_2007.</em>doc , where n is any  number to that you make up to differentiate the files if the SR Vendor has  submitted multiple objects.&nbsp;</p>
+<p>If the file is small enough, you may upload it into the Connectathon webtool as results for this test. If the file is too large, send an email to the Project Manager stating that you are ready to submit results. <strong>Do not</strong> email the zipped objects. You will receive a response containing instructions for submitting your objects to an ftp site or sending in a CD. </p>
+<h3>Evaluation</h3>
+<p>The evaluation of this test comes in the form of feedback from vendors who try to display the contents of your objects. If they find issues in displaying the studies, you will be asked to work with those vendors (and the Project Manager) to resolve those issues</p>
+<h3>Supplemental Information </h3>
+<p>&nbsp;</p>
+<table>
+  <tr>
+    <td bgcolor="#33FFFF"><h2><a name="#evdcrt_20700" id="#evdcrt_20700">Evidence Creator Test 20700:&nbsp; SOP Class Support</a> </h2>
+        <h3>Instructions</h3>
+        <p>There are no test  steps to execute for this test.&nbsp; Instead,  create a text file which lists all of the SOP classes which your Evidence Creator is capable of creating in the STRESS profile.&nbsp;  Your file should have the following naming convention:&nbsp;&nbsp;&nbsp; <em>CompanyName_Product_20700_EC_2006</em>.<br />
+            <br />
+          Submit the text  file to the Technical Project Manager as the results for this test.</p>
+        <h2>&nbsp;</h2>
+        <p><br />
+      </p></td>
+  </tr>
+</table>
+<h2><a name="evdcrt_20740" id="evdcrt_20740">Evidence Creator Test 20740: Stress Profile - Sample Datasets &ndash; Vendor  Interoperability</a></h2>
+<p> The purpose of this test is to collect sample DICOM objects from all Evidence Creator actors in the STRESS profile prior to the Connectathon. You should submit samples for every SOP Class supported. These files should be submitted to the IHE  web tool as part of the results of these tests.  These files will be used by the Image Display vendors/actors.  It is requested that this test, in particular, be completed at least<em> two weeks in advance</em> of the MESA  test completion date to allow the Image Display actors to test the display of  each of these objects and to allow time for communication if there is a  problem.</p>
+<h3>Instructions</h3>
+<p>MESA: There is no MESA  software required for this test. <br />
+The vendor should create a file using the naming  convention of: <em>CompanyName_Product_ 20740_EC_n_2006.&lt;ext&gt;</em> , where n is any number  to that you make up to differentiate the files if you submit  multiple objects.</p>
+<p>If the file is small enough, you may upload it into the Connectathon webtool as results for this test. If the file is too large, send an email to the Project Manager stating that you are ready to submit results. <strong>Do not</strong> email the zipped objects. You will receive a response containing instructions for submitting your objects to an ftp site or sending in a CD. </p>
+<h3>Evaluation</h3>
+<p>The evaluation of this test comes in the form of feedback from vendors who try to display the contents of your objects. If they find issues in displaying the studies, you will be asked to work with those vendors (and the Project Manager) to resolve those issues</p>
+<h3>Supplemental Information </h3>
+<p>&nbsp;</p>
+<h1><a name="fusion_tests">Image Fusion (FUS) Profile Tests</a></h1>
+
+<p>Evidence Creators in the Image Fusion Profile must execute  the tests in this section. The test  images that your Evidence Creator will use are  provided in the MESA_STORAGE distribution in the FUSION directory.. <br />
+</p>
+
+<table><tr><td bgcolor="#FFFF99">
+<h2><a name="evdcrt_3510">Evidence Creator Test 3510: Create and Store  Spatial Registration &ndash; same FoR</a></h2>
+<p><span class="style3">&lt;This test is not yet implemented in the MESA tools.&gt;</span></p>
+<p>In this test, the Evidence Creator will create a Spatial  Registration Object that spatially aligns two series of images.&nbsp; These series have the same Frame of  Reference.&nbsp; This tests transaction  [RAD-56] in the Image Fusion Profile and Storage Commitment [RAD-10].</p>
+<h3>References</h3>
+  <p><em>Rad TF-1: 20.4.2<br />
+    Rad TF-3: 4.56<br />
+    DICOM PS3.3 &ndash; 2004 A.30</em></p>
+  <h3>Instructions</h3>
+  <ol>
+  <li>Load  the test images for 3510 onto your Evidence Creator.&nbsp; There are two series of images for patient  Chestnut^C.</li>
+  <li>Use  your application to register the two datasets (registration could be based on  fiducials or image content).&nbsp; C-STORE the  DICOM Spatial Registration Object to the MESA Image Manager.</li>
+  <li>Request  Storage Commitment.</li>
+  </ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Evaluate  the contents of your Spatial Registration IOD and Storate Commitment N-ACTION as  follows:</li>
+    <pre>perl 3510/eval_3510.pl  &lt;log_level&gt;</pre>
+</ol>
+<p>If you need to send the Spatial Registration object a  second time, you should clear the MESA Image Manager first.&nbsp; This will allow the evaluation software to  examine your latest object.
+ <pre>     perl  scripts/reset_servers.pl</pre>
+ <h3>Supplemental Information</h3>
+ 
+</td>
+</tr></table>
+
+<h2><a name="evdcrt_3512">Evidence Creator Test 3512: Create and Store  Spatial Registration &ndash; different FoR</a></h2>
+<p>In this test, the Evidence Creator will create a Spatial  Registration Object that spatially aligns two series of images received from  the MESA image server.&nbsp; These series have different Frames of  Reference.&nbsp; The image dataset can be copied to the Evidence Creator from the CD/DVD provided with the MESA tools. Alternatively, it can be C-STOREd using the test script (below) for this test </p>
+<p>This tests transaction  [RAD-56] in the Image Fusion Profile and Storage Commitment.</p>
+<p><strong>Note:</strong> The Registration created in this test will be  used again in subsequent tests 3514 and 3516.</p>
+<h3>References&nbsp; </h3>
+  <em>Rad TF-1: 20.4.2<br />
+  Rad TF-3: 4.56<br />
+  DICOM PS3.3 &ndash; 2004 A.30</em></p>
+<p><a href="../rad/fusion/test_cases/html/3512.html">Test description/steps for test 3512.</a></p>
+<h3>Instructions</h3>
+<p>&nbsp;Create/modify the SQL  script to identify the Evidence Creator under test.</p>
+<ol>
+  <li>If you are not using the test script to C-STORE the images to your Evidence Creator, load  the test images for 3512 onto your Evidence Creator.&nbsp; There are two series of images for patient  ZZ^Z.</li>
+  <li>Make sure the MESA servers have been started as described in the <a href="#start_servers">Starting MESA Servers</a> section above. </li>
+  <li>From the <em>$MESA_TARGET/mesa_tests/rad/actors/evdcrt</em> directory, run  the following script:</li>
+  <pre>perl scripts/evdcrt_fusion.pl 3512 &lt;log_level&gt;</pre>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Evaluate  the contents of your Spatial Registration IOD as follows:</li>
+</ol>
+  <pre>     perl 3512/eval_3512.pl &lt;log_level&gt; &lt;Storage Commit AE Title&gt;</pre>
+  <p>If you need to send the Spatial Registration object a  second time, you should clear the MESA Image Manager first.&nbsp; This will allow the evaluation software to  examine your latest object.
+<pre>      perl scripts/reset_servers.pl</pre>
+  <h3>Supplemental Information</h3>
+<table><tr><td bgcolor="#FFFF99">
+<h2><a name="evdcrt_3514">Evidence Creator Test 3514: Create BSPS with  Spatial Registration</a></h2>
+<p>In this test, the Evidence Creator (or Modality) creates a valid DICOM BSPS object which references a Spatial Registration. You may reference the Spatial Registration Object created in test 3512 or create a new one.</p>
+<p>You must store both the BSPS and Spatial Registration objects during this test.  You can C-STORE the two objects in any order.</p>
+<p>Storage Commitment may be sent, but it will not be evaluated in this test.</p>
+<h3>References </h3>
+  
+<p><em>Rad TF-3: 4.57.4.1.2</em>
+  </p>
+
+<p><a href="../rad/fusion/test_cases/html/3514.html">Test description/steps for test 3514.</a></p>
+<h3>Instructions</h3>
+<ol>
+  <li>You should already have the test images and Spatial Registration object from test  3512 on your Evidence Creator. If not, the images can be C-STOREd to your Evidence Creator within the test script. </li>
+  <li>Make sure the MESA servers have been started as described in the <a href="#start_servers">Starting MESA Servers</a> section above. </li>
+  <li>From the <em>$MESA_TARGET/mesa_tests/rad/actors/evdcrt</em> directory, run  the following script:</li>
+  <pre>perl scripts/evdcrt_fusion.pl 3514 &lt;log_level&gt;</pre>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Evaluate  the contents of your BSPS and Spatial Registration object as follows:</li>
+</ol>
+<pre>     perl 3514/eval_3514.pl &lt;log_level&gt; &lt;EC C-STORE AE Title&gt;</pre>
+<p>If you need to send the BSPS and Spatial Registration objects a second time, you  should clear the MESA Image Manager first.&nbsp;  This will allow the evaluation software to examine your latest objects.
+  <pre>  perl  scripts/reset_servers.pl</pre>
+<h3>Supplemental Information</h3>
+<p>This test uses the same source PT/CT images from 3512. You might choose to re-use the SPATIAL object you created for 3512. </p></td>
+</tr></table>
+<h2><a name="evdcrt_3516">Evidence Creator Test 3516: Modify Existing  Spatial Registration</a></h2>
+<p><span class="style3">&lt;This test is not yet implemented in the MESA tools.&gt;</span></p>
+<p>In this test, the Evidence Creator will modify Spatial  Registration from test 3512.&nbsp; The  Evidence Creator will modify the transformation for one or both datasets and  create a new Spatial Registration instance.</p>
+<p><strong>Note:</strong> Test 3512 must be run before this one.</p>
+<h3>References </h3>
+  <em>Rad TF-3: 4.56.4.1.12</em>
+  <h3>Instructions</h3>
+<ol>
+  <li>The  Evidence Creator should locate the Spatial Registration created for test 3512.</li>
+  <li>Use  your application to modify the transformation of the dataset(s)<br />
+    - perform a horizontal flip<br />
+    - rotate 90 degrees right</li>
+  <li>Send  the new DICOM Spatial Registration object to the MESA Image Manager.</li>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Evaluate  the contents of your Spatial Registration IOD as follows:</li>
+</ol>
+<pre>     perl 3516/eval_3516.pl [-v]</pre>
+<p>If you need to send the Spatial Registration object a  second time, you should clear the MESA Image Manager first.&nbsp; This will allow the evaluation software to  examine your latest object.
+<pre>     perl  scripts/reset_servers.pl</pre>
+<h3>Supplemental Information</h3>
+<table><tr><td bgcolor="#FFFF99">
+<h2><a name="evdcrt_3540">Evidence Creator Test 3540: Create and Store  BSPS IOD &ndash; same FoR</a></h2>
+<p>In this test, the Evidence Creator will create a Blended  Softcopy Presentation State (BSPS) object that specifies how to blend for  display the two series of images.&nbsp; These  series have the same Frame of Reference.&nbsp;  This tests transaction [RAD-57] in the Image Fusion Profile and Storage  Commitment [RAD-10]. Spatial Registration is tested in another test. </p>
+<p><strong>Note:</strong>&nbsp; The BSPS created in this test will be used  again in the next test, 3541.&nbsp; </p>
+<h3>References </h3>
+  <em>Rad TF-1: 20.4.3<br />
+  Rad TF-3: 4.57<br />
+  DICOM PS3.3 &ndash; 2004 A.30</em>
+<p><a href="../rad/fusion/test_cases/html/3540.html">Test description/steps for test 3540.</a></p>
+<h3>Instructions</h3>
+<ol>
+  <li>Load  the test images for 3540 onto your Evidence Creator.&nbsp; There are two series of images for patient  Papaya^P. You can also use the test script below to C-STORE these images to your Evidence Creator. </li>
+  <li>Make sure the MESA servers have been started as described in the <a href="#start_servers">Starting MESA Servers</a> section above. </li>
+  <li>From the <em>$MESA_TARGET/mesa_tests/rad/actors/evdcrt</em> directory, run  the following script:</li>
+  <pre>perl scripts/evdcrt_fusion.pl 3540 &lt;log_level&gt;</pre>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Evaluate  the contents of your BSPS IOD as follows:</li>
+</ol>
+<pre>     perl 3540/eval_3540.pl &lt;log_level&gt;  &lt;Storage Commit AE Title&gt;</pre>
+<p>If you need to send the BSPS object a second time, you  should clear the MESA Image Manager first.&nbsp;  This will allow the evaluation software to examine your latest object.
+  <pre>     perl  scripts/reset_servers.pl</pre>
+  <h3>Supplemental Information</h3>
+</td>
+</tr></table>
+
+<h2><a name="evdcrt_3541">Evidence Creator Test 3541: Modify Existing BSPS</a></h2>
+<p>In this test, the Evidence Creator will modify the Blended  Softcopy Presentation State (BSPS) object created in test 3540.&nbsp; Test 3540 must be run before this one.&nbsp; The Evidence Creator will modify the  transparency of the SUPERIMPOSED dataset and create a new BSPS instance and store a new BSPS object, with Storage Commitment, to the MESA Image Manager. </p>
+<h3>References</h3>
+<p><em>Rad TF-3: 4.57.4.1.2</em></p>
+  <p><a href="../rad/fusion/test_cases/html/3516.html">Test description/steps for test 3541.</a></p>
+  <h3>Instructions</h3>
+<ol>
+  <li>The  Evidence Creator should locate the Blended   Softcopy Presentation   State created for test 3540.</li>
+  <li>Make sure the MESA servers have been started as described in the <a href="#start_servers">Starting MESA Servers</a> section above. </li>
+  <li>From the <em>$MESA_TARGET/mesa_tests/rad/actors/evdcrt</em> directory, run  the following script:</li>
+  <pre>perl scripts/evdcrt_fusion.pl 3541 &lt;log_level&gt;</pre>
+</ol>
+<h3>Evaluation</h3>
+<ol>
+  <li>Evaluate  the contents of your BSPS IOD as follows:</li>
+</ol>
+<pre>     perl 3541/eval_3541.pl &lt;log_level&gt;  &lt;Storage Commit AE Title&gt;</pre>
+<p>If you need to send the BSPS object a second time, you  should clear the MESA Image Manager first.&nbsp;  This will allow the evaluation software to examine your latest object.
+<pre>     perl  scripts/reset_servers.pl</pre>
+<h3>Supplemental Information</h3>
+<p>&nbsp;</p>
+<h1><a name="mammo_tests" id="mammo_tests">Mammography Specific Tests</a></h1>
+<table>
+  <tr>
+    <td bgcolor="#33FFFF"><h2><a name="evdcrt_3916" id="evdcrt_3916">Evidence Creator Test 3916: Sample Mammo CAD SR Objects </a>- Vendor Interoperability </h2>
+        <p>In this &ldquo;test&rdquo;, you use the MESA tools to submit a sample DICOM Mammography CAD SR and the associated imagee objects. The purpose is to identify interoperability problems before the Connectathon by distributing these object to Image Display actors for them to render. </p>
+        <ul>
+          <li>You should send at least one example </li>
+          <li>You must also send any 'For Presentation' images that are referenced by the Mammography CAD SR instance. </li>
+          <li>Finallly, you must send any 'For Processing' SOP instances referenced in the Source Image Sequence of the 'For Presentation' images. </li>
+          <li>Note that your DICOM objects MUST NOT  contain real patient demographics.&nbsp; </li>
+          <li>Note that your SR(s) will be distributed to other vendors. </li>
+        </ul>
+      <p>If possible, encode as many attributes identified in RAD TF-2:4.16.4.2.2.1.1.8 to enable Image Displays to be thoroughly exercised.</p>
+        <h3>References</h3>
+        <h3>Instructions</h3>
+        <ul>
+          <ol>
+            <li>Start  the MESA  servers as described in <a href="#start_servers">Starting MESA Servers</a>.</li>
+            <li>Clear  the MESA Image Manager.
+              <pre>perl  scripts/clear_img_mgr.pl</pre>
+            </li>
+            <li>C-STORE  DICOM objects to the MESA Image Manager.</li>
+            <li>Locate  the DICOM objects stored by the MESA Image Manager.&nbsp; These are in <em>$MESA_STORAGE/imgmgr/instances</em>.&nbsp; Tar or zip these files</li>
+            <li>If the file is small enough, you may upload it into the Connectathon webtool as results for this test. If the file is too large, send an email to the Project Manager stating that you are ready to submit results. <strong>Do not</strong> email the zipped objects. You will receive a response containing instructions for submitting your objects to an ftp site or sending in a CD. </li>
+            <li>You may submit more than one set. </li>
+          </ol>
+        </ul>
+        <h3>Evaluation        </h3>
+        <p>The evaluation of this test comes in the form of feedback from vendors who try to display the contents of your objects. If they find issues in displaying the studies, you will be asked to work with those vendors (and the Project Manager) to resolve those issues</p>
+        <h3>Supplemental Information </h3>
+        <p>&nbsp;</p>    </td>
+  </tr>
+  <tr>
+    <td bgcolor="#33FFFF">&nbsp;</td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+</body>
+</html>

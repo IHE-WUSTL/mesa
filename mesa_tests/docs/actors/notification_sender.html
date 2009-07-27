@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Untitled Document</title></head>
+
+<body>
+<p align="center"><strong>&nbsp;</strong></p>
+<p align="center"><strong>Integrating the Healthcare Enterprise</strong></p>
+<p align="center"><strong>&nbsp;</strong></p>
+<p align="center"><strong>&nbsp;</strong><strong>IHE/MESA Notification Sender Tests</strong></p>
+<p>&nbsp;</p>
+<p align="center">Electronic Radiology  Laboratory<br />
+  Mallinckrodt Institute of  Radiology<br />
+  510 South    Kingshighway Blvd. <br />
+  St. Louis, MO&nbsp; 63110 <br />
+  314.362.6965 (Voice)<br />
+  314.362.6971 (Fax)</p>
+<p align="center">&nbsp;</p>
+<p align="center">Revision 9.5.0<br />
+  11-November-2005 </p>
+<strong>Contents:</strong><br clear="all" />
+
+  <p><a href="#notif_sender">Notification Sender</a> <br />
+      <a href="#intro"> Introduction</a> <br />
+      <a href="#patient_id">Patient Identification</a> <br />
+      <a href="#config">Configuration</a> <br />
+      <a href="#start_servers"> Starting the MESA Servers</a> <br />
+      <a href="#inst_test"> Installation Test</a> <br />
+      <a href="#test_software"> Test Software Environment</a> <br />
+      <a href="#sub_results">Submission of Results</a> <br />
+<a href="#test_cases_nav">Test  Cases NAV</a> </p>
+  <ol>
+    <li><a href="#test_12901"> Test 12901: NAV Email Subject</a> <br />
+      </li>
+    <li><a href="#test_12902">Test 12902: NAV Email Body</a> <br />
+      </li>
+    <li><a href="#test_12903">Test 12903: NAV XML Syntax</a> <br />
+      </li>
+    <li><a href="#test_12904">Test 12904: NAV XML Content</a> <br />
+      </li>
+    <li><a href="#test_12910">Test 12910: NAV Email Example</a> </li>
+  </ol>
+
+<h1><a name="#notif_sender" id="#notif_sender">Notification Sender</a> </h1>
+<h2><a name="#intro" id="#intro">Introduction</a> </h2>
+<p>The MESA tests include a  number of cases each of which rely on a sequence of messages between actors.  These tests range across different integration profiles:</p>
+<ul>
+  <li>Notification  of Document Availability (NAV)</li>
+</ul>
+<p>This  document lists the transactions and messages for a number of cases. It may not  describe the clinical scenario behind each case, but listing the transactions  should clearly define what is expected of each actor.&nbsp; These are all of the transactions involving  all of the actors.&nbsp; When you test with  your particular actor, you may see only a subset of these messages.</p>
+<h2><a name="#patient_id" id="#patient_id"></a>Patient Identification</h2>
+<h2><a name="#config" id="#config">Configuration</a></h2>
+<h2><a name="#start_servers" id="#start_servers">Starting the </a>MESA Servers</h2>
+<p>There are no MESA servers to start for  this test.</p>
+<h2><a name="#inst_test" id="#inst_test">Installation Test</a></h2>
+
+<h2><a name="#test_software" id="#test_software">Test Software Environment</a></h2>
+<h2><a name="#sub_results" id="#sub_results"></a>Submission  of Results</h2>
+<p>Test descriptions  below inform the reader to &ldquo;submit results to the Project Manager&rdquo;. This is  does not mean &ldquo;email&rdquo;. The current submission process should be documented by  the Project Manager, but will not include emailing files directly to the  Project Manager.</p>
+
+<h1><a name="#test_cases_nav" id="#test_cases_nav">Test Cases </a>NAV</h1>
+<p>This section  describes test cases that are generally associated with the NAV Integration  Profile. There may be some overlap with other profiles.</p>
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_12901" id="#test_12901">Test 12901: </a>NAV Email Subject</h2>
+<p>The purpose of  this test is to examine the Subject line of an Email notification produced by  the Notification Sender. The Project Manager will inspect the header line and  compare with the requirements of the NAV profile.</p>
+<h3>Reference</h3>
+<h3>Instructions</h3>
+<ol>
+  <li>Create an XDS submission using XDS tests.</li>
+  <li>Create a NAV notification and email that notification  to a local account.</li>
+  <li>Copy the subject line and place that subject line in a  file called SYSTEM_12901.txt where SYSYTEM identifies the system under test.</li>
+  <li>Submit the file to the Project Manager for visual  inspection. There is no automated analysis.</li>
+  </ol>
+<h3>Evaluation</h3>
+<h3>Supplemental Information </h3></td>
+</tr></table>
+<h2><a name="#test_12902" id="#test_12902"></a>Test  12902: NAV Email Body</h2>
+<p>The purpose of this test is to examine the body of an  Email notification produced by the Notification Sender. The Project Manager will  inspect the body and compare with the requirements of the NAV profile.</p>
+<h3>Reference</h3>
+<h3>Instructions</h3>
+<ol>
+  <li>Create  an XDS submission using XDS tests. You can reuse the data from 12901.</li>
+  <li>Create  a NAV notification and email that notification to a local account.</li>
+  <li>Copy  the body and place that text in a file called SYSTEM_12902.txt where SYSYTEM  identifies the system under test.</li>
+  <li>Submit  the file to the Project Manager for visual inspection. There is no automated  analysis.</li>
+</ol>
+<h3>Evaluation</h3>
+<h3>Supplemental Information </h3>
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_12903" id="#test_12903">Test 12903: </a>NAV XML Syntax</h2>
+<p>In test 12903, the Notification Sender extracts the XML  document manifest and tests the XML for proper syntax and conformance to the  required schema.</p>
+<h3>Reference</h3>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps using a DOS window or  terminal emulator:</p>
+<ol>
+  <li>Create  an XDS submission using XDS tests. You can reuse the data from 12901.</li>
+  <li>Create  a NAV notification and email that notification to a local account.</li>
+  <li>Save  the attachment as a local file and place that file on the MESA test system.</li>
+  <li>Set  the current directory to <em>$MESA_TARGET/mesa_tests/iti/actors/notification_sender. </em>Run the evaluation script below.</li>
+</ol>
+<h3>Evaluation</h3>
+<blockquote>
+  <p>1.&nbsp; Run  the evaluation script: </p>
+</blockquote>
+<pre>        perl  12903/eval_12903.pl &lt;log level&gt; &lt;schema&gt; &lt;xml file&gt;</pre>
+  <blockquote>
+    <p>2.&nbsp;&nbsp; The  evaluation output is found in 12903/grade_12903.txt. The final result should  indicate 0 errors. Submit the result run at log level 4 to the Project Manager.
+        </p>
+   
+    </blockquote>
+  <h3>Supplemental Information </h3></td>
+</tr></table>
+<h2><a name="#test_12904" id="#test_12904">Test 12904: NAV XML Content</a></h2>
+<p>This test is not implemented in this version of the MESA tools.<br />
+  In test 12904, the Notification Sender extracts the XML  document manifest and tests the XML for proper data in the manifest.</p>
+<h3>Reference</h3>
+<h3>Instructions</h3>
+<p>To run this test, follow these steps using a DOS window or  terminal emulator:</p>
+<ol>
+  <li>Create  an XDS submission using XDS tests. You can reuse the data from 12901.</li>
+  <li>Create  a NAV notification and email that notification to a local account.</li>
+  <li>Save  the attachment as a local file and place that file on the MESA test system.</li>
+  <li>Set  the current directory to <em>$MESA_TARGET/mesa_tests/iti/actors/notification_sender. </em>Run the evaluation script below.</li>
+</ol>
+<h3>Evaluation</h3>
+<blockquote>
+  <p>1.&nbsp;&nbsp; Run  the evaluation script:
+    <pre>   perl  12904/eval_12904.pl &lt;log level&gt; &lt;xml file&gt;</pre>
+    2.&nbsp;&nbsp; The  evaluation output is found in 12904/grade_12904.txt. The final result should  indicate 0 errors. Submit the result run at log level 4 to the Project Manager.</p>
+</blockquote>
+<table><tr><td bgcolor="#33FFFF">
+<h2><a name="#test_12910" id="#test_12910">Test 12910: NAV Email Example</a></h2>
+<p>In test 12910, the Notification Sender creates a  submission and emails a notification to the Project Manager. This is to test  the link and see if the documents are properly passed through email.</p>
+<h3>Reference</h3>
+<h3>Instructions</h3>
+<ol>
+  <li>Create  an XDS submission using XDS tests. You can reuse the data from 12901.</li>
+  <li>Create  a NAV notification and email that notification to the Project Manager.</li>
+  <li>Send  a second email to the Project Manager indicating he/she should evaluate the  first email.</li>
+  <li>Go  home; Project Managers read email on an irregular basis.</li>
+  </ol>
+<h3>Evaluation</h3>
+<h3>Supplemental Information </h3></td>
+</tr></table>
+</body>
+</html>
