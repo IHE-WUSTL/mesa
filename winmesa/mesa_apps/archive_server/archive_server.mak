@@ -55,7 +55,7 @@ CLEAN :
     if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
 
 CPP=cl.exe
-CPP_PROJ=/nologo /MD /W3 /GX /O2 /I "..\..\..\external\ctn\include" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"$(INTDIR)\archive_server.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
+CPP_PROJ=/nologo /MD /W3 /GX /O2 /I "..\..\..\..\ctn\include" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"$(INTDIR)\archive_server.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
 
 .c{$(INTDIR)}.obj::
    $(CPP) @<<
@@ -145,7 +145,7 @@ CLEAN :
     if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
 
 CPP=cl.exe
-CPP_PROJ=/nologo /MDd /W3 /Gm /GX /ZI /Od /I "..\..\..\external\ctn\include" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"$(INTDIR)\archive_server.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /GZ /c 
+CPP_PROJ=/nologo /MDd /W3 /Gm /GX /ZI /Od /I "..\..\..\..\ctn\include" /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"$(INTDIR)\archive_server.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /GZ /c 
 
 .c{$(INTDIR)}.obj::
    $(CPP) @<<
@@ -215,67 +215,67 @@ LINK32_OBJS= \
 
 
 !IF "$(CFG)" == "archive_server - Win32 Release" || "$(CFG)" == "archive_server - Win32 Debug"
-SOURCE=..\..\..\external\ctn\apps\image_archive\archive_server.c
+SOURCE=..\..\..\..\ctn\apps\image_archive\archive_server.c
 
 "$(INTDIR)\archive_server.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\..\external\ctn\apps\image_archive\association.c
+SOURCE=..\..\..\..\ctn\apps\image_archive\association.c
 
 "$(INTDIR)\association.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\..\external\ctn\apps\image_archive\cget.c
+SOURCE=..\..\..\..\ctn\apps\image_archive\cget.c
 
 "$(INTDIR)\cget.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\..\external\ctn\apps\image_archive\copy.c
+SOURCE=..\..\..\..\ctn\apps\image_archive\copy.c
 
 "$(INTDIR)\copy.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\..\external\ctn\apps\image_archive\find.c
+SOURCE=..\..\..\..\ctn\apps\image_archive\find.c
 
 "$(INTDIR)\find.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\..\external\ctn\apps\image_archive\move.c
+SOURCE=..\..\..\..\ctn\apps\image_archive\move.c
 
 "$(INTDIR)\move.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\..\external\ctn\apps\image_archive\naction.c
+SOURCE=..\..\..\..\ctn\apps\image_archive\naction.c
 
 "$(INTDIR)\naction.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\..\external\ctn\apps\image_archive\parse.c
+SOURCE=..\..\..\..\ctn\apps\image_archive\parse.c
 
 "$(INTDIR)\parse.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\..\external\ctn\apps\image_archive\queue.c
+SOURCE=..\..\..\..\ctn\apps\image_archive\queue.c
 
 "$(INTDIR)\queue.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\..\external\ctn\apps\image_archive\requests.c
+SOURCE=..\..\..\..\ctn\apps\image_archive\requests.c
 
 "$(INTDIR)\requests.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\..\external\ctn\apps\image_archive\sscond.c
+SOURCE=..\..\..\..\ctn\apps\image_archive\sscond.c
 
 "$(INTDIR)\sscond.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)

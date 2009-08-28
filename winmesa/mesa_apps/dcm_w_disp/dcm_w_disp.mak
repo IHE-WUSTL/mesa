@@ -48,7 +48,7 @@ CLEAN :
     if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
 
 CPP=cl.exe
-CPP_PROJ=/nologo /MD /W3 /GX /O2 /I "..\..\..\external\ctn\include" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /Fp"$(INTDIR)\dcm_w_disp.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
+CPP_PROJ=/nologo /MD /W3 /GX /O2 /I "..\..\..\..\ctn\include" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /Fp"$(INTDIR)\dcm_w_disp.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
 
 .c{$(INTDIR)}.obj::
    $(CPP) @<<
@@ -127,7 +127,7 @@ CLEAN :
     if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
 
 CPP=cl.exe
-CPP_PROJ=/nologo /MDd /W3 /Gm /GX /ZI /Od /I "..\..\..\external\ctn\include" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /Fp"$(INTDIR)\dcm_w_disp.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /GZ /c 
+CPP_PROJ=/nologo /MDd /W3 /Gm /GX /ZI /Od /I "..\..\..\..\ctn\include" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /Fp"$(INTDIR)\dcm_w_disp.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /GZ /c 
 
 .c{$(INTDIR)}.obj::
    $(CPP) @<<
@@ -193,37 +193,37 @@ LINK32_OBJS= \
 
 
 !IF "$(CFG)" == "dcm_w_disp - Win32 Release" || "$(CFG)" == "dcm_w_disp - Win32 Debug"
-SOURCE=..\..\..\external\ctn\apps\dcm_w_disp\dcm_w_disp.c
+SOURCE=..\..\..\..\ctn\apps\dcm_w_disp\dcm_w_disp.c
 
 "$(INTDIR)\dcm_w_disp.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\..\external\ctn\apps\dcm_w_disp\dcm_w_disp.rc
+SOURCE=..\..\..\..\ctn\apps\dcm_w_disp\dcm_w_disp.rc
 
 !IF  "$(CFG)" == "dcm_w_disp - Win32 Release"
 
 
 "$(INTDIR)\dcm_w_disp.res" : $(SOURCE) "$(INTDIR)"
-	$(RSC) /l 0x409 /fo"$(INTDIR)\dcm_w_disp.res" /i "\projects\mesa-cvs\external\ctn\apps\dcm_w_disp" /d "NDEBUG" $(SOURCE)
+	$(RSC) /l 0x409 /fo"$(INTDIR)\dcm_w_disp.res" /i "\projects\mesa-cvs\..\ctn\apps\dcm_w_disp" /d "NDEBUG" $(SOURCE)
 
 
 !ELSEIF  "$(CFG)" == "dcm_w_disp - Win32 Debug"
 
 
 "$(INTDIR)\dcm_w_disp.res" : $(SOURCE) "$(INTDIR)"
-	$(RSC) /l 0x409 /fo"$(INTDIR)\dcm_w_disp.res" /i "\projects\mesa-cvs\external\ctn\apps\dcm_w_disp" /d "_DEBUG" $(SOURCE)
+	$(RSC) /l 0x409 /fo"$(INTDIR)\dcm_w_disp.res" /i "\projects\mesa-cvs\..\ctn\apps\dcm_w_disp" /d "_DEBUG" $(SOURCE)
 
 
 !ENDIF 
 
-SOURCE=..\..\..\external\ctn\apps\dcm_w_disp\image_utils.c
+SOURCE=..\..\..\..\ctn\apps\dcm_w_disp\image_utils.c
 
 "$(INTDIR)\image_utils.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\..\external\ctn\apps\dcm_w_disp\windows_disp.c
+SOURCE=..\..\..\..\ctn\apps\dcm_w_disp\windows_disp.c
 
 "$(INTDIR)\windows_disp.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
