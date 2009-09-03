@@ -1,15 +1,26 @@
-install:	install-english
+install: install-baseline
+	cd dbscripts/pgsql;	make install
+
+install-full: install
+	cd mesa_tests;	make install
+	cd webmesa/mesa-iti; make install
+	cd html;	make install
+	cd templates;	make install
+
+install-ris-mall:
+	cd webmesa/ris_mall; make install
+	cd dbscripts/ris_mall;	make install
 
 install-baseline:
-	external/ctn/apps/scripts/createdirectory include
-	external/ctn/apps/scripts/createdirectory lib
-	external/ctn/apps/scripts/createdirectory $(MESA_TARGET)
-	external/ctn/apps/scripts/createdirectory $(MESA_TARGET)/lib
-	external/ctn/apps/scripts/createdirectory $(MESA_TARGET)/bin
-	external/ctn/apps/scripts/createdirectory $(MESA_TARGET)/data
-	external/ctn/apps/scripts/createdirectory $(MESA_TARGET)/db
-	external/ctn/apps/scripts/createdirectory $(MESA_TARGET)/db-rismall
-	external/ctn/apps/scripts/createdirectory $(MESA_TARGET)/pids
+	../ctn/apps/scripts/createdirectory include
+	../ctn/apps/scripts/createdirectory lib
+	../ctn/apps/scripts/createdirectory $(MESA_TARGET)
+	../ctn/apps/scripts/createdirectory $(MESA_TARGET)/lib
+	../ctn/apps/scripts/createdirectory $(MESA_TARGET)/bin
+	../ctn/apps/scripts/createdirectory $(MESA_TARGET)/data
+	../ctn/apps/scripts/createdirectory $(MESA_TARGET)/db
+	../ctn/apps/scripts/createdirectory $(MESA_TARGET)/db-rismall
+	../ctn/apps/scripts/createdirectory $(MESA_TARGET)/pids
 	cd runtime;	make install
 	cd external;	make install
 	cd libsrc;	make install
@@ -20,13 +31,6 @@ install-baseline:
 	cd javamesa;	make install
 	cd javaexternal;	make install
 	cd java_apps;	make install
-#	cd mesa_tests;	make install
-#	cd webmesa/ris_mall; make install
-	cd webmesa/mesa-iti; make install
-	cd html;	make install
-	cd dbscripts/pgsql;	make install
-	cd dbscripts/ris_mall;	make install
-	cd templates;	make install
 	@echo "MESA Build Complete"
 
 ctnlib:
@@ -37,9 +41,7 @@ install-english: install-baseline
 
 install-japanese: install-baseline
 	cd dbscripts/pgsql-j;	make install
-
-install-webmesa:
-	cd webmesa/ris_mall; make install
+	cd dbscripts/ris_mall;	make install
 
 install_brief:
 	external/ctn/apps/scripts/createdirectory $(MESA_TARGET)
