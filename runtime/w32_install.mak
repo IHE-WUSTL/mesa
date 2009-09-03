@@ -18,15 +18,15 @@ install:
 	copy IHE-syslog-audit-message-4.xsd $(MESA_TARGET)\runtime
 	copy IHE-ATNA-syslog-audit-message.xsd $(MESA_TARGET)\runtime
 	copy MESA-ATNA.xsl $(MESA_TARGET)\runtime
-	xcopy/E codes $(MESA_TARGET)\runtime\codes
-	xcopy/E expmgr $(MESA_TARGET)\runtime\expmgr
-	xcopy/E exprcr $(MESA_TARGET)\runtime\exprcr
-	xcopy/E imgmgr $(MESA_TARGET)\runtime\imgmgr
-	xcopy/E mesa_storage $(MESA_TARGET)\runtime\mesa_storage
-	xcopy/E rpt_manager $(MESA_TARGET)\runtime\rpt_manager
-	xcopy/E rpt_repos $(MESA_TARGET)\runtime\rpt_repos
-	xcopy/E wkstation $(MESA_TARGET)\runtime\wkstation
-	xcopy/E certificates $(MESA_TARGET)\runtime\certificates
+	xcopy/E/Y codes $(MESA_TARGET)\runtime\codes
+	xcopy/E/Y expmgr $(MESA_TARGET)\runtime\expmgr
+	xcopy/E/Y exprcr $(MESA_TARGET)\runtime\exprcr
+	xcopy/E/Y imgmgr $(MESA_TARGET)\runtime\imgmgr
+	xcopy/E/Y mesa_storage $(MESA_TARGET)\runtime\mesa_storage
+	xcopy/E/Y rpt_manager $(MESA_TARGET)\runtime\rpt_manager
+	xcopy/E/Y rpt_repos $(MESA_TARGET)\runtime\rpt_repos
+	xcopy/E/Y wkstation $(MESA_TARGET)\runtime\wkstation
+	xcopy/E/Y certificates $(MESA_TARGET)\runtime\certificates
 
 clean:
 
