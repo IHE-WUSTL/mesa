@@ -1072,6 +1072,10 @@ external/hl7/Makefile -text
 external/hl7/hl7_api.c -text
 external/hl7/hl7_api.h -text
 external/hl7/hl7demo.c -text
+html/Makefile -text
+html/ecg/ecg_203xx.html -text
+html/rid/rid_101xx.html -text
+html/w32_install.mak -text
 /install_unix.csh -text
 /install_w32.bat -text
 java_apps/KeyImageNote/JAboutDialog$SymAction.class -text
