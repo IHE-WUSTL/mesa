@@ -928,6 +928,7 @@ dbscripts/sql_server_2005/generate_create_scripts.pl -text
 dbscripts/sql_server_2005/load_apps.pl -text
 dbscripts/sql_server_2005/load_iti.pl -text
 dbscripts/sql_server_2005/w32_install.mak -text
+dbscripts/sql_server_2008/w32_install.mak -text
 dbscripts/sql_server_base/clearactionitem.sql -text
 dbscripts/sql_server_base/clearfillerorder.sql -text
 dbscripts/sql_server_base/clearidentifiers.sql -text
