@@ -2,23 +2,23 @@
 
 ..\..\..\apps\pp_dcmps\MLGPPPS.cpp : \
 	"..\..\..\apps\pp_dcmps\MLGPPPS.hpp"\
-	"..\..\..\external\ctn\include\condition.h"\
-	"..\..\..\external\ctn\include\ctn_os.h"\
-	"..\..\..\external\ctn\include\ctnthread.h"\
-	"..\..\..\external\ctn\include\dicom.h"\
-	"..\..\..\external\ctn\include\dicom_ddr.h"\
-	"..\..\..\external\ctn\include\dicom_messages.h"\
-	"..\..\..\external\ctn\include\dicom_objects.h"\
-	"..\..\..\external\ctn\include\dicom_platform.h"\
-	"..\..\..\external\ctn\include\dicom_services.h"\
-	"..\..\..\external\ctn\include\dicom_sq.h"\
-	"..\..\..\external\ctn\include\dicom_uids.h"\
-	"..\..\..\external\ctn\include\dulprotocol.h"\
-	"..\..\..\external\ctn\include\idb.h"\
-	"..\..\..\external\ctn\include\lst.h"\
-	"..\..\..\external\ctn\include\manage.h"\
-	"..\..\..\external\ctn\include\tbl.h"\
-	"..\..\..\external\ctn\include\utility.h"\
+	"..\..\..\..\ctn\include\condition.h"\
+	"..\..\..\..\ctn\include\ctn_os.h"\
+	"..\..\..\..\ctn\include\ctnthread.h"\
+	"..\..\..\..\ctn\include\dicom.h"\
+	"..\..\..\..\ctn\include\dicom_ddr.h"\
+	"..\..\..\..\ctn\include\dicom_messages.h"\
+	"..\..\..\..\ctn\include\dicom_objects.h"\
+	"..\..\..\..\ctn\include\dicom_platform.h"\
+	"..\..\..\..\ctn\include\dicom_services.h"\
+	"..\..\..\..\ctn\include\dicom_sq.h"\
+	"..\..\..\..\ctn\include\dicom_uids.h"\
+	"..\..\..\..\ctn\include\dulprotocol.h"\
+	"..\..\..\..\ctn\include\idb.h"\
+	"..\..\..\..\ctn\include\lst.h"\
+	"..\..\..\..\ctn\include\manage.h"\
+	"..\..\..\..\ctn\include\tbl.h"\
+	"..\..\..\..\ctn\include\utility.h"\
 	"..\..\..\include\ctn_api.h"\
 	"..\..\..\include\MActHumanPerformers.hpp"\
 	"..\..\..\include\MActionItem.hpp"\
@@ -55,23 +55,23 @@
 
 ..\..\..\apps\pp_dcmps\MLGPSPS.cpp : \
 	"..\..\..\apps\pp_dcmps\MLGPSPS.hpp"\
-	"..\..\..\external\ctn\include\condition.h"\
-	"..\..\..\external\ctn\include\ctn_os.h"\
-	"..\..\..\external\ctn\include\ctnthread.h"\
-	"..\..\..\external\ctn\include\dicom.h"\
-	"..\..\..\external\ctn\include\dicom_ddr.h"\
-	"..\..\..\external\ctn\include\dicom_messages.h"\
-	"..\..\..\external\ctn\include\dicom_objects.h"\
-	"..\..\..\external\ctn\include\dicom_platform.h"\
-	"..\..\..\external\ctn\include\dicom_services.h"\
-	"..\..\..\external\ctn\include\dicom_sq.h"\
-	"..\..\..\external\ctn\include\dicom_uids.h"\
-	"..\..\..\external\ctn\include\dulprotocol.h"\
-	"..\..\..\external\ctn\include\idb.h"\
-	"..\..\..\external\ctn\include\lst.h"\
-	"..\..\..\external\ctn\include\manage.h"\
-	"..\..\..\external\ctn\include\tbl.h"\
-	"..\..\..\external\ctn\include\utility.h"\
+	"..\..\..\..\ctn\include\condition.h"\
+	"..\..\..\..\ctn\include\ctn_os.h"\
+	"..\..\..\..\ctn\include\ctnthread.h"\
+	"..\..\..\..\ctn\include\dicom.h"\
+	"..\..\..\..\ctn\include\dicom_ddr.h"\
+	"..\..\..\..\ctn\include\dicom_messages.h"\
+	"..\..\..\..\ctn\include\dicom_objects.h"\
+	"..\..\..\..\ctn\include\dicom_platform.h"\
+	"..\..\..\..\ctn\include\dicom_services.h"\
+	"..\..\..\..\ctn\include\dicom_sq.h"\
+	"..\..\..\..\ctn\include\dicom_uids.h"\
+	"..\..\..\..\ctn\include\dulprotocol.h"\
+	"..\..\..\..\ctn\include\idb.h"\
+	"..\..\..\..\ctn\include\lst.h"\
+	"..\..\..\..\ctn\include\manage.h"\
+	"..\..\..\..\ctn\include\tbl.h"\
+	"..\..\..\..\ctn\include\utility.h"\
 	"..\..\..\include\ctn_api.h"\
 	"..\..\..\include\MActHumanPerformers.hpp"\
 	"..\..\..\include\MActionItem.hpp"\
@@ -108,23 +108,23 @@
 
 ..\..\..\apps\pp_dcmps\MLQuery.cpp : \
 	"..\..\..\apps\pp_dcmps\MLQuery.hpp"\
-	"..\..\..\external\ctn\include\condition.h"\
-	"..\..\..\external\ctn\include\ctn_os.h"\
-	"..\..\..\external\ctn\include\ctnthread.h"\
-	"..\..\..\external\ctn\include\dicom.h"\
-	"..\..\..\external\ctn\include\dicom_ddr.h"\
-	"..\..\..\external\ctn\include\dicom_messages.h"\
-	"..\..\..\external\ctn\include\dicom_objects.h"\
-	"..\..\..\external\ctn\include\dicom_platform.h"\
-	"..\..\..\external\ctn\include\dicom_services.h"\
-	"..\..\..\external\ctn\include\dicom_sq.h"\
-	"..\..\..\external\ctn\include\dicom_uids.h"\
-	"..\..\..\external\ctn\include\dulprotocol.h"\
-	"..\..\..\external\ctn\include\idb.h"\
-	"..\..\..\external\ctn\include\lst.h"\
-	"..\..\..\external\ctn\include\manage.h"\
-	"..\..\..\external\ctn\include\tbl.h"\
-	"..\..\..\external\ctn\include\utility.h"\
+	"..\..\..\..\ctn\include\condition.h"\
+	"..\..\..\..\ctn\include\ctn_os.h"\
+	"..\..\..\..\ctn\include\ctnthread.h"\
+	"..\..\..\..\ctn\include\dicom.h"\
+	"..\..\..\..\ctn\include\dicom_ddr.h"\
+	"..\..\..\..\ctn\include\dicom_messages.h"\
+	"..\..\..\..\ctn\include\dicom_objects.h"\
+	"..\..\..\..\ctn\include\dicom_platform.h"\
+	"..\..\..\..\ctn\include\dicom_services.h"\
+	"..\..\..\..\ctn\include\dicom_sq.h"\
+	"..\..\..\..\ctn\include\dicom_uids.h"\
+	"..\..\..\..\ctn\include\dulprotocol.h"\
+	"..\..\..\..\ctn\include\idb.h"\
+	"..\..\..\..\ctn\include\lst.h"\
+	"..\..\..\..\ctn\include\manage.h"\
+	"..\..\..\..\ctn\include\tbl.h"\
+	"..\..\..\..\ctn\include\utility.h"\
 	"..\..\..\include\ctn_api.h"\
 	"..\..\..\include\MActHumanPerformers.hpp"\
 	"..\..\..\include\MActionItem.hpp"\
@@ -165,23 +165,23 @@
 	"..\..\..\apps\pp_dcmps\MLGPSPS.hpp"\
 	"..\..\..\apps\pp_dcmps\MLQuery.hpp"\
 	"..\..\..\apps\pp_dcmps\pp_dcmps.h"\
-	"..\..\..\external\ctn\include\condition.h"\
-	"..\..\..\external\ctn\include\ctn_os.h"\
-	"..\..\..\external\ctn\include\ctnthread.h"\
-	"..\..\..\external\ctn\include\dicom.h"\
-	"..\..\..\external\ctn\include\dicom_ddr.h"\
-	"..\..\..\external\ctn\include\dicom_messages.h"\
-	"..\..\..\external\ctn\include\dicom_objects.h"\
-	"..\..\..\external\ctn\include\dicom_platform.h"\
-	"..\..\..\external\ctn\include\dicom_services.h"\
-	"..\..\..\external\ctn\include\dicom_sq.h"\
-	"..\..\..\external\ctn\include\dicom_uids.h"\
-	"..\..\..\external\ctn\include\dulprotocol.h"\
-	"..\..\..\external\ctn\include\idb.h"\
-	"..\..\..\external\ctn\include\lst.h"\
-	"..\..\..\external\ctn\include\manage.h"\
-	"..\..\..\external\ctn\include\tbl.h"\
-	"..\..\..\external\ctn\include\utility.h"\
+	"..\..\..\..\ctn\include\condition.h"\
+	"..\..\..\..\ctn\include\ctn_os.h"\
+	"..\..\..\..\ctn\include\ctnthread.h"\
+	"..\..\..\..\ctn\include\dicom.h"\
+	"..\..\..\..\ctn\include\dicom_ddr.h"\
+	"..\..\..\..\ctn\include\dicom_messages.h"\
+	"..\..\..\..\ctn\include\dicom_objects.h"\
+	"..\..\..\..\ctn\include\dicom_platform.h"\
+	"..\..\..\..\ctn\include\dicom_services.h"\
+	"..\..\..\..\ctn\include\dicom_sq.h"\
+	"..\..\..\..\ctn\include\dicom_uids.h"\
+	"..\..\..\..\ctn\include\dulprotocol.h"\
+	"..\..\..\..\ctn\include\idb.h"\
+	"..\..\..\..\ctn\include\lst.h"\
+	"..\..\..\..\ctn\include\manage.h"\
+	"..\..\..\..\ctn\include\tbl.h"\
+	"..\..\..\..\ctn\include\utility.h"\
 	"..\..\..\include\ctn_api.h"\
 	"..\..\..\include\MActHumanPerformers.hpp"\
 	"..\..\..\include\MActionItem.hpp"\
@@ -221,23 +221,23 @@
 
 ..\..\..\apps\pp_dcmps\sscond.cpp : \
 	"..\..\..\apps\pp_dcmps\pp_dcmps.h"\
-	"..\..\..\external\ctn\include\condition.h"\
-	"..\..\..\external\ctn\include\ctn_os.h"\
-	"..\..\..\external\ctn\include\ctnthread.h"\
-	"..\..\..\external\ctn\include\dicom.h"\
-	"..\..\..\external\ctn\include\dicom_ddr.h"\
-	"..\..\..\external\ctn\include\dicom_messages.h"\
-	"..\..\..\external\ctn\include\dicom_objects.h"\
-	"..\..\..\external\ctn\include\dicom_platform.h"\
-	"..\..\..\external\ctn\include\dicom_services.h"\
-	"..\..\..\external\ctn\include\dicom_sq.h"\
-	"..\..\..\external\ctn\include\dicom_uids.h"\
-	"..\..\..\external\ctn\include\dulprotocol.h"\
-	"..\..\..\external\ctn\include\idb.h"\
-	"..\..\..\external\ctn\include\lst.h"\
-	"..\..\..\external\ctn\include\manage.h"\
-	"..\..\..\external\ctn\include\tbl.h"\
-	"..\..\..\external\ctn\include\utility.h"\
+	"..\..\..\..\ctn\include\condition.h"\
+	"..\..\..\..\ctn\include\ctn_os.h"\
+	"..\..\..\..\ctn\include\ctnthread.h"\
+	"..\..\..\..\ctn\include\dicom.h"\
+	"..\..\..\..\ctn\include\dicom_ddr.h"\
+	"..\..\..\..\ctn\include\dicom_messages.h"\
+	"..\..\..\..\ctn\include\dicom_objects.h"\
+	"..\..\..\..\ctn\include\dicom_platform.h"\
+	"..\..\..\..\ctn\include\dicom_services.h"\
+	"..\..\..\..\ctn\include\dicom_sq.h"\
+	"..\..\..\..\ctn\include\dicom_uids.h"\
+	"..\..\..\..\ctn\include\dulprotocol.h"\
+	"..\..\..\..\ctn\include\idb.h"\
+	"..\..\..\..\ctn\include\lst.h"\
+	"..\..\..\..\ctn\include\manage.h"\
+	"..\..\..\..\ctn\include\tbl.h"\
+	"..\..\..\..\ctn\include\utility.h"\
 	"..\..\..\include\ctn_api.h"\
 	"..\..\..\include\MESA.hpp"\
 	"..\..\..\include\MString.hpp"\
