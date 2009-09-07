@@ -33,3 +33,6 @@ insert into identifiers (idnam, prefix, nextval) values
  ('uid_pps', '1.113654.5.22.', 1000)
 go
 
+
+quit
+

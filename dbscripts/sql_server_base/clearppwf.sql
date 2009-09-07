@@ -16,3 +16,6 @@ delete from stationlocation;
 delete from stationname;
 delete from refGPSPS;
 go
+
+quit
+

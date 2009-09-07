@@ -296,3 +296,6 @@ insert into actionitem(spsindex, codval, codmea, codschdes) values
  ('5015', '15', 'Macula - OU', '99AAODemo')
 go
 
+
+quit
+

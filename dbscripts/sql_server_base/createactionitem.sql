@@ -5,3 +5,6 @@
 		codval		char(16)
 	)
 	go
+
+quit
+

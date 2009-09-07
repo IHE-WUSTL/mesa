@@ -16,3 +16,6 @@ insert into dicomapp (aet, host, port, org, com) values
 insert into dicomapp (aet, host, port, org, com) values 
  ('WORKSTATION2', 'workstation2', 3002, 'ERL', 'Workstation Simulator')
 go
+
+quit
+

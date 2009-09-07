@@ -16,3 +16,6 @@
 	create index visnum_index
 	on visit(visnum)
 	go
+
+quit
+

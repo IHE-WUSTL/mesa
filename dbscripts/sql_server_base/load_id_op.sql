@@ -33,3 +33,6 @@ insert into identifiers (idnam, prefix, nextval) values
  ('uid_pps', 'OP_ILLEGAL_UID', 1000)
 go
 
+
+quit
+

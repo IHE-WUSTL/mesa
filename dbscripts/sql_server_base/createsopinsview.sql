@@ -19,3 +19,6 @@ create view sopins_view
   and sopins.serinsuid = series.serinsuid
 
   go
+
+quit
+

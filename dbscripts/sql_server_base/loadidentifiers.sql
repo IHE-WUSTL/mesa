@@ -38,3 +38,6 @@ insert into identifiers (idnam, prefix, nextval) values
 insert into identifiers (idnam, prefix, nextval) values 
  ('uid_gppps', '1.113654-xxx.24.', 1000)
 go
+
+quit
+

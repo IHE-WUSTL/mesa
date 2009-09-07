@@ -25,3 +25,6 @@
 	create index ppsid_index
 	on mpps(ppsid)
 	go
+
+quit
+

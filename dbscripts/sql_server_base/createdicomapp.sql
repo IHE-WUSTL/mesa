@@ -6,3 +6,6 @@
 		com		char(64)
 	)
 	go
+
+quit
+

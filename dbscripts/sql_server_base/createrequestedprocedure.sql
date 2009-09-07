@@ -21,3 +21,6 @@
 	on reqprocedure(reqproid)
 	go
 
+
+quit
+

@@ -34,3 +34,6 @@
 	on ordr(filordnum)
 	go
 
+
+quit
+

@@ -275,3 +275,6 @@ create table refGPSPS (
 go
 
 
+
+quit
+

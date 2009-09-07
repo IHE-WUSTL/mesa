@@ -66,3 +66,6 @@ insert into reports
 ('ECG203011', 'RID', 'SUMMARY-CARDIOLOGY',
 'Cardiology Report: Cardiology Report:');
 
+
+quit
+

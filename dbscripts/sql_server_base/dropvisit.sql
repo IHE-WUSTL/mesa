@@ -2,3 +2,6 @@
 	drop table visit
 	go
 
+
+quit
+

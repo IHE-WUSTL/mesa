@@ -31,3 +31,6 @@ insert into doc_reference
 (document_oid, doc_type, path_root, path)
 values
 ('1.2.840.113654.2.3.2005.20301.102', 'SVG', 'MESA_STORAGE', 'ecg/20301.svg');
+
+quit
+

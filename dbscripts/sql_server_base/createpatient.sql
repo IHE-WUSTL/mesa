@@ -20,3 +20,6 @@
 	create index nam_index
 	on patient(nam)
 	go
+
+quit
+

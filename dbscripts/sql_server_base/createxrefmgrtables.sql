@@ -48,3 +48,6 @@ create table issuer (
 	UNIQUE(issuer)
 )
 go
+
+quit
+

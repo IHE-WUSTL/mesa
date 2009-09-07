@@ -16,3 +16,6 @@
 	create index serinsuid_series
 	on series(serinsuid)
 	go
+
+quit
+

@@ -7,3 +7,6 @@ drop table reports
 drop table doc_reference
 go
 
+
+quit
+

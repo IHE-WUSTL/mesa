@@ -29,3 +29,6 @@
 	create index sopinsuid_sopins
 	on sopins(insuid)
 	go
+
+quit
+

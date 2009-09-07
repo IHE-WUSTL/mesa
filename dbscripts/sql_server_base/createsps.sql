@@ -18,3 +18,6 @@
 	create index spsid_index
 	on sps(spsid)
 	go
+
+quit
+

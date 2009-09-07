@@ -4,3 +4,6 @@ drop table issuer
 
 go
 
+
+quit
+

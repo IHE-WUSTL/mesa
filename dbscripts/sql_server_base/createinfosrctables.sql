@@ -78,3 +78,6 @@ create view reportview as
   where patient.patid = reports.patid and
 	patient.issuer = reports.issuer
 go
+
+quit
+

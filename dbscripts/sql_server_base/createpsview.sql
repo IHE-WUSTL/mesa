@@ -29,3 +29,6 @@ create view ps_view
   where patient.patid = study.patid
 
   go
+
+quit
+

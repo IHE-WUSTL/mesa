@@ -2,3 +2,6 @@
 	drop table series
 	go
 
+
+quit
+

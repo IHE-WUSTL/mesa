@@ -38,3 +38,6 @@ insert into identifiers (idnam, prefix, nextval) values
 insert into identifiers (idnam, prefix, nextval) values 
  ('uid_pps', 'xxx', 1000)
 go
+
+quit
+

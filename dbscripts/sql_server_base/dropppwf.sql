@@ -16,3 +16,6 @@ drop table stationlocation;
 drop table stationname;
 drop table refGPSPS;
 go
+
+quit
+

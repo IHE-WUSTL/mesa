@@ -22,3 +22,6 @@
 	create index stuinsuid_series
 	on study(stuinsuid);
 	go
+
+quit
+
