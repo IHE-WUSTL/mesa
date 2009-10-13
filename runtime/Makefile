@@ -1,5 +1,5 @@
 install:
-	../external/ctn/apps/scripts/createdirectory $(MESA_TARGET)/runtime
+	../../ctn/apps/scripts/createdirectory $(MESA_TARGET)/runtime
 	cp msgRules.dss $(MESA_TARGET)/runtime
 	cp segDefs.dss $(MESA_TARGET)/runtime
 	cp msgRules.ihe $(MESA_TARGET)/runtime
@@ -14,14 +14,14 @@ install:
 	cp IHE-ATNA-syslog-audit-message.xsd $(MESA_TARGET)/runtime
 	cp xmldsig-core-schema.xsd $(MESA_TARGET)/runtime
 	cp MESA-ATNA.xsl $(MESA_TARGET)/runtime
-	cp -rp expmgr $(MESA_TARGET)/runtime
-	cp -rp exprcr $(MESA_TARGET)/runtime
-	cp -rp imgmgr $(MESA_TARGET)/runtime
-	cp -rp imgmgr_study $(MESA_TARGET)/runtime
-	cp -rp rpt_manager $(MESA_TARGET)/runtime
-	cp -rp rpt_repos $(MESA_TARGET)/runtime
-	cp -rp wkstation $(MESA_TARGET)/runtime
-	cp -rp codes $(MESA_TARGET)/runtime
-	cp -rp certificates $(MESA_TARGET)/runtime
-	cp -rp ldap $(MESA_TARGET)/runtime
-#	cp -rp connectathon $(MESA_TARGET)/runtime
+	cp -rpf expmgr $(MESA_TARGET)/runtime
+	cp -rpf exprcr $(MESA_TARGET)/runtime
+	cp -rpf imgmgr $(MESA_TARGET)/runtime
+	cp -rpf imgmgr_study $(MESA_TARGET)/runtime
+	cp -rpf rpt_manager $(MESA_TARGET)/runtime
+	cp -rpf rpt_repos $(MESA_TARGET)/runtime
+	cp -rpf wkstation $(MESA_TARGET)/runtime
+	cp -rpf codes $(MESA_TARGET)/runtime
+	cp -rpf certificates $(MESA_TARGET)/runtime
+	cp -rpf ldap $(MESA_TARGET)/runtime
+#	cp -rpf connectathon $(MESA_TARGET)/runtime
