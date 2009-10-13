@@ -7,7 +7,7 @@ install:
 	$(INSTALL) SRComposer.jar $(JAR_DIRECTORY)
 	$(INSTALL) SRRenderTest.jar $(JAR_DIRECTORY)
 	$(INSTALL) jar/*jar $(JAR_DIRECTORY)
-	cp -rp gif $(MESA_TARGET)/runtime
+	cp -rpf gif $(MESA_TARGET)/runtime
 
 #	cd ObjectViewer; $(JDK_ROOT)/bin/javac DICOMObjectViewer.java
 #	$(JDK_ROOT)/bin/javac DOMParser.java
