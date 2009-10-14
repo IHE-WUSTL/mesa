@@ -60,9 +60,9 @@ headers :
 	headerexport.bat
 	cd "..\.."
 
-	cd "external\ctn\winctn\scripts"
+	cd "..\ctn\winctn\scripts"
 	headerexport.bat
-	cd "..\..\..\.."
+	cd "..\..\..\mesa"
 
 	cd "external"
 	headerexport.bat
@@ -78,10 +78,6 @@ library:
 	cd "..\.."
 
 java:
-	cd "external\ctn\javactn"
-	$(MAKE) /f w32_install.mak install
-	cd "..\..\.."
-
 	cd "javamesa"
 	$(MAKE) /f w32_install.mak install
 	cd ".."
@@ -145,12 +141,12 @@ x_testdata:
 	cd "mesa_tests\rad\msgs"
 	perl create_messages.pl
 	cd "..\.."
-	xcopy/E rad $(MESA_TARGET)\mesa_tests\rad
+	xcopy/E/Y rad $(MESA_TARGET)\mesa_tests\rad
 	cd ".."
 	cd "mesa_tests\card\msgs"
 	perl create_messages.pl
 	cd "..\.."
-	xcopy/E card $(MESA_TARGET)\mesa_tests\card
+	xcopy/E/Y card $(MESA_TARGET)\mesa_tests\card
 	cd ".."
 
 library_clean:
@@ -164,7 +160,7 @@ apps_clean:
 	cd "..\.."
 
 java_clean:
-	cd "external\ctn\javactn\DICOM"
+	cd "..\ctn\javactn\DICOM"
 	$(MAKE) /f w32_install.mak clean
 	cd "..\..\..\.."
 
@@ -180,12 +176,6 @@ java_clean:
 	$(MAKE) /f w32_install.mak clean
 	cd ".."
 
-y2_data:
-	scripts\createdirectory.bat $(MESA_TARGET)\testsuite\y2_actor
-	cd "testdata"
-	xcopy/e y2_actor $(MESA_TARGET)\testsuite\y2_actor
-	cd $(MESA_TARGET)\testsuite\y2_actor\msgs
-	perl < msgs.pl
 
 x_secure_headers :
 	cd "winmesa\scripts"
