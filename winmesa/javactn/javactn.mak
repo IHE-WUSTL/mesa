@@ -244,7 +244,7 @@ CLEAN :
     if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
 
 CPP=cl.exe
-CPP_PROJ=/nologo /MTd /W3 /Gm /GX /ZI /Od /I "%JAVA_HOME%\include" /I "%JAVA_HOME%\include\win32" /I "..\..\external\ctn\include" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "JAVACTN_EXPORTS" /Fp"$(INTDIR)\javactn.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /GZ /c 
+CPP_PROJ=/nologo /MTd /W3 /Gm /GX /ZI /Od /I %JAVA_HOME%/include /I %JAVA_HOME%/include/win32 /I "..\..\..\ctn\include" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "JAVACTN_EXPORTS" /Fp"$(INTDIR)\javactn.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /GZ /c 
 
 .c{$(INTDIR)}.obj::
    $(CPP) @<<
@@ -347,253 +347,253 @@ LINK32_OBJS= \
 
 
 !IF "$(CFG)" == "javactn - Win32 Release" || "$(CFG)" == "javactn - Win32 Debug"
-SOURCE=..\..\external\ctn\facilities\services\cmd_valid.c
+SOURCE=..\..\..\ctn\facilities\services\cmd_valid.c
 
 "$(INTDIR)\cmd_valid.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\external\ctn\facilities\condition\condition.c
+SOURCE=..\..\..\ctn\facilities\condition\condition.c
 
 "$(INTDIR)\condition.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\external\ctn\facilities\thread\ctnthread.c
+SOURCE=..\..\..\ctn\facilities\thread\ctnthread.c
 
 "$(INTDIR)\ctnthread.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\external\ctn\facilities\objects\dcm.c
+SOURCE=..\..\..\ctn\facilities\objects\dcm.c
 
 "$(INTDIR)\dcm.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\external\ctn\facilities\objects\dcm1.c
+SOURCE=..\..\..\ctn\facilities\objects\dcm1.c
 
 "$(INTDIR)\dcm1.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\external\ctn\facilities\objects\dcmcond.c
+SOURCE=..\..\..\ctn\facilities\objects\dcmcond.c
 
 "$(INTDIR)\dcmcond.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\external\ctn\facilities\objects\dcmdict.c
+SOURCE=..\..\..\ctn\facilities\objects\dcmdict.c
 
 "$(INTDIR)\dcmdict.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\external\ctn\facilities\objects\dcmsupport.c
+SOURCE=..\..\..\ctn\facilities\objects\dcmsupport.c
 
 "$(INTDIR)\dcmsupport.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\external\ctn\facilities\ddr\ddr.c
+SOURCE=..\..\..\ctn\facilities\ddr\ddr.c
 
 "$(INTDIR)\ddr.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\external\ctn\facilities\dulprotocol\dulcond.c
+SOURCE=..\..\..\ctn\facilities\dulprotocol\dulcond.c
 
 "$(INTDIR)\dulcond.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\external\ctn\facilities\dulprotocol\dulconstruct.c
+SOURCE=..\..\..\ctn\facilities\dulprotocol\dulconstruct.c
 
 "$(INTDIR)\dulconstruct.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\external\ctn\facilities\dulprotocol\dulfsm.c
+SOURCE=..\..\..\ctn\facilities\dulprotocol\dulfsm.c
 
 "$(INTDIR)\dulfsm.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\external\ctn\facilities\dulprotocol\dulparse.c
+SOURCE=..\..\..\ctn\facilities\dulprotocol\dulparse.c
 
 "$(INTDIR)\dulparse.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\external\ctn\facilities\dulprotocol\dulpresent.c
+SOURCE=..\..\..\ctn\facilities\dulprotocol\dulpresent.c
 
 "$(INTDIR)\dulpresent.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\external\ctn\facilities\dulprotocol\dulprotocol.c
+SOURCE=..\..\..\ctn\facilities\dulprotocol\dulprotocol.c
 
 "$(INTDIR)\dulprotocol.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\external\ctn\facilities\messages\dump.c
+SOURCE=..\..\..\ctn\facilities\messages\dump.c
 
 "$(INTDIR)\dump.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\external\ctn\facilities\services\find.c
+SOURCE=..\..\..\ctn\facilities\services\find.c
 
 "$(INTDIR)\find.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\external\ctn\facilities\services\get.c
+SOURCE=..\..\..\ctn\facilities\services\get.c
 
 "$(INTDIR)\get.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\external\ctn\javactn\jni_src\javactn.c
+SOURCE=..\..\..\ctn\javactn\jni_src\javactn.c
 
 "$(INTDIR)\javactn.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\external\ctn\facilities\lst\lst.c
+SOURCE=..\..\..\ctn\facilities\lst\lst.c
 
 "$(INTDIR)\lst.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\external\ctn\facilities\lst\lstcond.c
+SOURCE=..\..\..\ctn\facilities\lst\lstcond.c
 
 "$(INTDIR)\lstcond.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\external\ctn\facilities\messages\messages.c
+SOURCE=..\..\..\ctn\facilities\messages\messages.c
 
 "$(INTDIR)\messages.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\external\ctn\facilities\services\move.c
+SOURCE=..\..\..\ctn\facilities\services\move.c
 
 "$(INTDIR)\move.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\external\ctn\facilities\messages\msgcond.c
+SOURCE=..\..\..\ctn\facilities\messages\msgcond.c
 
 "$(INTDIR)\msgcond.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\external\ctn\facilities\services\naction.c
+SOURCE=..\..\..\ctn\facilities\services\naction.c
 
 "$(INTDIR)\naction.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\external\ctn\facilities\services\ncreate.c
+SOURCE=..\..\..\ctn\facilities\services\ncreate.c
 
 "$(INTDIR)\ncreate.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\external\ctn\facilities\services\ndelete.c
+SOURCE=..\..\..\ctn\facilities\services\ndelete.c
 
 "$(INTDIR)\ndelete.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\external\ctn\facilities\services\neventreport.c
+SOURCE=..\..\..\ctn\facilities\services\neventreport.c
 
 "$(INTDIR)\neventreport.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\external\ctn\facilities\services\nget.c
+SOURCE=..\..\..\ctn\facilities\services\nget.c
 
 "$(INTDIR)\nget.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\external\ctn\facilities\services\nset.c
+SOURCE=..\..\..\ctn\facilities\services\nset.c
 
 "$(INTDIR)\nset.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\external\ctn\facilities\services\private.c
+SOURCE=..\..\..\ctn\facilities\services\private.c
 
 "$(INTDIR)\private.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\external\ctn\facilities\messages\ref_item.c
+SOURCE=..\..\..\ctn\facilities\messages\ref_item.c
 
 "$(INTDIR)\ref_item.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\external\ctn\facilities\services\send.c
+SOURCE=..\..\..\ctn\facilities\services\send.c
 
 "$(INTDIR)\send.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\external\ctn\facilities\services\srv1.c
+SOURCE=..\..\..\ctn\facilities\services\srv1.c
 
 "$(INTDIR)\srv1.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\external\ctn\facilities\services\srv2.c
+SOURCE=..\..\..\ctn\facilities\services\srv2.c
 
 "$(INTDIR)\srv2.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\external\ctn\facilities\services\srvcond.c
+SOURCE=..\..\..\ctn\facilities\services\srvcond.c
 
 "$(INTDIR)\srvcond.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\external\ctn\facilities\services\storage.c
+SOURCE=..\..\..\ctn\facilities\services\storage.c
 
 "$(INTDIR)\storage.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\external\ctn\facilities\thread\thrcond.c
+SOURCE=..\..\..\ctn\facilities\thread\thrcond.c
 
 "$(INTDIR)\thrcond.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\external\ctn\facilities\uid\uid.c
+SOURCE=..\..\..\ctn\facilities\uid\uid.c
 
 "$(INTDIR)\uid.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\external\ctn\facilities\uid\uidcond.c
+SOURCE=..\..\..\ctn\facilities\uid\uidcond.c
 
 "$(INTDIR)\uidcond.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\external\ctn\facilities\utility\utility.c
+SOURCE=..\..\..\ctn\facilities\utility\utility.c
 
 "$(INTDIR)\utility.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
-SOURCE=..\..\external\ctn\facilities\services\verify.c
+SOURCE=..\..\..\ctn\facilities\services\verify.c
 
 "$(INTDIR)\verify.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
