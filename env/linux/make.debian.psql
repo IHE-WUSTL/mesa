@@ -10,7 +10,6 @@ LIBS_MESA = -lsyslog -lcommon -lmeval -lsr -ltranslators -ldomain -lhl7 -lcxxctn
  -lcgihtml -lcommon -limexa  -lctn -lpq -lcrypt
 LIBS_MESA_NODB = -lsyslog -lcommon -lmeval -lsr -ltranslators -ldomain -lhl7 -lcxxctn \
  -lcgihtml -lcommon -limexa  -lctn
-LIBS_ACE = -ldl
 
 LIBS_MESA_SSL = -lsyslog -lcommon -lmeval -lsr -ltranslators -ldomain -lmesa_secure -lcxxctn -lhl7 -lcgihtml -lcommon -limexa -lctn -lpq -lcrypt -L/usr/local/openssl/lib -lssl -lcrypto
 
@@ -20,11 +19,11 @@ LIBS_MESA_XERCESC = $(LIBS_MESA) -L$(XERCESCROOT)/lib -lxerces-c1_7_0
 #	 -fno-exceptions
 
 INCLUDES = -I. -I$(MESA_INCLUDE) \
-	-I$(MESA_ROOT)/external/ctn/include \
+	-I$(MESA_ROOT)/../ctn/include \
 	-I/usr/local/openssl/include \
 	-I$(XERCESCROOT)/include
 
-C_OPTS = -g -DLINUX -I$(MESA_INCLUDE) -I$(MESA_ROOT)/external/ctn/include \
+C_OPTS = -g -DLINUX -I$(MESA_INCLUDE) -I$(MESA_ROOT)/../ctn/include \
 	-Wpointer-arith -pipe -g \
 	-fexceptions -DMESA_USE_SOCKLEN_T
 #	-Wall -Wpointer-arith -pipe -g \
