@@ -1041,6 +1041,7 @@ env/irix/make.irix.6.x.psql.gcc.noopt -text
 env/linux-j/ctnmake.redhat.9.x.psql.noopt -text
 env/linux-j/make.redhat.9.x.psql -text
 env/linux-j/redhat.9.x.psql -text
+env/linux/ctnmake.debian-gcc4.psql -text
 env/linux/ctnmake.debian.psql -text
 env/linux/ctnmake.linux.5.x.psql.noopt -text
 env/linux/ctnmake.linux.sparc.6.x.psql.noopt -text
@@ -1048,11 +1049,13 @@ env/linux/ctnmake.redhat.6.x.psql.noopt -text
 env/linux/ctnmake.redhat.8.x.psql.noopt -text
 env/linux/ctnmake.redhat.9.x.psql.noopt -text
 env/linux/ctnmake.redhat.es.i64.psql -text
+env/linux/debian-gcc4.psql -text
 env/linux/debian.psql -text
 env/linux/linux.5.x.psql.noopt.env -text
 env/linux/linux.6.x.psql.noopt -text
 env/linux/linux.6.x.psql.sec.noopt -text
 env/linux/linux.sparc.6.x.psql.noopt -text
+env/linux/make.debian-gcc4.psql -text
 env/linux/make.debian.psql -text
 env/linux/make.linux.5.x.psql.noopt -text
 env/linux/make.linux.6.x.psql.noopt -text
