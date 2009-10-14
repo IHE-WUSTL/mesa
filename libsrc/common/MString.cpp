@@ -29,6 +29,9 @@
 //        notice.
 
 #include "MString.hpp"
+#ifdef GCC4
+#include "stdlib.h"
+#endif
 
 
 
@@ -153,12 +156,12 @@ void
 MString::getTokens( MStringVector& vec, const char *delim, char *line,
                             bool skipEmptyTokens)
 {
-  size_t lineLength = strlen(line) + 1;  // include the ending null.
+  size_t lineLength = ::strlen(line) + 1;  // include the ending null.
   char* token = new char[lineLength];
   // examine every char, including ending null.
   for( int i = 0; i < lineLength; i++) {
       char c = line[i];
-      if( index( delim, (int)c) == NULL && c != '\0') {
+      if( ::index( delim, (int)c) == NULL && c != '\0') {
           // if c is not a delimiter and not the null char
 
           // add the char to the token.
@@ -210,7 +213,7 @@ char* MString::strData() const
 {
   char* str = new char[length()+1];
   
-  strncpy( str, data(), length() );
+  ::strncpy( str, data(), length() );
   str[length()] = 0;
   
   return str;

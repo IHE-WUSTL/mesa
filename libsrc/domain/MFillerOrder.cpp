@@ -29,6 +29,9 @@
 //        notice.
 
 #include "MFillerOrder.hpp"
+#ifdef GCC4
+#include <stdlib.h>
+#endif
 
 MFillerOrder::MFillerOrder()
 {

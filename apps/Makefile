@@ -44,7 +44,7 @@ apps:
 	cd mesa_sr_eval;	make
 	cd mesa_strip_file;	make
 	cd mesa_update_column;	make
-	cd mesa_xml_eval;	make
+#	cd mesa_xml_eval;	make
 	cd mod_dcmps;		make
 	cd mod_generatestudy;	make
 #	cd mod_newuids;		make
@@ -134,7 +134,7 @@ install:
 	cd mesa_sr_eval;	make install
 	cd mesa_strip_file;	make install
 	cd mesa_update_column;	make install
-	cd mesa_xml_eval;	make install
+#	cd mesa_xml_eval;	make install
 	cd mod_dcmps;		make install
 	cd mod_generatestudy;	make install
 #	cd mod_newuids;		make install

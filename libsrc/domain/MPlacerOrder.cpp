@@ -29,6 +29,9 @@
 //        notice.
 
 #include "MPlacerOrder.hpp"
+#ifdef GCC4
+#include <stdlib.h>
+#endif
 
 MPlacerOrder::MPlacerOrder()
 {

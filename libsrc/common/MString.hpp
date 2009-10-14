@@ -56,7 +56,11 @@
 //using namespace std;
 
 #include <iostream>
+#ifdef GCC4
+#include <cstring>
+#else
 #include <string>
+#endif
 #include <vector>
 #include <map>
 #include <ctype.h>

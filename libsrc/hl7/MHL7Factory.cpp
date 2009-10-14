@@ -36,6 +36,9 @@
 #ifndef _WIN32
 #include <unistd.h>
 #endif
+#ifdef GCC4
+#include <stdlib.h>
+#endif
 
 #include "MHL7Factory.hpp"
 #include "MHL7Msg.hpp"

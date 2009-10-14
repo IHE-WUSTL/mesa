@@ -64,6 +64,7 @@ sub get_config_param {
 # returns 0 on success, 1 on failure
 
 sub delete_directory {
+  die "You need to define the environment variable for MESA_OS.\n Please read installation instructions.\n For example, all flavors of Windows require 'WINDOWS_NT'.\n" if (! $main::MESA_OS );
   my $osName = $main::MESA_OS;
   my ($logLevel, $dirName) = @_;
 
@@ -91,6 +92,7 @@ sub delete_directory {
 # returns 0 on success, 1 on failure
 
 sub create_directory {
+  die "You need to define the environment variable for MESA_OS.\n Please read installation instructions.\n For example, all flavors of Windows require 'WINDOWS_NT'.\n" if (! $main::MESA_OS );
   my ($logLevel, $dirName) = @_;
 
   if ( -d $dirName) {
@@ -116,6 +118,7 @@ sub create_directory {
 
 # OS-neutral file delete.
 sub rm_files {
+  die "You need to define the environment variable for MESA_OS.\n Please read installation instructions.\n For example, all flavors of Windows require 'WINDOWS_NT'.\n" if (! $main::MESA_OS );
    my $target = shift( @_);
 
    if( $MESA_OS eq "WINDOWS_NT") {
