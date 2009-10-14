@@ -13,6 +13,6 @@
     exit 1;
   }
 
-  my $x = "osql -S $ARGV[0] -i create_db.sql -E";
+  my $x = "sqlcmd -S $ARGV[0] -i create_db.sql -E";
   print "$x\n";
   print `$x`;
