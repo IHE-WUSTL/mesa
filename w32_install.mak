@@ -36,7 +36,7 @@ rebuild_all:
 directories:
 	scripts\createdirectory.bat include
 	scripts\createdirectory.bat $(MESA_TARGET)\lib
-	scripts\createdirectory.bat $(MESA)TARGET)\logs
+	scripts\createdirectory.bat $(MESA_TARGET)\logs
 	scripts\createdirectory.bat $(MESA_TARGET)\bin
 	scripts\createdirectory.bat $(MESA_TARGET)\data
 	scripts\createdirectory.bat $(MESA_TARGET)\db
