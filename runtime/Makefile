@@ -23,5 +23,6 @@ install:
 	cp -rpf wkstation $(MESA_TARGET)/runtime
 	cp -rpf codes $(MESA_TARGET)/runtime
 	cp -rpf certificates $(MESA_TARGET)/runtime
+	cp -rpf certs-ca-signed $(MESA_TARGET)/runtime
 	cp -rpf ldap $(MESA_TARGET)/runtime
 #	cp -rpf connectathon $(MESA_TARGET)/runtime

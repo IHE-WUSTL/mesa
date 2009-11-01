@@ -9,6 +9,7 @@ install:
 	..\scripts\createdirectory.bat $(MESA_TARGET)\runtime\rpt_repos
 	..\scripts\createdirectory.bat $(MESA_TARGET)\runtime\wkstation
 	..\scripts\createdirectory.bat $(MESA_TARGET)\runtime\certificates
+	..\scripts\createdirectory.bat $(MESA_TARGET)\runtime\certs-ca-signed
 
 	copy segDefs.ihe $(MESA_TARGET)\runtime
 	copy msgRules.ihe $(MESA_TARGET)\runtime
@@ -27,6 +28,7 @@ install:
 	xcopy/E/Y rpt_repos $(MESA_TARGET)\runtime\rpt_repos
 	xcopy/E/Y wkstation $(MESA_TARGET)\runtime\wkstation
 	xcopy/E/Y certificates $(MESA_TARGET)\runtime\certificates
+	xcopy/E/Y certs-ca-signed $(MESA_TARGET)\runtime\certs-ca-signed
 
 clean:
 
