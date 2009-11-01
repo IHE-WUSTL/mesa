@@ -41,6 +41,8 @@ CLEAN :
 	-@erase "$(INTDIR)\MLDispatchImgMgr.obj"
 	-@erase "$(INTDIR)\MLDispatchOrderFiller.obj"
 	-@erase "$(INTDIR)\MLDispatchOrderPlacer.obj"
+	-@erase "$(INTDIR)\MLDispatchPDSupplier.obj"
+	-@erase "$(INTDIR)\MLDispatchXRefMgr.obj"
 	-@erase "$(INTDIR)\vc60.idb"
 	-@erase "$(OUTDIR)\hl7_rcvr_secure.exe"
 
@@ -91,6 +93,8 @@ LINK32_OBJS= \
 	"$(INTDIR)\hl7_rcvr_secure.obj" \
 	"$(INTDIR)\MLDispatchImgMgr.obj" \
 	"$(INTDIR)\MLDispatchOrderFiller.obj" \
+	"$(INTDIR)\MLDispatchPDSupplier.obj" \
+	"$(INTDIR)\MLDispatchXRefMgr.obj" \
 	"$(INTDIR)\MLDispatchOrderPlacer.obj"
 
 "$(OUTDIR)\hl7_rcvr_secure.exe" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
@@ -113,6 +117,8 @@ CLEAN :
 	-@erase "$(INTDIR)\hl7_rcvr_secure.obj"
 	-@erase "$(INTDIR)\MLDispatchImgMgr.obj"
 	-@erase "$(INTDIR)\MLDispatchOrderFiller.obj"
+	-@erase "$(INTDIR)\MLDispatchPDSupplier.obj"
+	-@erase "$(INTDIR)\MLDispatchXRefMgr.obj"
 	-@erase "$(INTDIR)\MLDispatchOrderPlacer.obj"
 	-@erase "$(INTDIR)\vc60.idb"
 	-@erase "$(INTDIR)\vc60.pdb"
@@ -167,6 +173,8 @@ LINK32_OBJS= \
 	"$(INTDIR)\hl7_rcvr_secure.obj" \
 	"$(INTDIR)\MLDispatchImgMgr.obj" \
 	"$(INTDIR)\MLDispatchOrderFiller.obj" \
+	"$(INTDIR)\MLDispatchPDSupplier.obj" \
+	"$(INTDIR)\MLDispatchXRefMgr.obj" \
 	"$(INTDIR)\MLDispatchOrderPlacer.obj"
 
 "$(OUTDIR)\hl7_rcvr_secure.exe" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
@@ -204,6 +212,15 @@ SOURCE=..\..\..\secure_apps\hl7_rcvr_secure\MLDispatchOrderFiller.cpp
 "$(INTDIR)\MLDispatchOrderFiller.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
+SOURCE=..\..\..\secure_apps\hl7_rcvr_secure\MLDispatchPDSupplier.cpp
+
+"$(INTDIR)\MLDispatchPDSupplier.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+SOURCE=..\..\..\secure_apps\hl7_rcvr_secure\MLDispatchXRefMgr.cpp
+
+"$(INTDIR)\MLDispatchXRefMgr.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 SOURCE=..\..\..\secure_apps\hl7_rcvr_secure\MLDispatchOrderPlacer.cpp
 
