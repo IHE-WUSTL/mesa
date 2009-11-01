@@ -54,7 +54,7 @@ BSC32_FLAGS=/nologo /o"$(OUTDIR)\tls_connect.bsc"
 BSC32_SBRS= \
 	
 LINK32=link.exe
-LINK32_FLAGS=mesa_lib.lib ssleay32.lib libeay32.lib RSAglue.lib wsock32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:no /pdb:"$(OUTDIR)\tls_connect.pdb" /machine:I386 /out:"$(OUTDIR)\tls_connect.exe" /libpath:"..\..\..\winmesa\mesa_lib\Release" /libpath:"..\..\..\..\openssl-0.9.8k\out32dll" 
+LINK32_FLAGS=mesa_lib.lib ssleay32.lib libeay32.lib  wsock32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:no /pdb:"$(OUTDIR)\tls_connect.pdb" /machine:I386 /out:"$(OUTDIR)\tls_connect.exe" /libpath:"..\..\..\winmesa\mesa_lib\Release" /libpath:"..\..\..\..\openssl-0.9.8k\out32dll" 
 LINK32_OBJS= \
 	"$(INTDIR)\app_rand.obj" \
 	"$(INTDIR)\tls_connect.obj"
@@ -93,7 +93,7 @@ BSC32_FLAGS=/nologo /o"$(OUTDIR)\tls_connect.bsc"
 BSC32_SBRS= \
 	
 LINK32=link.exe
-LINK32_FLAGS=mesa_lib.lib ssleay32.lib libeay32.lib RSAglue.lib wsock32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:yes /pdb:"$(OUTDIR)\tls_connect.pdb" /debug /machine:I386 /out:"$(OUTDIR)\tls_connect.exe" /pdbtype:sept /libpath:"..\..\..\winmesa\mesa_lib\Debug" /libpath:"..\..\..\..\openssl-0.9.8k\out32dll" 
+LINK32_FLAGS=mesa_lib.lib ssleay32.lib libeay32.lib  wsock32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:yes /pdb:"$(OUTDIR)\tls_connect.pdb" /debug /machine:I386 /out:"$(OUTDIR)\tls_connect.exe" /pdbtype:sept /libpath:"..\..\..\winmesa\mesa_lib\Debug" /libpath:"..\..\..\..\openssl-0.9.8k\out32dll" 
 LINK32_OBJS= \
 	"$(INTDIR)\app_rand.obj" \
 	"$(INTDIR)\tls_connect.obj"
