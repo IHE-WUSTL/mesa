@@ -31,7 +31,7 @@ sub send_hl7_secure {
   }
   unlink "$MESA_TARGET/logs/send_hl7_secure.log" if (-e "$MESA_TARGET/logs/send_hl7_secure.log");
 
-  my $f = "$../../../iti/msgs/adt/10501/10501.102.a04.hl7";
+  my $f = "../../../iti/msgs/adt/10501/10501.102.a04.hl7";
   my $x = "$MESA_TARGET/bin/send_hl7_secure -d ihe-iti -l $logLevel -C $c -K $k -P $p -R $r $host $port $f";
   print "$x\n";
   print `$x`;
