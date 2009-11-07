@@ -209,6 +209,7 @@ CLEAN :
 	-@erase "$(INTDIR)\MSyslogEntry.obj"
 	-@erase "$(INTDIR)\MSyslogFactory.obj"
 	-@erase "$(INTDIR)\MSyslogMessage.obj"
+	-@erase "$(INTDIR)\MSyslogMessage5424.obj"
 	-@erase "$(INTDIR)\MUWLScheduledStationNameCode.obj"
 	-@erase "$(INTDIR)\MUPS.obj"
 	-@erase "$(INTDIR)\MUPSObjects.obj"
@@ -425,6 +426,7 @@ LIB32_OBJS= \
 	"$(INTDIR)\MSyslogEntry.obj" \
 	"$(INTDIR)\MSyslogFactory.obj" \
 	"$(INTDIR)\MSyslogMessage.obj" \
+	"$(INTDIR)\MSyslogMessage5424.obj" \
 	"$(INTDIR)\MUWLScheduledStationNameCode.obj" \
 	"$(INTDIR)\MUPS.obj" \
 	"$(INTDIR)\MUPSObjects.obj" \
@@ -647,6 +649,7 @@ CLEAN :
 	-@erase "$(INTDIR)\MSyslogEntry.obj"
 	-@erase "$(INTDIR)\MSyslogFactory.obj"
 	-@erase "$(INTDIR)\MSyslogMessage.obj"
+	-@erase "$(INTDIR)\MSyslogMessage5424.obj"
 	-@erase "$(INTDIR)\MUWLScheduledStationNameCode.obj"
 	-@erase "$(INTDIR)\MUPS.obj"
 	-@erase "$(INTDIR)\MUPSObjects.obj"
@@ -864,6 +867,7 @@ LIB32_OBJS= \
 	"$(INTDIR)\MSyslogEntry.obj" \
 	"$(INTDIR)\MSyslogFactory.obj" \
 	"$(INTDIR)\MSyslogMessage.obj" \
+	"$(INTDIR)\MSyslogMessage5424.obj" \
 	"$(INTDIR)\MUWLScheduledStationNameCode.obj" \
 	"$(INTDIR)\MUPS.obj" \
 	"$(INTDIR)\MUPSObjects.obj" \
@@ -1974,6 +1978,11 @@ SOURCE=..\..\libsrc\syslog\MSyslogFactory.cpp
 SOURCE=..\..\libsrc\syslog\MSyslogMessage.cpp
 
 "$(INTDIR)\MSyslogMessage.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
+
+SOURCE=..\..\libsrc\syslog\MSyslogMessage5424.cpp
+
+"$(INTDIR)\MSyslogMessage5424.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
