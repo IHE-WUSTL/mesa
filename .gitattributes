@@ -5276,6 +5276,9 @@ testapps/hl7/hl7_patient.cpp -text
 testapps/hl7/hl7_placerorder.cpp -text
 testapps/hl7/hl7_validator.cpp -text
 testapps/hl7/hl7_visit.cpp -text
+testapps/syslog/Makefile -text
+testapps/syslog/readme.txt -text
+testapps/syslog/syslog_test.cpp -text
 testapps/viewer/graphics/dcmitem.jpg -text
 testapps/viewer/graphics/dcmitem2.jpg -text
 testapps/viewer/graphics/ftv2blank.gif -text
