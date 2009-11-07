@@ -1543,6 +1543,8 @@ libsrc/syslog/MSyslogFactory.cpp -text
 libsrc/syslog/MSyslogFactory.hpp -text
 libsrc/syslog/MSyslogMessage.cpp -text
 libsrc/syslog/MSyslogMessage.hpp -text
+libsrc/syslog/MSyslogMessage5424.cpp -text
+libsrc/syslog/MSyslogMessage5424.hpp -text
 libsrc/syslog/Makefile -text
 libsrc/translators/MDICOMDomainXlate.cpp -text
 libsrc/translators/MDICOMDomainXlate.hpp -text

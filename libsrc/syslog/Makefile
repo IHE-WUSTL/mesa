@@ -4,7 +4,7 @@ CFLAGS = $(C_OPTS)
 CXX_FLAGS = $(C_OPTS)
 
 CLASS_FILES = MAuditMessage MAuditMessageFactory MDICOMAuditMessage \
-MSyslogClient MSyslogFactory MSyslogMessage \
+MSyslogClient MSyslogFactory MSyslogMessage MSyslogMessage5424 \
 MBeginTransferDICOMInstances
 
 OBJS = $(CLASS_FILES:=.o)
@@ -24,6 +24,8 @@ MSyslogClient.o: MSyslogClient.cpp MSyslogClient.hpp
 MSyslogFactory.o: MSyslogFactory.cpp MSyslogFactory.hpp
 
 MSyslogMessage.o: MSyslogMessage.cpp MSyslogMessage.hpp
+
+MSyslogMessage5424.o: MSyslogMessage5424.cpp MSyslogMessage5424.hpp
 
 # Start the audit events
 MBeginTransferDICOMInstances.o: MBeginTransferDICOMInstances.cpp MBeginTransferDICOMInstances.hpp
