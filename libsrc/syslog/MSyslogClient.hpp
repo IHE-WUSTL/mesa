@@ -58,6 +58,7 @@ using namespace std;
 #include "ctn_os.h"
 
 class MSyslogMessage;
+class MSyslogMessage5424;
 
 class MSyslogClient
 // = TITLE
@@ -89,8 +90,11 @@ public:
   // = Class specific methods.
 
   int open(const MString& host, int port = 514 );
+  int openTCP(const MString& host, int port);
 
   int sendMessage(MSyslogMessage& m);
+  int sendMessage(MSyslogMessage5424& m);
+  int sendMessageTCP(MSyslogMessage5424& m);
 
   void setTestMode(int mode);
 

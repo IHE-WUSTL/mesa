@@ -32,6 +32,7 @@
 #include "MESA.hpp"
 #include "MSyslogFactory.hpp"
 #include "MSyslogMessage.hpp"
+#include "MSyslogMessage5424.hpp"
 #include "MLogClient.hpp"
 
 #include <strstream>
@@ -173,3 +174,221 @@ MSyslogFactory::produceMessage(const char* str, int length)
   return m;
 }
 
+
+MSyslogMessage5424*
+MSyslogFactory::produceMessage5424(const char* str, int length)
+{
+  MLogClient logClient;
+  const char* orig = str;
+
+  logClient.log(MLogClient::MLOG_VERBOSE, "", "MSyslogFactory::produceMessage5424",
+	__LINE__, "Enter method");
+
+  char tmp[32768] = "";
+  ::memcpy(tmp, str, length);
+  tmp[length] = '\0';
+  logClient.logTimeStamp(MLogClient::MLOG_VERBOSE, tmp);
+
+  if (*str != '<') {
+    logClient.log(MLogClient::MLOG_ERROR,
+	MString("MSyslogFactory::produceMessage first character of message expected to be '<'; input message to follow"));
+    logClient.log(MLogClient::MLOG_ERROR, str);
+    logClient.log(MLogClient::MLOG_VERBOSE, "", "MSyslogFactory::produceMessage",
+	__LINE__, "Exit method");
+    return 0;
+  }
+
+  str++;
+  length--;
+
+  char* p = tmp;
+
+  while (isdigit(*str)) {
+    *p++ = *str++;
+    length--;
+  }
+  *p = '\0';
+
+  istrstream s(tmp, ::strlen(tmp));
+  int priority;
+
+  s	>> priority;
+
+  int facility = (priority >> 3) & 0xff;
+  int severity = priority & 0x7;
+
+  if (*str != '>') {
+    logClient.logTimeStamp(MLogClient::MLOG_ERROR, "Expected '>', string to follow");
+    logClient.logTimeStamp(MLogClient::MLOG_ERROR, str);
+    logClient.logTimeStamp(MLogClient::MLOG_ERROR, orig);
+    return 0;
+  }
+  str++;
+  length--;
+
+  if (*str != '1') {
+    logClient.logTimeStamp(MLogClient::MLOG_ERROR, "Expected '1' for version, string to follow");
+    logClient.logTimeStamp(MLogClient::MLOG_ERROR, str);
+    logClient.logTimeStamp(MLogClient::MLOG_ERROR, orig);
+    return 0;
+  }
+  str++;
+  length--;
+  int version = 1;
+
+  if (*str != ' ') {
+    logClient.logTimeStamp(MLogClient::MLOG_ERROR, "Expected ' ' after version, string to follow");
+    logClient.logTimeStamp(MLogClient::MLOG_ERROR, str);
+    logClient.logTimeStamp(MLogClient::MLOG_ERROR, orig);
+    return 0;
+  }
+  str++;
+  length--;
+
+  int idx = 0;
+  char timeStamp[40] = "";
+  while (*str != ' ' && *str != '\0' && idx < 38 && length > 0) {
+    timeStamp[idx++] = *str++;
+    length--;
+  }
+  if (length <= 0) {
+    logClient.logTimeStamp(MLogClient::MLOG_ERROR, "Hit the end of audit message while looking through timestamp; original message to follow");
+    logClient.logTimeStamp(MLogClient::MLOG_ERROR, orig);
+    return 0;
+  }
+  timeStamp[idx] = '\0';
+
+  if (idx >= 38) {
+    logClient.logTimeStamp(MLogClient::MLOG_ERROR, "Time stamp too long, original message to follow");
+    logClient.logTimeStamp(MLogClient::MLOG_ERROR, orig);
+    return 0;
+  }
+  if (*str != ' ') {
+    logClient.logTimeStamp(MLogClient::MLOG_ERROR, "Expected ' ' after time stamp, string to follow");
+    logClient.logTimeStamp(MLogClient::MLOG_ERROR, str);
+    logClient.logTimeStamp(MLogClient::MLOG_ERROR, orig);
+    return 0;
+  }
+  str++;
+  length--;
+
+  char fqdn[1024] = "";
+  idx = 0;
+  while (*str != ' ' && *str != '\0' && idx < 1020 && length > 0) {
+    fqdn[idx++] = *str++;
+    length--;
+  }
+  if (length <= 0) {
+    logClient.logTimeStamp(MLogClient::MLOG_ERROR,
+	"Hit the end of audit message while looking through FQDN; original message to follow");
+    logClient.logTimeStamp(MLogClient::MLOG_ERROR, orig);
+    return 0;
+  }
+  fqdn[idx] = '\0';
+
+  if (idx >= 1020) {
+    logClient.logTimeStamp(MLogClient::MLOG_ERROR,
+	"Found a FQDN that was > 1020 characters, too long");
+    logClient.logTimeStamp(MLogClient::MLOG_ERROR, orig);
+    return 0;
+  }
+  if (*str != ' ') {
+    logClient.logTimeStamp(MLogClient::MLOG_ERROR, "Expected ' ' after FQDN, string to follow");
+    logClient.logTimeStamp(MLogClient::MLOG_ERROR, str);
+    logClient.logTimeStamp(MLogClient::MLOG_ERROR, orig);
+    return 0;
+  }
+  str++;
+  length--;
+
+  char appName[64] = "";
+  idx = 0;
+  while (*str != ' ' && *str != '\0' && idx < 63 && length > 0) {
+    appName[idx++] = *str++;
+    length--;
+  }
+  appName[idx] = '\0';
+
+  if (idx >= 63) {
+    logClient.logTimeStamp(MLogClient::MLOG_ERROR, "App name is too long, > 62 chars");
+    logClient.logTimeStamp(MLogClient::MLOG_ERROR, orig);
+    return 0;
+  }
+  if (*str != ' ') {
+    logClient.logTimeStamp(MLogClient::MLOG_ERROR, "Expected ' ' after app name, string to follow");
+    logClient.logTimeStamp(MLogClient::MLOG_ERROR, str);
+    logClient.logTimeStamp(MLogClient::MLOG_ERROR, orig);
+    return 0;
+  }
+  str++;
+  length--;
+
+  char procID[64] = "";
+  idx = 0;
+  while (*str != ' ' && *str != '\0' && idx < 63 && length > 0) {
+    procID[idx++] = *str++;
+    length--;
+  }
+  procID[idx] = '\0';
+
+  if (idx >= 63) {
+    logClient.logTimeStamp(MLogClient::MLOG_ERROR, "Process ID is too long, > 62 chars");
+    logClient.logTimeStamp(MLogClient::MLOG_ERROR, orig);
+    return 0;
+  }
+  if (*str != ' ') {
+    logClient.logTimeStamp(MLogClient::MLOG_ERROR, "Expected ' ' after Process ID, string to follow");
+    logClient.logTimeStamp(MLogClient::MLOG_ERROR, str);
+    logClient.logTimeStamp(MLogClient::MLOG_ERROR, orig);
+    return 0;
+  }
+  str++;
+  length--;
+
+  char msgID[64] = "";
+  idx = 0;
+  while (*str != ' ' && *str != '\0' && idx < 63 && length > 0) {
+    msgID[idx++] = *str++;
+    length--;
+  }
+  msgID[idx] = '\0';
+
+  if (idx >= 63) {
+    logClient.logTimeStamp(MLogClient::MLOG_ERROR, "Process Msg is too long, > 62 chars");
+    logClient.logTimeStamp(MLogClient::MLOG_ERROR, orig);
+    return 0;
+  }
+  if (*str != ' ') {
+    logClient.logTimeStamp(MLogClient::MLOG_ERROR, "Expected ' ' after Message ID, string to follow");
+    logClient.logTimeStamp(MLogClient::MLOG_ERROR, str);
+    logClient.logTimeStamp(MLogClient::MLOG_ERROR, orig);
+    return 0;
+  }
+  str++;
+  length--;
+
+  // Space past the structured data
+  while (*str != ' ' && *str != '\0' && length > 0) {
+    *str++;
+    length--;
+  }
+  str++;	// repair
+  length--;
+
+  idx = 0;
+  char msg[32768] = "";
+  while (length-- > 0) {
+    msg[idx++] = *str++;
+  }
+  msg[idx] = '\0';
+
+  MSyslogMessage5424* m = new MSyslogMessage5424(facility, severity, version, msg,
+	timeStamp, fqdn, appName, procID, msgID);
+
+  logClient.log(MLogClient::MLOG_VERBOSE,
+	MString("Syslog message extracted: ") + msg);
+
+  logClient.log(MLogClient::MLOG_VERBOSE, "", "MSyslogFactory::produceMessage5424",
+	__LINE__, "Exit method");
+  return m;
+}

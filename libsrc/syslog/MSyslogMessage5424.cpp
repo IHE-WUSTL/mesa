@@ -250,12 +250,12 @@ MSyslogMessage5424::hostName( ) const
 
 
 int
-MSyslogMessage5424::headerLength()
+MSyslogMessage5424::headerLength() const
 {
   int priority = mFacility << 3 | (mSeverity & 0x7);
 
   int l = 2                             // <> brackets
-        + this->textLength(priority)
+        + this->textLength(priority) +1	// priority + space delimiter
         + mTimeStamp.size() + 1         // time stamp + space delimiter
         + mHostName.size() + 1          // hostname + space delimiter
         + mAppName.size() + 1           // App Name + space delimiter
@@ -267,6 +267,24 @@ MSyslogMessage5424::headerLength()
   else                     l += 3;
 
   return l;
+}
+
+int
+MSyslogMessage5424::messageSize() const
+{
+//  cout << "header " << this->headerLength()
+//	<< " message " << mMessageSize
+//	<< " structured " << 3
+//	<< endl;
+
+  int len = this->headerLength() + mMessageSize;	// 3 is for the " - " we use for structured data
+  if (mUTF8Flag) {
+    len += 3;
+//    cout << " utf8 3 chars" << endl;
+  }
+//  cout << "   total len: " << len << endl;
+
+  return len;
 }
 
 int

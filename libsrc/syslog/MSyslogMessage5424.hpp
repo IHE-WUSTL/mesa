@@ -124,7 +124,7 @@ public:
 
   MString hostName( ) const;
 
-  int headerLength();
+  int headerLength() const;
 
   int exportHeader(char* buffer,
 	int bufferLength,
@@ -140,7 +140,7 @@ public:
 
   char* exportTrailer(int& exportedLength);
 
-  unsigned long messageSize() const;
+  int messageSize() const;
 
   int exportMessage(char* buffer,
 	int bufferLength,

@@ -112,3 +112,56 @@ MDateTime::formatXSDateTime(MString& dateTime)
   return 0;
 }
 
+
+int
+MDateTime::formatRFC3339DateTime(MString& dateTime)
+{
+  char dateDICOM[32];
+  char timeDICOM[32];
+  char buf[64];
+
+  ::UTL_GetDicomDate(dateDICOM);
+
+  ::UTL_GetDicomTime(timeDICOM);
+
+  char *pDate;
+  char *pTime;
+  char *p;
+
+  p = buf;
+  pDate = dateDICOM;
+  pTime = timeDICOM;
+
+  *p++ = *pDate++;	// CC
+  *p++ = *pDate++;	// CC
+  *p++ = *pDate++;	// YY
+  *p++ = *pDate++;	// YY
+  *p++ = '-';
+
+  *p++ = *pDate++;	// MM
+  *p++ = *pDate++;	// MM
+  *p++ = '-';
+
+  *p++ = *pDate++;	// DD
+  *p++ = *pDate++;	// DD
+  *p++ = 'T';		// Time divider
+
+  *p++ = *pTime++;	// HH
+  *p++ = *pTime++;	// HH
+  *p++ = ':';
+
+  *p++ = *pTime++;	// MM
+  *p++ = *pTime++;	// MM
+  *p++ = ':';
+
+  *p++ = *pTime++;	// SS
+  *p++ = *pTime++;	// SS
+
+  *p++ = 'Z';		// repair, this makes a legal format, but the wrong time zone
+  *p++ = '\0';
+
+  dateTime = buf;
+
+  return 0;
+}
+

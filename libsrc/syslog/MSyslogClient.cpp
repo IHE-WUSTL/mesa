@@ -34,6 +34,7 @@
 #include "MESA.hpp"
 #include "MSyslogClient.hpp"
 #include "MSyslogMessage.hpp"
+#include "MSyslogMessage5424.hpp"
 #include "MConnector.hpp"
 #include "MLogClient.hpp"
 
@@ -106,6 +107,30 @@ MSyslogClient::open(const MString& host, int port)
 }
 
 int
+MSyslogClient::openTCP(const MString& host, int port)
+{
+  MConnector c;
+  CTN_SOCKET s;
+
+  int status = c.connectTCP(host, port, s);
+  if (status != 0) {
+    char buf[512];
+    strstream s(buf, sizeof(buf));
+    s << "Unable to make TCP socket to host: " << host
+	<< " at port: " << port << '\0';
+
+    MLogClient logClient;
+    logClient.log(MLogClient::MLOG_ERROR, "",
+	"MSyslogClient::openTCP", __LINE__,
+	buf);
+    return 1;
+  }
+
+  mSocket = s;
+  return 0;
+}
+
+int
 MSyslogClient::sendMessage(MSyslogMessage& m)
 {
   if (mSocket == 0) {
@@ -132,6 +157,108 @@ MSyslogClient::sendMessage(MSyslogMessage& m)
     *p++ = ' ';
     messageLength++;
   }
+
+  m.exportMessage(p, sizeof(buffer) - exportedLength, exportedLength);
+
+  messageLength += exportedLength;
+
+  int bytesWritten;
+
+#ifdef _WIN32
+  bytesWritten = ::send(mSocket, buffer, messageLength, 0);
+#else
+  bytesWritten = ::write(mSocket, buffer, messageLength);
+#endif
+  if (bytesWritten != messageLength) {
+      ::perror("");
+    char tmp[512];
+    strstream s(tmp, sizeof(tmp));
+    s << "Unable to send UDP datagram, requested: " << messageLength
+	<< " bytes, but only sent " << bytesWritten
+	<< " bytes";
+
+    MLogClient logClient;
+    logClient.log(MLogClient::MLOG_ERROR, "",
+	"MSyslogClient::sendMessage", __LINE__,
+	tmp);
+  }
+
+  return 0;
+}
+
+int
+MSyslogClient::sendMessage(MSyslogMessage5424& m)
+{
+  if (mSocket == 0) {
+    MLogClient logClient;
+    logClient.log(MLogClient::MLOG_ERROR, "",
+	"MSyslogClient::sendMessage", __LINE__,
+	"No socket opened before trying to send message: ");
+    return 1;
+  }
+
+  char buffer[2048];
+
+  int exportedLength = 0;
+
+  m.exportHeader(buffer, sizeof(buffer), exportedLength);
+
+  char *p = buffer + exportedLength;
+
+  int messageLength = exportedLength;
+
+  m.exportMessage(p, sizeof(buffer) - exportedLength, exportedLength);
+
+  messageLength += exportedLength;
+
+  int bytesWritten;
+
+#ifdef _WIN32
+  bytesWritten = ::send(mSocket, buffer, messageLength, 0);
+#else
+  bytesWritten = ::write(mSocket, buffer, messageLength);
+#endif
+  if (bytesWritten != messageLength) {
+      ::perror("");
+    char tmp[512];
+    strstream s(tmp, sizeof(tmp));
+    s << "Unable to send UDP datagram, requested: " << messageLength
+	<< " bytes, but only sent " << bytesWritten
+	<< " bytes";
+
+    MLogClient logClient;
+    logClient.log(MLogClient::MLOG_ERROR, "",
+	"MSyslogClient::sendMessage", __LINE__,
+	tmp);
+  }
+
+  return 0;
+}
+
+int
+MSyslogClient::sendMessageTCP(MSyslogMessage5424& m)
+{
+  if (mSocket == 0) {
+    MLogClient logClient;
+    logClient.log(MLogClient::MLOG_ERROR, "",
+	"MSyslogClient::sendMessageTCP", __LINE__,
+	"No socket opened before trying to send message: ");
+    return 1;
+  }
+
+  char buffer[2048];
+
+  int len = m.messageSize();
+  ::sprintf(buffer, "%d ", len);
+  int lenDigits = ::strlen(buffer);
+
+  int exportedLength = 0;
+
+  m.exportHeader(buffer+lenDigits, sizeof(buffer)-lenDigits, exportedLength);
+
+  char *p = buffer + lenDigits + exportedLength;
+
+  int messageLength = lenDigits + exportedLength;
 
   m.exportMessage(p, sizeof(buffer) - exportedLength, exportedLength);
 

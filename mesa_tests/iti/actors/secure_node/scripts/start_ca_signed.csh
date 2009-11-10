@@ -6,6 +6,15 @@ if ($1 != "") set LOGLEVEL = $1
 
 #$MESA_TARGET/bin/syslog_server -l $LOGLEVEL 4000 &
 
+echo "Starting 5424 / 5426 UDP 4001 "
+$MESA_TARGET/bin/syslog_server -l $LOGLEVEL -r 5424 -x 5426 4001 &
+
+echo "Starting 5424 / TCP  TCP 4002 "
+$MESA_TARGET/bin/syslog_server -l $LOGLEVEL -r 5424 -x TCP  4002 &
+
+#echo "Starting 5424 / 5425 TLS 4003 "
+#$MESA_TARGET/bin/syslog_server -l $LOGLEVEL -r 5424 -x 5425 4003 
+
 ## Now, all of the secure applications
 
 set C = $MESA_TARGET/runtime/certs-ca-signed/mesa_1.cert.pem

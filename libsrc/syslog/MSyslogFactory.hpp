@@ -56,6 +56,7 @@
 using namespace std;
 
 class MSyslogMessage;
+class MSyslogMessage5424;
 
 class MSyslogFactory
 // = TITLE
@@ -87,6 +88,7 @@ public:
   // = Class specific methods.
 
   MSyslogMessage* produceMessage(const char* str, int length);
+  MSyslogMessage5424* produceMessage5424(const char* str, int length);
 
 protected:
 

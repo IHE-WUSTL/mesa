@@ -1,6 +1,12 @@
 
 set LOGLEVEL=4
 
+start %MESA_TARGET%\bin\syslog_server -l %LOGLEVEL% -r 5424 -x 5426 4001
+
+start %MESA_TARGET%\bin\syslog_server -l %LOGLEVEL% -r 5424 -x TCP  4002
+
+REM start %MESA_TARGET%\bin\syslog_server -l %LOGLEVEL% -r 5424 -x 5425 4003
+
 set C=%MESA_TARGET%\runtime\certs-ca-signed\mesa_1.cert.pem
 set K=%MESA_TARGET%\runtime\certs-ca-signed\mesa_1.key.pem
 set P=%MESA_TARGET%\runtime\certs-ca-signed\test_list.cert

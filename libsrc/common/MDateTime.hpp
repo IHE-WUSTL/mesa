@@ -93,6 +93,7 @@ public:
   // = Class specific methods.
 
   int formatXSDateTime(MString& dateTime);
+  int formatRFC3339DateTime(MString& dateTime);
 
 private:
 };

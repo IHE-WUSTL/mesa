@@ -35,6 +35,7 @@
 
 #include "MESA.hpp"
 #include "MSyslogMessage.hpp"
+#include "MSyslogMessage5424.hpp"
 #include "MSyslogClient.hpp"
 #include "MFileOperations.hpp"
 
@@ -43,11 +44,15 @@ using namespace std;
 static void usage()
 {
   char msg[] = "\
-Usage: [-c] [-f fac] [-m mode] [-s sev] [-v] host port arg\n\
+Usage: [-a app] [-c] [-f fac] [-M msgID] [-m mode] [-p procID] [-r rfc] [-s sev] [-v] host port arg\n\
 \n\
+  -a     Set appName; default is Spartacus\n\
   -c     arg is the payload to send \n\
   -f     Set facility in message; default is 10 \n\
+  -M     Set message ID; default is PDQIN\n\
   -m     Set mode for syslog client class; default is 0 \n\
+  -p     Set processID; default is 777\n\
+  -r     Format message according to RFC\n\
   -s     Set severity in message; default is 0 \n\
   -v     Verbose mode \n\
 \n\
@@ -62,15 +67,30 @@ Usage: [-c] [-f fac] [-m mode] [-s sev] [-v] host port arg\n\
 int main(int argc, char** argv)
 {
   int facility = 10;
-  int severity = 0;
+  int severity = 5;
   int mode = 0;
   bool verbose = false;
   bool isCommand = false;
   MString tmp;
   MString tag = "";
+  MString appName = "Spartacus";
+  MString procID  = "777";
+  MString msgID   = "PDQIN";
+  MString timeStamp = "";
+  MString hostName  = "";
+  bool flagUTF8 = true;
+
+  int rfcType = 0;
+  MString xmitRFC = "3164";
 
   while (--argc > 0 && (*++argv)[0] == '-') {
     switch(*(argv[0] + 1)) {
+    case 'a':
+      if (argc < 1)
+	usage();
+      argc--; argv++;
+      appName = *argv;
+      break;
     case 'c':
       isCommand = true;
       break;
@@ -81,12 +101,31 @@ int main(int argc, char** argv)
       tmp = *argv;
       facility = tmp.intData();
       break;
+    case 'M':
+      if (argc < 1)
+	usage();
+      argc--; argv++;
+      msgID = *argv;
+      break;
     case 'm':
       if (argc < 1)
 	usage();
       argc--; argv++;
       tmp = *argv;
       mode = tmp.intData();
+      break;
+    case 'p':
+      if (argc < 1)
+	usage();
+      argc--; argv++;
+      procID = *argv;
+      break;
+    case 'r':
+      if (argc < 1)
+	usage();
+      argc--; argv++;
+      tmp = *argv;
+      rfcType = tmp.intData();
       break;
     case 's':
       if (argc < 1)
@@ -105,6 +144,12 @@ int main(int argc, char** argv)
     case 'v':
       verbose = true;
       break;
+    case 'x':
+      if (argc < 1)
+	usage();
+      argc--; argv++;
+      xmitRFC = *argv;
+      break;
 
     default:
       break;
@@ -121,13 +166,27 @@ int main(int argc, char** argv)
   MSyslogClient c;
   c.setTestMode(mode);
 
-  int status = c.open(syslogHost, syslogPort);
+  int status = 0;
+  if (xmitRFC == "TCP") {
+    status = c.openTCP(syslogHost, syslogPort);
+  } else if (xmitRFC == "3164") {
+    status = c.open(syslogHost, syslogPort);
+  } else if (xmitRFC == "5426") {
+    status = c.open(syslogHost, syslogPort);
+  } else if (xmitRFC == "5425") {
+    cout << "Not ready for RFC 5425" << endl;
+    return 1;
+  } else {
+    cout << "Unrecognized transport: " << xmitRFC << endl;
+    return 1;
+  }
   if (status != 0) {
     cout << "Unable to connect to server" << endl;
     return 1;
   }
 
   char* txt;
+
   if (isCommand) {
     txt = argv[2];
   } else {
@@ -140,14 +199,37 @@ int main(int argc, char** argv)
     }
   }
 
-  MSyslogMessage m(facility, severity, tag, txt);
-  if (!isCommand)
-    delete []txt;
 
-  status = c.sendMessage(m);
-  if (status != 0) {
-    cout << "Unable to send message to server" << endl;
-    return 1;
+  if (rfcType == 0) {
+    MSyslogMessage m(facility, severity, tag, txt);
+    if (!isCommand)
+      delete []txt;
+
+    status = c.sendMessage(m);
+    if (status != 0) {
+      cout << "Unable to send message to server" << endl;
+      return 1;
+    }
+  } else if (rfcType == 5424) {
+    int version = 1;
+
+    MSyslogMessage5424 m5424(facility, severity, version, txt, timeStamp,
+	hostName, appName, procID, msgID, flagUTF8);
+    if (!isCommand)
+      delete []txt;
+
+    if (xmitRFC == "TCP") {
+      status = c.sendMessageTCP(m5424);
+    } else if (xmitRFC == "5426") {
+      status = c.sendMessage(m5424);
+    } else {
+      status = c.sendMessage(m5424);
+    }
+    if (status != 0) {
+      cout << "Unable to send message to server" << endl;
+      return 1;
+    }
+	
   }
 
   return 0;
