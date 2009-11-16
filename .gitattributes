@@ -2414,6 +2414,7 @@ mesa_tests/iti/actors/secure_node/11202/eval_11202.pl -text
 mesa_tests/iti/actors/secure_node/11202/self_test_11202.pl -text
 mesa_tests/iti/actors/secure_node/schematron/schematron-basic.xsl -text
 mesa_tests/iti/actors/secure_node/schematron/skeleton1-5.xsl -text
+mesa_tests/iti/actors/secure_node/scripts/clear_patient.sql -text
 mesa_tests/iti/actors/secure_node/scripts/self_test_ca_signed.csh -text
 mesa_tests/iti/actors/secure_node/scripts/start_ca_signed.bat -text
 mesa_tests/iti/actors/secure_node/scripts/start_ca_signed.csh -text

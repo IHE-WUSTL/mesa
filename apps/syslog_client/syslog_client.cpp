@@ -38,6 +38,7 @@
 #include "MSyslogMessage5424.hpp"
 #include "MSyslogClient.hpp"
 #include "MFileOperations.hpp"
+#include "MLogClient.hpp"
 
 using namespace std;
 
@@ -82,6 +83,13 @@ int main(int argc, char** argv)
 
   int rfcType = 0;
   MString xmitRFC = "3164";
+  MString randomsFile = "";
+  MString keyFile = "";
+  MString certificateFile = "";
+  MString peerCertificateList = "";
+  MString ciphers = "NULL-SHA";
+  MLogClient::LOGLEVEL logLevel = MLogClient::MLOG_NONE;
+
 
   while (--argc > 0 && (*++argv)[0] == '-') {
     switch(*(argv[0] + 1)) {
@@ -94,12 +102,34 @@ int main(int argc, char** argv)
     case 'c':
       isCommand = true;
       break;
+    case 'C':
+      argc--;
+      argv++;
+      if (argc <= 0)
+        usage();
+      certificateFile = *argv;
+      break;
+
     case 'f':
       if (argc < 1)
 	usage();
       argc--; argv++;
       tmp = *argv;
       facility = tmp.intData();
+      break;
+    case 'K':
+      argc--;
+      argv++;
+      if (argc <= 0)
+        usage();
+      keyFile = *argv;
+      break;
+    case 'l':
+      if (argc < 1)
+	usage();
+      argc--; argv++;
+      tmp = *argv;
+      logLevel = (MLogClient::LOGLEVEL)tmp.intData();
       break;
     case 'M':
       if (argc < 1)
@@ -120,6 +150,13 @@ int main(int argc, char** argv)
       argc--; argv++;
       procID = *argv;
       break;
+    case 'P':
+      argc--;
+      argv++;
+      if (argc <= 0)
+        usage();
+      peerCertificateList = *argv;
+      break;
     case 'r':
       if (argc < 1)
 	usage();
@@ -127,6 +164,15 @@ int main(int argc, char** argv)
       tmp = *argv;
       rfcType = tmp.intData();
       break;
+
+    case 'R':
+      argc--;
+      argv++;
+      if (argc <= 0)
+        usage();
+      randomsFile = *argv;
+      break;
+
     case 's':
       if (argc < 1)
 	usage();
@@ -159,13 +205,45 @@ int main(int argc, char** argv)
   if (argc < 3)
     usage();
 
+int place = 0;
+cout << "Place " << place++ << endl;
+
+  MFileOperations f;
+  char logPath[1024];
+  if (f.expandPath(logPath, "MESA_TARGET", "logs/syslog") != 0) {
+    cout << "Unable to expand path for $MESA_TARGET/logs/syslog" << endl;
+    return 1;
+  }
+cout << "Place " << place++ << endl;
+  if (f.createDirectory(logPath) != 0) {
+    cout << "Unable to create directory: " << logPath << endl;
+  }
+cout << "Place " << place++ << endl;
+  MString logDir(logPath);
+
+  MLogClient logClient;
+  if (logLevel != MLogClient::MLOG_NONE) {
+    MString logName = logDir + "/syslog_client.log";
+    logClient.initialize(logLevel, logName);
+  }
+cout << "Place " << place++ << endl;
+
   char* syslogHost = argv[0];
   tmp = argv[1];
   int syslogPort = tmp.intData();
 
   MSyslogClient c;
+cout << "Place " << place++ << endl;
   c.setTestMode(mode);
+cout << "Place " << place++ << endl;
+  MString proxyParams = "";
+	randomsFile + ","
+	+ keyFile + ","
+	+ certificateFile + ","
+	+ peerCertificateList + ","
+	+ ciphers;
 
+cout << "Place " << place++ << endl;
   int status = 0;
   if (xmitRFC == "TCP") {
     status = c.openTCP(syslogHost, syslogPort);
@@ -174,8 +252,15 @@ int main(int argc, char** argv)
   } else if (xmitRFC == "5426") {
     status = c.open(syslogHost, syslogPort);
   } else if (xmitRFC == "5425") {
-    cout << "Not ready for RFC 5425" << endl;
-    return 1;
+    proxyParams = 
+	randomsFile + ","
+	+ keyFile + ","
+	+ certificateFile + ","
+	+ peerCertificateList + ","
+	+ ciphers;
+cout << "Place " << place++ << endl;
+    status = c.openTLS(syslogHost, syslogPort, proxyParams);
+cout << "Place " << place++ << endl;
   } else {
     cout << "Unrecognized transport: " << xmitRFC << endl;
     return 1;
@@ -191,7 +276,6 @@ int main(int argc, char** argv)
     txt = argv[2];
   } else {
     char* path = argv[2];
-    MFileOperations f;
     txt = f.readAllText(path);
     if (txt == 0) {
       cout << "Unable to read XML text from: " << path << endl;
@@ -200,6 +284,7 @@ int main(int argc, char** argv)
   }
 
 
+cout << "Place " << place++ << endl;
   if (rfcType == 0) {
     MSyslogMessage m(facility, severity, tag, txt);
     if (!isCommand)
@@ -220,6 +305,10 @@ int main(int argc, char** argv)
 
     if (xmitRFC == "TCP") {
       status = c.sendMessageTCP(m5424);
+    } else if (xmitRFC == "5425") {
+cout << "Place " << place++ << endl;
+      status = c.sendMessageTLS(m5424);
+cout << "Place " << place++ << endl;
     } else if (xmitRFC == "5426") {
       status = c.sendMessage(m5424);
     } else {
@@ -229,8 +318,9 @@ int main(int argc, char** argv)
       cout << "Unable to send message to server" << endl;
       return 1;
     }
-	
+
   }
 
+cout << "Place " << place++ << endl;
   return 0;
 }

@@ -60,6 +60,10 @@ using namespace std;
 class MSyslogMessage;
 class MSyslogMessage5424;
 
+#ifdef RFC5425
+#include "MNetworkProxyTLS.hpp"
+#endif
+
 class MSyslogClient
 // = TITLE
 //	MSyslogClient -
@@ -91,20 +95,26 @@ public:
 
   int open(const MString& host, int port = 514 );
   int openTCP(const MString& host, int port);
+  int openTLS(const MString& host, int port, const MString& params);
 
   int sendMessage(MSyslogMessage& m);
   int sendMessage(MSyslogMessage5424& m);
   int sendMessageTCP(MSyslogMessage5424& m);
+  int sendMessageTLS(MSyslogMessage5424& m);
 
   void setTestMode(int mode);
 
 protected:
 
 private:
+#ifdef RFC5425
+  MNetworkProxyTLS mNetworkProxyTLS;
+#endif
   CTN_SOCKET mSocket;
   MString mServerName;
   int mServerPort;
   int mTestMode;
+  bool mIsConnected;
 };
 
 inline ostream& operator<< (ostream& s, const MSyslogClient& c) {

@@ -1,7 +1,7 @@
 include $(MESA_MAKE)
 
-CFLAGS = $(C_OPTS)
-CXX_FLAGS = $(C_OPTS)
+CFLAGS = $(C_OPTS) -DRFC5425
+CXX_FLAGS = $(C_OPTS) -DRFC5425
 
 CLASS_FILES = MAuditMessage MAuditMessageFactory MDICOMAuditMessage \
 MSyslogClient MSyslogFactory MSyslogMessage MSyslogMessage5424 \

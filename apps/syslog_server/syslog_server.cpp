@@ -46,16 +46,23 @@
 #include "MSyslogEntry.hpp"
 #include "MNetworkProxy.hpp"
 #include "MNetworkProxyTCP.hpp"
+#ifdef RFC5425
+#include "MNetworkProxyTLS.hpp"
+#endif
 
 using namespace std;
 
 static void usage()
 {
   char msg[] = "\
-Usage: [-d db] [-l level] [-r rfc] [-v] [-x rfc] port\n\
+Usage: [-C cert] [-d db] [-K key] [-l level] [-P peer] [-R randoms] [-r rfc] [-v] [-x rfc] port\n\
 \n\
+  -C   File containing certificate for this application\n\
   -d   Set database name to store messages; default is syslog \n\
+  -K   File containing private key for this application\n\
   -l   Set loglevel (0-4); default is 1 (error) \n\
+  -P   File with list of peer certificates (might just be CA certificate\n\
+  -R   File containing random numbers to initialze toolkit\n\
   -r   Receive messages formatted according to RFC (e.g., 5424)\n\
   -x   Use RFC as transmission mode (0, 5425, 5426)\n\
   -v   Enable verbose mode \n\
@@ -64,6 +71,71 @@ Usage: [-d db] [-l level] [-r rfc] [-v] [-x rfc] port\n\
 
   cerr << msg << endl;
   ::exit(1);
+}
+
+static void
+dumpToFolder(const char* logPath, const char* remoteNode, const char* buffer, const unsigned char* payload)
+{
+  MLogClient logClient;
+  char date[20] = "";
+  char time[30] = "";
+  ::UTL_GetDicomDate(date);
+  ::UTL_GetDicomTime(time);
+  time[6] = '\0';
+  MFileOperations f;
+
+  char hostFolder[1024] = "";
+  ::sprintf(hostFolder, "%s/%s", logPath, remoteNode);
+  f.createDirectory(logPath);
+  f.createDirectory(hostFolder);
+
+  {
+    char fileName[1024] = "";
+    ::sprintf(fileName, "%s/%s_%s_packet.txt", hostFolder, date, time);
+    ofstream thisMessage(fileName, ios_base::trunc);
+    thisMessage << buffer;
+    thisMessage.close();
+  }
+  {
+    char fileName[1024] = "";
+    ::sprintf(fileName, "%s/%s_%s_payload.txt", hostFolder, date, time);
+    ofstream thisMessage(fileName, ios_base::trunc);
+    thisMessage << payload;
+    thisMessage.close();
+  }
+  {
+    char fileName[1024] = "";
+    ::sprintf(fileName, "%s/last_log.txt", logPath);
+    ofstream thisMessage(fileName, ios_base::trunc);
+    thisMessage << buffer;
+    thisMessage.close();
+  }
+  bool bom = true;
+  if (payload[0] != 0xef) bom = false;
+  if (payload[1] != 0xbb) bom = false;
+  if (payload[2] != 0xbf) bom = false;
+
+  const unsigned char* p = payload;
+  if (bom) p += 3;
+
+  {
+    char fileName[1024] = "";
+    ::sprintf(fileName, "%s/%s_%s_payload.xml", hostFolder, date, time);
+    ofstream thisMessage(fileName, ios_base::trunc);
+    thisMessage << p;
+    thisMessage.close();
+    if (!bom) {
+      logClient.logTimeStamp(MLogClient::MLOG_WARN, "Expected to find BOM at the front of this payload, but did not");
+      logClient.logTimeStamp(MLogClient::MLOG_WARN, MString("Please inspect the file: ") + fileName);
+    }
+  }
+  {
+    char fileName[1024] = "";
+    ::sprintf(fileName, "%s/last_log.xml", logPath);
+    ofstream thisMessage(fileName, ios_base::trunc);
+    thisMessage << p;
+    thisMessage.close();
+  }
 }
 
 static int
@@ -119,9 +191,6 @@ processUDPPackets(CTN_SOCKET s, char* logPath, const MString& syslogDBName, int 
     }
     buffer[bytesRead] = '\0';
 
-    ofstream o(fileLastLog);
-    o << buffer;
-
     char remoteNode[512];
     struct hostent* hp = 0;
     hp = ::gethostbyaddr(&client_addr.sa_data[2], 4, 2);
@@ -163,8 +232,7 @@ processUDPPackets(CTN_SOCKET s, char* logPath, const MString& syslogDBName, int 
         break;
       }
 
-      ofstream xmlFile(fileLastXML);
-      xmlFile << ref;
+      dumpToFolder(logPath, remoteNode, buffer, (unsigned char*)ref);
 
 #if 0
       if (mgr != 0) {
@@ -184,7 +252,6 @@ processUDPPackets(CTN_SOCKET s, char* logPath, const MString& syslogDBName, int 
     } else {
       MSyslogMessage* m = factory.produceMessage(buffer, bytesRead);
       if (m == 0) {
-        //cout << "Could not produce message from buffer" << endl;
         logClient.log(MLogClient::MLOG_ERROR, "remoteNode",
 		"processUDPPackets", __LINE__,
 		"unable to parse the syslog stream in current packet;",
@@ -199,9 +266,6 @@ processUDPPackets(CTN_SOCKET s, char* logPath, const MString& syslogDBName, int 
         delete m;
         break;
       }
-
-      ofstream xmlFile(fileLastXML);
-      xmlFile << ref;
 
       if (mgr != 0) {
         MSyslogEntry entry;
@@ -234,11 +298,11 @@ processTCPPackets(MNetworkProxy& n, char* logPath, const MString& syslogDBName, 
   int length;
 #endif
   MSyslogFactory factory;
-  char fileLastLog[32768];
-  char fileLastXML[32768];
+//  char fileLastLog[32768];
+//  char fileLastXML[32768];
 
-  ::sprintf(fileLastLog, "%s/last_log.txt", logPath);
-  ::sprintf(fileLastXML, "%s/last_log.xml", logPath);
+//  ::sprintf(fileLastLog, "%s/last_log.txt", logPath);
+//  ::sprintf(fileLastXML, "%s/last_log.xml", logPath);
 
   MDBSyslogManager* mgr = 0;
   if (syslogDBName != "") {
@@ -295,28 +359,12 @@ processTCPPackets(MNetworkProxy& n, char* logPath, const MString& syslogDBName, 
       cout << "Socket closed reading msg length" << endl;
     } else {
 
-      cout << endl << ix << ' ' << buffer << endl;
-      ofstream o(fileLastLog);
-      o << buffer;
+      char remoteNode[512]="";
+      remoteHost.safeExport(remoteNode, sizeof remoteNode);
 
-      char remoteNode[512];
-      struct hostent* hp = 0;
-      hp = ::gethostbyaddr(&client_addr.sa_data[2], 4, 2);
-      if (hp == 0) {
-	::sprintf(remoteNode, "%-d.%-d.%-d.%-d",
-		((int) client_addr.sa_data[2]) & 0xff,
-		((int) client_addr.sa_data[3]) & 0xff,
-		((int) client_addr.sa_data[4]) & 0xff,
-		((int) client_addr.sa_data[5]) & 0xff);
-      } else {
-	::strcpy(remoteNode, hp->h_name);
-      }
       logClient.log(MLogClient::MLOG_CONVERSATION, "remoteNode",
 		"processUDPPackets", __LINE__,
 		"syslog buffer is: ", buffer);
-
-      //cout << "Remote node: " << remoteNode << endl;
-      //cout << buffer << endl;
 
       if (rfcType == 5424) {
 	MSyslogMessage5424* m = factory.produceMessage5424(buffer, bytesRead);
@@ -339,9 +387,7 @@ processTCPPackets(MNetworkProxy& n, char* logPath, const MString& syslogDBName, 
 	  delete m;
 	  break;
 	}
-
-	ofstream xmlFile(fileLastXML);
-	xmlFile << ref;
+	dumpToFolder(logPath, remoteNode, buffer, (unsigned char*)ref);
 
 #if 0
 	if (mgr != 0) {
@@ -361,7 +407,6 @@ processTCPPackets(MNetworkProxy& n, char* logPath, const MString& syslogDBName, 
       } else {
 	MSyslogMessage* m = factory.produceMessage(buffer, bytesRead);
 	if (m == 0) {
-	  //cout << "Could not produce message from buffer" << endl;
 	  logClient.log(MLogClient::MLOG_ERROR, "remoteNode",
 		"processUDPPackets", __LINE__,
 		"unable to parse the syslog stream in current packet;",
@@ -376,9 +421,6 @@ processTCPPackets(MNetworkProxy& n, char* logPath, const MString& syslogDBName, 
 	  delete m;
 	  break;
 	}
-
-	ofstream xmlFile(fileLastXML);
-	xmlFile << ref;
 
 	if (mgr != 0) {
 	  MSyslogEntry entry;
@@ -408,6 +450,12 @@ int main(int argc, char** argv)
   char path[256];
   int rfcType = 0;
   MString xmitRFC = "3164";
+  MString randomsFile = "";
+  MString keyFile = "";
+  MString certificateFile = "";
+  MString peerCertificateList = "";
+  MString ciphers = "NULL-SHA";
+
 
   f.expandPath(path, "MESA_TARGET", "logs");
   MString logDir(path);
@@ -416,11 +464,23 @@ int main(int argc, char** argv)
   while (--argc > 0 && (*++argv)[0] == '-') {
     int l1 = 0;
     switch(*(argv[0] + 1)) {
+    case 'C':
+      argc--; argv++;
+      if (argc < 1)
+	usage();
+      certificateFile = *argv;
+      break;
     case 'd':
       argc--; argv++;
       if (argc < 1)
 	usage();
       syslogDBName = *argv;
+      break;
+    case 'K':
+      argc--; argv++;
+      if (argc < 1)
+	usage();
+      keyFile = *argv;
       break;
 
     case 'l':
@@ -430,6 +490,18 @@ int main(int argc, char** argv)
       if (::sscanf(*argv, "%d", &l1) != 1)
 	usage();
       logLevel = (MLogClient::LOGLEVEL)l1;
+      break;
+    case 'P':
+      argc--; argv++;
+      if (argc < 1)
+	usage();
+      peerCertificateList = *argv;
+      break;
+    case 'R':
+      argc--; argv++;
+      if (argc < 1)
+	usage();
+      randomsFile = *argv;
       break;
 
     case 'r':
@@ -519,9 +591,28 @@ int main(int argc, char** argv)
     processUDPPackets(s, logPath, syslogDBName, rfcType);
 
   } else if (xmitRFC=="5425") {
+#ifdef RFC5425
+    networkProxy = new MNetworkProxyTLS;
+    MString proxyParams =
+	randomsFile + ","
+	+ keyFile + ","
+	+ certificateFile + ","
+	+ peerCertificateList + ","
+	+ ciphers;
+    if (networkProxy->initializeServer(proxyParams) != 0) {
+      logClient.logTimeStamp(MLogClient::MLOG_ERROR,
+	MString("Unable to initialize TLS proxy class with params: ") + proxyParams);
+      return 1;
+    }
+    if (networkProxy->registerPort(port) != 0) {
+      logClient.logTimeStamp(MLogClient::MLOG_ERROR, "Unable to initialize TCP/TLS listening port");
+      return 1;
+    }
+    processTCPPackets(*networkProxy, logPath, syslogDBName, rfcType);
+#else
     cout << "syslog server not ready for RFC 5425" << endl;
     return 1;
-
+#endif
   } else {
     cout << "Unrecognized transport specification: " << xmitRFC << endl;
     return 1;

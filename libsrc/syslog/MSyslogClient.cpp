@@ -48,7 +48,8 @@ static char rcsid[] = "$Id: MSyslogClient.cpp,v 1.4 2002/09/13 21:29:24 smm Exp 
 MSyslogClient::MSyslogClient() :
   mSocket(0),
   mServerName(""),
-  mTestMode(0)
+  mTestMode(0),
+  mIsConnected(false)
 {
 }
 
@@ -128,6 +129,33 @@ MSyslogClient::openTCP(const MString& host, int port)
 
   mSocket = s;
   return 0;
+}
+
+int
+MSyslogClient::openTLS(const MString& host, int port, const MString& params)
+{
+  MLogClient logClient;
+#ifdef RFC5425
+  if (mNetworkProxyTLS.initializeClient(params) != 0) {
+    logClient.logTimeStamp(MLogClient::MLOG_ERROR,
+	MString("Unable to initialize Network Proxy TLS with params: ") + params);
+    return 1;
+  }
+  if (mNetworkProxyTLS.connect(host, port) != 0) {
+    char buf[512];
+    strstream s(buf, sizeof(buf));
+    s << "MSyslogClient::openTLS unable to connect to: " << host << " : " << port << '\0';
+    logClient.logTimeStamp(MLogClient::MLOG_ERROR, buf);
+    return 1;
+  }
+  mIsConnected = true;
+  return 0;
+
+#else
+  logClient.logTimeStamp(MLogClient::MLOG_ERROR,
+	"MSyslogClient::openTLS was not compiled with RFC5425 flag");
+  return 1;
+#endif
 }
 
 int
@@ -283,6 +311,49 @@ MSyslogClient::sendMessageTCP(MSyslogMessage5424& m)
     logClient.log(MLogClient::MLOG_ERROR, "",
 	"MSyslogClient::sendMessage", __LINE__,
 	tmp);
+  }
+
+  return 0;
+}
+
+int
+MSyslogClient::sendMessageTLS(MSyslogMessage5424& m)
+{
+  if (!mIsConnected) {
+    MLogClient logClient;
+    logClient.logTimeStamp(MLogClient::MLOG_ERROR, 
+	"MSyslogClient::sendMessageTLS trying to send message with no initialization"); 
+    return 1;
+  }
+
+  char buffer[2048];
+
+  int len = m.messageSize();
+  ::sprintf(buffer, "%d ", len);
+  int lenDigits = ::strlen(buffer);
+
+  int exportedLength = 0;
+
+  m.exportHeader(buffer+lenDigits, sizeof(buffer)-lenDigits, exportedLength);
+
+  char *p = buffer + lenDigits + exportedLength;
+
+  int messageLength = lenDigits + exportedLength;
+
+  m.exportMessage(p, sizeof(buffer) - exportedLength, exportedLength);
+
+  messageLength += exportedLength;
+
+  int bytesWritten;
+
+  if (mNetworkProxyTLS.writeBytes(buffer, messageLength) != messageLength) {
+    char tmp[512];
+    strstream s(tmp, sizeof(tmp));
+    s << "Unable to send TLS bytes, requested: " << messageLength << '\0';
+
+    MLogClient logClient;
+    logClient.logTimeStamp(MLogClient::MLOG_ERROR, tmp);
+    return 1;
   }
 
   return 0;
