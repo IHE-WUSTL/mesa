@@ -24,7 +24,7 @@ INCLUDES = -I. -I$(MESA_INCLUDE) \
 	-I$(XERCESCROOT)/include
 
 C_OPTS = -g -DLINUX -I$(MESA_INCLUDE) -I$(MESA_ROOT)/../ctn/include \
-	-D GCC4 \
+	-DGCC4 \
 	-Wpointer-arith -pipe -g \
 	-fexceptions -DMESA_USE_SOCKLEN_T
 #	-Wall -Wpointer-arith -pipe -g \

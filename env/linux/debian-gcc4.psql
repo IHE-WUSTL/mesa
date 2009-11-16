@@ -17,10 +17,13 @@ setenv MESA_INCLUDE $MESA_ROOT/include
 setenv MESA_LIB $MESA_ROOT/lib
 setenv MESA_MAKE $MESA_ROOT/env/linux/make.debian-gcc4.psql
 setenv MESA_BIN $MESA_TARGET/bin
-setenv PSQL_LIB /usr/local/pgsql/lib
-setenv PSQL_INCLUDE /usr/include/postgresql
+#setenv PSQL_LIB /usr/local/pgsql/lib
+#setenv PSQL_INCLUDE /usr/include/postgresql
 #setenv PSQL_LIB /opt/postgres/lib
 #setenv PSQL_INCLUDE /opt/postgres/include
+setenv PSQL_LIB /opt/PostgreSQL/8.4/lib
+setenv PSQL_INCLUDE /opt/PostgreSQL/8.4/include
+
 setenv CTN_LIB $MESA_ROOT/../ctn/lib/debian.psql
 setenv INSTALL install
 

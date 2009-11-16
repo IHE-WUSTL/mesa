@@ -178,6 +178,10 @@ install:
 #	cd of_ps;	make install
 #	cd orderplacer;	make install
 
+install_secure:
+	cd syslog_client;	make install_secure
+	cd syslog_server;	make install_secure
+
 clean:
 	cd cecho;		make clean
 	cd cfind;		make clean

@@ -9,6 +9,7 @@ package mesa_evaluate;
 require "mesa_get.pm";
 require "mesa_dicom_eval.pm";
 require "mesa_dicom_eval_support.pm";
+require "mesa_xml_eval.pm";
 require "mesa_eval_output.pm";
 
 1;

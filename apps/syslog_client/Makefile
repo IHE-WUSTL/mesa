@@ -9,10 +9,17 @@ APPS = syslog_client
 app:	$(APPS)
 
 syslog_client:	syslog_client.o
-	$(CXX) -g -o syslog_client syslog_client.o $(L_FLAGS) -lsyslog $(LIBS_MESA_SSL)
+	$(CXX) -g -o syslog_client syslog_client.o $(L_FLAGS) -lsyslog $(LIBS_MESA)
+
+syslog_client_secure:	syslog_client_secure.o
+	$(CXX) -g -o syslog_client_secure syslog_client_secure.o $(L_FLAGS) -lsyslog $(LIBS_MESA_SSL)
+
+syslog_client_secure.o: syslog_client.cpp
+	$(CXX) -o syslog_client_secure.o -DRFC5425 $(CXX_FLAGS) $(INCLUDES) -c syslog_client.cpp
+
 
 relink:
-	$(CXX) -o syslog_client syslog_client.o $(L_FLAGS) -lsyslog $(LIBS_MESA_SSL)
+	$(CXX) -o syslog_client syslog_client.o $(L_FLAGS) -lsyslog $(LIBS_MESA)
 
 C = $(MESA_TARGET)/runtime/certs-ca-signed/test_sys_1.cert.pem
 K = $(MESA_TARGET)/runtime/certs-ca-signed/test_sys_1.key.pem
@@ -21,6 +28,9 @@ R = $(MESA_TARGET)/runtime/certs-ca-signed/randoms.dat
 
 install:	$(APPS)
 	$(INSTALL) syslog_client $(MESA_BIN)
+
+install_secure:	syslog_client_secure
+	$(INSTALL) syslog_client_secure $(MESA_BIN)
 
 clean:
 	rm -rf $(APPS) core *.o
@@ -40,8 +50,8 @@ t101:	syslog_client
 t102:	syslog_client
 	./syslog_client -c -r 5424 -x TCP -m 1 localhost 4000 "<xml>payload</xml>"
 
-t103:	syslog_client
-	./syslog_client -l 4 -C $(C) -K $(K) -P $(P) -R $(R) -c -r 5424 -x 5425 -m 1 localhost 4000 "<xml>payload</xml>"
+t103:	syslog_client_secure
+	./syslog_client_secure -l 4 -C $(C) -K $(K) -P $(P) -R $(R) -c -r 5424 -x 5425 -m 1 localhost 4000 "<xml>payload</xml>"
 
 t104:	syslog_client
 	./syslog_client -c -r 5424 -x 5426 -m 1 localhost 4001 "<xml>payload</xml>"

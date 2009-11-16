@@ -8,6 +8,10 @@ install:
 	cd meval; make install
 	cd syslog; make install
 	cd translators; make install
+
+install_secure:
+	cd syslog; make install_secure
+
 clean:
 	cd common; make clean
 	cd cxxctn; make clean

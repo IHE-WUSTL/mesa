@@ -205,20 +205,20 @@ int main(int argc, char** argv)
   if (argc < 3)
     usage();
 
-int place = 0;
-cout << "Place " << place++ << endl;
+//int place = 0;
+//cout << "Place " << place++ << endl;
 
   MFileOperations f;
   char logPath[1024];
-  if (f.expandPath(logPath, "MESA_TARGET", "logs/syslog") != 0) {
-    cout << "Unable to expand path for $MESA_TARGET/logs/syslog" << endl;
+  if (f.expandPath(logPath, "MESA_TARGET", "logs") != 0) {
+    cout << "Unable to expand path for $MESA_TARGET/logs" << endl;
     return 1;
   }
-cout << "Place " << place++ << endl;
+//cout << "Place " << place++ << endl;
   if (f.createDirectory(logPath) != 0) {
     cout << "Unable to create directory: " << logPath << endl;
   }
-cout << "Place " << place++ << endl;
+//cout << "Place " << place++ << endl;
   MString logDir(logPath);
 
   MLogClient logClient;
@@ -226,16 +226,16 @@ cout << "Place " << place++ << endl;
     MString logName = logDir + "/syslog_client.log";
     logClient.initialize(logLevel, logName);
   }
-cout << "Place " << place++ << endl;
+//cout << "Place " << place++ << endl;
 
   char* syslogHost = argv[0];
   tmp = argv[1];
   int syslogPort = tmp.intData();
 
   MSyslogClient c;
-cout << "Place " << place++ << endl;
+//cout << "Place " << place++ << endl;
   c.setTestMode(mode);
-cout << "Place " << place++ << endl;
+//cout << "Place " << place++ << endl;
   MString proxyParams = "";
 	randomsFile + ","
 	+ keyFile + ","
@@ -243,7 +243,7 @@ cout << "Place " << place++ << endl;
 	+ peerCertificateList + ","
 	+ ciphers;
 
-cout << "Place " << place++ << endl;
+//cout << "Place " << place++ << endl;
   int status = 0;
   if (xmitRFC == "TCP") {
     status = c.openTCP(syslogHost, syslogPort);
@@ -258,9 +258,9 @@ cout << "Place " << place++ << endl;
 	+ certificateFile + ","
 	+ peerCertificateList + ","
 	+ ciphers;
-cout << "Place " << place++ << endl;
+//cout << "Place " << place++ << endl;
     status = c.openTLS(syslogHost, syslogPort, proxyParams);
-cout << "Place " << place++ << endl;
+//cout << "Place " << place++ << endl;
   } else {
     cout << "Unrecognized transport: " << xmitRFC << endl;
     return 1;
@@ -284,7 +284,7 @@ cout << "Place " << place++ << endl;
   }
 
 
-cout << "Place " << place++ << endl;
+//cout << "Place " << place++ << endl;
   if (rfcType == 0) {
     MSyslogMessage m(facility, severity, tag, txt);
     if (!isCommand)
@@ -306,9 +306,9 @@ cout << "Place " << place++ << endl;
     if (xmitRFC == "TCP") {
       status = c.sendMessageTCP(m5424);
     } else if (xmitRFC == "5425") {
-cout << "Place " << place++ << endl;
+//cout << "Place " << place++ << endl;
       status = c.sendMessageTLS(m5424);
-cout << "Place " << place++ << endl;
+//cout << "Place " << place++ << endl;
     } else if (xmitRFC == "5426") {
       status = c.sendMessage(m5424);
     } else {
@@ -321,6 +321,6 @@ cout << "Place " << place++ << endl;
 
   }
 
-cout << "Place " << place++ << endl;
+//cout << "Place " << place++ << endl;
   return 0;
 }

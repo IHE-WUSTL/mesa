@@ -57,7 +57,9 @@ install_brief:
 
 install_secure:
 	cd secure_libsrc;	make install
+	cd libsrc;		make install_secure
 	cd secure_apps;		make install
+	cd apps;		make install_secure
 
 install_sol7:
 	make install

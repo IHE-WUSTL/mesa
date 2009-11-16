@@ -56,6 +56,23 @@ Usage: [-t type] [-T] input output \n\
   ::exit(1);
 }
 
+static void listAuditMessages()
+{
+  char* msgs[] = {"STARTUP", "CONFIGURATION", "PATIENT_RECORD", "PROCEDURE_RECORD", "MWL_PROVIDED",
+	"BEGIN_STORING_INSTANCES", "INSTANCES_SENT", "INSTANCES_USED", "NODE_AUTHENTICATION_FAILURE",
+	"USER_AUTHENTICATED", "DICOM_QUERY", "INSTANCES_STORED",
+	"ATNA_STARTUP", "ATNA_CONFIGURATION", "ATNA_USER_AUTHENTICATED", "ATNA_PATIENT_RECORD",
+
+  0};
+
+  cout << "List of supported Audit Messages:" << endl;
+  int idx = 0;
+  while (msgs[idx] != 0) {
+    cout << " " << msgs[idx++] << endl;
+  }
+}
+
+
 int main(int argc, char** argv)
 { 
   MString msgType = "";
@@ -69,6 +86,10 @@ int main(int argc, char** argv)
 
       argc--; argv++;
       msgType = *argv;
+      break;
+    case 'T':
+      listAuditMessages();
+      usage();
       break;
 
     default:

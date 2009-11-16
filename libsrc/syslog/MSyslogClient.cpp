@@ -319,8 +319,9 @@ MSyslogClient::sendMessageTCP(MSyslogMessage5424& m)
 int
 MSyslogClient::sendMessageTLS(MSyslogMessage5424& m)
 {
+  MLogClient logClient;
+#ifdef RFC5425
   if (!mIsConnected) {
-    MLogClient logClient;
     logClient.logTimeStamp(MLogClient::MLOG_ERROR, 
 	"MSyslogClient::sendMessageTLS trying to send message with no initialization"); 
     return 1;
@@ -351,12 +352,15 @@ MSyslogClient::sendMessageTLS(MSyslogMessage5424& m)
     strstream s(tmp, sizeof(tmp));
     s << "Unable to send TLS bytes, requested: " << messageLength << '\0';
 
-    MLogClient logClient;
     logClient.logTimeStamp(MLogClient::MLOG_ERROR, tmp);
     return 1;
   }
 
   return 0;
+#else
+  logClient.logTimeStamp(MLogClient::MLOG_ERROR, 
+	"MSyslogClient::sendMessageTLS not compiled with RFC5425 enabled"); 
+#endif
 }
 
 void

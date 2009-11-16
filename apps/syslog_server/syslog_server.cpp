@@ -74,7 +74,7 @@ Usage: [-C cert] [-d db] [-K key] [-l level] [-P peer] [-R randoms] [-r rfc] [-v
 }
 
 static void
-dumpToFolder(const char* logPath, const char* remoteNode, const char* buffer, const unsigned char* payload)
+dumpToFolder(const char* logPath, const char* remoteNode, char* transport, const char* buffer, const unsigned char* payload)
 {
   MLogClient logClient;
   char date[20] = "";
@@ -91,14 +91,14 @@ dumpToFolder(const char* logPath, const char* remoteNode, const char* buffer, co
 
   {
     char fileName[1024] = "";
-    ::sprintf(fileName, "%s/%s_%s_packet.txt", hostFolder, date, time);
+    ::sprintf(fileName, "%s/%s_%s_%s_packet.txt", hostFolder, date, time, transport);
     ofstream thisMessage(fileName, ios_base::trunc);
     thisMessage << buffer;
     thisMessage.close();
   }
   {
     char fileName[1024] = "";
-    ::sprintf(fileName, "%s/%s_%s_payload.txt", hostFolder, date, time);
+    ::sprintf(fileName, "%s/%s_%s_%s_payload.txt", hostFolder, date, time, transport);
     ofstream thisMessage(fileName, ios_base::trunc);
     thisMessage << payload;
     thisMessage.close();
@@ -120,7 +120,7 @@ dumpToFolder(const char* logPath, const char* remoteNode, const char* buffer, co
 
   {
     char fileName[1024] = "";
-    ::sprintf(fileName, "%s/%s_%s_payload.xml", hostFolder, date, time);
+    ::sprintf(fileName, "%s/%s_%s_%s_payload.xml", hostFolder, date, time, transport);
     ofstream thisMessage(fileName, ios_base::trunc);
     thisMessage << p;
     thisMessage.close();
@@ -232,7 +232,7 @@ processUDPPackets(CTN_SOCKET s, char* logPath, const MString& syslogDBName, int 
         break;
       }
 
-      dumpToFolder(logPath, remoteNode, buffer, (unsigned char*)ref);
+      dumpToFolder(logPath, remoteNode, "5426", buffer, (unsigned char*)ref);
 
 #if 0
       if (mgr != 0) {
@@ -387,7 +387,7 @@ processTCPPackets(MNetworkProxy& n, char* logPath, const MString& syslogDBName, 
 	  delete m;
 	  break;
 	}
-	dumpToFolder(logPath, remoteNode, buffer, (unsigned char*)ref);
+	dumpToFolder(logPath, remoteNode, "5425", buffer, (unsigned char*)ref);
 
 #if 0
 	if (mgr != 0) {

@@ -121,15 +121,17 @@ sub rm_files {
   die "You need to define the environment variable for MESA_OS.\n Please read installation instructions.\n For example, all flavors of Windows require 'WINDOWS_NT'.\n" if (! $main::MESA_OS );
    my $target = shift( @_);
 
-   if( $MESA_OS eq "WINDOWS_NT") {
-      $target =~ s(\/)(\\)g;
-      $cmd = "del/Q $target";
-   }
-   else {
-      $cmd = "rm -f $target";
-   }
-   print "$cmd\n";
-   `$cmd`;
+   unlink ($target) if (-e $target);
+
+#   if( $MESA_OS eq "WINDOWS_NT") {
+#      $target =~ s(\/)(\\)g;
+#      $cmd = "del/Q $target";
+#   }
+#   else {
+#      $cmd = "rm -f $target";
+#   }
+#   print "$cmd\n";
+#   `$cmd`;
 }
 
 1;

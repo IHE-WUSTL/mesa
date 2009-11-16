@@ -43,28 +43,33 @@ sub delete_directory {
 sub delete_file {
   my ($logLevel, $fileName) = @_;
 
-  if (not defined($main::MESA_OS)) {
-    die "mesa_utility::delete_file No value defined for environment variable MESA_OS";
-  }
-  my $osName = $main::MESA_OS;
+#  if (not defined($main::MESA_OS)) {
+#    die "mesa_utility::delete_file No value defined for environment variable MESA_OS";
+#  }
+#  my $osName = $main::MESA_OS;
 
-  if (! (-e $fileName)) {
-    return 0;
-  }
+  unlink ($fileName) if (-e $fileName);
+  return 0;
 
-  my $rtnValue = 0;
-  print "mesa::delete_file about to delete $fileName\n" if ($logLevel >= 4);
-  if ($osName eq "WINDOWS_NT") {
-    $fileName =~ s(\/)(\\)g;
-    my $x = "del $fileName ";
-    `$x`;
-    $rtnValue = 1 if ($?);
-  } else {
-    `rm  $fileName`;
-    $rtnValue = 1 if ($?);
-  }
-  print "mesa_utility::delete_file : unable to delete file $fileName" if ($rtnValue == 1);
-  return $rtnValue;
+#  if (! (-e $fileName)) {
+#    return 0;
+#  }
+#
+#
+#
+#  my $rtnValue = 0;
+#  print "mesa::delete_file about to delete $fileName\n" if ($logLevel >= 4);
+#  if ($osName eq "WINDOWS_NT") {
+#    $fileName =~ s(\/)(\\)g;
+#    my $x = "del $fileName ";
+#    `$x`;
+#    $rtnValue = 1 if ($?);
+#  } else {
+#    `rm  $fileName`;
+#    $rtnValue = 1 if ($?);
+#  }
+#  print "mesa_utility::delete_file : unable to delete file $fileName" if ($rtnValue == 1);
+#  return $rtnValue;
 }
 
 sub create_directory {
