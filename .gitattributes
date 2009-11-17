@@ -5757,6 +5757,7 @@ winmesa/mesa_apps_secure/open_assoc_secure/open_assoc_secure.mak -text
 winmesa/mesa_apps_secure/send_hl7_secure/send_hl7_secure.dep -text
 winmesa/mesa_apps_secure/send_hl7_secure/send_hl7_secure.dsp -text
 winmesa/mesa_apps_secure/send_hl7_secure/send_hl7_secure.mak -text
+winmesa/mesa_apps_secure/syslog_client_secure/syslog_client_secure.mak -text
 winmesa/mesa_apps_secure/tls_client/tls_client.dsp -text
 winmesa/mesa_apps_secure/tls_client/tls_client.mak -text
 winmesa/mesa_apps_secure/tls_connect/tls_connect.dep -text
