@@ -233,10 +233,9 @@ int main(int argc, char** argv)
   int syslogPort = tmp.intData();
 
   MSyslogClient c;
-//cout << "Place " << place++ << endl;
   c.setTestMode(mode);
-//cout << "Place " << place++ << endl;
-  MString proxyParams = "";
+
+  MString proxyParams = "" +
 	randomsFile + ","
 	+ keyFile + ","
 	+ certificateFile + ","
@@ -253,12 +252,6 @@ int main(int argc, char** argv)
     status = c.open(syslogHost, syslogPort);
 #ifdef RFC5425
   } else if (xmitRFC == "5425") {
-    proxyParams = 
-	randomsFile + ","
-	+ keyFile + ","
-	+ certificateFile + ","
-	+ peerCertificateList + ","
-	+ ciphers;
     status = c.openTLS(syslogHost, syslogPort, proxyParams);
 #endif
   } else {
@@ -266,7 +259,8 @@ int main(int argc, char** argv)
     return 1;
   }
   if (status != 0) {
-    cout << "Unable to connect to server" << endl;
+    cout << "Unable to connect to server: " << syslogHost << ":" << syslogPort
+	 << endl;
     return 1;
   }
 
