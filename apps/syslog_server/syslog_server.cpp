@@ -55,7 +55,7 @@ using namespace std;
 static void usage()
 {
   char msg[] = "\
-Usage: [-C cert] [-d db] [-K key] [-l level] [-P peer] [-R randoms] [-r rfc] [-v] [-x rfc] port\n\
+Usage: [-C cert] [-d db] [-K key] [-l level] [-P peer] [-R randoms] [-r rfc] [-v] [-x rfc] [-Z ciphers]  port\n\
 \n\
   -C   File containing certificate for this application\n\
   -d   Set database name to store messages; default is syslog \n\
@@ -66,6 +66,7 @@ Usage: [-C cert] [-d db] [-K key] [-l level] [-P peer] [-R randoms] [-r rfc] [-v
   -r   Receive messages formatted according to RFC (e.g., 5424)\n\
   -x   Use RFC as transmission mode (0, 5425, 5426)\n\
   -v   Enable verbose mode \n\
+  -Z   List of ciphers (A:B:C)\n\
 \n\
   port UDP port number of server";
 
@@ -524,6 +525,13 @@ int main(int argc, char** argv)
       xmitRFC = *argv;
       break;
 
+    case 'Z':
+      argc--; argv++;
+      if (argc < 1)
+	usage();
+      ciphers = *argv;
+      break;
+
     default:
       break;
     }
@@ -592,7 +600,7 @@ int main(int argc, char** argv)
 
   } else if (xmitRFC=="5425") {
 #ifdef RFC5425
-    MNetworkProxyTLS proxyTLS = new MNetworkProxyTLS;
+    MNetworkProxyTLS* proxyTLS = new MNetworkProxyTLS;
 //    networkProxy = proxyTLS;
     MString proxyParams =
 	randomsFile + ","
@@ -600,7 +608,7 @@ int main(int argc, char** argv)
 	+ certificateFile + ","
 	+ peerCertificateList + ","
 	+ ciphers;
-    if (proxyTls->initializeServer(proxyParams) != 0) {
+    if (proxyTLS->initializeServer(proxyParams) != 0) {
       logClient.logTimeStamp(MLogClient::MLOG_ERROR,
 	MString("Unable to initialize TLS proxy class with params: ") + proxyParams);
       return 1;

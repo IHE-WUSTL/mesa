@@ -45,7 +45,7 @@ using namespace std;
 static void usage()
 {
   char msg[] = "\
-Usage: [-a app] [-c] [-f fac] [-M msgID] [-m mode] [-p procID] [-r rfc] [-s sev] [-v] host port arg\n\
+Usage: [-a app] [-c] [-C cert] [-f fac] [-K key] [-M msgID] [-m mode] [-p procID] [-P peerlist] [-r rfc] [-R randoms] [-s sev] [-v] [-Z ciphers] host port arg\n\
 \n\
   -a     Set appName; default is Spartacus\n\
   -c     arg is the payload to send \n\
@@ -195,6 +195,13 @@ int main(int argc, char** argv)
 	usage();
       argc--; argv++;
       xmitRFC = *argv;
+      break;
+    case 'Z':
+      argc--;
+      argv++;
+      if (argc <= 0)
+        usage();
+      ciphers = *argv;
       break;
 
     default:
