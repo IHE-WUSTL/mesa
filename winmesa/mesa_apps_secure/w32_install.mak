@@ -84,6 +84,11 @@ install:
 	copy Release\syslog_client_secure.exe $(MESA_TARGET)\bin
 	cd ".."
 
+	cd "syslog_server_secure"
+	$(MAKE)/f syslog_server_secure.mak CFG="syslog_server_secure - Win32 Release"
+	copy Release\syslog_server_secure.exe $(MESA_TARGET)\bin
+	cd ".."
+
 	cd "tls_client"
 	$(MAKE)/f tls_client.mak CFG="tls_client - Win32 Release"
 	copy Release\tls_client.exe $(MESA_TARGET)\bin
@@ -167,6 +172,10 @@ clean:
 
 	cd "syslog_client_secure"
 	$(MAKE)/f syslog_client_secure.mak CFG="syslog_client_secure - Win32 Release" clean
+	cd ".."
+
+	cd "syslog_server_secure"
+	$(MAKE)/f syslog_server_secure.mak CFG="syslog_server_secure - Win32 Release" clean
 	cd ".."
 
 	cd "tls_client"
@@ -267,6 +276,11 @@ install_debug:
 	copy Debug\syslog_client_secure.exe $(MESA_TARGET)\bin
 	cd ".."
 
+	cd "syslog_server_secure"
+	$(MAKE)/f syslog_server_secure.mak CFG="syslog_server_secure - Win32 Debug"
+	copy Debug\syslog_server_secure.exe $(MESA_TARGET)\bin
+	cd ".."
+
 	cd "tls_client"
 	$(MAKE)/f tls_client.mak CFG="tls_client - Win32 Debug"
 	copy Debug\tls_client.exe $(MESA_TARGET)\bin
@@ -349,6 +363,10 @@ clean_debug:
 
 	cd "syslog_client_secure"
 	$(MAKE)/f syslog_client_secure.mak CFG="syslog_client_secure - Win32 Debug" clean
+	cd ".."
+
+	cd "syslog_server_secure"
+	$(MAKE)/f syslog_server_secure.mak CFG="syslog_server_secure - Win32 Debug" clean
 	cd ".."
 
 	cd "tls_client"
