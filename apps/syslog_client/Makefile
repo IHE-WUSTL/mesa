@@ -8,6 +8,8 @@ APPS = syslog_client
 
 app:	$(APPS)
 
+all:	syslog_client syslog_client_secure
+
 syslog_client:	syslog_client.o
 	$(CXX) -g -o syslog_client syslog_client.o $(L_FLAGS) -lsyslog $(LIBS_MESA)
 
@@ -29,11 +31,15 @@ R = $(MESA_TARGET)/runtime/certs-ca-signed/randoms.dat
 install:	$(APPS)
 	$(INSTALL) syslog_client $(MESA_BIN)
 
+install_all:	all
+	$(INSTALL) syslog_client $(MESA_BIN)
+	$(INSTALL) syslog_client_secure $(MESA_BIN)
+
 install_secure:	syslog_client_secure
 	$(INSTALL) syslog_client_secure $(MESA_BIN)
 
 clean:
-	rm -rf $(APPS) core *.o
+	rm -rf $(APPS) syslog_client_secure core *.o
 
 t1:	syslog_client
 	./syslog_client -f 10 -s 0 localhost 4000 startup.xml

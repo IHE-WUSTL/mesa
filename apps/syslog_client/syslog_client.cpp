@@ -251,6 +251,7 @@ int main(int argc, char** argv)
     status = c.open(syslogHost, syslogPort);
   } else if (xmitRFC == "5426") {
     status = c.open(syslogHost, syslogPort);
+#ifdef RFC5425
   } else if (xmitRFC == "5425") {
     proxyParams = 
 	randomsFile + ","
@@ -258,9 +259,8 @@ int main(int argc, char** argv)
 	+ certificateFile + ","
 	+ peerCertificateList + ","
 	+ ciphers;
-//cout << "Place " << place++ << endl;
     status = c.openTLS(syslogHost, syslogPort, proxyParams);
-//cout << "Place " << place++ << endl;
+#endif
   } else {
     cout << "Unrecognized transport: " << xmitRFC << endl;
     return 1;
@@ -305,10 +305,10 @@ int main(int argc, char** argv)
 
     if (xmitRFC == "TCP") {
       status = c.sendMessageTCP(m5424);
+#ifdef RFC5425
     } else if (xmitRFC == "5425") {
-//cout << "Place " << place++ << endl;
       status = c.sendMessageTLS(m5424);
-//cout << "Place " << place++ << endl;
+#endif
     } else if (xmitRFC == "5426") {
       status = c.sendMessage(m5424);
     } else {

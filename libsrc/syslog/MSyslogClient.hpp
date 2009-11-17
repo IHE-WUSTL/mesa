@@ -60,9 +60,7 @@ using namespace std;
 class MSyslogMessage;
 class MSyslogMessage5424;
 
-#ifdef RFC5425
-#include "MNetworkProxyTLS.hpp"
-#endif
+#include "MNetworkProxy.hpp"
 
 class MSyslogClient
 // = TITLE
@@ -107,9 +105,7 @@ public:
 protected:
 
 private:
-#ifdef RFC5425
-  MNetworkProxyTLS mNetworkProxyTLS;
-#endif
+  MNetworkProxy* mNetworkProxy;
   CTN_SOCKET mSocket;
   MString mServerName;
   int mServerPort;

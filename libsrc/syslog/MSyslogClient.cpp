@@ -49,7 +49,8 @@ MSyslogClient::MSyslogClient() :
   mSocket(0),
   mServerName(""),
   mTestMode(0),
-  mIsConnected(false)
+  mIsConnected(false),
+  mNetworkProxy(0)
 {
 }
 
@@ -64,6 +65,10 @@ MSyslogClient::~MSyslogClient()
 {
   if (mSocket != 0) {
     ::close(mSocket);
+  }
+  if (mNetworkProxy != 0) {
+    mNetworkProxy->close();
+    delete mNetworkProxy;
   }
 }
 
@@ -131,6 +136,7 @@ MSyslogClient::openTCP(const MString& host, int port)
   return 0;
 }
 
+#if 0
 int
 MSyslogClient::openTLS(const MString& host, int port, const MString& params)
 {
@@ -157,6 +163,7 @@ MSyslogClient::openTLS(const MString& host, int port, const MString& params)
   return 1;
 #endif
 }
+#endif
 
 int
 MSyslogClient::sendMessage(MSyslogMessage& m)
@@ -316,6 +323,7 @@ MSyslogClient::sendMessageTCP(MSyslogMessage5424& m)
   return 0;
 }
 
+#if 0
 int
 MSyslogClient::sendMessageTLS(MSyslogMessage5424& m)
 {
@@ -362,6 +370,7 @@ MSyslogClient::sendMessageTLS(MSyslogMessage5424& m)
 	"MSyslogClient::sendMessageTLS not compiled with RFC5425 enabled"); 
 #endif
 }
+#endif
 
 void
 MSyslogClient::setTestMode(int mode)
