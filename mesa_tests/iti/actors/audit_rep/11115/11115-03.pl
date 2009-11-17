@@ -18,7 +18,9 @@ sub goodbye {
 # Main starts here
 
 my $y = scalar(@ARGV);
-die "Usage: perl 11115/11115-03.pl host port" if ($y != 2);
+die "Usage: perl 11115/11115-03.pl host port\
+ This application is for testing RFC 5424/5425\
+ localhost 4003 for self test\n    " if ($y != 2);
 
 my $host = $ARGV[0];
 my $port = $ARGV[1];

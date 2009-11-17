@@ -11,10 +11,10 @@ CLASS_FILES_SECURE = MAuditMessage MAuditMessageFactory MDICOMAuditMessage \
 MSyslogFactory MSyslogMessage MSyslogMessage5424 \
 MBeginTransferDICOMInstances
 
-OBJS = $(CLASS_FILES:=.o) MSyslogClientSecure.o
-HEADERS = $(CLASS_FILES:=.hpp) MSyslogClient.hpp
+OBJS = $(CLASS_FILES:=.o)
+HEADERS = $(CLASS_FILES:=.hpp)
 
-OBJS_SECURE = $(CLASS_FILES_SECURE:=.o)
+OBJS_SECURE = $(CLASS_FILES_SECURE:=.o) MSyslogClientSecure.o
 HEADERS_SECURE = $(CLASS_FILES_SECURE:=.hpp)
 
 libsyslog.a: $(OBJS) $(HEADERS)
