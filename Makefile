@@ -56,10 +56,10 @@ install_brief:
 	@echo "MESA Build Complete"
 
 install_secure:
+	cd libsrc;		make install
 	cd secure_libsrc;	make install
-	cd libsrc;		make install_secure
+	cd apps;		make install
 	cd secure_apps;		make install
-	cd apps;		make install_secure
 
 install_sol7:
 	make install
