@@ -37,7 +37,7 @@ ALL : "$(OUTDIR)\syslog_client_secure.exe"
 
 
 CLEAN :
-	-@erase "$(INTDIR)\syslog_client_secure.obj"
+	-@erase "$(INTDIR)\syslog_client.obj"
 	-@erase "$(INTDIR)\vc60.idb"
 	-@erase "$(OUTDIR)\syslog_client_secure.exe"
 
@@ -85,7 +85,7 @@ BSC32_SBRS= \
 LINK32=link.exe
 LINK32_FLAGS=mesa_lib.lib mesa_lib_secure.lib ssleay32.lib libeay32.lib  wsock32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:no /pdb:"$(OUTDIR)\syslog_client_secure.pdb" /machine:I386 /out:"$(OUTDIR)\syslog_client_secure.exe" /libpath:"..\..\..\winmesa\mesa_lib\Release" /libpath:"..\..\..\winmesa\mesa_lib_secure\Release" /libpath:"..\..\..\..\openssl-0.9.8k\out32dll"  /stack:3072000
 LINK32_OBJS= \
-	"$(INTDIR)\syslog_client_secure.obj"
+	"$(INTDIR)\syslog_client.obj"
 
 "$(OUTDIR)\syslog_client_secure.exe" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -104,7 +104,7 @@ ALL : "$(OUTDIR)\syslog_client_secure.exe"
 
 
 CLEAN :
-	-@erase "$(INTDIR)\syslog_client_secure.obj"
+	-@erase "$(INTDIR)\syslog_client.obj"
 	-@erase "$(INTDIR)\vc60.idb"
 	-@erase "$(INTDIR)\vc60.pdb"
 	-@erase "$(OUTDIR)\syslog_client_secure.exe"
@@ -155,7 +155,7 @@ BSC32_SBRS= \
 LINK32=link.exe
 LINK32_FLAGS=mesa_lib.lib mesa_lib_secure.lib ssleay32.lib libeay32.lib  wsock32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:yes /pdb:"$(OUTDIR)\syslog_client_secure.pdb" /debug /machine:I386 /out:"$(OUTDIR)\syslog_client_secure.exe" /pdbtype:sept /libpath:"..\..\..\winmesa\mesa_lib\Debug" /libpath:"..\..\..\winmesa\mesa_lib_secure\Debug" /libpath:"..\..\..\..\openssl-0.9.8k\out32dll"  /stack:3072000
 LINK32_OBJS= \
-	"$(INTDIR)\syslog_client_secure.obj"
+	"$(INTDIR)\syslog_client.obj"
 
 "$(OUTDIR)\syslog_client_secure.exe" : "$(OUTDIR)" $(DEF_FILE) $(LINK32_OBJS)
     $(LINK32) @<<
@@ -177,7 +177,7 @@ LINK32_OBJS= \
 !IF "$(CFG)" == "syslog_client_secure - Win32 Release" || "$(CFG)" == "syslog_client_secure - Win32 Debug"
 SOURCE=..\..\..\apps\syslog_client\syslog_client.cpp
 
-"$(INTDIR)\syslog_client_secure.obj" : $(SOURCE) "$(INTDIR)"
+"$(INTDIR)\syslog_client.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
