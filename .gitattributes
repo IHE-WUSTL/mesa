@@ -1049,6 +1049,7 @@ env/linux/ctnmake.redhat.6.x.psql.noopt -text
 env/linux/ctnmake.redhat.8.x.psql.noopt -text
 env/linux/ctnmake.redhat.9.x.psql.noopt -text
 env/linux/ctnmake.redhat.es.i64.psql -text
+env/linux/debian-dqw7851.sql -text
 env/linux/debian-gcc4.psql -text
 env/linux/debian.psql -text
 env/linux/linux.5.x.psql.noopt.env -text
