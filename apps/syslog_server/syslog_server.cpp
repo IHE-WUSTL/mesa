@@ -592,23 +592,25 @@ int main(int argc, char** argv)
 
   } else if (xmitRFC=="5425") {
 #ifdef RFC5425
-    networkProxy = new MNetworkProxyTLS;
+    MNetworkProxyTLS proxyTLS = new MNetworkProxyTLS;
+//    networkProxy = proxyTLS;
     MString proxyParams =
 	randomsFile + ","
 	+ keyFile + ","
 	+ certificateFile + ","
 	+ peerCertificateList + ","
 	+ ciphers;
-    if (networkProxy->initializeServer(proxyParams) != 0) {
+    if (proxyTls->initializeServer(proxyParams) != 0) {
       logClient.logTimeStamp(MLogClient::MLOG_ERROR,
 	MString("Unable to initialize TLS proxy class with params: ") + proxyParams);
       return 1;
     }
-    if (networkProxy->registerPort(port) != 0) {
+    if (proxyTLS->registerPort(port) != 0) {
       logClient.logTimeStamp(MLogClient::MLOG_ERROR, "Unable to initialize TCP/TLS listening port");
       return 1;
     }
-    processTCPPackets(*networkProxy, logPath, syslogDBName, rfcType);
+    processTCPPackets(*proxyTLS, logPath, syslogDBName, rfcType);
+    delete proxyTLS;
 #else
     cout << "syslog server not ready for RFC 5425" << endl;
     return 1;
