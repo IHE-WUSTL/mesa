@@ -2035,6 +2035,14 @@ mesa_tests/docs/rad/tfcte/test_cases/html/index.html -text
 mesa_tests/eyecare/actors/rpt_crt/50218/eval_50218.pl -text
 mesa_tests/eyecare/actors/rpt_crt/50218/ref_50218-10.dcm -text
 mesa_tests/eyecare/actors/rpt_crt/50218/ref_50218.txt -text
+mesa_tests/iti/actors/audit_rep/11115/11115-03.pl -text
+mesa_tests/iti/actors/audit_rep/11115/11115-04.pl -text
+mesa_tests/iti/actors/audit_rep/11115/atna_startup.txt -text
+mesa_tests/iti/actors/audit_rep/11115/self_test_11115.pl -text
+mesa_tests/iti/actors/audit_rep/scripts/start_ca_signed.bat -text
+mesa_tests/iti/actors/audit_rep/scripts/start_ca_signed.csh -text
+mesa_tests/iti/actors/audit_rep/scripts/stop_ca_signed.bat -text
+mesa_tests/iti/actors/audit_rep/scripts/stop_ca_signed.csh -text
 mesa_tests/iti/actors/ccrt/14110/14110_schematron.xml -text
 mesa_tests/iti/actors/ccrt/14110/eval_14110.pl -text
 mesa_tests/iti/actors/ccrt/schematron/schematron-basic.xsl -text
