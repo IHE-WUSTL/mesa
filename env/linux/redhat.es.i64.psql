@@ -19,14 +19,14 @@ setenv MESA_MAKE $MESA_ROOT/env/linux/make.redhat.es.i64.psql
 setenv MESA_BIN $MESA_TARGET/bin
 setenv PSQL_LIB /usr/local/pgsql/lib
 setenv PSQL_INCLUDE /usr/local/pgsql/include/
-setenv CTN_LIB $MESA_ROOT/external/ctn/lib/redhat.es.i64.psql
+setenv CTN_LIB $MESA_ROOT/../ctn/lib/redhat.es.i64.psql
 setenv INSTALL install
 
 # Now, the variables for building CTN software
-setenv DICOM_ROOT `pwd`/external/ctn
+setenv DICOM_ROOT `pwd`/../ctn
 setenv DICOM_BIN $MESA_BIN
-setenv DICOM_LIB $MESA_ROOT/external/ctn/lib/redhat.es.i64.psql
-setenv DICOM_LIBSRC $MESA_ROOT/external/ctn/libsrc
+setenv DICOM_LIB $MESA_ROOT/../ctn/lib/redhat.es.i64.psql
+setenv DICOM_LIBSRC $MESA_ROOT/../ctn/libsrc
 setenv DICOM_INCLUDE $DICOM_ROOT/include
 setenv DICOM_MAKE $MESA_ROOT/env/linux/ctnmake.redhat.es.i64.psql
 setenv CLASSPATH .:$DICOM_ROOT/javactn:$MESA_ROOT/javamesa:$MESA_ROOT/webmesa/mesa-iti:$MESA_ROOT/javaexternal/xerces-1_2_3/xerces.jar:$TOMCAT_HOME/common/lib/servlet-api.jar

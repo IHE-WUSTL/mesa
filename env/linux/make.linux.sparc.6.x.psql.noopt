@@ -16,9 +16,9 @@ LIBS_ACE = -lACE -ldl
 #	 -fno-exceptions
 
 INCLUDES = -I. -I$(MESA_INCLUDE) \
-	-I$(MESA_ROOT)/external/ctn/include
+	-I$(MESA_ROOT)/../ctn/include
 
-C_OPTS = -g -DLINUX -I$(MESA_INCLUDE) -I$(MESA_ROOT)/external/ctn/include \
+C_OPTS = -g -DLINUX -I$(MESA_INCLUDE) -I$(MESA_ROOT)/../ctn/include \
 	-Wpointer-arith -pipe -g \
 	-fno-exceptions
 #	-Wall -Wpointer-arith -pipe -g \

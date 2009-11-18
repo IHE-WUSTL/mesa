@@ -20,11 +20,11 @@ LIBS_MESA_XERCESC = $(LIBS_MESA) -L$(XERCESCROOT)/lib -lxerces-c1_7_0
 #	 -fno-exceptions
 
 INCLUDES = -I. -I$(MESA_INCLUDE) \
-	-I$(MESA_ROOT)/external/ctn/include \
+	-I$(MESA_ROOT)/../ctn/include \
 	-I/usr/local/openssl/include \
 	-I$(XERCESCROOT)/include
 
-C_OPTS = -g -DLINUX -I$(MESA_INCLUDE) -I$(MESA_ROOT)/external/ctn/include \
+C_OPTS = -g -DLINUX -I$(MESA_INCLUDE) -I$(MESA_ROOT)/../ctn/include \
 	-Wpointer-arith -pipe -g \
 	-fexceptions -DMESA_USE_SOCKLEN_T -DSTRING_COMPARE_GCC_NON_STANDARD
 #	-Wall -Wpointer-arith -pipe -g \

@@ -11,7 +11,6 @@ setenv MESA_OS LINUX
 #
 #
 setenv MESA_ROOT `pwd`
-setenv ACE_ROOT $MESA_ROOT/external/ACE_wrappers
 setenv XERCESCROOT $MESA_ROOT/external/xerces-c
 
 setenv MESA_INCLUDE $MESA_ROOT/include
@@ -23,14 +22,14 @@ setenv PSQL_LIB /usr/lib
 setenv PSQL_INCLUDE /usr/include/pgsql
 #setenv PSQL_LIB /opt/postgres/lib
 #setenv PSQL_INCLUDE /opt/postgres/include
-setenv CTN_LIB $MESA_ROOT/external/ctn/lib/linux.6.x.psql.noopt
+setenv CTN_LIB $MESA_ROOT/../ctn/lib/linux.6.x.psql.noopt
 setenv INSTALL install
 
 # Now, the variables for building CTN software
-setenv DICOM_ROOT `pwd`/external/ctn
+setenv DICOM_ROOT `pwd`/../ctn
 setenv DICOM_BIN $MESA_BIN
-setenv DICOM_LIB $MESA_ROOT/external/ctn/lib/linux.6.x.psql.noopt
-setenv DICOM_LIBSRC $MESA_ROOT/external/ctn/libsrc
+setenv DICOM_LIB $MESA_ROOT/../ctn/lib/linux.6.x.psql.noopt
+setenv DICOM_LIBSRC $MESA_ROOT/../ctn/libsrc
 setenv DICOM_INCLUDE $DICOM_ROOT/include
 setenv DICOM_MAKE $MESA_ROOT/env/linux/ctnmake.linux.6.x.psql.noopt
 setenv CLASSPATH .:$DICOM_ROOT/javactn:$MESA_ROOT/javamesa:$MESA_ROOT/javaexternal/xerces-1_2_3/xerces.jar
