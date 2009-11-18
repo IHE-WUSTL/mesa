@@ -44,13 +44,14 @@ CLEAN :
 	-@erase "$(INTDIR)\MDICOMElementEval.obj"
 	-@erase "$(INTDIR)\MDICOMProxyTLS.obj"
 	-@erase "$(INTDIR)\MNetworkProxyTLS.obj"
+	-@erase "$(INTDIR)\MSyslogClientSecure.obj"
 	-@erase "$(INTDIR)\vc60.idb"
 	-@erase "$(OUTDIR)\mesa_lib_secure.lib"
 
 "$(OUTDIR)" :
     if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
 
-CPP_PROJ=/nologo /MDd /W3 /GX /O2 /I "..\..\..\ctn\include" /I "..\..\include" /I "..\..\..\openssl-0.9.8k\inc32" /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /Fp"$(INTDIR)\mesa_lib_secure.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
+CPP_PROJ=/nologo /MDd /W3 /GX /O2 /I "..\..\..\ctn\include" /I "..\..\include" /I "..\..\..\openssl-0.9.8k\inc32" /D "RFC5425" /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /Fp"$(INTDIR)\mesa_lib_secure.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
 BSC32=bscmake.exe
 BSC32_FLAGS=/nologo /o"$(OUTDIR)\mesa_lib_secure.bsc" 
 BSC32_SBRS= \
@@ -61,7 +62,9 @@ LIB32_OBJS= \
 	"$(INTDIR)\app_rand.obj" \
 	"$(INTDIR)\MDICOMProxyTLS.obj" \
 	"$(INTDIR)\MNetworkProxyTLS.obj" \
-	"$(INTDIR)\MDICOMElementEval.obj"
+	"$(INTDIR)\MDICOMElementEval.obj" \
+	"$(INTDIR)\MSyslogClientSecure.obj"
+
 
 "$(OUTDIR)\mesa_lib_secure.lib" : "$(OUTDIR)" $(DEF_FILE) $(LIB32_OBJS)
     $(LIB32) @<<
@@ -84,6 +87,7 @@ CLEAN :
 	-@erase "$(INTDIR)\MDICOMElementEval.obj"
 	-@erase "$(INTDIR)\MDICOMProxyTLS.obj"
 	-@erase "$(INTDIR)\MNetworkProxyTLS.obj"
+	-@erase "$(INTDIR)\MSyslogClientSecure.obj"
 	-@erase "$(INTDIR)\vc60.idb"
 	-@erase "$(INTDIR)\vc60.pdb"
 	-@erase "$(OUTDIR)\mesa_lib_secure.lib"
@@ -91,7 +95,7 @@ CLEAN :
 "$(OUTDIR)" :
     if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
 
-CPP_PROJ=/nologo /MDd /W3 /Gm /GX /ZI /Od /I "..\..\..\ctn\include" /I "..\..\include" /I "..\..\..\openssl-0.9.8k\inc32" /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /Fp"$(INTDIR)\mesa_lib_secure.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /GZ /c 
+CPP_PROJ=/nologo /MDd /W3 /Gm /GX /ZI /Od /I "..\..\..\ctn\include" /I "..\..\include" /I "..\..\..\openssl-0.9.8k\inc32" /D "RFC5425" /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /Fp"$(INTDIR)\mesa_lib_secure.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /GZ /c 
 BSC32=bscmake.exe
 BSC32_FLAGS=/nologo /o"$(OUTDIR)\mesa_lib_secure.bsc" 
 BSC32_SBRS= \
@@ -102,7 +106,8 @@ LIB32_OBJS= \
 	"$(INTDIR)\app_rand.obj" \
 	"$(INTDIR)\MDICOMProxyTLS.obj" \
 	"$(INTDIR)\MNetworkProxyTLS.obj" \
-	"$(INTDIR)\MDICOMElementEval.obj"
+	"$(INTDIR)\MDICOMElementEval.obj" \
+	"$(INTDIR)\MSyslogClientSecure.obj"
 
 "$(OUTDIR)\mesa_lib_secure.lib" : "$(OUTDIR)" $(DEF_FILE) $(LIB32_OBJS)
     $(LIB32) @<<
@@ -175,6 +180,10 @@ SOURCE=..\..\secure_libsrc\mesa\MNetworkProxyTLS.cpp
 "$(INTDIR)\MNetworkProxyTLS.obj" : $(SOURCE) "$(INTDIR)"
 	$(CPP) $(CPP_PROJ) $(SOURCE)
 
+SOURCE=..\..\secure_libsrc\mesa\MSyslogClientSecure.cpp
+
+"$(INTDIR)\MSyslogClientSecure.obj" : $(SOURCE) "$(INTDIR)"
+	$(CPP) $(CPP_PROJ) $(SOURCE)
 
 
 !ENDIF 
