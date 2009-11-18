@@ -188,8 +188,8 @@ x_secure_lib:
 	cd "..\.."
 
 x_secure_apps:
-	copy ..\openssl-0.9.6d\out32dll\ssleay32.dll $(MESA_TARGET)\bin
-	copy ..\openssl-0.9.6d\out32dll\libeay32.dll $(MESA_TARGET)\bin
+	copy ..\openssl-0.9.8k\out32dll\ssleay32.dll $(MESA_TARGET)\bin
+	copy ..\openssl-0.9.8k\out32dll\libeay32.dll $(MESA_TARGET)\bin
 	cd "winmesa\mesa_apps_secure"
 	nmake/f w32_install.mak install
 	cd "..\.."
