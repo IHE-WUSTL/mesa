@@ -2,8 +2,9 @@
 
 # This script takes the XML file that describes a MESA test and performs
 # XSL transformations to produce the following:
-# - HTML file that gives the user readable information
 # - Text file that can be read by the test engines
+# As of 2009.11.19, removed code that produced
+# - HTML file that gives the user readable information
 
 use Env;
 
@@ -49,11 +50,11 @@ sub xml_xsl {
 
  my $in = "$testNumber/$testNumber.xml";
  my $outText = "$testNumber/$testNumber.txt";
- my $xslHTML = "../../../common/xml/mir-test-to-html.xsl";
+ #my $xslHTML = "../../../common/xml/mir-test-to-html.xsl";
  my $xslText = "../../../common/xml/mir-test-to-text.xsl";
 
- my $status = xml_xsl($in, "HTML", $xslHTML, $outHTML);
- die "Could not xform to HTML: $in $xslHTML $outHTML" if ($status != 0);
+# my $status = xml_xsl($in, "HTML", $xslHTML, $outHTML);
+# die "Could not xform to HTML: $in $xslHTML $outHTML" if ($status != 0);
 
  $status = xml_xsl($in, "TEXT", $xslText, $outText);
  die "Could not xform to Text: $in $xslText $outText" if ($status != 0);
