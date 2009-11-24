@@ -159,7 +159,7 @@
         correct (PASS) </sch:report>
 
       <sch:assert
-        test="cda:author[cda:assignedAuthor[cda:assignedAuthoringDevice[cda:code[@code='CAPTURE']]]] or cda:author[cda:assignedAuthor[cda:assignedAuthoringDevice[cda:code[@code='WSD]]]]"
+        test="cda:author[cda:assignedAuthor[cda:assignedAuthoringDevice[cda:code[@code='CAPTURE']]]] or cda:author[cda:assignedAuthor[cda:assignedAuthoringDevice[cda:code[@code='WSD']]]]"
         > ERR: ClinicalDocument/author/assignedAuthor/assignedAuthoringDevice/code@code wrong value </sch:assert>
 
       <sch:report
