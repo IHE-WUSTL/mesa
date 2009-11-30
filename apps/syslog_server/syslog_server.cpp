@@ -32,6 +32,7 @@
 
 #include "ctn_os.h"
 #include <fstream>
+#include <iostream>
 
 #include "MESA.hpp"
 
@@ -443,6 +444,439 @@ processTCPPackets(MNetworkProxy& n, char* logPath, const MString& syslogDBName, 
   return 0;
 }
 
+static int evalTimeStamp(const MString& timeStamp)
+{
+  int rtnStatus = 0;			// Assume success
+  MLogClient logClient;
+  char x[1024] = "";
+  timeStamp.safeExport(x, (sizeof x)-1);
+  char msg[2048] = "";
+  char endOfString[] = "Reached end of time stamp; it must be incomplete";
+
+  int yr = 0;
+  char* p = x;
+  while (isdigit(*p) && p != &x[4]) {
+    yr = (yr * 10) + (*p - '0');
+    p++;
+  }
+  if (p != &x[4]) {
+    strstream z(msg, sizeof msg);
+    z << "The YYYY component of the time stamp did not have 4 digits: " << x << '\0';
+    logClient.log(MLogClient::MLOG_ERROR, msg);
+    rtnStatus = 1;
+  }
+  if (yr < 1950 || yr > 2050) {
+    strstream z(msg, sizeof msg);
+    z << "Year not in expected range of 1950-2050: " << yr << '\0';
+    logClient.log(MLogClient::MLOG_ERROR, msg);
+    rtnStatus = 1;
+  }
+
+  if (*p == 0) { logClient.log(MLogClient::MLOG_ERROR,endOfString); return 1;}
+  if (*p != '-') {
+    strstream z(msg, sizeof msg);
+    z << "Delimiter after YYYY shall be '-': " << p << '\0';
+    logClient.log(MLogClient::MLOG_ERROR, msg);
+    rtnStatus = 1;
+  }
+  p++;
+
+  if (p[0] == 0 || p[1] == 0) { logClient.log(MLogClient::MLOG_ERROR,endOfString); return 1;}
+  if (!isdigit(p[0]) && !isdigit(p[1])) {
+    strstream z(msg, sizeof msg);
+    z << "MM is not two digits as expected: " << p << '\0';
+    logClient.log(MLogClient::MLOG_ERROR, msg);
+    rtnStatus = 1;
+  }
+  int mm = (p[0]-'0')*10 + (p[1]-'0');
+  if (mm < 1 || mm > 12) {
+    strstream z(msg, sizeof msg);
+    z << "Month not in expected range of 1-12: " << mm << '\0';
+    logClient.log(MLogClient::MLOG_ERROR, msg);
+    rtnStatus = 1;
+  }
+  p += 2;
+
+  if (*p == 0) { logClient.log(MLogClient::MLOG_ERROR,endOfString); return 1;}
+  if (*p != '-') {
+    strstream z(msg, sizeof msg);
+    z << "Delimiter after MM shall be '-': " << p << '\0';
+    logClient.log(MLogClient::MLOG_ERROR, msg);
+    rtnStatus = 1;
+  }
+  p++;
+
+  if (p[0] == 0 || p[1] == 0) { logClient.log(MLogClient::MLOG_ERROR,endOfString); return 1;}
+  if (!isdigit(p[0]) && !isdigit(p[1])) {
+    strstream z(msg, sizeof msg);
+    z << "DD is not two digits as expected: " << p << '\0';
+    logClient.log(MLogClient::MLOG_ERROR, msg);
+    rtnStatus = 1;
+  }
+  int dd = (p[0]-'0')*10 + (p[1]-'0');
+  if (dd < 1 || dd > 31) {
+    strstream z(msg, sizeof msg);
+    z << "Date not in expected range of 1-31: " << dd << '\0';
+    logClient.log(MLogClient::MLOG_ERROR, msg);
+    rtnStatus = 1;
+  }
+  p += 2;
+
+  if (*p == 0) { logClient.log(MLogClient::MLOG_ERROR,endOfString); return 1;}
+  if (*p != 'T') {
+    strstream z(msg, sizeof msg);
+    z << "Delimiter after DD shall be 'T': " << p << '\0';
+    logClient.log(MLogClient::MLOG_ERROR, msg);
+    rtnStatus = 1;
+  }
+  p++;
+
+  if (p[0] == 0 || p[1] == 0) { logClient.log(MLogClient::MLOG_ERROR,endOfString); return 1;}
+  if (!isdigit(p[0]) && !isdigit(p[1])) {
+    strstream z(msg, sizeof msg);
+    z << "HH is not two digits as expected: " << p << '\0';
+    logClient.log(MLogClient::MLOG_ERROR, msg);
+    rtnStatus = 1;
+  }
+  int hh = (p[0]-'0')*10 + (p[1]-'0');
+  if (hh < 0 || hh > 23) {
+    strstream z(msg, sizeof msg);
+    z << "Hour not in expected range of 0-23: " << hh << '\0';
+    logClient.log(MLogClient::MLOG_ERROR, msg);
+    rtnStatus = 1;
+  }
+  p += 2;
+
+  if (*p == 0) { logClient.log(MLogClient::MLOG_ERROR,endOfString); return 1;}
+  if (*p != ':') {
+    strstream z(msg, sizeof msg);
+    z << "Delimiter after HH shall be ':': " << p << '\0';
+    logClient.log(MLogClient::MLOG_ERROR, msg);
+    rtnStatus = 1;
+  }
+  p++;
+
+  if (p[0] == 0 || p[1] == 0) { logClient.log(MLogClient::MLOG_ERROR,endOfString); return 1;}
+  if (!isdigit(p[0]) && !isdigit(p[1])) {
+    strstream z(msg, sizeof msg);
+    z << "Minutes (MM) is not two digits as expected: " << p << '\0';
+    logClient.log(MLogClient::MLOG_ERROR, msg);
+    rtnStatus = 1;
+  }
+  int minutes = (p[0]-'0')*10 + (p[1]-'0');
+  if (minutes < 0 || minutes > 59) {
+    strstream z(msg, sizeof msg);
+    z << "Minutes not in expected range of 0-59: " << minutes << '\0';
+    logClient.log(MLogClient::MLOG_ERROR, msg);
+    rtnStatus = 1;
+  }
+  p += 2;
+
+  if (*p == 0) { logClient.log(MLogClient::MLOG_ERROR,endOfString); return 1;}
+  if (*p != ':') {
+    strstream z(msg, sizeof msg);
+    z << "Delimiter after Minutes shall be ':': " << p << '\0';
+    logClient.log(MLogClient::MLOG_ERROR, msg);
+    rtnStatus = 1;
+  }
+  p++;
+
+  if (p[0] == 0 || p[1] == 0) { logClient.log(MLogClient::MLOG_ERROR,endOfString); return 1;}
+  if (!isdigit(p[0]) && !isdigit(p[1])) {
+    strstream z(msg, sizeof msg);
+    z << "Seconds (SS) is not two digits as expected: " << p << '\0';
+    logClient.log(MLogClient::MLOG_ERROR, msg);
+    rtnStatus = 1;
+  }
+  int seconds = (p[0]-'0')*10 + (p[1]-'0');
+  if (seconds < 0 || seconds > 59) {
+    strstream z(msg, sizeof msg);
+    z << "Seconds not in expected range of 0-59: " << seconds << '\0';
+    logClient.log(MLogClient::MLOG_ERROR, msg);
+    rtnStatus = 1;
+  }
+  p += 2;
+
+  if (*p == 0) {
+    strstream z(msg, sizeof msg);
+    z << "Reached end of seconds without fractional seconds or time offset; next character should be '.', 'Z', '+' or '-': " << p << '\0';
+    logClient.log(MLogClient::MLOG_ERROR, msg);
+    return 1;
+  }
+  if (*p == '.') {		// Then, fractional seconds
+    p++;
+    char *p1 = p;
+    while (isdigit(*p) && p != &p1[6]) {
+      p++;
+    }
+  }
+
+  if (*p == 0) {
+    strstream z(msg, sizeof msg);
+    z << "Reached end of time stamp without offset; next character should be 'Z', '+' or '-': " << p << '\0';
+    logClient.log(MLogClient::MLOG_ERROR, msg);
+    rtnStatus = 1;
+  } else if (*p == 'Z') {
+    if (p[1] != '\0') {
+      strstream z(msg, sizeof msg);
+      z << "Found Z for time offset, but extra characters after 'Z': " << p << '\0';
+      logClient.log(MLogClient::MLOG_ERROR, msg);
+      rtnStatus = 1;
+    }
+  } else if (*p == '+' || *p == '-') {
+    p++;
+
+    if (p[0] == 0 || p[1] == 0) { logClient.log(MLogClient::MLOG_ERROR,endOfString); return 1;}
+    if (!isdigit(p[0]) && !isdigit(p[1])) {
+      strstream z(msg, sizeof msg);
+      z << "HH in time offset is not two digits as expected: " << p << '\0';
+      logClient.log(MLogClient::MLOG_ERROR, msg);
+      rtnStatus = 1;
+    }
+    hh = (p[0]-'0')*10 + (p[1]-'0');
+    if (hh < 0 || hh > 23) {
+      strstream z(msg, sizeof msg);
+      z << "Hour in time offset not in expected range of 0-23: " << hh << '\0';
+      logClient.log(MLogClient::MLOG_ERROR, msg);
+      rtnStatus = 1;
+    }
+    p += 2;
+
+    if (*p == 0) { logClient.log(MLogClient::MLOG_ERROR,endOfString); return 1;}
+    if (*p != ':') {
+      strstream z(msg, sizeof msg);
+      z << "Delimiter after HH in time offset shall be ':': " << p << '\0';
+      logClient.log(MLogClient::MLOG_ERROR, msg);
+      rtnStatus = 1;
+    }
+    p++;
+
+    if (p[0] == 0 || p[1] == 0) { logClient.log(MLogClient::MLOG_ERROR,endOfString); return 1;}
+    if (!isdigit(p[0]) && !isdigit(p[1])) {
+      strstream z(msg, sizeof msg);
+      z << "Minutes (MM) in time offset is not two digits as expected: " << p << '\0';
+      logClient.log(MLogClient::MLOG_ERROR, msg);
+      rtnStatus = 1;
+    }
+    minutes = (p[0]-'0')*10 + (p[1]-'0');
+    if (minutes < 0 || minutes > 59) {
+      strstream z(msg, sizeof msg);
+      z << "Minutes in time offset not in expected range of 0-59: " << minutes << '\0';
+      logClient.log(MLogClient::MLOG_ERROR, msg);
+      rtnStatus = 1;
+    }
+    p += 2;
+
+    if (*p != 0) {
+      strstream z(msg, sizeof msg);
+      z << "Found time offset +/-HH:MM, but extra characters after offset: " << p << '\0';
+      logClient.log(MLogClient::MLOG_ERROR, msg);
+      rtnStatus = 1;
+    }
+  } else {
+    strstream z(msg, sizeof msg);
+    z << "Improper time offset marker; should be 'Z', '+' or '-': " << p << '\0';
+    logClient.log(MLogClient::MLOG_ERROR, msg);
+    rtnStatus = 1;
+  }
+
+  return rtnStatus;
+}
+
+static int evalHostName(const MString& hostName)
+{
+  int rtnStatus = 0;			// Assume success
+  MLogClient logClient;
+  char x[1024] = "";
+  hostName.safeExport(x, (sizeof x)-1);
+  char msg[2048] = "";
+
+  strstream z(msg, sizeof msg);
+  z << "Evaluating hostname in audit message: " << hostName << '\0';
+  logClient.log(MLogClient::MLOG_VERBOSE, msg);
+
+  if (x[0] == '\0') {
+    logClient.log(MLogClient::MLOG_ERROR, "Hostname field of message is empty; error");
+    rtnStatus = 1;
+  } else if (x[0] == '-' && x[1] != '\0') {
+    strstream z1(msg, sizeof msg);
+    z1 << "Hostname starts with NIL (-), but then has extra characters; error '" << x << "'\0";
+    logClient.log(MLogClient::MLOG_VERBOSE, msg);
+    rtnStatus = 1;
+  }
+  return rtnStatus;
+}
+
+static int evalAppName(const MString& appName)
+{
+  int rtnStatus = 0;			// Assume success
+  MLogClient logClient;
+  char x[1024] = "";
+  appName.safeExport(x, (sizeof x)-1);
+  char msg[2048] = "";
+
+  strstream z(msg, sizeof msg);
+  z << "Evaluating appname in audit message: " << appName << '\0';
+  logClient.log(MLogClient::MLOG_VERBOSE, msg);
+
+  if (x[0] == '\0') {
+    logClient.log(MLogClient::MLOG_ERROR, "appName field of message is empty; error");
+    rtnStatus = 1;
+  } else if (x[0] == '-' && x[1] != '\0') {
+    strstream z1(msg, sizeof msg);
+    z1 << "appname starts with NIL (-), but then has extra characters; error '" << x << "'\0";
+    logClient.log(MLogClient::MLOG_VERBOSE, msg);
+    rtnStatus = 1;
+  }
+  return rtnStatus;
+}
+
+static int evalProcID(const MString& procID)
+{
+  int rtnStatus = 0;			// Assume success
+  MLogClient logClient;
+  char x[1024] = "";
+  procID.safeExport(x, (sizeof x)-1);
+  char msg[2048] = "";
+
+  strstream z(msg, sizeof msg);
+  z << "Evaluating procID in audit message: " << procID << '\0';
+  logClient.log(MLogClient::MLOG_VERBOSE, msg);
+
+  if (x[0] == '\0') {
+    logClient.log(MLogClient::MLOG_ERROR, "procID field of message is empty; error");
+    rtnStatus = 1;
+  } else if (x[0] == '-' && x[1] != '\0') {
+    strstream z1(msg, sizeof msg);
+    z1 << "procID starts with NIL (-), but then has extra characters; error '" << x << "'\0";
+    logClient.log(MLogClient::MLOG_VERBOSE, msg);
+    rtnStatus = 1;
+  }
+  return rtnStatus;
+}
+
+static int evalMsgID(const MString& msgID)
+{
+  int rtnStatus = 0;			// Assume success
+  MLogClient logClient;
+  char x[1024] = "";
+  msgID.safeExport(x, (sizeof x)-1);
+  char msg[2048] = "";
+
+  strstream z(msg, sizeof msg);
+  z << "Evaluating msgID in audit message: " << msgID << '\0';
+  logClient.log(MLogClient::MLOG_VERBOSE, msg);
+
+  if (x[0] == '\0') {
+    logClient.log(MLogClient::MLOG_ERROR, "msgID field of message is empty; error");
+    rtnStatus = 1;
+  } else if (x[0] == '-' && x[1] != '\0') {
+    strstream z1(msg, sizeof msg);
+    z1 << "msgID starts with NIL (-), but then has extra characters; error '" << x << "'\0";
+    logClient.log(MLogClient::MLOG_VERBOSE, msg);
+    rtnStatus = 1;
+  }
+  return rtnStatus;
+}
+
+static int evalMessage(const char* msg, unsigned long length)
+{
+  int rtnStatus = 0;			// Assume success
+  MLogClient logClient;
+  char buf[16834] = "";
+  unsigned char copy[16384] = "";
+
+  ::memcpy(copy, msg, length);
+  copy[length] = '\0';
+
+  strstream z(buf, sizeof buf);
+  z << "Evaluating message audit message: " << copy << '\0';
+  logClient.log(MLogClient::MLOG_VERBOSE, msg);
+
+  bool bom = true;
+  if (copy[0] != 0xef) bom = false;
+  if (copy[1] != 0xbb) bom = false;
+  if (copy[2] != 0xbf) bom = false;
+
+  char* p = (char*) copy;
+  if (bom) {
+    p += 3;
+    logClient.log(MLogClient::MLOG_VERBOSE, "Found UTF-8 BOM is audit message");
+  } else {
+    strstream z1(buf, sizeof buf);
+    z1 << "Did not find UTF-8 BOM at the start of this message: " << copy << '\0';
+    logClient.log(MLogClient::MLOG_WARN, buf);
+  }
+/*
+  if (strncmp(p, "<?xml", 5) != 0 && strncmp(p, "<?XML", 5) != 0) {
+    strstream z1(buf, sizeof buf);
+    z1 << "The audit message shll be an XML string that begins with <?xml or <?XML ... " << p << '\0';
+    logClient.log(MLogClient::MLOG_WARN, buf);
+    rtnStatus = 1;
+  }
+*/
+  return rtnStatus;
+}
+
+static int processSyslogFile(const char* syslogFile)
+{
+  long fileLength = MFileOperations::fileLength(syslogFile);
+  if (fileLength <= 0) {
+    cout << "File does not exist: " << syslogFile << endl;
+  }
+  MSyslogFactory factory;
+  char msg[2048] = "";
+
+  ifstream x(syslogFile, ios::binary);
+  char buffer[16384];
+  x.read(buffer, fileLength);
+  buffer[fileLength] = '\0';
+  cout << buffer << endl;
+  x.close();
+  MLogClient logClient;
+
+  MSyslogMessage5424* m = factory.produceMessage5424(buffer, fileLength);
+  if (m == 0) {
+    logClient.log(MLogClient::MLOG_ERROR,
+	MString("Some type of parsing error. Could not parse according to RFC 5424: ") + syslogFile);
+    return 1;
+  }
+  int rtnValue = 0;
+  int facility = m->facility();
+  int severity = m->severity();
+  MString timeStamp = m->timeStamp();
+  MString hostName  = m->hostName();
+  MString appName   = m->appName();
+  MString procID    = m->processID();
+  MString msgID     = m->messageID();
+  unsigned long messageLength = 0;
+  const char* messageReference = m->referenceToMessage(messageLength);
+
+//  cout << "Facility:   " << facility << endl;
+//  cout << "Severity:   " << severity << endl;
+//  cout << "Time Stamp: " << timeStamp << endl;
+  if (facility != 10) {
+    strstream z(msg, sizeof msg);
+    z << "Facility should be 10; syslog message contains: " << facility << '\0';
+    logClient.log(MLogClient::MLOG_ERROR, msg);
+    rtnValue = 1;
+  }
+  if (severity != 4 && severity != 5) {
+    strstream z(msg, sizeof msg);
+    z << "Severity expected to be 4 or 5 (really 5); syslog message contains: " << severity << '\0';
+    logClient.log(MLogClient::MLOG_ERROR, msg);
+    rtnValue = 1;
+  }
+  rtnValue |= evalTimeStamp(timeStamp);
+  rtnValue |= evalHostName(hostName);
+  rtnValue |= evalAppName(appName);
+  rtnValue |= evalProcID(procID);
+  rtnValue |= evalMsgID(msgID);
+  rtnValue |= evalMessage(messageReference, messageLength);
+  delete m;
+  return rtnValue;
+}
+
 int main(int argc, char** argv)
 { 
   bool verbose = false;
@@ -456,6 +890,7 @@ int main(int argc, char** argv)
   MString certificateFile = "";
   MString peerCertificateList = "";
   MString ciphers = "NULL-SHA";
+  char* syslogFile = 0;
 
 
   f.expandPath(path, "MESA_TARGET", "logs");
@@ -476,6 +911,12 @@ int main(int argc, char** argv)
       if (argc < 1)
 	usage();
       syslogDBName = *argv;
+      break;
+    case 'f':
+      argc--; argv++;
+      if (argc < 1)
+	usage();
+      syslogFile = *argv;
       break;
     case 'K':
       argc--; argv++;
@@ -536,6 +977,14 @@ int main(int argc, char** argv)
       break;
     }
   }
+
+  MLogClient logClient;
+  if (syslogFile != 0) {
+    logClient.logLevel(MLogClient::MLOG_VERBOSE);
+    return processSyslogFile(syslogFile);
+  }
+
+
   if (argc < 1)
     usage();
 
@@ -550,7 +999,6 @@ int main(int argc, char** argv)
     return 1;
   }
 
-  MLogClient logClient;
   if (logLevel != MLogClient::MLOG_NONE) {
     MString logName = logDir + "/syslog_server.log";
     if      (xmitRFC == "3164") logName = logDir + "/syslog_server_3164.log";

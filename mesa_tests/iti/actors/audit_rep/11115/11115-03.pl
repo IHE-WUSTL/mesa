@@ -34,11 +34,12 @@ my $C = "$MESA_TARGET/runtime/certs-ca-signed/mesa_1.cert.pem";
 my $K = "$MESA_TARGET/runtime/certs-ca-signed/mesa_1.key.pem";
 my $P = "$MESA_TARGET/runtime/certs-ca-signed/test_list.cert";
 my $R = "$MESA_TARGET/runtime/certs-ca-signed/randoms.dat";
+my $Z = "AES128-SHA";
 
 mesa_utility::delete_file(4, "$MESA_TARGET/logs/syslog/last_log.xml");
 mesa_utility::delete_file(4, "$MESA_TARGET/logs/syslog/last_log.txt");
 
-$x = "$MESA_TARGET/bin/syslog_client_secure -f 10 -s 5 -r 5424 -x 5425 -C $C -K $K -P $P -R $R $host $port  11115/atna_startup.xml";
+$x = "$MESA_TARGET/bin/syslog_client_secure -f 10 -s 5 -r 5424 -x 5425 -Z $Z -C $C -K $K -P $P -R $R $host $port  11115/atna_startup.xml";
 
 print "$x \n";
 print `$x`;

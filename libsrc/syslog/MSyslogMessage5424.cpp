@@ -249,6 +249,24 @@ MSyslogMessage5424::hostName( ) const
 
 
 
+MString
+MSyslogMessage5424::appName( ) const
+{
+  return mAppName;
+}
+
+MString
+MSyslogMessage5424::processID ( ) const
+{
+  return mProcID;
+}
+
+MString
+MSyslogMessage5424::messageID ( ) const
+{
+  return mMsgID;
+}
+
 int
 MSyslogMessage5424::headerLength() const
 {

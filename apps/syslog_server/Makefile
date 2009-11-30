@@ -50,3 +50,13 @@ t103:	syslog_server_secure
 
 t104:	syslog_server
 	./syslog_server -l 4 -r 5424 -x 5426 4001
+
+t200:	syslog_server
+	./syslog_server -f syslog-payload.txt
+	./syslog_server -f x1-payload.txt
+	./syslog_server -f x2-payload.txt
+	./syslog_server -f x3-payload.txt
+	./syslog_server -f x4-payload.txt
+	./syslog_server -f x5-payload.txt
+	./syslog_server -f x6-payload.txt
+	./syslog_server -f x7-payload.txt

@@ -124,6 +124,12 @@ public:
 
   MString hostName( ) const;
 
+  MString appName( ) const;
+
+  MString processID ( ) const;
+
+  MString messageID ( ) const;
+
   int headerLength() const;
 
   int exportHeader(char* buffer,

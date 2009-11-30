@@ -329,6 +329,22 @@ MFileOperations::fileExists(const MString& path)
   return MFileOperations::fileExists(buf);
 }
 
+long
+MFileOperations::fileLength(const char* path)
+{
+  int status;
+  struct stat im_stat;
+  long rtnLength = 0;
+
+  status = stat(path, &im_stat);
+  if (status < 0) {
+    ; // Nothing to do
+  } else {
+    rtnLength = im_stat.st_size;
+  }
+  return rtnLength;
+}
+
 // Private methods below
 
 

@@ -1,9 +1,91 @@
-CTX: MESA Version MARS_SVN_303  created 2009.11.09 
+CTX: MESA Version MARS_SVN_304  created 2009.11.17 
 CTX: Secure Node test 11115
 CTX: Test type: IETF
+
+CTX: 11115.1
+CTX: Evaluation of ATNA Audit Message, checking for RFC5424 compliance
+CTX: Evaluating file: /opt/mesa/logs/syslog/last_log.txt
+<85>1 2009-11-30T00:20:58Z indus.wustl.edu Spartacus 777 PDQIN - ﻿<?xml /><AuditMessage>
+ <EventIdentification EventActionCode="E" EventDateTime="2009-11-30T00:20:58" EventOutcomeIndicator="0">
+  <EventID code="110100" codeSystemName="DCM" displayName="Application Activity" />
+  <EventTypeCode code="110120" codeSystemName="DCM" displayName="Application Start" />
+ </EventIdentification>
+ <ActiveParticipant UserID="MESA Application" AlternativeUserID="MESA AE Title" UserIsRequestor="false">
+  <RoleIDCode code="110150" codeSystemName="DCM" displayName="Application"/>
+ </ActiveParticipant>
+ <ActiveParticipant UserID="smm" UserName="Steve Moore" UserIsRequestor="true">
+  <RoleIDCode code="110151" codeSystemName="DCM" displayName="Application Launcher"/>
+ </ActiveParticipant>
+ <AuditSourceIdentification AuditEnterpriseSiteID="Hospital" AuditSourceID="ReadingRoom">
+  <AuditSourceTypeCode code="1"/>
+ </AuditSourceIdentification>
+</AuditMessage>
+
+
+20091130 005011 :MSyslogFactory::produceMessage5424:185
+ V: Enter method
+20091130 005011 <85>1 2009-11-30T00:20:58Z indus.wustl.edu Spartacus 777 PDQIN - ﻿<?xml /><AuditMessage>
+ <EventIdentification EventActionCode="E" EventDateTime="2009-11-30T00:20:58" EventOutcomeIndicator="0">
+  <EventID code="110100" codeSystemName="DCM" displayName="Application Activity" />
+  <EventTypeCode code="110120" codeSystemName="DCM" displayName="Application Start" />
+ </EventIdentification>
+ <ActiveParticipant UserID="MESA Application" AlternativeUserID="MESA AE Title" UserIsRequestor="false">
+  <RoleIDCode code="110150" codeSystemName="DCM" displayName="Application"/>
+ </ActiveParticipant>
+ <ActiveParticipant UserID="smm" UserName="Steve Moore" UserIsRequestor="true">
+  <RoleIDCode code="110151" codeSystemName="DCM" displayName="Application Launcher"/>
+ </ActiveParticipant>
+ <AuditSourceIdentification AuditEnterpriseSiteID="Hospital" AuditSourceID="ReadingRoom">
+  <AuditSourceTypeCode code="1"/>
+ </AuditSourceIdentification>
+</AuditMessage>
+
+
+V: Syslog message extracted: ﻿<?xml /><AuditMessage>
+ <EventIdentification EventActionCode="E" EventDateTime="2009-11-30T00:20:58" EventOutcomeIndicator="0">
+  <EventID code="110100" codeSystemName="DCM" displayName="Application Activity" />
+  <EventTypeCode code="110120" codeSystemName="DCM" displayName="Application Start" />
+ </EventIdentification>
+ <ActiveParticipant UserID="MESA Application" AlternativeUserID="MESA AE Title" UserIsRequestor="false">
+  <RoleIDCode code="110150" codeSystemName="DCM" displayName="Application"/>
+ </ActiveParticipant>
+ <ActiveParticipant UserID="smm" UserName="Steve Moore" UserIsRequestor="true">
+  <RoleIDCode code="110151" codeSystemName="DCM" displayName="Application Launcher"/>
+ </ActiveParticipant>
+ <AuditSourceIdentification AuditEnterpriseSiteID="Hospital" AuditSourceID="ReadingRoom">
+  <AuditSourceTypeCode code="1"/>
+ </AuditSourceIdentification>
+</AuditMessage>
+
+
+20091130 005011 :MSyslogFactory::produceMessage5424:392
+ V: Exit method
+Evaluating hostname in audit message: indus.wustl.edu
+Evaluating appname in audit message: Spartacus
+Evaluating procID in audit message: 777
+Evaluating msgID in audit message: PDQIN
+﻿<?xml /><AuditMessage>
+ <EventIdentification EventActionCode="E" EventDateTime="2009-11-30T00:20:58" EventOutcomeIndicator="0">
+  <EventID code="110100" codeSystemName="DCM" displayName="Application Activity" />
+  <EventTypeCode code="110120" codeSystemName="DCM" displayName="Application Start" />
+ </EventIdentification>
+ <ActiveParticipant UserID="MESA Application" AlternativeUserID="MESA AE Title" UserIsRequestor="false">
+  <RoleIDCode code="110150" codeSystemName="DCM" displayName="Application"/>
+ </ActiveParticipant>
+ <ActiveParticipant UserID="smm" UserName="Steve Moore" UserIsRequestor="true">
+  <RoleIDCode code="110151" codeSystemName="DCM" displayName="Application Launcher"/>
+ </ActiveParticipant>
+ <AuditSourceIdentification AuditEnterpriseSiteID="Hospital" AuditSourceID="ReadingRoom">
+  <AuditSourceTypeCode code="1"/>
+ </AuditSourceIdentification>
+</AuditMessage>
+
+
+Found UTF-8 BOM is audit message
 
 Evaluating /opt/mesa/logs/syslog/last_log.xml
 /opt/mesa/bin/mesa_xml_eval  -l 4  -s /opt/mesa/runtime/IHE-ATNA-syslog-audit-message.xsd  /opt/mesa/logs/syslog/last_log.xml 
 element count: 10
+CTX: Pass schema tests
 
 Total Differences: 0 

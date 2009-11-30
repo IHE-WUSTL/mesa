@@ -29,7 +29,7 @@ my $R = "$MESA_TARGET/runtime/certs-ca-signed/randoms.dat";
 if ($y == 0) {
   $x = "$MESA_TARGET/bin/syslog_client -f 10 -s 5 -t PID localhost 4000 11115/atna_startup.xml";
 } elsif ($ARGV[0] eq "5425") {
-  $x = "$MESA_TARGET/bin/syslog_client -f 10 -s 5 -r 5424 -x 5425 -C $C -K $K -P $P -R $R localhost  4003 11115/atna_startup.xml";
+  $x = "$MESA_TARGET/bin/syslog_client_secure -f 10 -s 5 -r 5424 -x 5425 -C $C -K $K -P $P -R $R localhost  4003 11115/atna_startup.xml";
 } elsif ($ARGV[0] eq "5426") {
   $x = "$MESA_TARGET/bin/syslog_client -f 10 -s 5 -r 5424 -x 5425 -C $C -K $K -P $P -R $R localhost  4001 11115/atna_startup.xml";
 }

@@ -236,6 +236,8 @@ public:
 
   static int fileExists(const MString& path);
 
+  static long fileLength(const char* path);
+
 private:
   MStringVector mFileVector;
 

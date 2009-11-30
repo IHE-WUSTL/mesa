@@ -15,6 +15,25 @@ sub goodbye() {
   exit 1;
 }
 
+sub x_11115_1 {
+  print LOG "\nCTX: 11115.1\n";
+  print LOG "CTX: Evaluation of ATNA Audit Message, checking for RFC5424 compliance\n";
+
+  my ($logLevel, $file) = @_;
+  print LOG "CTX: Evaluating file: $file\n";
+
+  my $x = "$MESA_TARGET/bin/syslog_server -f $file";
+  print LOG `$x`;
+
+  if ($?) {
+    print LOG "ERR: Failed parsing according to RFC 5424\n";
+    return 1;
+  }
+
+  return 0;
+}
+
+
 if (scalar(@ARGV) != 2) {
   die "Usage: <output level> <schema: INTERIM or IETF>";
   exit 1;
@@ -23,7 +42,7 @@ $outputLevel = $ARGV[0];
 $testType = $ARGV[1];
 
 open LOG, ">11115/grade_11115.txt" or die "Could not create grade file: 11115/grade_11115.txt";
-$diff = 0;
+my $diff = 0;
 my $mesaVersion = mesa_get::getMESAVersion();
 print LOG "CTX: $mesaVersion \n";
 
@@ -42,16 +61,25 @@ if (! -e "$MESA_TARGET/logs/syslog/last_log.xml") {
   exit 1;
 }
 
+  my $auditFileXML = "$MESA_TARGET/logs/syslog/last_log.xml";
+  my $auditFileTxt = "$MESA_TARGET/logs/syslog/last_log.txt";
+  $diff += x_11115_1($outputLevel, $auditFileTxt);
+  my $diffSchema = 0;
 if ($testType eq "INTERIM") {
-  $diff += mesa_evaluate::validate_xml_schema($outputLevel, "$MESA_TARGET/runtime/IHE-syslog-audit-message-4.xsd", "$MESA_TARGET/logs/syslog/last_log.xml");
+  $diffSchema += mesa_evaluate::validate_xml_schema($outputLevel, "$MESA_TARGET/runtime/IHE-syslog-audit-message-4.xsd", $auditFileXML);
 } elsif ($testType eq "IETF") {
-  $diff += mesa_evaluate::validate_xml_schema($outputLevel, "$MESA_TARGET/runtime/IHE-ATNA-syslog-audit-message.xsd", "$MESA_TARGET/logs/syslog/last_log.xml");
+  $diffSchema += mesa_evaluate::validate_xml_schema($outputLevel, "$MESA_TARGET/runtime/IHE-ATNA-syslog-audit-message.xsd", $auditFileXML);
 } else {
   print LOG "ERR: Unrecognized test type: $testType\n";
   print LOG "ERR: Should be INTERIM or IETF\n";
+  print LOG "ERR: Interim refers to the IHE YR4 interim schema; IETF refers to RFC 3881\n";
+  print "ERR: Interim refers to the IHE YR4 interim schema; IETF refers to RFC 3881\n";
   print "ERR: Test type should be INTERIM or IETF. Please insert another quarter.\n";
-  $diff = 1;
+  $diffSchema = 1;
 }
+
+$diff += $diffSchema;
+print LOG "CTX: Pass schema tests\n" if ($diffSchema == 0);
 
 print LOG "\nTotal Differences: $diff \n";
 print "\nTotal Differences: $diff \n";
