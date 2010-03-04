@@ -89,6 +89,7 @@ int main(int argc, char** argv)
   MString peerCertificateList = "";
   MString ciphers = "NULL-SHA";
   MLogClient::LOGLEVEL logLevel = MLogClient::MLOG_NONE;
+  char* challenge = "NA2010";
 
 
   while (--argc > 0 && (*++argv)[0] == '-') {
@@ -116,6 +117,13 @@ int main(int argc, char** argv)
       argc--; argv++;
       tmp = *argv;
       facility = tmp.intData();
+      break;
+    case 'j':
+      argc--;
+      argv++;
+      if (argc <= 0)
+        usage();
+      challenge = *argv;
       break;
     case 'K':
       argc--;
@@ -247,7 +255,8 @@ int main(int argc, char** argv)
 	+ keyFile + ","
 	+ certificateFile + ","
 	+ peerCertificateList + ","
-	+ ciphers;
+	+ ciphers + ","
+	+ challenge;
 
 //cout << "Place " << place++ << endl;
   int status = 0;

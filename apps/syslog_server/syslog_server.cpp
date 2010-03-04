@@ -33,6 +33,8 @@
 #include "ctn_os.h"
 #include <fstream>
 #include <iostream>
+#include <iomanip>
+
 
 #include "MESA.hpp"
 
@@ -74,6 +76,45 @@ Usage: [-C cert] [-d db] [-K key] [-l level] [-P peer] [-R randoms] [-r rfc] [-v
   cerr << msg << endl;
   ::exit(1);
 }
+
+static void
+detectAndDumpBOM(unsigned char* payload)
+{
+  MLogClient logClient;
+
+  bool bom = true;
+  if (payload[0] != 0xef) bom = false;
+  if (payload[1] != 0xbb) bom = false;
+  if (payload[2] != 0xbf) bom = false;
+
+  MString bomString = "BOM Detected: TRUE";
+  if (!bom) { bomString = "BOM Detected: FALSE"; }
+  logClient.logTimeStamp(MLogClient::MLOG_WARN, bomString);
+
+  char txt[256] = "";
+  char txt2[256] = "";
+  strstream x(txt,  sizeof txt);
+  strstream y(txt2, sizeof txt2);
+  x << "Beginning of payload: ";
+  y << "Beginning of payload: ";
+
+  int idx = 0;
+  for (idx = 0; idx < 20; idx++) {
+    unsigned short b = (unsigned short)*payload; payload++;
+    x << hex << setw(2) << setfill('0') << b << ' ' << dec;
+    if (b < 0x20 || b > 0x7e) {
+       y << ".  " ;
+    } else {
+       y << (char)b << "  ";
+    }
+  }
+  x << '\0';
+  y << '\0';
+  logClient.logTimeStamp(MLogClient::MLOG_WARN, txt);
+  logClient.logTimeStamp(MLogClient::MLOG_WARN, txt2);
+
+}
+
 
 static void
 dumpToFolder(const char* logPath, const char* remoteNode, char* transport, const char* buffer, const unsigned char* payload)
@@ -205,7 +246,7 @@ processUDPPackets(CTN_SOCKET s, char* logPath, const MString& syslogDBName, int 
     } else {
       ::strcpy(remoteNode, hp->h_name);
     }
-    logClient.log(MLogClient::MLOG_CONVERSATION, "remoteNode",
+    logClient.log(MLogClient::MLOG_CONVERSATION, remoteNode,
 		"processUDPPackets", __LINE__,
 		"syslog buffer is: ", buffer);
 
@@ -215,7 +256,7 @@ processUDPPackets(CTN_SOCKET s, char* logPath, const MString& syslogDBName, int 
     if (rfcType == 5424) {
       MSyslogMessage5424* m = factory.produceMessage5424(buffer, bytesRead);
       if (m == 0) {
-        logClient.log(MLogClient::MLOG_ERROR, "remoteNode",
+        logClient.log(MLogClient::MLOG_ERROR, remoteNode,
 		"processUDPPackets", __LINE__,
 		"unable to parse the syslog stream in current packet;",
 		" most likely cause is a header that confused our parser");
@@ -233,6 +274,8 @@ processUDPPackets(CTN_SOCKET s, char* logPath, const MString& syslogDBName, int 
         delete m;
         break;
       }
+
+      detectAndDumpBOM((unsigned char*)ref);
 
       dumpToFolder(logPath, remoteNode, "5426", buffer, (unsigned char*)ref);
 
@@ -254,7 +297,7 @@ processUDPPackets(CTN_SOCKET s, char* logPath, const MString& syslogDBName, int 
     } else {
       MSyslogMessage* m = factory.produceMessage(buffer, bytesRead);
       if (m == 0) {
-        logClient.log(MLogClient::MLOG_ERROR, "remoteNode",
+        logClient.log(MLogClient::MLOG_ERROR, remoteNode,
 		"processUDPPackets", __LINE__,
 		"unable to parse the syslog stream in current packet;",
 		" most likely cause is a header that confused our parser");
@@ -311,13 +354,13 @@ processTCPPackets(MNetworkProxy& n, char* logPath, const MString& syslogDBName, 
     mgr = new MDBSyslogManager;
     if (mgr == 0) {
 	logClient.log(MLogClient::MLOG_ERROR, "no peer",
-		"processUDPPackets", __LINE__,
+		"processTCPPackets", __LINE__,
 		"unable to allocate new Syslog Manager");
       return 1;
     }
     if (mgr->initialize(syslogDBName) != 0) {
 	logClient.log(MLogClient::MLOG_ERROR, "no peer",
-		"processUDPPackets", __LINE__,
+		"processTCPPackets", __LINE__,
 		"unable to initialize Syslog database: ", syslogDBName);
       return 1;
     }
@@ -364,14 +407,14 @@ processTCPPackets(MNetworkProxy& n, char* logPath, const MString& syslogDBName, 
       char remoteNode[512]="";
       remoteHost.safeExport(remoteNode, sizeof remoteNode);
 
-      logClient.log(MLogClient::MLOG_CONVERSATION, "remoteNode",
-		"processUDPPackets", __LINE__,
-		"syslog buffer is: ", buffer);
+      logClient.log(MLogClient::MLOG_CONVERSATION, remoteNode,
+		"processTCPPackets", __LINE__,
+		"syslog buffer is: ->>", buffer);
 
       if (rfcType == 5424) {
 	MSyslogMessage5424* m = factory.produceMessage5424(buffer, bytesRead);
 	if (m == 0) {
-          logClient.log(MLogClient::MLOG_ERROR, "remoteNode",
+          logClient.log(MLogClient::MLOG_ERROR, remoteNode,
 		"processTCPPackets", __LINE__,
 		"unable to parse the syslog stream in current packet;",
 		" most likely cause is a header that confused our parser");
@@ -389,6 +432,7 @@ processTCPPackets(MNetworkProxy& n, char* logPath, const MString& syslogDBName, 
 	  delete m;
 	  break;
 	}
+        detectAndDumpBOM((unsigned char*)ref);
 	dumpToFolder(logPath, remoteNode, "5425", buffer, (unsigned char*)ref);
 
 #if 0
@@ -396,7 +440,7 @@ processTCPPackets(MNetworkProxy& n, char* logPath, const MString& syslogDBName, 
 	  MSyslogEntry entry;
 	  if (xlate.translateSyslog(*m, entry) == 0) {
 	    logClient.log(MLogClient::MLOG_VERBOSE, remoteNode,
-		"processUDPPackets", __LINE__,
+		"processTCPPackets", __LINE__,
 		"about to enter new entry");
 	    mgr->enterRecord(entry);
 	  }
@@ -404,13 +448,13 @@ processTCPPackets(MNetworkProxy& n, char* logPath, const MString& syslogDBName, 
 #endif
 	delete m;
 	logClient.log(MLogClient::MLOG_VERBOSE, remoteNode,
-		"processUDPPackets", __LINE__,
+		"processTCPPackets", __LINE__,
 		"Finished processing current packet");
       } else {
 	MSyslogMessage* m = factory.produceMessage(buffer, bytesRead);
 	if (m == 0) {
 	  logClient.log(MLogClient::MLOG_ERROR, "remoteNode",
-		"processUDPPackets", __LINE__,
+		"processTCPPackets", __LINE__,
 		"unable to parse the syslog stream in current packet;",
 		" most likely cause is a header that confused our parser");
 	  continue;
@@ -428,14 +472,14 @@ processTCPPackets(MNetworkProxy& n, char* logPath, const MString& syslogDBName, 
 	  MSyslogEntry entry;
 	  if (xlate.translateSyslog(*m, entry) == 0) {
 	  logClient.log(MLogClient::MLOG_VERBOSE, remoteNode,
-		"processUDPPackets", __LINE__,
+		"processTCPPackets", __LINE__,
 		"about to enter new entry");
 	  mgr->enterRecord(entry);
 	  }
 	}
 	delete m;
 	logClient.log(MLogClient::MLOG_VERBOSE, remoteNode,
-		"processUDPPackets", __LINE__,
+		"processTCPPackets", __LINE__,
 		"Finished processing current packet");
       }
     }
@@ -891,6 +935,7 @@ int main(int argc, char** argv)
   MString peerCertificateList = "";
   MString ciphers = "NULL-SHA";
   char* syslogFile = 0;
+  char* challenge = "NA2010";
 
 
   f.expandPath(path, "MESA_TARGET", "logs");
@@ -917,6 +962,12 @@ int main(int argc, char** argv)
       if (argc < 1)
 	usage();
       syslogFile = *argv;
+      break;
+    case 'j':
+      argc--; argv++;
+      if (argc < 1)
+	usage();
+      challenge = *argv;
       break;
     case 'K':
       argc--; argv++;
@@ -1055,7 +1106,8 @@ int main(int argc, char** argv)
 	+ keyFile + ","
 	+ certificateFile + ","
 	+ peerCertificateList + ","
-	+ ciphers;
+	+ ciphers + ","
+	+ challenge;
     if (proxyTLS->initializeServer(proxyParams) != 0) {
       logClient.logTimeStamp(MLogClient::MLOG_ERROR,
 	MString("Unable to initialize TLS proxy class with params: ") + proxyParams);

@@ -57,7 +57,7 @@ t102:	syslog_client
 	./syslog_client -c -r 5424 -x TCP -m 1 localhost 4000 "<xml>payload</xml>"
 
 t103:	syslog_client_secure
-	./syslog_client_secure -l 4 -C $(C) -K $(K) -P $(P) -R $(R) -c -r 5424 -x 5425 -m 1 localhost 4000 "<xml>payload</xml>"
+	./syslog_client_secure -j NA2010 -l 4 -C $(C) -K $(K) -P $(P) -R $(R) -c -r 5424 -x 5425 -m 1 localhost 4000 "<xml>payload</xml>"
 
 t104:	syslog_client
 	./syslog_client -c -r 5424 -x 5426 -m 1 localhost 4001 "<xml>payload</xml>"
