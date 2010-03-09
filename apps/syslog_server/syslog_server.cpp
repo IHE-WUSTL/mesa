@@ -78,7 +78,7 @@ Usage: [-C cert] [-d db] [-K key] [-l level] [-P peer] [-R randoms] [-r rfc] [-v
 }
 
 static void
-detectAndDumpBOM(unsigned char* payload)
+detectAndDumpBOM(const unsigned char* payload)
 {
   MLogClient logClient;
 
@@ -117,7 +117,7 @@ detectAndDumpBOM(unsigned char* payload)
 
 
 static void
-dumpToFolder(const char* logPath, const char* remoteNode, char* transport, const char* buffer, const unsigned char* payload)
+dumpToFolder(const char* logPath, const char* remoteNode, const char* transport, const unsigned char* buffer, const unsigned char* payload)
 {
   MLogClient logClient;
   char date[20] = "";
@@ -186,7 +186,7 @@ processUDPPackets(CTN_SOCKET s, char* logPath, const MString& syslogDBName, int 
 {
   MLogClient logClient;
   struct sockaddr client_addr;
-  char buffer[32768];
+  unsigned char buffer[32768];
   int bytesRead;
 #ifdef MESA_USE_SOCKLEN_T
   socklen_t length;
@@ -248,7 +248,7 @@ processUDPPackets(CTN_SOCKET s, char* logPath, const MString& syslogDBName, int 
     }
     logClient.log(MLogClient::MLOG_CONVERSATION, remoteNode,
 		"processUDPPackets", __LINE__,
-		"syslog buffer is: ", buffer);
+		"syslog buffer is: ", (const char*)buffer);
 
     //cout << "Remote node: " << remoteNode << endl;
     //cout << buffer << endl;
@@ -265,19 +265,24 @@ processUDPPackets(CTN_SOCKET s, char* logPath, const MString& syslogDBName, int 
         //cout << *m << endl;
       }
       unsigned long messageLength = 0;
-      const char* ref = m->referenceToMessage(messageLength);
-      if (::strncmp(ref, "<SHUTDOWN/>", messageLength) == 0) {
+      const unsigned char* ref = m->referenceToMessage(messageLength);
+      if (::strncmp((const char*)ref, "<SHUTDOWN/>", messageLength) == 0) {
         delete m;
         break;
       }
-      if (::strncmp(ref+3, "<SHUTDOWN/>", messageLength-3) == 0) {
+      if (::strncmp((const char*)(ref+3), "<SHUTDOWN/>", messageLength-3) == 0) {
         delete m;
         break;
       }
 
-      detectAndDumpBOM((unsigned char*)ref);
+      detectAndDumpBOM(ref);
 
-      dumpToFolder(logPath, remoteNode, "5426", buffer, (unsigned char*)ref);
+      dumpToFolder(logPath,
+	remoteNode,
+	"5426",
+	buffer,
+	ref);
+//dumpToFolder(const char* logPath, const char* remoteNode, char* transport, const char* buffer, const unsigned char* payload)
 
 #if 0
       if (mgr != 0) {
@@ -306,8 +311,8 @@ processUDPPackets(CTN_SOCKET s, char* logPath, const MString& syslogDBName, int 
         //cout << *m << endl;
       }
       unsigned long messageLength = 0;
-      const char* ref = m->referenceToMessage(messageLength);
-      if (::strncmp(ref, "<SHUTDOWN/>", messageLength) == 0) {
+      const unsigned char* ref = m->referenceToMessage(messageLength);
+      if (::strncmp((const char*)ref, "<SHUTDOWN/>", messageLength) == 0) {
         delete m;
         break;
       }
@@ -374,12 +379,26 @@ processTCPPackets(MNetworkProxy& n, char* logPath, const MString& syslogDBName, 
       return 1;
     }
     bool socketOpen = true;
-    char buffer[16384] = "";
+    unsigned char buffer[16384] = "";
     char tmpBuffer[1024] = "";
     int ix = 0;
     int bytesRead = 0;
     int toRead = 0;
+    logClient.logTimeStamp(MLogClient::MLOG_VERBOSE,
+	"processTCPPackets: about to read bytes to find package length");
     while ((bytesRead = n.readBytes(tmpBuffer+ix, 1)) > 0) {
+      // This is all debugging stuff
+      char txt[512] = "";
+      strstream z(txt, sizeof txt);
+      unsigned short b = (unsigned short)tmpBuffer[ix];
+      z << "Byte: 0x" << hex << setw(2) << setfill('0') << b << '\0' << dec;
+      logClient.log(MLogClient::MLOG_VERBOSE, txt);
+      tmpBuffer[ix+1] = '\0';
+      strstream y(txt, sizeof txt);
+      y << "Current text for length of message: " << tmpBuffer << '\0';
+      logClient.log(MLogClient::MLOG_VERBOSE, txt);
+
+      // This is the real work, looking for the end of the length part of the message.
       if (tmpBuffer[ix] == ' ') {
 	tmpBuffer[ix] = '\0';
 	MString xx(tmpBuffer);
@@ -409,7 +428,7 @@ processTCPPackets(MNetworkProxy& n, char* logPath, const MString& syslogDBName, 
 
       logClient.log(MLogClient::MLOG_CONVERSATION, remoteNode,
 		"processTCPPackets", __LINE__,
-		"syslog buffer is: ->>", buffer);
+		"syslog buffer is: ->>", (const char*)buffer);
 
       if (rfcType == 5424) {
 	MSyslogMessage5424* m = factory.produceMessage5424(buffer, bytesRead);
@@ -423,17 +442,17 @@ processTCPPackets(MNetworkProxy& n, char* logPath, const MString& syslogDBName, 
 	  //cout << *m << endl;
 	}
 	unsigned long messageLength = 0;
-	const char* ref = m->referenceToMessage(messageLength);
-	if (::strncmp(ref, "<SHUTDOWN/>", messageLength) == 0) {
+	const unsigned char* ref = m->referenceToMessage(messageLength);
+	if (::strncmp((const char*)ref, "<SHUTDOWN/>", messageLength) == 0) {
 	  delete m;
 	  break;
 	}
-	if (::strncmp(ref+3, "<SHUTDOWN/>", messageLength-3) == 0) {
+	if (::strncmp((const char*)(ref+3), "<SHUTDOWN/>", messageLength-3) == 0) {
 	  delete m;
 	  break;
 	}
-        detectAndDumpBOM((unsigned char*)ref);
-	dumpToFolder(logPath, remoteNode, "5425", buffer, (unsigned char*)ref);
+        detectAndDumpBOM(ref);
+	dumpToFolder(logPath, remoteNode, "5425", buffer, ref);
 
 #if 0
 	if (mgr != 0) {
@@ -462,8 +481,8 @@ processTCPPackets(MNetworkProxy& n, char* logPath, const MString& syslogDBName, 
 	  //cout << *m << endl;
 	}
 	unsigned long messageLength = 0;
-	const char* ref = m->referenceToMessage(messageLength);
-	if (::strncmp(ref, "<SHUTDOWN/>", messageLength) == 0) {
+	const unsigned char* ref = m->referenceToMessage(messageLength);
+	if (::strncmp((const char*)ref, "<SHUTDOWN/>", messageLength) == 0) {
 	  delete m;
 	  break;
 	}
@@ -823,7 +842,7 @@ static int evalMsgID(const MString& msgID)
   return rtnStatus;
 }
 
-static int evalMessage(const char* msg, unsigned long length)
+static int evalMessage(const unsigned char* msg, unsigned long length)
 {
   int rtnStatus = 0;			// Assume success
   MLogClient logClient;
@@ -835,7 +854,7 @@ static int evalMessage(const char* msg, unsigned long length)
 
   strstream z(buf, sizeof buf);
   z << "Evaluating message audit message: " << copy << '\0';
-  logClient.log(MLogClient::MLOG_VERBOSE, msg);
+  logClient.log(MLogClient::MLOG_VERBOSE, (const char*)msg);
 
   bool bom = true;
   if (copy[0] != 0xef) bom = false;
@@ -894,7 +913,7 @@ static int processSyslogFile(const char* syslogFile)
   MString procID    = m->processID();
   MString msgID     = m->messageID();
   unsigned long messageLength = 0;
-  const char* messageReference = m->referenceToMessage(messageLength);
+  const unsigned char* messageReference = m->referenceToMessage(messageLength);
 
 //  cout << "Facility:   " << facility << endl;
 //  cout << "Severity:   " << severity << endl;
