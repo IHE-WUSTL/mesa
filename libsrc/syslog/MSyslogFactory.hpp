@@ -88,7 +88,9 @@ public:
   // = Class specific methods.
 
   MSyslogMessage* produceMessage(const char* str, int length);
+  MSyslogMessage* produceMessage(const unsigned char* str, int length);
   MSyslogMessage5424* produceMessage5424(const char* str, int length);
+  MSyslogMessage5424* produceMessage5424(const unsigned char* str, int length);
 
 protected:
 

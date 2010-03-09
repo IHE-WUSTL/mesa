@@ -74,7 +74,7 @@ MSyslogMessage::printOn(ostream& s) const
 	<< " T: " << mTag
 	<< " h: " << mHostName;
   if (mMessageSize > 0) {
-    char* p = mMessage;
+    unsigned char* p = mMessage;
     int count = mMessageSize;
     s << " m: ";
     while(count-- > 0)
@@ -106,8 +106,12 @@ MSyslogMessage::MSyslogMessage(int facility, int severity,
     mMessage = 0;
     mMessageSize = 0;
   } else {
-    mMessage = message.strData();
     mMessageSize = message.length();
+    mMessage = new unsigned char[mMessageSize+1];
+    ::memcpy(mMessage, message.strData(), mMessageSize);
+    mMessage[mMessageSize] = '\0';
+//    mMessage = message.strData();
+    mOwnMessage = true;
   }
   if (mTimeStamp == "")
     this->computeTimeStamp();
@@ -144,7 +148,7 @@ MSyslogMessage::message(char* message, unsigned long length)
 {
   this->removeCurrentMessage();
 
-  mMessage = new char[length+1];
+  mMessage = new unsigned char[length+1];
   if (mMessage == 0)
     return -1;
 
@@ -161,7 +165,7 @@ MSyslogMessage::messageReference(char* message, unsigned long length)
 {
   this->removeCurrentMessage();
 
-  mMessage = message;
+  mMessage = (unsigned char*)message;
   if (mMessage == 0)
     return -1;
 
@@ -191,7 +195,7 @@ MSyslogMessage::copyOfMessage(unsigned long& length) const
   return c;
 }
 
-const char*
+const unsigned char*
 MSyslogMessage::referenceToMessage(unsigned long& length) const
 {
   if (mMessageSize == 0) {

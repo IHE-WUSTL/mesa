@@ -174,6 +174,12 @@ MSyslogFactory::produceMessage(const char* str, int length)
   return m;
 }
 
+MSyslogMessage*
+MSyslogFactory::produceMessage(const unsigned char* str, int length)
+{
+  return this->produceMessage((const char*)str, length);
+}
+
 
 MSyslogMessage5424*
 MSyslogFactory::produceMessage5424(const char* str, int length)
@@ -392,3 +398,10 @@ MSyslogFactory::produceMessage5424(const char* str, int length)
 	__LINE__, "Exit method");
   return m;
 }
+
+MSyslogMessage5424*
+MSyslogFactory::produceMessage5424(const unsigned char* str, int length)
+{
+  return this->produceMessage5424((const char*)str, length);
+}
+

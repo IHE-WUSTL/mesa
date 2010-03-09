@@ -78,7 +78,7 @@ MSyslogMessage5424::printOn(ostream& s) const
 	<< " t: " << mTimeStamp
 	<< " h: " << mHostName;
   if (mMessageSize > 0) {
-    char* p = mMessage;
+    unsigned char* p = mMessage;
     int count = mMessageSize;
     s << " m: ";
     while(count-- > 0)
@@ -124,7 +124,7 @@ MSyslogMessage5424::MSyslogMessage5424(int facility, int severity, int version,
     mUTF8Flag = true;
     mMessageSize = 3;		// BOM
   } else {
-    mMessage = message.strData();
+    mMessage = (unsigned char*)message.strData();
     mMessageSize = message.length();
     if (mUTF8Flag) mMessageSize += 3;
   }
@@ -164,7 +164,7 @@ MSyslogMessage5424::message(char* message, unsigned long length)
 {
   this->removeCurrentMessage();
 
-  mMessage = new char[length+1];
+  mMessage = new unsigned char[length+1];
   if (mMessage == 0)
     return -1;
 
@@ -177,7 +177,7 @@ MSyslogMessage5424::message(char* message, unsigned long length)
 }
 
 int
-MSyslogMessage5424::messageReference(char* message, unsigned long length)
+MSyslogMessage5424::messageReference(unsigned char* message, unsigned long length)
 {
   this->removeCurrentMessage();
 
@@ -211,7 +211,7 @@ MSyslogMessage5424::copyOfMessage(unsigned long& length) const
   return c;
 }
 
-const char*
+const unsigned char*
 MSyslogMessage5424::referenceToMessage(unsigned long& length) const
 {
   if (mMessageSize == 0) {

@@ -109,7 +109,7 @@ public:
 
   char* copyOfMessage(unsigned long& length) const;
 
-  const char* referenceToMessage(unsigned long& length) const; 
+  const unsigned char* referenceToMessage(unsigned long& length) const; 
 
   void timeStamp(const MString& timeStamp);
 
@@ -142,17 +142,18 @@ public:
 	int& exportedLength);
 
 protected:
-
-private:
   int mFacility;
   int mSeverity;
   MString mTimeStamp;
   MString mHostName;
   MString mTag;
 
-  char* mMessage;
+  unsigned char* mMessage;
   unsigned long mMessageSize;
   bool mOwnMessage;
+
+private:
+
 
   int textLength(unsigned long val) const;
   void removeCurrentMessage();

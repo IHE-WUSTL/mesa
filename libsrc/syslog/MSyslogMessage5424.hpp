@@ -109,12 +109,12 @@ public:
   int severity( ) const;
 
   int message(char* message, unsigned long length);
-  int messageReference(char* message, unsigned long length);
+  int messageReference(unsigned char* message, unsigned long length);
   int message(const MString& message);
 
   char* copyOfMessage(unsigned long& length) const;
 
-  const char* referenceToMessage(unsigned long& length) const; 
+  const unsigned char* referenceToMessage(unsigned long& length) const; 
 
   void timeStamp(const MString& timeStamp);
 
@@ -157,15 +157,16 @@ protected:
 private:
   int mFacility;
   int mSeverity;
-  int mVersion;
   MString mTimeStamp;
   MString mHostName;
+
+  int mVersion;
   MString mAppName;
   MString mProcID;
   MString mMsgID;
   bool mUTF8Flag;
 
-  char* mMessage;
+  unsigned char* mMessage;
   unsigned long mMessageSize;
   bool mOwnMessage;
 
