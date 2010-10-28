@@ -228,6 +228,7 @@ apps/mesa_identifier/Makefile -text
 apps/mesa_identifier/mesa_identifier.cpp -text
 apps/mesa_image_pattern/Makefile -text
 apps/mesa_image_pattern/mesa_image_pattern.cpp -text
+apps/mesa_image_pattern/readme.txt -text
 apps/mesa_load_db/Makefile -text
 apps/mesa_load_db/codes_of.txt -text
 apps/mesa_load_db/demog.txt -text
