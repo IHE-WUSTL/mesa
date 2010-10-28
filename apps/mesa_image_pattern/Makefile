@@ -11,7 +11,7 @@ app:	$(APPS)
 OBJS = mesa_image_pattern.o
 
 mesa_image_pattern:	$(OBJS)
-	$(CXX) -o mesa_image_pattern $(OBJS) $(L_FLAGS) $(LIBS_MESA_NODB)
+	$(CXX) -g -o mesa_image_pattern $(OBJS) $(L_FLAGS) $(LIBS_MESA_NODB)
 
 install:	$(APPS)
 	$(INSTALL) mesa_image_pattern $(MESA_BIN)
@@ -21,3 +21,6 @@ clean:
 
 p1:	mesa_image_pattern
 	./mesa_image_pattern 1 p1.pixels
+
+p29:	mesa_image_pattern
+	./mesa_image_pattern 29 p29.pixels
