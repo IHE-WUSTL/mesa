@@ -501,19 +501,28 @@ unsigned char* pattern14(unsigned long& byteCount)
 // 1024 x 1024 x 2 bytes, 10 bit wedge, CR data
 unsigned char* pattern20(unsigned long& byteCount)
 {
-  unsigned short *p = new unsigned short[1024 * 1024];
+  short *p = new short[1024 * 1024];
   byteCount = 1024 * 1024 * 2;
   memset(p, 0, byteCount);
-  int row = 0;
-  int col = 0;
-  
+  short row = 0;
+  short col = 0;
+
+  short pix;
   for (row = 0; row < 1024; row++) {
-    for (col = 0; col < 750; col++) {
-      p[row*1024 + col] = col;
+    for (col = 1; col < 750; col++) {
+      pix = (col * 3) / 2;
+      p[row*1024 + col] = (pix < 1024) ? pix: 1020;
     }
-    for (col = 750; col < 1024; col++) {
-      p[row*1024 + col] = (2*750)-col;
+    for (col = 750; col < 1023; col++) {
+      pix = (col - 750) * 4;
+      pix = 750 - pix;
+      pix = (pix * 3) / 2;
+//      pix = (((2*750)-col) * 3) / 2;
+      if (pix < 0) pix = 0;
+      p[row*1024 + col] = (pix < 1024) ? pix: 1020;
     }
+    p[row*1024 + 0] = 1020;
+    p[row*1024 + 1023] = 1020;
   }
 
   return (unsigned char*)p;
@@ -548,6 +557,7 @@ unsigned char* pattern21(const char* outputFile, unsigned long& byteCount)
     for (row000 = 16; row000 < 48; row000++) {
       for (col = 0; col < 32; col++) {
 	p[(row000*256 + col+10) + (frame*6)] = 250;
+	p[(row000*256 + col+10) + (31*6)] = 250;
       }
     }
 
@@ -597,6 +607,7 @@ unsigned char* pattern22(const char* outputFile, unsigned long& byteCount)
     for (row000 = 16; row000 < 48; row000++) {
       for (col = 0; col < 32; col++) {
 	p[(row000*256 + col+10) + (frame*6)] = 4095;
+	p[(row000*256 + col+10) + (31*6)] = 4095;
       }
     }
 
@@ -685,7 +696,7 @@ unsigned char* pattern23(const char* outputFile, unsigned long& byteCount)
 }
 
 // Pattern 24
-// 256 x 256 x 8 bits x 3 bytes (RGB) x 96 frames
+// 256 x 256 x 8 bits x 3 bytes (RGB) x 64 frames
 unsigned char* pattern24(const char* outputFile, unsigned long& byteCount)
 {
   unsigned char *p = new unsigned char[256 * 256 * 3];
@@ -831,6 +842,75 @@ unsigned char* pattern26(const char* outputFile, unsigned long& byteCount)
   return (unsigned char*)0;
 }
 
+// Pattern 26 MR
+// 512 x 512 x 16 bits, 20 slices of MR data
+unsigned char* pattern26MR(const char* outputFile, unsigned long& byteCount)
+{
+  short *p = new short[512 * 512];
+  byteCount = 512 * 512 * 2;
+  int row000 = 0;
+  int col = 0;
+  int frame = 0;
+  
+  ofstream f;
+  f.open(outputFile, ios::binary);
+
+  // 4 corners
+  for (frame = 0; frame < 20; frame++) {
+    memset(p, 0, byteCount);
+    for (row000 = 0; row000 < 32; row000++) {
+      for (col = 0; col < 32; col++) {
+	// 4 corners of the image
+	p[row000*512 + col] = 200;
+	p[row000*512 + 511-col] = 200;
+	p[(row000+480)*512 + col] = 200;
+	p[(row000+480)*512 + 511-col] = 200;
+
+//	p[row000*512 + 383-col] = 400;
+//	p[(row000+480)*512 + col] = 400;
+//	p[(row000+480)*512 + 383-col] = 400;
+	// Add some more squares as markers outside the anatomy
+      }
+    }
+    // 2 pixel outline of the anatomy, inside the frame
+    for (row000 = 40; row000 < 472; row000++) {
+      p[row000*512 + 40] = 400;
+      p[row000*512 + 41] = 400;
+      p[row000*512 + 470] = 400;
+      p[row000*512 + 471] = 400;
+    }
+    int rowOffset1 = 40*512;
+    int rowOffset2 = 470*512;
+    for (col = 40; col < 472; col++) {
+      p[rowOffset1 + col] = 400;
+      p[rowOffset1 + 512+col] = 400;
+      p[rowOffset2 + col] = 400;
+      p[rowOffset2 + 512 + col] = 400;
+    }
+
+    // 2 rectangles in the center; one if fixed size, the other grows with frame count
+    for (row000 = 256; row000 < 264 +(frame*3); row000++) {
+      for (col = 100; col < 132; col++) {
+	p[row000*512 + col] = 300;
+      }
+    }
+    for (row000 = 256; row000 < 320; row000++) {
+      for (col = 164; col < 196; col++) {
+	p[row000*512 + col] = 350;
+      }
+    }
+
+
+    f.write((const char*)p, byteCount);
+  }
+
+  f.close();
+  delete []p;
+
+  byteCount = 0;
+  return (unsigned char*)0;
+}
+
 // Pattern 27
 // 512 x 512 x 16 bits, 24 slices of CT data
 unsigned char* pattern27(const char* outputFile, unsigned long& byteCount)
@@ -905,7 +985,340 @@ unsigned char* pattern27(const char* outputFile, unsigned long& byteCount)
   return (unsigned char*)0;
 }
 
+// Pattern 28
+// 1024 x 1024 x 2 bytes, 16 bit wedge, DX data
+// Range of data: 0 - 3000
+unsigned char* pattern28(unsigned long& byteCount)
+{
+  unsigned short *p = new unsigned short[1024 * 1024];
+  byteCount = 1024 * 1024 * 2;
+  memset(p, 0, byteCount);
+  int row = 0;
+  int col = 0;
+  
+  for (row = 0; row < 1024; row++) {
+    for (col = 0; col < 750; col++) {
+      p[row*1024 + col] = (col) << 4;
+    }
+    for (col = 750; col < 1024; col++) {
+      p[row*1024 + col] = ((2*750)-col) << 4;
+    }
+    p[row*1024 +    0] = 512 << 4;
+    p[row*1024 + 1023] = 512 << 4;
+  }
 
+  return (unsigned char*)p;
+}
+
+// Pattern 29
+// 256 x 256 x 2 bytes, 55 MR slices, square patterns
+unsigned char* pattern29(const char* outputFile, unsigned long& byteCount)
+{
+  short *p = new short[256 * 256];
+  byteCount = 256 * 256 * 2;
+  int row000 = 0;
+  int col = 0;
+  int frame = 0;
+  
+  ofstream f;
+  f.open(outputFile, ios::binary);
+
+  // 4 corners
+  int idx = 0;
+  int idxMax = 256 * 256;
+  for (frame = 0; frame < 55; frame++) {
+//    cout << "Frame: " << frame << endl;
+    memset(p, 0, byteCount);
+    for (row000 = 0; row000 < 32; row000++) {
+      for (col = 0; col < 32; col++) {
+	idx = 2+ row000*256 + col;
+	p[idx] = 1900;
+
+	idx = row000*256 + 253-col;
+	p[idx] = 1900;
+
+	idx = (row000+222)*256 + col;
+	p[idx] = 1900;
+
+	idx = (row000+222)*256 + 253-col;
+	p[idx] = 1900;
+
+#if 0
+	// Add some more squares as markers outside the anatomy
+	int diag = 0;
+	diag = (col < row000) ? col: row000;
+	p[row000*256 + diag] = 1500;
+	p[(row000+120)*256 + diag] = 1500;
+	p[(row000+220)*256 + diag] = 1500;
+#endif
+      }
+    }
+    // 2 pixel outline
+    for (row000 = 0; row000 < 256; row000++) {
+      p[row000*256] = 1750;
+      p[row000*256+1] = 1750;
+      p[row000*256 + 254] = 1750;
+      p[row000*256 + 255] = 1750;
+    }
+    for (col = 0; col < 255; col++) {
+      p[col] = 1750;
+      p[256+col] = 1750;
+      p[254*256 + col] = 1750;
+      p[255*256 + col] = 1750;
+    }
+
+    // 3 rectangles in the center
+    // In the first four frames, we put a large square. In frames 0-54, a smaller rectangle that is growing.
+    if (frame < 4) {
+      for (row000 = 64; row000 < 128; row000++) {
+	for (col = 96; col < 128; col++) {
+	  p[row000*256 + col] = 1750;
+	}
+      }
+    }
+
+    for (row000 = 128; row000 < 132 +((frame-4)*2); row000++) {
+      for (col = 50; col < 68; col++) {
+	p[row000*256 + col] = 1750;
+      }
+    }
+
+    for (row000 = 128; row000 < 232; row000++) {
+      for (col = 128; col < 160; col++) {
+	p[row000*256 + col] = 1600;
+      }
+    }
+
+
+    f.write((const char*)p, byteCount);
+  }
+
+  f.close();
+  delete []p;
+
+  byteCount = 0;
+  return (unsigned char*)0;
+}
+
+// Pattern 30
+// 512 x 512 x 2 bytes, 55 CT slices, square patterns
+unsigned char* pattern30(const char* outputFile, unsigned long& byteCount)
+{
+  short *p = new short[512 * 512];
+  byteCount = 512 * 512 * 2;
+  int row000 = 0;
+  int col = 0;
+  int frame = 0;
+  int max=512;
+  
+  ofstream f;
+  f.open(outputFile, ios::binary);
+
+  // 4 corners
+  int idx = 0;
+  int idxMax = max * max;
+  for (frame = 0; frame < 55; frame++) {
+//    cout << "Frame: " << frame << endl;
+    memset(p, 0, byteCount);
+    for (row000 = 0; row000 < 32; row000++) {
+      for (col = 0; col < 32; col++) {
+	idx = 2+ row000*max + col;
+	p[idx] = 99;
+
+	idx = row000*max + 510-col;
+	p[idx] = 99;
+
+	idx = (row000+478)*max + col;
+	p[idx] = 99;
+
+	idx = (row000+478)*max + 510-col;
+	p[idx] = 99;
+
+#if 0
+	// Add some more squares as markers outside the anatomy
+	int diag = 0;
+	diag = (col < row000) ? col: row000;
+	p[row000*256 + diag] = 1500;
+	p[(row000+120)*256 + diag] = 1500;
+	p[(row000+220)*256 + diag] = 1500;
+#endif
+      }
+    }
+    // 2 pixel outline
+    for (row000 = 0; row000 < max; row000++) {
+      p[row000*max] = 50;
+      p[row000*max+1] = 50;
+      p[row000*max + 510] = 50;
+      p[row000*max + 511] = 50;
+    }
+    for (col = 0; col < max-1; col++) {
+      p[col] = 50;
+      p[max+col] = 50;
+      p[510*max + col] = 50;
+      p[511*max + col] = 50;
+    }
+
+    // 3 rectangles in the center
+    // In the first four frames, we put a large square. In frames 0-54, a smaller rectangle that is growing.
+    if (frame < 4) {
+      for (row000 = 128; row000 < 256; row000++) {
+	for (col = 192; col < 256; col++) {
+	  p[row000*max + col] = 50;
+	}
+      }
+    }
+
+    for (row000 = 256; row000 < 264 +((frame-4)*2); row000++) {
+      for (col = 100; col < 136; col++) {
+	p[row000*max + col] = 50;
+      }
+    }
+
+    for (row000 = 256; row000 < 464; row000++) {
+      for (col = 256; col < 320; col++) {
+	p[row000*max + col] = -50;
+      }
+    }
+
+    f.write((const char*)p, byteCount);
+  }
+
+  f.close();
+  delete []p;
+
+  byteCount = 0;
+  return (unsigned char*)0;
+}
+
+// Pattern 31
+// 256 x 256 x 2 bytes, 24 MR slices, square patterns
+// dual-echo, 2 images/position
+unsigned char* pattern31(const char* outputFile, unsigned long& byteCount)
+{
+  short *p1 = new short[256 * 256];
+  short *p2 = new short[256 * 256];
+  byteCount = 256 * 256 * 2;
+  int row000 = 0;
+  int col = 0;
+  int frame = 0;
+  
+  ofstream f;
+  f.open(outputFile, ios::binary);
+
+  // 4 corners
+  int idx = 0;
+  int idxMax = 256 * 256;
+  for (frame = 0; frame < 55; frame++) {
+    cout << "Frame: " << frame << endl;
+    memset(p1, 0, byteCount);
+    memset(p2, 0, byteCount);
+    for (row000 = 0; row000 < 32; row000++) {
+      for (col = 0; col < 32; col++) {
+	idx = 2+ row000*256 + col;
+	p1[idx] = 1900;
+	p2[idx] = 140;
+
+	idx = row000*256 + 253-col;
+	p1[idx] = 1900;
+	p2[idx] = 140;
+
+	idx = (row000+222)*256 + col;
+	p1[idx] = 1900;
+	p2[idx] = 140;
+
+	idx = (row000+222)*256 + 253-col;
+	p1[idx] = 1900;
+	p2[idx] = 140;
+      }
+    }
+    // 2 pixel outline
+    for (row000 = 0; row000 < 256; row000++) {
+      idx = row000*256;
+      p1[idx] = 1750;
+      p2[idx] = 175;
+
+      idx = row000*256+1;
+      p1[idx] = 1750;
+      p2[idx] = 175;
+
+      idx = row000*256 + 254;
+      p1[idx] = 1750;
+      p2[idx] = 175;
+
+      idx = row000*256 + 255;
+      p1[idx] = 1750;
+      p2[idx] = 175;
+    }
+    for (col = 0; col < 255; col++) {
+      idx = col;
+      p1[idx] = 1750;
+      p2[idx] = 175;
+
+      idx = 256+col;
+      p1[idx] = 1750;
+      p2[idx] = 175;
+
+      idx = 254*256 + col;
+      p1[idx] = 1750;
+      p2[idx] = 175;
+
+      idx = 255*256 + col;
+      p1[idx] = 1750;
+      p2[idx] = 175;
+    }
+
+    // 3 rectangles in the center
+    // In the first four frames, we put a large square. In frames 0-54, a smaller rectangle that is growing.
+    if (frame < 4) {
+      for (row000 = 64; row000 < 128; row000++) {
+	for (col = 96; col < 128; col++) {
+	  p1[row000*256 + col] = 1750;
+	  p2[row000*256 + col] = 175;
+	}
+      }
+    }
+
+    for (row000 = 128; row000 < 132 +((frame-4)*2); row000++) {
+      for (col = 50; col < 68; col++) {
+	p1[row000*256 + col] = 1750;
+	p2[row000*256 + col] = 175;
+      }
+    }
+
+    for (row000 = 128; row000 < 232; row000++) {
+      for (col = 128; col < 160; col++) {
+	p1[row000*256 + col] = 1600;
+	p2[row000*256 + col] = 200;
+      }
+    }
+
+    f.write((const char*)p1, byteCount);
+    f.write((const char*)p2, byteCount);
+  }
+
+  f.close();
+  delete []p1;
+  delete []p2;
+
+  byteCount = 0;
+  return (unsigned char*)0;
+}
+
+// Pattern 32
+// 1024 16 bit values, inverse ramp used for VOI
+unsigned char* pattern32(unsigned long& byteCount)
+{
+  short *p = new short[1024];
+  byteCount = 1024 * 2;
+  memset(p, 0, byteCount);
+  short row = 0;
+
+  for (row = 0; row < 1024; row++) {
+      p[row] = 1023 - row;
+  }
+
+  return (unsigned char*)p;
+}
 
 
 
@@ -980,9 +1393,29 @@ int main(int argc, char **argv)
   case 26:		// 512 x 512 x 20 CT square patterns
     pixels = pattern26(outputFile, byteCount);
     break;
+  case 260:		// 512 x 512 x 20 MR square patterns
+    pixels = pattern26MR(outputFile, byteCount);
+    break;
   case 27:		// 512 x 512 x 24 CT square patterns
     pixels = pattern27(outputFile, byteCount);
     break;
+  case 28:		// 1024 x 1024 x 2 bytes, 16 bit wedge, DXdata
+    pixels = pattern28(byteCount);
+    break;
+  case 29:		// 256 x 256 x 2 bytes, 54 MR slices, square patterns
+    pixels = pattern29(outputFile, byteCount);
+    break;
+  case 30:		// 512 x 512 x 2 bytes, 54 CT slices, square patterns
+    pixels = pattern30(outputFile, byteCount);
+    break;
+  case 31:		// 256 x 256 x 2 bytes, 24 MR slices, square patterns
+			// dual echo (2 images/position)
+    pixels = pattern31(outputFile, byteCount);
+    break;
+  case 32:		// VOI LUT, 1024 values, inverse ramp (1023, 1022, ..)
+    pixels = pattern32(byteCount);
+    break;
+
   default:
     cout << "Unrecognized pattern number: " << patternNumber << endl;
     return 1;
