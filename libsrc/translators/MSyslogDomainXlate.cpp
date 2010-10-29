@@ -83,7 +83,7 @@ MSyslogDomainXlate::translateSyslog(MSyslogMessage& msg,
   entry.host(msg.hostName());
 
   unsigned long l = 0;
-  const char* m = msg.referenceToMessage(l);
+  const char* m = (const char*)msg.referenceToMessage(l);	// Repair the cast
   entry.message(m);
 
   msg.timeStamp().safeExport(buf, sizeof(buf));
