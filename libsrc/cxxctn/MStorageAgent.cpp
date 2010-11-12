@@ -253,7 +253,7 @@ MStorageAgent::requestAssociation(const MString& callingAETitle,
     ::COND_DumpConditions();
     if (cond == DUL_ASSOCIATIONREJECTED) {
       char tmp[1024] = "";
-      ::sprintf(tmp, "Association Rejectec\n Result: %2x Source %2x Reason %2x\n",
+      ::sprintf(tmp, "Association Rejected\n Result: %2x Source %2x Reason %2x\n",
 		mParams.result, mParams.resultSource,
 		mParams.diagnostic);
       logClient.logTimeStamp(MLogClient::MLOG_ERROR, tmp);
@@ -267,6 +267,36 @@ MStorageAgent::requestAssociation(const MString& callingAETitle,
       logClient.logTimeStamp(MLogClient::MLOG_ERROR, tmp);
       return ASSOC_REQ_FAILED;
     }
+  }
+  LST_HEAD* lst = mParams.acceptedPresentationContext;
+  if (lst == NULL) {
+	  logClient.logTimeStamp(MLogClient::MLOG_ERROR, "No presentation contexts returned from association request");
+	  return ASSOC_REQ_FAILED;
+  }
+  LST_NODE *n = LST_Head(&lst);
+  DUL_PRESENTATIONCONTEXT* ctx = (DUL_PRESENTATIONCONTEXT*)n;
+  if (ctx->result != 0) {
+	  char txt[1024] = "";
+	  strstream xx(txt, sizeof txt);
+	  switch (ctx->result) {
+		  case 1:
+			  xx << "SOP Class rejected: 1/user" << '\0';
+			  break;
+		  case 2:
+			  xx << "SOP Class rejected: 2/No reason given" << '\0';
+			  break;
+		  case 3:
+			  xx << "SOP Class rejected: 3/Abstract syntax" << '\0';
+			  break;
+		  case 4:
+			  xx << "SOP Class rejected: 4/Transfer syntax" << '\0';
+			  break;
+		  default:
+			  xx << "SOP Class rejected: Unrecognized code " << ctx->result << '\0';
+			  break;
+	  }
+	  logClient.logTimeStamp(MLogClient::MLOG_ERROR, txt);
+	  return ASSOC_REQ_FAILED;
   }
 
   ::COND_PopCondition(TRUE);

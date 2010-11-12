@@ -47,10 +47,19 @@ MDICOMWrapper::MDICOMWrapper(const MDICOMWrapper& cpy) :
 {
 }
 
-MDICOMWrapper::~MDICOMWrapper()
+void
+MDICOMWrapper::close()
 {
   if (mAmOwner && (mObj != 0))
     ::DCM_CloseObject(&mObj);
+
+  mAmOwner = false;
+  mObj = 0;
+}
+
+MDICOMWrapper::~MDICOMWrapper()
+{
+  this->close();
 }
 
 void

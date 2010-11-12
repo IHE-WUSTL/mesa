@@ -118,6 +118,10 @@ public:
   ///< Grab the caller's reference to a CTN object.  Use that reference to change values.  
   ///<Caller still owns the CTN object and should close it after the destructor to this object is invoked.
 
+  void close();
+  // Close the object and release all resources. The destructor will take care
+  // of this as well, but sometimes you want to free the resources.
+
   int saveAs(const MString& fileName,
 	     unsigned long options = DCM_ORDERLITTLEENDIAN);
   ///< Save the current object in a DICOM file.  

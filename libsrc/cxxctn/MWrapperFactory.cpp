@@ -310,11 +310,7 @@ MWrapperFactory::removeGroup(MDICOMWrapper& w, char* buf) const
 int
 MWrapperFactory::removePrivateGroups(MDICOMWrapper& w, char* buf) const
 {
-  int group = 0;
-  int tokens;
-
   w.removePrivateGroups();
-
   return 0;
 }
 
