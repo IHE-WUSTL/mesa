@@ -2349,6 +2349,7 @@ mesa_tests/iti/actors/secure_node/11201/self_test_11201.pl -text
 mesa_tests/iti/actors/secure_node/11202/11202_schematron.xml -text
 mesa_tests/iti/actors/secure_node/11202/eval_11202.pl -text
 mesa_tests/iti/actors/secure_node/11202/self_test_11202.pl -text
+mesa_tests/iti/actors/secure_node/11250-01/self_test_11250-01.csh -text
 mesa_tests/iti/actors/secure_node/schematron/schematron-basic.xsl -text
 mesa_tests/iti/actors/secure_node/schematron/skeleton1-5.xsl -text
 mesa_tests/iti/actors/secure_node/scripts/clear_patient.sql -text
