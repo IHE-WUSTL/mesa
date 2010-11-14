@@ -22,7 +22,7 @@ set Z = AES128-SHA
 #
 ## Order Filler
 $MESA_TARGET/bin/kill_hl7_secure -C $C -K $K -P $P -R $R -Z $Z localhost 2201
-#$MESA_TARGET/bin/open_assoc_secure -C $C -K $K -P $P -R $R -Z $Z -s 0 -x 1.2.840.113654.2.30.1 localhost 2251
+$MESA_TARGET/bin/open_assoc_secure -C $C -K $K -P $P -R $R -Z $Z -s 0 -x 1.2.840.113654.2.30.1 localhost 2251
 #
 ## PD Supplier
 $MESA_TARGET/bin/kill_hl7_secure -C $C -K $K -P $P -R $R -Z $Z localhost 3701

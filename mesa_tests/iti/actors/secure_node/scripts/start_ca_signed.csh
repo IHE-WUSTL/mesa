@@ -32,7 +32,7 @@ set Z = AES128-SHA
 rm -r $MESA_STORAGE/ordfil/*hl7
 if (-e $MESA_TARGET/logs/of_hl7ps_secure.log) rm -f $MESA_TARGET/logs/of_hl7ps_secure.log
 $MESA_TARGET/bin/hl7_rcvr_secure -l $LOGLEVEL -M OF -C $C -K $K -P $P -R $R -Z $Z -a -z ordfil 2201 &
-#$MESA_TARGET/bin/of_dcmps_secure -C $C -K $K -P $P -R $R -Z $Z 2251 &
+$MESA_TARGET/bin/of_dcmps_secure -l $LOGLEVEL -C $C -K $K -P $P -R $R -Z $Z 2251 &
 
 # PD Supplier
 rm -r $MESA_STORAGE/pd_supplier/*hl7
