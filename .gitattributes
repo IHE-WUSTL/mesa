@@ -2279,6 +2279,7 @@ mesa_tests/iti/actors/secure_node/11115/startup.txt -text
 mesa_tests/iti/actors/secure_node/11170-01/self_test_11170-01.csh -text
 mesa_tests/iti/actors/secure_node/11170-02/self_test_11170-02.csh -text
 mesa_tests/iti/actors/secure_node/11170-03/self_test_11170-03.csh -text
+mesa_tests/iti/actors/secure_node/11170-04/self_test_11170-04.csh -text
 mesa_tests/iti/actors/secure_node/11175-01/xref_mgr.pl -text
 mesa_tests/iti/actors/secure_node/11175-02/xref_mgr.pl -text
 mesa_tests/iti/actors/secure_node/11175-03/pds.pl -text
