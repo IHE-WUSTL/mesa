@@ -10,6 +10,9 @@ use lib "../../../common/scripts";
 #require secure;
 require mesa_common;
 require mesa_evaluate;
+use File::stat;
+use Time::localtime;
+
 
 sub goodbye() {
   exit 1;
@@ -33,6 +36,24 @@ sub x_11115_1 {
   return 0;
 }
 
+sub checkFileDates {
+
+  my $logXML = "$MESA_TARGET/logs/syslog/last_log.xml";
+  if (! -e $logXML) {
+    print LOG "ERR: $logXML does not exist\n";
+    print LOG "ERR: That means the MESA syslog server did not receiver your audit message.\n";
+    print LOG "ERR: Please check: syslog server running? syslog server files for clues.\n";
+
+    print "ERR: $logXML does not exist\n";
+    print "ERR: That means the MESA syslog server did not receiver your audit message.\n";
+    print "ERR: Please check: syslog server running? syslog server files for clues.\n";
+    exit 1;
+  }
+  my $dateString = ctime(stat($logXML)->mtime);
+  print "Time stamp on $logXML: $dateString\n";
+  print " Does this match the time you sent your last message?\n";
+  print LOG "Time stamp on $logXML: $dateString\n";
+}
 
 if (scalar(@ARGV) != 2) {
   die "Usage: <output level> <schema: INTERIM or IETF>";
@@ -49,6 +70,8 @@ print LOG "CTX: $mesaVersion \n";
 
 print LOG "CTX: Secure Node test 11115\n";
 print LOG "CTX: Test type: $testType\n";
+
+checkFileDates();
 
 if (! -e "$MESA_TARGET/logs/syslog/last_log.xml") {
   print LOG "ERR: $MESA_TARGET/logs/syslog/last_log.xml does not exist\n";
