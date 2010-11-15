@@ -176,6 +176,61 @@ MNetworkProxyTCP::readBytes(void* buf, int toRead)
 }
 
 int
+MNetworkProxyTCP::readUpToNBytes(void* buf, int toRead)
+{
+  size_t bytesRead = 0;
+  size_t totalBytes = 0;
+  int done = 0;
+
+  while (!done) {
+#ifdef _WIN32
+    bytesRead = ::recv(mSocket, (char*)buf, toRead, 0);
+#else
+    bytesRead = ::read(mSocket, buf, toRead);
+#endif
+    if (bytesRead == -1 && errno == EINTR)
+      continue;
+
+    if (bytesRead < 0)
+      return -1;
+
+    done = 1;
+  }
+
+  return bytesRead;
+}
+
+int
+MNetworkProxyTCP::readExactlyNBytes(void* buf, int toRead)
+{
+  size_t bytesRead = 0;
+  size_t totalBytes = 0;
+  int done = 0;
+
+  while (!done) {
+#ifdef _WIN32
+    bytesRead = ::recv(mSocket, (char*)buf, toRead, 0);
+#else
+    bytesRead = ::read(mSocket, buf, toRead);
+#endif
+    if (bytesRead == -1 && errno == EINTR)
+      continue;
+
+    if (bytesRead < 0) {
+      totalBytes = -1;
+      done = 1;
+    } else  {
+      totalBytes += bytesRead;
+      toRead -= bytesRead;
+      if (toRead <= 0) done = 1;
+    }
+  }
+
+  return totalBytes;
+}
+
+
+int
 MNetworkProxyTCP::close()
 {
   if (mSocket > 0)

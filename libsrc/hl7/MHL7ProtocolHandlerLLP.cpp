@@ -136,7 +136,7 @@ MHL7ProtocolHandlerLLP::handleInput ()
   char txt[1024];
   MLogClient logClient;
 
-  bytecount = mProxy->readBytes(buffer, FRAMESIZE);
+  bytecount = mProxy->readUpToNBytes(buffer, FRAMESIZE);
   if (bytecount < 0) {
     ::sprintf(txt, "Network proxy returned byte count %d, socket probably closed", bytecount);
     logClient.log(MLogClient::MLOG_VERBOSE,

@@ -94,6 +94,9 @@ public:
 
   virtual int writeBytes(const void* buf, int toWrite);
   virtual int readBytes(void* buf, int toRead);
+  virtual int readUpToNBytes(void* buf, int toRead);
+  virtual int readExactlyNBytes(void* buf, int toRead);
+
   virtual int close( );
 
   CTN_SOCKET getSocket();
