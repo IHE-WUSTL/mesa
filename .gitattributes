@@ -2271,7 +2271,6 @@ mesa_tests/iti/actors/pwp_directory/scripts/pwp_directory.pm -text
 mesa_tests/iti/actors/pwp_directory/scripts/pwpd_pwp.pl -text
 mesa_tests/iti/actors/pwp_directory/scripts/start_mesa_servers.csh -text
 mesa_tests/iti/actors/secure_node/11114/atna_startup.txt -text
-mesa_tests/iti/actors/secure_node/11114/eval_11114.pl -text
 mesa_tests/iti/actors/secure_node/11114/eval_11114_5424.pl -text
 mesa_tests/iti/actors/secure_node/11114/self_test_11114.pl -text
 mesa_tests/iti/actors/secure_node/11114/startup.txt -text
