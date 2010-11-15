@@ -2277,7 +2277,6 @@ mesa_tests/iti/actors/secure_node/11114/startup.txt -text
 mesa_tests/iti/actors/secure_node/11115/atna_startup.txt -text
 mesa_tests/iti/actors/secure_node/11115/eval_11115.pl -text
 mesa_tests/iti/actors/secure_node/11115/eval_11115_5424.pl -text
-mesa_tests/iti/actors/secure_node/11115/grade_11115.txt -text
 mesa_tests/iti/actors/secure_node/11115/self_test_11115.pl -text
 mesa_tests/iti/actors/secure_node/11115/startup.txt -text
 mesa_tests/iti/actors/secure_node/11170-01/self_test_11170-01.csh -text
