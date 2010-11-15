@@ -55,6 +55,9 @@
 
 using namespace std;
 
+static void logNewConnection(MLogClient& logClient, const MString& remoteHost, const MString& ciphers);
+static void logCloseConnection(MLogClient& logClient, const MString& remoteHost);
+
 static void usage()
 {
   char msg[] = "\
@@ -336,7 +339,8 @@ processUDPPackets(CTN_SOCKET s, char* logPath, const MString& syslogDBName, int 
 }
 
 static int
-processTCPPackets(MNetworkProxy& n, char* logPath, const MString& syslogDBName, int rfcType)
+processTCPPackets(MNetworkProxy& n, char* logPath, const MString& syslogDBName, int rfcType,
+	const MString& ciphers)
 {
   MLogClient logClient;
   struct sockaddr client_addr;
@@ -378,6 +382,7 @@ processTCPPackets(MNetworkProxy& n, char* logPath, const MString& syslogDBName, 
       logClient.logTimeStamp(MLogClient::MLOG_ERROR, "Unable to receive TCP connection");
       return 1;
     }
+    logNewConnection(logClient, remoteHost, ciphers);
     bool socketOpen = true;
     unsigned char buffer[16384] = "";
     char tmpBuffer[1024] = "";
@@ -386,7 +391,7 @@ processTCPPackets(MNetworkProxy& n, char* logPath, const MString& syslogDBName, 
     int toRead = 0;
     logClient.logTimeStamp(MLogClient::MLOG_VERBOSE,
 	"processTCPPackets: about to read bytes to find package length");
-    while ((bytesRead = n.readBytes(tmpBuffer+ix, 1)) > 0) {
+    while ((bytesRead = n.readExactlyNBytes(tmpBuffer+ix, 1)) > 0) {
       // This is all debugging stuff
       char txt[512] = "";
       strstream z(txt, sizeof txt);
@@ -410,17 +415,18 @@ processTCPPackets(MNetworkProxy& n, char* logPath, const MString& syslogDBName, 
     if (bytesRead <= 0) {
       logClient.logTimeStamp(MLogClient::MLOG_ERROR, "Socket closed reading msg length");
       socketOpen = false;
+      logCloseConnection(logClient, remoteHost);
       break;
     }
     ix = 0;
-    while (socketOpen && (toRead > 0) &&((bytesRead = n.readBytes(buffer+ix, toRead))) > 0) {
+    while (socketOpen && (toRead > 0) &&((bytesRead = n.readUpToNBytes(buffer+ix, toRead))) > 0) {
       buffer[ix + bytesRead] = '\0';
       ix += bytesRead;
       toRead -= bytesRead;
     }
     if (bytesRead <= 0) {
       socketOpen = false;
-      cout << "Socket closed reading msg length" << endl;
+      logCloseConnection(logClient, remoteHost);
     } else {
 
       char remoteNode[512]="";
@@ -500,6 +506,7 @@ processTCPPackets(MNetworkProxy& n, char* logPath, const MString& syslogDBName, 
 	logClient.log(MLogClient::MLOG_VERBOSE, remoteNode,
 		"processTCPPackets", __LINE__,
 		"Finished processing current packet");
+        logCloseConnection(logClient, remoteHost);
       }
     }
   }
@@ -940,6 +947,58 @@ static int processSyslogFile(const char* syslogFile)
   return rtnValue;
 }
 
+
+static void
+logTLSParameters(MLogClient& logClient, const MString& randomsFile, const MString& keyFile,
+	const MString& certificateFile, const MString& peerCertificateList, const MString& ciphers)
+{
+  char txt[1024] = "";
+  strstream a(txt, sizeof(txt));
+  a << " Randoms file:          " << randomsFile << '\0';
+  logClient.logTimeStamp(MLogClient::MLOG_ERROR, txt);
+
+  strstream b(txt, sizeof(txt));
+  b << " Key file:              " << keyFile << '\0';
+  logClient.logTimeStamp(MLogClient::MLOG_ERROR, txt);
+
+  strstream c(txt, sizeof(txt));
+  c << " Certificate file:      " << certificateFile << '\0';
+  logClient.logTimeStamp(MLogClient::MLOG_ERROR, txt);
+
+  strstream d(txt, sizeof(txt));
+  d << " Peer Certificate file: " << peerCertificateList << '\0';
+  logClient.logTimeStamp(MLogClient::MLOG_ERROR, txt);
+
+  strstream e(txt, sizeof(txt));
+  e << " Ciphers:               " << ciphers << '\0';
+  logClient.logTimeStamp(MLogClient::MLOG_ERROR, txt);
+}
+
+static void
+logNewConnection(MLogClient& logClient, const MString& remoteHost, const MString& ciphers)
+{
+  char txt[1024] = "";
+  strstream a(txt, sizeof(txt));
+  a << "New network connection from host: " << remoteHost<< '\0';
+  logClient.logTimeStamp(MLogClient::MLOG_ERROR, txt);
+
+  strstream b(txt, sizeof(txt));
+  b << " This server (MESA, not theirs) supports ciphers: " << ciphers << '\0';
+  logClient.logTimeStamp(MLogClient::MLOG_ERROR, txt);
+}
+
+static void
+logCloseConnection(MLogClient& logClient, const MString& remoteHost)
+{
+  char txt[1024] = "";
+  strstream a(txt, sizeof(txt));
+  a << "Remote host closed connection: " << remoteHost << '\0';
+  logClient.logTimeStamp(MLogClient::MLOG_ERROR, txt);
+}
+
+
+
+
 int main(int argc, char** argv)
 { 
   bool verbose = false;
@@ -1100,7 +1159,7 @@ int main(int argc, char** argv)
       logClient.logTimeStamp(MLogClient::MLOG_ERROR, "Unable to initialize TCP listening port");
       return 1;
     }
-    processTCPPackets(*networkProxy, logPath, syslogDBName, rfcType);
+    processTCPPackets(*networkProxy, logPath, syslogDBName, rfcType, "TCP-no ciphers");
 
   } else if (xmitRFC=="3164") {
     if (acc.bindUDPListener(s, port) != 0) {
@@ -1127,6 +1186,7 @@ int main(int argc, char** argv)
 	+ peerCertificateList + ","
 	+ ciphers + ","
 	+ challenge;
+    logTLSParameters(logClient, randomsFile, keyFile, certificateFile, peerCertificateList, ciphers);
     if (proxyTLS->initializeServer(proxyParams) != 0) {
       logClient.logTimeStamp(MLogClient::MLOG_ERROR,
 	MString("Unable to initialize TLS proxy class with params: ") + proxyParams);
@@ -1136,7 +1196,7 @@ int main(int argc, char** argv)
       logClient.logTimeStamp(MLogClient::MLOG_ERROR, "Unable to initialize TCP/TLS listening port");
       return 1;
     }
-    processTCPPackets(*proxyTLS, logPath, syslogDBName, rfcType);
+    processTCPPackets(*proxyTLS, logPath, syslogDBName, rfcType, ciphers);
     delete proxyTLS;
 #else
     cout << "syslog server not ready for RFC 5425" << endl;
