@@ -10,24 +10,20 @@ set P = $MESA_TARGET/runtime/certs-ca-signed/test_list.cert
 set R = $MESA_TARGET/runtime/certs-ca-signed/randoms.dat
 set Z = AES128-SHA
 
+# This is the original BSD protocol, retired
 #$MESA_TARGET/bin/syslog_server -l $LOGLEVEL 4000 &
 
-#echo "Starting 5424 / 5426 UDP 4001 "
-#echo $MESA_TARGET/bin/syslog_server -l $LOGLEVEL -r 5424 -x 5426 4001 &
+echo "Starting 5424 / 5426 UDP 4001 "
+echo $MESA_TARGET/bin/syslog_server -l $LOGLEVEL -r 5424 -x 5426 4001 &
 
-#echo "Starting 5424 / TCP  TCP 4002 "
-#$MESA_TARGET/bin/syslog_server -l $LOGLEVEL -r 5424 -x TCP  4002 &
-#
-#echo "Starting 5424 / 5425 TLS 4003 "
-#$MESA_TARGET/bin/syslog_server_secure -l $LOGLEVEL -r 5424 -x 5425 -C $C -K $K -P $P -R $R 4003 &
-#
-### Now, all of the secure applications
-#
-## Secure Order Placer
-#if (-e $MESA_TARGET/logs/op_hl7ps_secure.log) rm -f $MESA_TARGET/logs/op_hl7ps_secure.log
-#$MESA_TARGET/bin/hl7_rcvr_secure -l $LOGLEVEL -M OP -C $C -K $K -P $P -R $R -Z $Z -a -z ordplc 2101 &
-#
-#
+echo "Starting 5424 / TCP  TCP 4002 "
+$MESA_TARGET/bin/syslog_server -l $LOGLEVEL -r 5424 -x TCP  4002 &
+
+echo "Starting 5424 / 5425 TLS 4003 "
+$MESA_TARGET/bin/syslog_server_secure -l $LOGLEVEL -r 5424 -x 5425 -C $C -K $K -P $P -R $R -Z $Z 4003 &
+
+## Now, all of the secure applications
+
 # Secure Order Filler
 rm -r $MESA_STORAGE/ordfil/*hl7
 if (-e $MESA_TARGET/logs/of_hl7ps_secure.log) rm -f $MESA_TARGET/logs/of_hl7ps_secure.log
