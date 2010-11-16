@@ -220,33 +220,31 @@ int main(int argc, char** argv)
   if (argc < 3)
     usage();
 
-//int place = 0;
-//cout << "Place " << place++ << endl;
-
   MFileOperations f;
   char logPath[1024];
   if (f.expandPath(logPath, "MESA_TARGET", "logs") != 0) {
     cout << "Unable to expand path for $MESA_TARGET/logs" << endl;
     return 1;
   }
-//cout << "Place " << place++ << endl;
+
   if (f.createDirectory(logPath) != 0) {
     cout << "Unable to create directory: " << logPath << endl;
   }
-//cout << "Place " << place++ << endl;
-  MString logDir(logPath);
 
+  MString logDir(logPath);
   MLogClient logClient;
+  MString logName = "";
   if (logLevel != MLogClient::MLOG_NONE) {
-    MString logName = logDir + "/syslog_client.log";
+    logName = logDir + "/syslog_client.log";
     logClient.initialize(logLevel, logName);
   }
-//cout << "Place " << place++ << endl;
 
   char* syslogHost = argv[0];
   tmp = argv[1];
   int syslogPort = tmp.intData();
-
+  logClient.logTimeStamp(MLogClient::MLOG_VERBOSE, MString("Syslog Host ") + syslogHost);
+  logClient.logTimeStamp(MLogClient::MLOG_VERBOSE, MString("Syslog Port ") + tmp);
+  
   MSyslogClient c;
   c.setTestMode(mode);
 
@@ -258,14 +256,15 @@ int main(int argc, char** argv)
 	+ ciphers + ","
 	+ challenge;
 
-//cout << "Place " << place++ << endl;
   int status = 0;
+
   if (xmitRFC == "TCP") {
     status = c.openTCP(syslogHost, syslogPort);
   } else if (xmitRFC == "3164") {
     status = c.open(syslogHost, syslogPort);
   } else if (xmitRFC == "5426") {
     status = c.open(syslogHost, syslogPort);
+    logClient.logTimeStamp(MLogClient::MLOG_VERBOSE, MString("Finished opening RFC 5426 connection to: ") + syslogHost);
 #ifdef RFC5425
   } else if (xmitRFC == "5425") {
     status = c.openTLS(syslogHost, syslogPort, proxyParams);
@@ -293,8 +292,6 @@ int main(int argc, char** argv)
     }
   }
 
-
-//cout << "Place " << place++ << endl;
   if (rfcType == 0) {
     MSyslogMessage m(facility, severity, tag, txt);
     if (!isCommand)
@@ -331,6 +328,5 @@ int main(int argc, char** argv)
 
   }
 
-//cout << "Place " << place++ << endl;
   return 0;
 }
