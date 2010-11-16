@@ -226,7 +226,7 @@ processUDPPackets(CTN_SOCKET s, char* logPath, const MString& syslogDBName, int 
     length = sizeof(client_addr);
     memset(&client_addr, 0, length);
 
-    bytesRead = ::recvfrom(s, buffer, sizeof(buffer),
+    bytesRead = ::recvfrom(s, (char*)buffer, sizeof(buffer),
 		0, &client_addr, &length);
     if (bytesRead < 0) {
       logClient.log(MLogClient::MLOG_ERROR, "",
