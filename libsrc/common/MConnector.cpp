@@ -32,7 +32,9 @@
 
 #include "MESA.hpp"
 #include "MConnector.hpp"
+#include "MLogClient.hpp"
 
+#include <strstream>
 
 static char rcsid[] = "$Id: MConnector.cpp,v 1.4 2002/04/24 20:02:00 smm Exp $";
 
@@ -105,6 +107,8 @@ int
 MConnector::connectUDP(const MString& host, int port,
 		       CTN_SOCKET& returnSocket)
 {
+
+  MLogClient logClient;
 #ifdef _WIN32
   WSADATA wsaData;
   WSAStartup(MAKEWORD(1, 1), &wsaData);
@@ -120,7 +124,7 @@ MConnector::connectUDP(const MString& host, int port,
 
   struct sockaddr_in server;
   server.sin_family = AF_INET;
-  char tmp[1024];
+  char tmp[1024]="";
   host.safeExport(tmp, sizeof tmp);
   struct hostent* hp = ::gethostbyname(tmp);
   if (hp == NULL) {
@@ -137,6 +141,9 @@ MConnector::connectUDP(const MString& host, int port,
     returnSocket = 0;
     return 1;
   }
+  strstream x(tmp, sizeof(tmp));
+  x << "MConnector::connectUDP(MLogClient:connectUDP " << host << ", " << port << ", internal socket " << returnSocket << '\0';
+  logClient.log(MLogClient::MLOG_VERBOSE, tmp);
   return 0;
 }
 
