@@ -63,13 +63,25 @@ MSyslogClient::MSyslogClient(const MSyslogClient& cpy) :
 
 MSyslogClient::~MSyslogClient()
 {
+  char buf[512] = "";
+  MLogClient logClient;
+  
   if (mSocket != 0) {
+    strstream x(buf, sizeof(buf));
+    x << "MSyslogClient::~MSyslogClient closing socket: " << mSocket << '\0';
+    logClient.logTimeStamp(MLogClient::MLOG_VERBOSE, buf);
+#ifdef _WIN32
+    ::closesocket(mSocket);
+#else
     ::close(mSocket);
+#endif
   }
+
   if (mNetworkProxy != 0) {
     mNetworkProxy->close();
     delete mNetworkProxy;
   }
+
 }
 
 void
@@ -93,15 +105,15 @@ MSyslogClient::open(const MString& host, int port)
 {
   MConnector c;
   CTN_SOCKET s;
+  char buf[512] = "";
 
+  MLogClient logClient;
   int status = c.connectUDP(host, port, s);
   if (status != 0) {
-    char buf[512];
     strstream s(buf, sizeof(buf));
     s << "Unable to make UDP socket to host: " << host
 	<< " at port: " << port << '\0';
 
-    MLogClient logClient;
     logClient.log(MLogClient::MLOG_ERROR, "",
 	"MSyslogClient::open", __LINE__,
 	buf);
@@ -109,6 +121,9 @@ MSyslogClient::open(const MString& host, int port)
   }
 
   mSocket = s;
+  strstream x(buf, sizeof(buf));
+  x << "MSyslogClient::open(" << host << "," << port << ") opens socket " << mSocket << '\0';
+  logClient.logTimeStamp(MLogClient::MLOG_VERBOSE,  buf);
   return 0;
 }
 
