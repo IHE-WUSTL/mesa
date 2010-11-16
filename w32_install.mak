@@ -1,9 +1,11 @@
+MSFTVS8="C:\Program Files\Microsoft Visual Studio 8\VC\redist\x86\Microsoft.VC80.CRT"
+
 
 install :
 	$(MAKE) /f w32_install.mak directories
 	$(MAKE) /f w32_install.mak headers
 	$(MAKE) /f w32_install.mak library
-	$(MAKE) /f w32_install.mak java
+#	$(MAKE) /f w32_install.mak java
 	$(MAKE) /f w32_install.mak x_webmesa
 	$(MAKE) /f w32_install.mak x_apps
 	$(MAKE) /f w32_install.mak x_dlls
@@ -107,11 +109,14 @@ x_apps:
 	cd "..\.."
 
 x_dlls:
-	copy $(SYSTEMROOT)\system32\MSVCP71.dll $(MESA_TARGET)\bin
-	copy $(SYSTEMROOT)\system32\MSVCR71.dll  $(MESA_TARGET)\bin
-	copy $(SYSTEMROOT)\system32\MSVCP71D.dll $(MESA_TARGET)\bin
-	copy $(SYSTEMROOT)\system32\MSVCR71D.dll $(MESA_TARGET)\bin
-
+#	copy $(SYSTEMROOT)\system32\MSVCP71.dll $(MESA_TARGET)\bin
+#	copy $(SYSTEMROOT)\system32\MSVCR71.dll  $(MESA_TARGET)\bin
+#	copy $(SYSTEMROOT)\system32\MSVCP71D.dll $(MESA_TARGET)\bin
+#	copy $(SYSTEMROOT)\system32\MSVCR71D.dll $(MESA_TARGET)\bin
+	copy $(MSFTVS8)\msvcm80.dll $(MESA_TARGET)\bin
+	copy $(MSFTVS8)\msvcp80.dll $(MESA_TARGET)\bin
+	copy $(MSFTVS8)\msvcr80.dll $(MESA_TARGET)\bin
+	
 x_runtime:
 	cd "runtime"
 	$(MAKE) /f w32_install.mak install
