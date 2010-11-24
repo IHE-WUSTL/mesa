@@ -71,7 +71,7 @@ MStorageAgent::streamIn(istream& s)
 {
   //s >> this->member;
 }
-
+ 
 
 // Non boiler plate methods below
 
