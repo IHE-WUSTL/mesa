@@ -5706,3 +5706,4 @@ winmesa/scripts/binaryexport.bat -text
 winmesa/scripts/headerexport.bat -text
 winmesa/scripts/secureheaderexport.bat -text
 winmesa/winmesa.dsw -text
+winmesa/winmesa.sln -text
