@@ -18,7 +18,7 @@ static char rcsid[] = "$Id: MWrapperFactory.cpp,v 1.14 2006/08/03 21:44:18 drm E
 MWrapperFactory::MWrapperFactory()
 {
 }
-
+ 
 MWrapperFactory::MWrapperFactory(const MWrapperFactory& cpy)
 {
 }
