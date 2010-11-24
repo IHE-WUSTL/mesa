@@ -41,7 +41,7 @@ RSC=rc.exe
 # PROP Intermediate_Dir "Release"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c
-# ADD CPP /nologo /MD /W3 /GX /O2 /I "..\..\external\ctn\include" /I "..\..\include" /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /FD /c
+# ADD CPP /nologo /MD /W3 /GX /O2 /I "..\..\..\ctn\include" /I "..\..\include" /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /FD /c
 # SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
 # ADD RSC /l 0x409 /d "NDEBUG"
@@ -65,7 +65,7 @@ LIB32=link.exe -lib
 # PROP Intermediate_Dir "Debug"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /w /W0 /Gm /GX /ZI /Od /I "..\..\external\ctn\include" /I "..\..\include" /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
+# ADD CPP /nologo /MDd /w /W0 /Gm /GX /ZI /Od /I "..\..\..\ctn\include" /I "..\..\include" /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
 # ADD RSC /l 0x409 /d "_DEBUG"
 BSC32=bscmake.exe
@@ -86,7 +86,7 @@ LIB32=link.exe -lib
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\fis\build.c
+SOURCE=..\..\..\ctn\facilities\fis\build.c
 # End Source File
 # Begin Source File
 
@@ -98,115 +98,115 @@ SOURCE="..\..\external\cgihtml-1.69\cgi-llist.c"
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\services\cmd_valid.c
+SOURCE=..\..\..\ctn\facilities\services\cmd_valid.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\condition\condition.c
+SOURCE=..\..\..\ctn\facilities\condition\condition.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\manage\control.c
+SOURCE=..\..\..\ctn\facilities\manage\control.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\thread\ctnthread.c
+SOURCE=..\..\..\ctn\facilities\thread\ctnthread.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\objects\dcm.c
+SOURCE=..\..\..\ctn\facilities\objects\dcm.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\objects\dcm1.c
+SOURCE=..\..\..\ctn\facilities\objects\dcm1.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\objects\dcmcond.c
+SOURCE=..\..\..\ctn\facilities\objects\dcmcond.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\objects\dcmdict.c
+SOURCE=..\..\..\ctn\facilities\objects\dcmdict.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\objects\dcmsupport.c
+SOURCE=..\..\..\ctn\facilities\objects\dcmsupport.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\ddr\ddr.c
+SOURCE=..\..\..\ctn\facilities\ddr\ddr.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\manage\delete.c
+SOURCE=..\..\..\ctn\facilities\manage\delete.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\chr\dicom_chr.c
+SOURCE=..\..\..\ctn\facilities\chr\dicom_chr.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\dulprotocol\dulcond.c
+SOURCE=..\..\..\ctn\facilities\dulprotocol\dulcond.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\dulprotocol\dulconstruct.c
+SOURCE=..\..\..\ctn\facilities\dulprotocol\dulconstruct.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\dulprotocol\dulfsm.c
+SOURCE=..\..\..\ctn\facilities\dulprotocol\dulfsm.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\dulprotocol\dulparse.c
+SOURCE=..\..\..\ctn\facilities\dulprotocol\dulparse.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\dulprotocol\dulpresent.c
+SOURCE=..\..\..\ctn\facilities\dulprotocol\dulpresent.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\dulprotocol\dulprotocol.c
+SOURCE=..\..\..\ctn\facilities\dulprotocol\dulprotocol.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\messages\dump.c
+SOURCE=..\..\..\ctn\facilities\messages\dump.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\fis\event.c
+SOURCE=..\..\..\ctn\facilities\fis\event.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\services\find.c
+SOURCE=..\..\..\ctn\facilities\services\find.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\fis\fis.c
+SOURCE=..\..\..\ctn\facilities\fis\fis.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\fis\fiscond.c
+SOURCE=..\..\..\ctn\facilities\fis\fiscond.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\fis\fisdelete.c
+SOURCE=..\..\..\ctn\facilities\fis\fisdelete.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\fis\fisget.c
+SOURCE=..\..\..\ctn\facilities\fis\fisget.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\fis\fisinsert.c
+SOURCE=..\..\..\ctn\facilities\fis\fisinsert.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\services\get.c
+SOURCE=..\..\..\ctn\facilities\services\get.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\gq\gq.c
+SOURCE=..\..\..\ctn\facilities\gq\gq.c
 # End Source File
 # Begin Source File
 
@@ -214,39 +214,39 @@ SOURCE=..\..\external\hl7\hl7_api.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\iap\iap.c
+SOURCE=..\..\..\ctn\facilities\iap\iap.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\iap\iapcond.c
+SOURCE=..\..\..\ctn\facilities\iap\iapcond.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\idb\idb.c
+SOURCE=..\..\..\ctn\facilities\idb\idb.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\idb\idbcond.c
+SOURCE=..\..\..\ctn\facilities\idb\idbcond.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\info_entity\ie.c
+SOURCE=..\..\..\ctn\facilities\info_entity\ie.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\info_entity\iecond.c
+SOURCE=..\..\..\ctn\facilities\info_entity\iecond.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\manage\insert.c
+SOURCE=..\..\..\ctn\facilities\manage\insert.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\lst\lst.c
+SOURCE=..\..\..\ctn\facilities\lst\lst.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\lst\lstcond.c
+SOURCE=..\..\..\ctn\facilities\lst\lstcond.c
 # End Source File
 # Begin Source File
 
@@ -262,7 +262,7 @@ SOURCE=..\..\libsrc\domain\MActionItem.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\manage\mancond.c
+SOURCE=..\..\..\ctn\facilities\manage\mancond.c
 # End Source File
 # Begin Source File
 
@@ -442,7 +442,7 @@ SOURCE=..\..\libsrc\domain\MDomainObject.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\messages\messages.c
+SOURCE=..\..\..\ctn\facilities\messages\messages.c
 # End Source File
 # Begin Source File
 
@@ -570,7 +570,7 @@ SOURCE=..\..\libsrc\domain\MOutputInfo.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\services\move.c
+SOURCE=..\..\..\ctn\facilities\services\move.c
 # End Source File
 # Begin Source File
 
@@ -646,7 +646,7 @@ SOURCE=..\..\libsrc\common\MServerAgent.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\messages\msgcond.c
+SOURCE=..\..\..\ctn\facilities\messages\msgcond.c
 # End Source File
 # Begin Source File
 
@@ -774,79 +774,79 @@ SOURCE=..\..\libsrc\cxxctn\MWrapperFactory.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\services\naction.c
+SOURCE=..\..\..\ctn\facilities\services\naction.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\services\ncreate.c
+SOURCE=..\..\..\ctn\facilities\services\ncreate.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\services\ndelete.c
+SOURCE=..\..\..\ctn\facilities\services\ndelete.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\services\neventreport.c
+SOURCE=..\..\..\ctn\facilities\services\neventreport.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\services\nget.c
+SOURCE=..\..\..\ctn\facilities\services\nget.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\services\nset.c
+SOURCE=..\..\..\ctn\facilities\services\nset.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\print\print.c
+SOURCE=..\..\..\ctn\facilities\print\print.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\print\printcond.c
+SOURCE=..\..\..\ctn\facilities\print\printcond.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\services\private.c
+SOURCE=..\..\..\ctn\facilities\services\private.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\fis\record.c
+SOURCE=..\..\..\ctn\facilities\fis\record.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\manage\select.c
+SOURCE=..\..\..\ctn\facilities\manage\select.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\services\send.c
+SOURCE=..\..\..\ctn\facilities\services\send.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\sq\sequences.c
+SOURCE=..\..\..\ctn\facilities\sq\sequences.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\manage\set.c
+SOURCE=..\..\..\ctn\facilities\manage\set.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\sq\sqcond.c
+SOURCE=..\..\..\ctn\facilities\sq\sqcond.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\services\srv1.c
+SOURCE=..\..\..\ctn\facilities\services\srv1.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\services\srv2.c
+SOURCE=..\..\..\ctn\facilities\services\srv2.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\services\srvcond.c
+SOURCE=..\..\..\ctn\facilities\services\srvcond.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\services\storage.c
+SOURCE=..\..\..\ctn\facilities\services\storage.c
 # End Source File
 # Begin Source File
 
@@ -854,35 +854,35 @@ SOURCE="..\..\external\cgihtml-1.69\string-lib.c"
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\tbl\tbl_sqlserver.c
+SOURCE=..\..\..\ctn\facilities\tbl\tbl_sqlserver.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\tbl\tblcond.c
+SOURCE=..\..\..\ctn\facilities\tbl\tblcond.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\thread\thrcond.c
+SOURCE=..\..\..\ctn\facilities\thread\thrcond.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\uid\uid.c
+SOURCE=..\..\..\ctn\facilities\uid\uid.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\uid\uidcond.c
+SOURCE=..\..\..\ctn\facilities\uid\uidcond.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\fis\update.c
+SOURCE=..\..\..\ctn\facilities\fis\update.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\utility\utility.c
+SOURCE=..\..\..\ctn\facilities\utility\utility.c
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\services\verify.c
+SOURCE=..\..\..\ctn\facilities\services\verify.c
 # End Source File
 # End Group
 # Begin Group "Header Files"
@@ -898,7 +898,7 @@ SOURCE="..\..\external\cgihtml-1.69\cgi-llist.h"
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\condition\condition.h
+SOURCE=..\..\..\ctn\facilities\condition\condition.h
 # End Source File
 # Begin Source File
 
@@ -910,91 +910,91 @@ SOURCE=..\..\libsrc\common\ctn_api.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\thread\ctnthread.h
+SOURCE=..\..\..\ctn\facilities\thread\ctnthread.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\objects\dcmprivate.h
+SOURCE=..\..\..\ctn\facilities\objects\dcmprivate.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\dicom\dicom.h
+SOURCE=..\..\..\ctn\facilities\dicom\dicom.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\chr\dicom_chr.h
+SOURCE=..\..\..\ctn\facilities\chr\dicom_chr.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\ddr\dicom_ddr.h
+SOURCE=..\..\..\ctn\facilities\ddr\dicom_ddr.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\info_entity\dicom_ie.h
+SOURCE=..\..\..\ctn\facilities\info_entity\dicom_ie.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\messages\dicom_messages.h
+SOURCE=..\..\..\ctn\facilities\messages\dicom_messages.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\objects\dicom_objects.h
+SOURCE=..\..\..\ctn\facilities\objects\dicom_objects.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\dicom\dicom_platform.h
+SOURCE=..\..\..\ctn\facilities\dicom\dicom_platform.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\dicom\dicom_platform_w32.h
+SOURCE=..\..\..\ctn\facilities\dicom\dicom_platform_w32.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\print\dicom_print.h
+SOURCE=..\..\..\ctn\facilities\print\dicom_print.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\services\dicom_services.h
+SOURCE=..\..\..\ctn\facilities\services\dicom_services.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\sq\dicom_sq.h
+SOURCE=..\..\..\ctn\facilities\sq\dicom_sq.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\uid\dicom_uids.h
+SOURCE=..\..\..\ctn\facilities\uid\dicom_uids.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\manage\dmanprivate.h
+SOURCE=..\..\..\ctn\facilities\manage\dmanprivate.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\dulprotocol\dulfsm.h
+SOURCE=..\..\..\ctn\facilities\dulprotocol\dulfsm.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\dulprotocol\dulprivate.h
+SOURCE=..\..\..\ctn\facilities\dulprotocol\dulprivate.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\dulprotocol\dulprotocol.h
+SOURCE=..\..\..\ctn\facilities\dulprotocol\dulprotocol.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\dulprotocol\dulstructures.h
+SOURCE=..\..\..\ctn\facilities\dulprotocol\dulstructures.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\fis\fis.h
+SOURCE=..\..\..\ctn\facilities\fis\fis.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\fis\fis_private.h
+SOURCE=..\..\..\ctn\facilities\fis\fis_private.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\gq\gq.h
+SOURCE=..\..\..\ctn\facilities\gq\gq.h
 # End Source File
 # Begin Source File
 
@@ -1002,19 +1002,19 @@ SOURCE=..\..\external\hl7\hl7_api.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\iap\iap.h
+SOURCE=..\..\..\ctn\facilities\iap\iap.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\idb\idb.h
+SOURCE=..\..\..\ctn\facilities\idb\idb.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\lst\lst.h
+SOURCE=..\..\..\ctn\facilities\lst\lst.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\lst\lstprivate.h
+SOURCE=..\..\..\ctn\facilities\lst\lstprivate.h
 # End Source File
 # Begin Source File
 
@@ -1030,7 +1030,7 @@ SOURCE=..\..\libsrc\domain\MActionItem.hpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\manage\manage.h
+SOURCE=..\..\..\ctn\facilities\manage\manage.h
 # End Source File
 # Begin Source File
 
@@ -1398,7 +1398,7 @@ SOURCE=..\..\libsrc\common\MServerAgent.hpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\messages\msgprivate.h
+SOURCE=..\..\..\ctn\facilities\messages\msgprivate.h
 # End Source File
 # Begin Source File
 
@@ -1522,7 +1522,7 @@ SOURCE=..\..\libsrc\domain\MWorkOrder.hpp
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\services\private.h
+SOURCE=..\..\..\ctn\facilities\services\private.h
 # End Source File
 # Begin Source File
 
@@ -1530,23 +1530,23 @@ SOURCE="..\..\external\cgihtml-1.69\string-lib.h"
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\info_entity\tables.h
+SOURCE=..\..\..\ctn\facilities\info_entity\tables.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\tbl\tbl.h
+SOURCE=..\..\..\ctn\facilities\tbl\tbl.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\tbl\tbl_sqlserver.h
+SOURCE=..\..\..\ctn\facilities\tbl\tbl_sqlserver.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\tbl\tblprivate.h
+SOURCE=..\..\..\ctn\facilities\tbl\tblprivate.h
 # End Source File
 # Begin Source File
 
-SOURCE=..\..\external\ctn\facilities\utility\utility.h
+SOURCE=..\..\..\ctn\facilities\utility\utility.h
 # End Source File
 # End Group
 # End Target
