@@ -15,9 +15,13 @@
 #include "dicom_sq.h"
 #include "dicom_uids.h"
 #include "tbl.h"
+#include "dicom_ddr.h"
+
+#ifndef CSW
+
 #include "idb.h"
 #include "manage.h"
-#include "dicom_ddr.h"
 #include "dicom_chr.h"
+#endif
 
 #endif
