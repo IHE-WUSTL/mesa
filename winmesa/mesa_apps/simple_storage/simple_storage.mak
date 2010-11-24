@@ -46,7 +46,7 @@ CLEAN :
     if not exist "$(OUTDIR)/$(NULL)" mkdir "$(OUTDIR)"
 
 CPP=cl.exe
-CPP_PROJ=/nologo /MD /W3 /GX /O2 /I "..\..\..\include" /I "..\..\..\..\ctn\include" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"$(INTDIR)\simple_storage.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
+CPP_PROJ=/nologo /MD /W3 /EHsc /O2 /I "..\..\..\include" /I "..\..\..\..\ctn\include" /D "CSW" /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"$(INTDIR)\simple_storage.pch" /YX /Fo"$(INTDIR)\\" /Fd"$(INTDIR)\\" /FD /c 
 
 .c{$(INTDIR)}.obj::
    $(CPP) @<<
@@ -84,7 +84,7 @@ BSC32_FLAGS=/nologo /o"$(OUTDIR)\simple_storage.bsc"
 BSC32_SBRS= \
 	
 LINK32=link.exe
-LINK32_FLAGS=mesa_lib.lib wsock32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:no /pdb:"$(OUTDIR)\simple_storage.pdb" /machine:I386 /out:"$(OUTDIR)\simple_storage.exe" /libpath:"..\..\..\winmesa\mesa_lib\Release" 
+LINK32_FLAGS=mesa_lib.lib wsock32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /verbose:lib /nologo /subsystem:console /incremental:no /pdb:"$(OUTDIR)\simple_storage.pdb" /machine:I386 /out:"$(OUTDIR)\simple_storage.exe" /libpath:"..\..\..\winmesa\mesa_lib\Release" 
 LINK32_OBJS= \
 	"$(INTDIR)\simple_storage.obj" \
 	"$(INTDIR)\sscond.obj"
