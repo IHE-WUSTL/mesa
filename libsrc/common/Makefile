@@ -3,7 +3,8 @@ include $(MESA_MAKE)
 CFLAGS = $(C_OPTS)
 CXX_FLAGS = $(C_OPTS)
 
-CLASS_FILES = MAcceptor MCharsetEncoder MCGIParser MConnector MConfigFile MDateTime MFileOperations MLogClient MNetworkProxy MNetworkProxyTCP MString MServerAgent MBase64
+CLASS_FILES = MAcceptor MCharsetEncoder MCGIParser MConnector MConfigFile MDateTime \
+MFileOperations MLogClient MMESAMisc MNetworkProxy MNetworkProxyTCP MString MServerAgent MBase64
 
 OBJS = $(CLASS_FILES:=.o)
 HEADERS = $(CLASS_FILES:=.hpp)
