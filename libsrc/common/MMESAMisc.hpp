@@ -86,6 +86,8 @@ public:
   int convertTime(time_t t, int& year, int& month, int& day,
 		int& hour, int& minute, int& second);
 
+  static MString generateOID(const MString& pathToOIDFile, int index);
+
 
 private:
 

@@ -32,7 +32,9 @@
 
 #include "MESA.hpp"
 #include "MMESAMisc.hpp"
-
+#include <strstream>
+#include <fstream>
+#include <sstream>
 
 static char rcsid[] = "$Id: MMESAMisc.cpp,v 1.1 2001/12/28 21:05:03 smm Exp $";
 
@@ -88,5 +90,46 @@ MMESAMisc::convertTime(time_t t, int& year, int& month, int& day,
 }
 
 
+MString
+MMESAMisc::generateOID(const MString& pathToOIDFile, int index)
+{
+  char buf[1024] = "";
+  pathToOIDFile.safeExport(buf, sizeof(buf)-1);
+  ifstream f(buf);
+  if (f == 0) {
+    return "";
+  }
+
+  char base[1024] = "";
+  int offset = 0;
+
+  istringstream instream;
+  bool done = false;
+  char txt[1024] = "";
+  while (!done && f.getline(txt, sizeof(txt))) {
+    //cout << txt << endl;
+    if ((txt[0] == '#') || (txt[0] == '\n') || (txt[0] == '\r'))
+      continue;
+    instream.clear();
+    instream.str(txt);
+    instream >> base >> offset;
+    offset++;
+    done = true;
+  }
+  //cout << "XX" << endl;
+  f.close();
+
+  ofstream fOut;
+  fOut.open(buf, ios_base::out | ios_base::trunc);
+  fOut << "# OID file for base: " << base << endl;
+  fOut << base << "\t" << offset << endl;
+  fOut.close();
+
+  strstream x(txt, sizeof(txt));
+  x << base << "." << index << "." << offset << '\0';
+  MString oid(txt);
+
+  return oid;
+}
 
 
