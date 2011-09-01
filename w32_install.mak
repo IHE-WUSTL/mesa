@@ -102,8 +102,7 @@ x_webmesa:
 	cd "..\.."
 
 x_apps:
-#	copy ..\ACE_wrappers\bin\ace.dll $(MESA_TARGET)\bin
-	copy ..\xerces-c-src1_7_0\Build\Win32\VC6\Release\xerces-c_1_7_0.dll $(MESA_TARGET)\bin
+	copy ..\xerces-c-3.1.1-x86-windows-vc-8.0\bin\xerces-c_3_1.dll $(MESA_TARGET)\bin
 	cd "winmesa\mesa_apps"
 	$(MAKE) /f w32_install.mak install
 	cd "..\.."
@@ -113,9 +112,12 @@ x_dlls:
 #	copy $(SYSTEMROOT)\system32\MSVCR71.dll  $(MESA_TARGET)\bin
 #	copy $(SYSTEMROOT)\system32\MSVCP71D.dll $(MESA_TARGET)\bin
 #	copy $(SYSTEMROOT)\system32\MSVCR71D.dll $(MESA_TARGET)\bin
-	copy $(MSFTVS8)\msvcm80.dll $(MESA_TARGET)\bin
-	copy $(MSFTVS8)\msvcp80.dll $(MESA_TARGET)\bin
-	copy $(MSFTVS8)\msvcr80.dll $(MESA_TARGET)\bin
+#	copy $(MSFTVS8)\msvcm80.dll $(MESA_TARGET)\bin
+#	copy $(MSFTVS8)\msvcp80.dll $(MESA_TARGET)\bin
+#	copy $(MSFTVS8)\msvcr80.dll $(MESA_TARGET)\bin
+# Visual Studio 2010
+	copy "$(DLL_SOURCE)"\msvcp100.dll $(MESA_TARGET)\bin
+	copy "$(DLL_SOURCE)"\msvcr100.dll $(MESA_TARGET)\bin
 	
 x_runtime:
 	cd "runtime"
