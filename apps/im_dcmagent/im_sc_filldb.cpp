@@ -29,7 +29,8 @@
 //        notice.
 
 static char rcsid[] = "$Revision: 1.5 $ $RCSfile: im_sc_filldb.cpp,v $";
-#include <unistd.h>
+/*#include <unistd.h>
+*/
 
 #include "MESA.hpp"
 #include "ctn_api.h"
