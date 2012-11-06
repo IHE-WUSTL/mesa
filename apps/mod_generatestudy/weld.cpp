@@ -116,7 +116,7 @@ void addScheduledAICodeSequence(MDICOMWrapper& mwl,
   ::DCM_AddSequenceElement(&imageObj, &e);
 }
 
-addRequestAttributesSequence(MDICOMWrapper& mwl,
+void addRequestAttributesSequence(MDICOMWrapper& mwl,
 					  MDICOMWrapper& image)
 {
   DCM_OBJECT* obj = 0;
