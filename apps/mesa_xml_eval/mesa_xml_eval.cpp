@@ -43,7 +43,7 @@ static char rcsid[] = "$Revision: 1.7 $ $RCSfile: mesa_xml_eval.cpp,v $";
 //#include "xercesc/dom/DOM_DOMException.hpp"
 
 #include "xercesc/dom/DOM.hpp"
-#include "xercesc/parsers/DOMParser.hpp"
+#include "xercesc/parsers/XercesDOMParser.hpp"
 
 #include "DOMTreeErrorReporter.hpp"
 
