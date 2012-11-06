@@ -89,18 +89,18 @@ public:
   MDBSPS(const string& databaseName);
   ///< Construct a database interface for the database databaseName.
 
-  insert(const MSPS& spStep);
+  int insert(const MSPS& spStep);
   ///< Insert a new record into the sps database.
 
-  update(const MSPS& spStep, const MSPS& updateCriteria);
+  int update(const MSPS& spStep, const MSPS& updateCriteria);
   ///< Update values in the sps database.  
   /**< Use attributes in sps to go into the database.  Use attributes in updateCriteria to
        determine which sps(s) is/are updated. */
 
-  select(MSPS& spStep, const MSPS& selectCriteria);
+  int select(MSPS& spStep, const MSPS& selectCriteria);
   ///< Select one sps based on the criteria in selectCriteria
 
-  remove(const MSPS& deleteCriteria);
+  int remove(const MSPS& deleteCriteria);
   ///< Delete the sps(s) specfied by the criteria in deleteCriteria
 
 private:

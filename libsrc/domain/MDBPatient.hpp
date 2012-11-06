@@ -92,16 +92,16 @@ public:
   void insert(const MPatient& patient);
   ///< Insert a new record into the patient database.
 
-  update(const MPatient& patient, const MPatient& updateCriteria);
+  int update(const MPatient& patient, const MPatient& updateCriteria);
   ///< Update values in the patient database.  
   /**< Use attributes in patient
    to go into the database.  Use attributes in updateCriteria to
    determine which patient(s) is/are updated. */
 
-  select(MPatient& patient, const MPatient& selectCriteria);
+  int select(MPatient& patient, const MPatient& selectCriteria);
   ///< Select one patient based on the criteria in selectCriteria
 
-  remove(const MPatient& deleteCriteria);
+  int remove(const MPatient& deleteCriteria);
   ///< Delete the patient(s) specfied by the criteria in deleteCriteria
 
 private:

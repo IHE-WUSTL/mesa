@@ -89,18 +89,18 @@ public:
   MDBVisit(const string& databaseName);
   ///< Construct a database interface for the database databaseName.
 
-  insert(const MVisit& visit);
+  int insert(const MVisit& visit);
   ///< Insert a new record into the visit database.
 
-  update(const MVisit& visit, const MVisit& updateCriteria);
+  int update(const MVisit& visit, const MVisit& updateCriteria);
   ///< Update values in the visit database.  
   /**< Use attributes in visit to go into the database.  Use attributes in updateCriteria to
        determine which visit(s) is/are updated. */
 
-  select(MVisit& visit, const MVisit& selectCriteria);
+  int select(MVisit& visit, const MVisit& selectCriteria);
   ///< Select one visit based on the criteria in selectCriteria
 
-  remove(const MVisit& deleteCriteria);
+  int remove(const MVisit& deleteCriteria);
   ///< Delete the visit(s) specfied by the criteria in deleteCriteria
 
 private:

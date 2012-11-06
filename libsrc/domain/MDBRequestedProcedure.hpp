@@ -89,18 +89,18 @@ public:
   MDBRequestedProcedure(const string& databaseName);
   ///< Construct a database interface for the database databaseName.
 
-  insert(const MRequestedProcedure& reqProc);
+  int insert(const MRequestedProcedure& reqProc);
   ///< Insert a new record into the reqProcedure database.
 
-  update(const MRequestedProcedure& reqProc, const MRequestedProcedure& updateCriteria);
+  int update(const MRequestedProcedure& reqProc, const MRequestedProcedure& updateCriteria);
   ///< Update values in the reqprocedure database.  
   /**< Use attributes in reqprocedureto go into the database.  Use attributes in updateCriteria to
        determine which requested procedure(s) is/are updated. */
 
-  select(MRequestedProcedure& reqProc, const MRequestedProcedure& selectCriteria);
+  int select(MRequestedProcedure& reqProc, const MRequestedProcedure& selectCriteria);
   ///< Select one requested procedure based on the criteria in selectCriteria
 
-  remove(const MRequestedProcedure& deleteCriteria);
+  int remove(const MRequestedProcedure& deleteCriteria);
   ///< Delete the requested procedure(s) specfied by the criteria in deleteCriteria
 
 private:
