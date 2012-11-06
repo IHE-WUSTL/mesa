@@ -201,7 +201,7 @@ MString
 MDICOMWrapper::getString(DCM_TAG tag)
 {
   char s[1024] = "";
-  char s2[1024];
+  char s2[1024]= "";
 
   CONDITION cond;
   DCM_ELEMENT e;
