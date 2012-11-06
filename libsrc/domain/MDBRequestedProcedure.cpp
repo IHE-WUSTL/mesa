@@ -80,7 +80,7 @@ typedef struct {
   char apptTimQty[31];
 } REQUESTED_PROCEDURE_STRUCT;
 
-MDBRequestedProcedure::insert(const MRequestedProcedure& reqProc)
+int MDBRequestedProcedure::insert(const MRequestedProcedure& reqProc)
 {
   REQUESTED_PROCEDURE_STRUCT rp;
   TBL_FIELD f[] = {
@@ -134,4 +134,5 @@ MDBRequestedProcedure::insert(const MRequestedProcedure& reqProc)
   this->safeExport(reqProc.appointmentTimingQuantity(), rp.apptTimQty, sizeof(rp.apptTimQty));
 
   this->insertRow(f);
+  return 0;
 }
