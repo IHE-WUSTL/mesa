@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\external\ctn\apps\tbltest\ttselect.c">
+    <ClCompile Include="..\..\..\..\ctn\apps\tbltest\ttselect.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
