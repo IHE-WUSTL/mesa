@@ -5807,6 +5807,9 @@ winmesa/mesa_apps_secure/w32_install.mak -text
 winmesa/mesa_lib/mesa_lib.dsp -text
 winmesa/mesa_lib/mesa_lib.mak -text
 winmesa/mesa_lib/mesa_lib.vcproj -text
+winmesa/mesa_lib/mesa_lib.vcxproj -text
+winmesa/mesa_lib/mesa_lib.vcxproj.filters -text
+winmesa/mesa_lib/mesa_lib.vcxproj.user -text
 winmesa/mesa_lib/w32_install.mak -text
 winmesa/mesa_lib_secure/mesa_lib_secure.dsp -text
 winmesa/mesa_lib_secure/mesa_lib_secure.mak -text
