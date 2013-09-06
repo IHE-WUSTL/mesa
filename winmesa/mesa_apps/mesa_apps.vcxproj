@@ -241,10 +241,6 @@
       <Project>{57fec611-cb09-4de1-9ed6-3d3dd48f82aa}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
-    <ProjectReference Include="op_hl7ps\op_hl7ps.vcxproj">
-      <Project>{e374e89f-159b-4570-8e10-9fe96d0269cc}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
     <ProjectReference Include="sc_scp_association\sc_scp_association.vcxproj">
       <Project>{63453420-a712-4e33-8acf-3ed3f5ce7373}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
