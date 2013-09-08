@@ -153,6 +153,8 @@ public:
    <{itemNumber}> identifies which occurrence of the attribute to locate;
    indexing begins at 1. */
 
+  MString getSequenceString(DCM_TAG seqTag1, DCM_TAG seqTag2, DCM_TAG seqTag3, DCM_TAG seqItem, int itemNumber = 1);
+
   MStringVector getStrings(DCM_TAG seqTag, DCM_TAG seqItem);
   ///< Return the vector of string values found in a sequence attribute.
   /**< Returns an empty vector if the attribute is not found. The vector 
@@ -216,6 +218,12 @@ public:
    0 is returned on success.
    -1 is returned on failure. */
 
+  int setString(DCM_TAG seqTag1, DCM_TAG seqTag2, DCM_TAG tag, const MString& value,
+		int index = 1);
+
+  int setSequenceString(DCM_TAG seqTag1, DCM_TAG seqTag2, DCM_TAG seqTag3, DCM_TAG tag, const MString& value,
+		int index = 1);
+
   int setNumeric(DCM_TAG tag, int value);
   ///< Set a numeric value for the attribute identified by <{tag}>.  
   /**< This method determines the proper DICOM VR for the attribute 
@@ -239,6 +247,15 @@ public:
   /**< <{tag}> identifies the sequence and <{index}> identifies the
        item within the sequence to be returned.
        <{index}> starts at 1.
+       This method returns a wrapper to a copy of the sequence item.
+       This method returns 0 if the item does not exist within the sequence. */
+
+  MDICOMWrapper* getSequenceWrapperOriginal(DCM_TAG tag, int index);
+  ///< Return a MDICOMWrapper that is extracted from within a sequence.
+  /**< <{tag}> identifies the sequence and <{index}> identifies the
+       item within the sequence to be returned.
+       <{index}> starts at 1.
+       This method returns a wrapper to the original sequence, not a copy.
        This method returns 0 if the item does not exist within the sequence. */
 
   void log(MLogClient client, MLogClient::LOGLEVEL level);

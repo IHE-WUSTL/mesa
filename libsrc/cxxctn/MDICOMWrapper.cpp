@@ -295,6 +295,27 @@ MDICOMWrapper::getSequenceString(DCM_TAG seqTag1, DCM_TAG seqTag2, DCM_TAG seqIt
   return w.getString(seqTag2, seqItem, itemNumber);
 }
 
+MString
+MDICOMWrapper::getSequenceString(DCM_TAG seqTag1, DCM_TAG seqTag2, DCM_TAG seqTag3, DCM_TAG seqItem, int itemNumber)
+{
+  CONDITION cond;
+
+  LST_HEAD* l = 0;
+
+  cond = ::DCM_GetSequenceList(&mObj, seqTag1, &l);
+  if (cond != DCM_NORMAL) {
+    return "";
+  }
+
+  DCM_SEQUENCE_ITEM* item;
+  item = (DCM_SEQUENCE_ITEM*)::LST_Head(&l);
+  if (item == 0)
+    return "";
+
+  MDICOMWrapper w(item->object);
+  return w.getSequenceString(seqTag2, seqTag3, seqItem, itemNumber);
+}
+
 MStringVector
 MDICOMWrapper::getStrings(DCM_TAG seqTag, DCM_TAG seqItem)
 {
@@ -668,6 +689,94 @@ MDICOMWrapper::setString(DCM_TAG seqTag, DCM_TAG tag,
 }
 
 int
+MDICOMWrapper::setString(DCM_TAG seqTag1, DCM_TAG seqTag2, DCM_TAG tag,
+			 const MString& value, int index)
+{
+  LST_HEAD* l1 = 0;
+  CONDITION cond;
+
+  cond = ::DCM_GetSequenceList(&mObj, seqTag1, &l1);
+  if (cond != DCM_NORMAL) {
+    ::COND_PopCondition(TRUE);
+
+    l1 = ::LST_Create();
+    DCM_ELEMENT e = {seqTag1, DCM_SQ, "", 1, 0, 0 };
+    e.d.sq = l1;
+
+    DCM_SEQUENCE_ITEM* item = (DCM_SEQUENCE_ITEM*)malloc(sizeof(*item));
+    ::DCM_CreateObject(&(item->object), 0);
+    ::LST_Enqueue(&l1, item);
+
+    cond = ::DCM_AddSequenceElement(&mObj, &e);
+    if (cond != DCM_NORMAL) {
+      ::COND_DumpConditions();
+      exit(1);
+    }
+  }
+  DCM_SEQUENCE_ITEM* item1 = 0;
+  item1 = (DCM_SEQUENCE_ITEM*) ::LST_Head(&l1);
+
+  MDICOMWrapper w(item1->object);
+  return w.setString(seqTag2, tag, value, index);
+
+/*
+  DCM_SEQUENCE_ITEM* item1 = 0;
+  if (index != 0) {
+    item1 = (DCM_SEQUENCE_ITEM*) ::LST_Head(&l1);
+    (void) ::LST_Position(&l1, item1);
+
+    while(index-- > 1) {
+      item1 = (DCM_SEQUENCE_ITEM*) ::LST_Next(&l1);
+    }
+  }
+
+  if (item1 == 0) {
+    item1 = (DCM_SEQUENCE_ITEM*)malloc(sizeof(*item1));
+    ::DCM_CreateObject(&(item1->object), 0);
+    ::LST_Enqueue(&l1, item1);
+  }
+
+  MDICOMWrapper w (item1->object);
+  w.setString(tag, value);
+*/
+
+  return 0;
+}
+
+int
+MDICOMWrapper::setSequenceString(DCM_TAG seqTag1, DCM_TAG seqTag2, DCM_TAG seqTag3,
+	DCM_TAG tag, const MString& value, int index)
+{
+  LST_HEAD* l1 = 0;
+  CONDITION cond;
+
+  cond = ::DCM_GetSequenceList(&mObj, seqTag1, &l1);
+  if (cond != DCM_NORMAL) {
+    ::COND_PopCondition(TRUE);
+
+    l1 = ::LST_Create();
+    DCM_ELEMENT e = {seqTag1, DCM_SQ, "", 1, 0, 0 };
+    e.d.sq = l1;
+
+    DCM_SEQUENCE_ITEM* item = (DCM_SEQUENCE_ITEM*)malloc(sizeof(*item));
+    ::DCM_CreateObject(&(item->object), 0);
+    ::LST_Enqueue(&l1, item);
+
+    cond = ::DCM_AddSequenceElement(&mObj, &e);
+    if (cond != DCM_NORMAL) {
+      ::COND_DumpConditions();
+      exit(1);
+    }
+  }
+  DCM_SEQUENCE_ITEM* item1 = 0;
+  item1 = (DCM_SEQUENCE_ITEM*) ::LST_Head(&l1);
+
+  MDICOMWrapper w(item1->object);
+  return w.setString(seqTag2, seqTag3, tag, value, index);
+}
+
+
+int
 MDICOMWrapper::setNumeric(DCM_TAG tag, int value)
 {
   DCM_ELEMENT e;
@@ -781,6 +890,36 @@ MDICOMWrapper::getSequenceWrapper(DCM_TAG tag, int index)
 
   return w;
 }
+
+MDICOMWrapper*
+MDICOMWrapper::getSequenceWrapperOriginal(DCM_TAG tag, int index)
+{
+  CONDITION cond;
+
+  LST_HEAD* l = 0;
+
+  cond = ::DCM_GetSequenceList(&mObj, tag, &l);
+  if (cond != DCM_NORMAL) {
+    ::COND_PopCondition(TRUE);
+    return 0;
+  }
+
+  DCM_SEQUENCE_ITEM* item;
+  item = (DCM_SEQUENCE_ITEM*)::LST_Head(&l);
+  (void)::LST_Position(&l, item);
+
+  for (int i = 1; i < index && item != 0; i++) {
+    item = (DCM_SEQUENCE_ITEM*)::LST_Next(&l);
+  }
+
+  if (item == 0)
+    return 0;
+
+  MDICOMWrapper* w = new MDICOMWrapper(item->object);
+
+  return w;
+}
+
 
 /*
  * The element needs to be created but no values have to be filled in.
