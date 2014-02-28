@@ -49,7 +49,7 @@ MWrapperFactory::modifyWrapper(MDICOMWrapper& w,
   fileName.safeExport(buf, sizeof(buf));
 
   ifstream f(buf);
-  if (f == 0)
+  if (!f)
     return -1;
 
   while (f.getline(buf, sizeof(buf))) {
@@ -99,7 +99,7 @@ MWrapperFactory::retainTags(MDICOMWrapper& w,
   int rtnStatus = 0;
 
   ifstream f(buf);
-  if (f == 0)
+  if (!f)
     return -1;
 
   MTagStringMap m;

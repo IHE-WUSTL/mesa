@@ -75,7 +75,7 @@ MConfigFile::readConfigFile(const MString& path)
   path.safeExport(buf, sizeof(buf));
 
   ifstream f(buf);
-  if (f == 0)
+  if (!f)
     return -1;
 
   while (f.getline(buf, sizeof(buf))) {

@@ -77,7 +77,7 @@ MDICOMConfig::registerStorageClasses(MSOPStorageHandler* handler,
 
   ifstream f(fn);
 
-  if (f == 0)
+  if (!f)
     return -1;
 
   char buf[1024];
@@ -105,7 +105,7 @@ MDICOMConfig::registerSOPClasses(MSOPHandler* handler,
 
   ifstream f(fn);
 
-  if (f == 0)
+  if (!f)
     return -1;
 
   char buf[1024];
@@ -132,7 +132,7 @@ MDICOMConfig::registerApplicationEntities(MSOPHandler& handler,
 
   ifstream f(fn);
 
-  if (f == 0)
+  if (!f)
     return -1;
 
   char buf[1024];

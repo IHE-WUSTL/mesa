@@ -96,7 +96,7 @@ MMESAMisc::generateOID(const MString& pathToOIDFile, int index)
   char buf[1024] = "";
   pathToOIDFile.safeExport(buf, sizeof(buf)-1);
   ifstream f(buf);
-  if (f == 0) {
+  if (!f) {
     return "";
   }
 
