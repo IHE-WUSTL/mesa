@@ -67,7 +67,7 @@ static void readTags(const char* fileName, tagVector& v)
 {
   if (fileName != 0) {
     ifstream f(fileName);
-    if (f == 0) {
+    if (!f) {
       cerr << "Could not open attribute file: " << fileName << endl;
       ::exit(1);
     }
@@ -119,7 +119,7 @@ static void dumpAttributes(MDICOMWrapper& w,
 {
   if (outputFile != 0) {
     ofstream f(outputFile);
-    if (f == 0) {
+    if (!f) {
       cerr << "Could not open attribute file: " << outputFile << endl;
       ::exit(1);
     }
