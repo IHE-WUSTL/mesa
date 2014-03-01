@@ -182,7 +182,7 @@ int main(int argc, char **argv)
 
   if (outputFile != 0) {
     ofstream o(outputFile);
-    if (o == 0) {
+    if (!o) {
       cerr << "Could not open attribute file: " << outputFile << endl;
       ::exit(1);
     }
