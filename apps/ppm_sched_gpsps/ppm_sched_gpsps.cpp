@@ -119,7 +119,7 @@ fillGPWorkitemObject(MGPWorkitemObject& wio, const char* fileName)
   MStringMap m;
 
   ifstream f(fileName);
-  if (f == 0) {
+  if (!f) {
     cerr << "Could not open GPWorkitemObject description: " << fileName << endl;
     ::exit(1);
   }
@@ -193,7 +193,7 @@ fillMWL(MMWL& mwl, const char* fileName)
   MStringMap m;
 
   ifstream f(fileName);
-  if (f == 0) {
+  if (!f) {
     cerr << "Could not open MWL description: " << fileName << endl;
     ::exit(1);
   }
