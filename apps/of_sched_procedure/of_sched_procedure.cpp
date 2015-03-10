@@ -473,7 +473,7 @@ scheduleProcedures(MMWL& mwl, st_dbInterface& db,
   db.dbInterface.select(s, cv3, scheduleSPS, &db);
 
   int spsSize = db.scheduleVector.size();
-  for(int x = 0; x < spsSize; x++){
+  for(int xa = 0; xa < spsSize; xa++){
     MString x = db.scheduleVector.back().universalServiceID();
     db.mwl.requestedProcedureDescription(x.getToken('^', 1));
 
