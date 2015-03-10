@@ -10,7 +10,7 @@ install:
 	../../ctn/apps/scripts/createdirectory ../../ctn/lib
 	../../ctn/apps/scripts/createdirectory $(CTN_LIB)
 #	../../ctn/apps/scripts/createdirectory $(MESA_ROOT)/external/ctn/bin
-	cp xerces-c-src1_7_0/lib/libxerces-c1_7_0.so $(MESA_TARGET)/lib
+#SMMx	cp xerces-c-src1_7_0/lib/libxerces-c1_7_0.so $(MESA_TARGET)/lib
 	cd ../../ctn/facilities; make links; make headerexport
 	cd ../../ctn/libsrc;	make -f Makefile.mesa install
 	cd ../../ctn/apps;	make install-lite
