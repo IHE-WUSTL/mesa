@@ -3,12 +3,18 @@
 sub prompt_for_sql_server
 {
   my $done = 0;
-  my $folder = "";
-  print "Default folder for SQL Server is C:\Program Files\Microsoft SQL Server";
+  my $folder = "C:\\Program Files\\Microsoft SQL Server";
+  print "Default folder for SQL Server is $folder";
+  print " If using newer versions of SQL Express, you might need to specify:\n" .
+	" \\Program Files\\Microsoft SQL Server\\MSSQL12.SQLEXPRESS \n" .
+	" or something similar";
+        
+  if (-e $folder) { print "Default folder does exist \n"; }
+  else { print "Default folder DOES NOT exist \n";}
 
   while ($done == 0) {
     print "Enter folder for SQL Server (enter for default) ";
-    $folder = <STDIN>;
+    $folder = <STDIN>; chomp $folder;
     if ($folder eq "" || $folder eq "\r" || $folder eq "\n") {
       $folder = "C:\\Program Files\\Microsoft SQL Server";
     }
