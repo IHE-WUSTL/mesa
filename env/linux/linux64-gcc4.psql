@@ -30,7 +30,7 @@ setenv DICOM_LIB $MESA_ROOT/../ctn/lib/linux64.psql
 setenv DICOM_LIBSRC $MESA_ROOT/../ctn/libsrc
 setenv DICOM_INCLUDE $DICOM_ROOT/include
 setenv DICOM_MAKE $MESA_ROOT/env/linux/ctnmake.linux64-gcc4.psql
-setenv CLASSPATH .:$DICOM_ROOT/javactn:$MESA_ROOT/javamesa:$MESA_ROOT/webmesa/mesa-iti:$MESA_ROOT/javaexternal/xerces-1_2_3/xerces.jar:$TOMCAT_HOME/common/lib/servlet-api.jar
+setenv CLASSPATH .:$DICOM_ROOT/javactn:$MESA_ROOT/javamesa:$MESA_ROOT/webmesa/mesa-iti:$MESA_ROOT/javaexternal/xerces-1_2_3/xerces.jar:$TOMCAT_HOME/lib/servlet-api.jar
 setenv JAR_DIRECTORY $MESA_TARGET/lib
 setenv JDK_ROOT $JAVA_HOME
 setenv INSTALLUID "install -m 4775"

@@ -9,7 +9,7 @@ install:
 	$(MAKE) mesaweb_rid.jar
 #	$(MESA_ROOT)/scripts/createdirectory $(TOMCAT_HOME)/webapps/ROOT/WEB-INF/lib
 #	$(INSTALL) mesaweb_rid.jar $(TOMCAT_HOME)/webapps/ROOT/WEB-INF/lib
-	$(INSTALL) mesaweb_rid.jar $(TOMCAT_HOME)/common/lib
+	$(INSTALL) mesaweb_rid.jar $(TOMCAT_HOME)/lib
 	$(MESA_ROOT)/scripts/createdirectory $(MESA_TARGET)/webmesa
 	$(MESA_ROOT)/scripts/createdirectory $(MESA_TARGET)/webmesa/mesa-iti
 	cp ecg.html $(MESA_TARGET)/webmesa/mesa-iti
